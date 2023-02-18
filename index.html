@@ -1,0 +1,2019 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta
+			name="description"
+			content="A collection of free online tutorials by the University of Maine's New Media Department"
+		/>
+		<!-- Version 6.9, modified to add Jon's 2022 badges in tutorials.json (not here). The site is not yet optimized for mobile and sniffs to warn mobile users. -->
+		<title>Learn With AI tutorials from the University of Maine</title>
+		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
+		<!--[if IE]>
+			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+		<![endif]-->
+		<style id="set-html5-blocks">
+			article,
+			aside,
+			details,
+			figcaption,
+			figure,
+			footer,
+			header,
+			hgroup,
+			menu,
+			nav,
+			section {
+				display: block;
+			}
+		</style>
+		<link
+			rel="stylesheet"
+			href="css/thought-mesh.css"
+			type="text/css"
+			media="screen"
+			title="no title"
+			charset="utf-8"
+		/>
+		<style
+			id="outline-expandable-styles-v01.1"
+			type="text/css"
+			media="screen"
+		>
+			/* Modified by Jon to play nice with outline-styles-v1.6 */
+			.heading-expanded:hover,
+			.heading-collapsed:hover {
+				cursor: pointer;
+				color: chocolate;
+			}
+			.heading-collapsed:before {
+				content: "+ ";
+			}
+			.heading-expanded:before {
+				content: "- ";
+			}
+			.expandable {
+				display: none;
+				border-left: peru solid 1px;
+				background-color: var(--gradient-lightest);
+				padding: 0.2em 1em 0.4em 1em;
+				margin-left: 46px;
+				margin-top: -8px;
+			}
+			.expandable p {
+				margin-left: 0;
+			}
+		</style>
+		<style id="learnwithai-index-style">
+				/* Based on tutorials-index-style and padlet-style. */
+				:root {
+					--light-silt: hsla(60, 30%, 30%, 1) ; /* SWATCH Light silt. */
+					--medium-silt: hsla(60, 30%, 20%, 1) ; /* SWATCH Medium silt. */
+					--dark-silt: hsla(60, 30%, 10%, 1) ; /* SWATCH Dark silt. */
+					--dull-gold: hsla( 50, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
+					--medium-gold: hsla( 50, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
+					--other-gold: hsla( 50, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
+					--pale-gold: hsla( 60, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
+					/* Updated. */
+					--light-silt: hsla(200, 30%, 30%, 1) ; /* SWATCH Light silt. */
+					--medium-silt: hsla(200, 30%, 20%, 1) ; /* SWATCH Medium silt. */
+					--dark-silt: hsla(200, 30%, 10%, 1) ; /* SWATCH Dark silt. */
+					--dull-gold: hsla( 190, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
+					--medium-gold: hsla( 190, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
+					--other-gold: hsla( 190, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
+					--pale-gold: hsla( 200, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
+					--lexia-lighter: paleturquoise ;
+					--lexia-darker: teal;
+					--dull-aqua: lightseagreen ;
+			/*		Gradients */
+					--gradientStopA: hsla(190, 100%, 20%, .8);
+					--gradientStopB: hsla(190, 100%, 60%, .0);
+					--gradientStopC: hsla(190, 70%, 60%, .8);
+					--gradientStopD: hsla(190, 70%, 60%, .0);
+					--gradientStopE: hsla(205, 90%, 95%, .8);
+					--gradientStopF: hsla(205, 90%, 95%, .0);
+					--gradient-lightest: azure ;'
+					--background-lightest: skyblue ;
+			/*		Shadows. */
+					--cluster-shadow: hsla( 180, 5%, 5% );
+					--screenshot-background: hsla(0, 0%, 0%, .5) ;
+			/*		Accents. */
+					--accent: aqua ;
+					--highlight: lime ;
+					/* Padlets */
+					--h: 207;
+					--lightest: hsl(var(--h) 90% 94%);
+					--lighter: hsl(var(--h) 60% 88%);
+					--light: hsl(var(--h) 60% 70%);
+					--medium: hsl(var(--h) 100% 50%);
+					--darker: hsl(var(--h) 100% 20%);
+					--darkest: hsl(var(--h) 100% 10%);
+				}
+				*,
+				:before,
+				:after {
+					box-sizing: border-box;
+				}
+					html {
+						/* This helps keep gradient from repeating */
+						height: 100%;
+					}
+					body#learnwithai-body {
+						/* These keep gradient from repeating */
+						background-color: var(--background-lightest) ;
+						margin: 0 ; /* Need this to avoid spaces around watermark. */
+					}
+					#watermark {
+						/* Adding a background gradient here instead of the body
+						prevents the gradient from repeating somewhere down the page. */
+						position: absolute ;
+						width: 100% ;
+						height: 150%;
+						z-index: -1 ;
+						/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
+						background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%),
+									linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%),
+						            linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
+					}
+					.nmd-logo-phrase {
+						width: 200px;
+					}
+					.nmd-logo-phrase img {
+						width: 100%;
+					}
+					#alert-box span:hover,
+					a:hover {
+						border-bottom: solid 1px ;
+						cursor: pointer ;
+						text-decoration: none ;
+					}
+					/* Wider content. */
+					h2#rubric,
+					#search-container,
+					#dashboard-features,
+					#dashboard-individual,
+					#resources-container,
+					#cluster-container {
+						margin: 20px ;
+					}
+					/* Narrower content. */
+					#header {
+						position: relative ;
+						padding-top: 20px;
+						height: 100px ;
+				/*		border: green solid 2px ;*/
+					}
+					#header,
+					#dashboard-features,
+					#faq-container,
+					.footer {
+						width: 80vw ;
+						margin-left: auto ;
+						margin-right: auto ;
+					}
+					/*	Footer ensures bottom lexias have room to open.*/
+					.footer {
+						display: flex ;
+						align-items: flex-start ;
+						justify-content: center ;
+						height: 400px ;
+						width: 90vw ;
+						padding-top: 20px ;
+					}
+						.footer > * {
+							font-size: 1.2vw;
+							height: 70px ;
+							z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
+				/*			border: chocolate solid 2px ; */
+							padding: 10px;
+						}
+							#credit {
+								display: flex ;
+							}
+								#credit p {
+									align-self: center ;
+								}
+					#header {
+						display: flex ;
+						align-items: center ;
+						justify-content: space-between ;
+					}
+						#crest {
+				/*				position: absolute ;*/
+								width: 14vw ;
+								opacity: .6 ;
+							}
+							#crest img {
+								width: 100% ;
+							}
+						h2#rubric {
+				/*			position: absolute ;*/
+							width: 60vw ;
+							text-align: center ;
+							font-size: 4.5vw ;
+							color: var(--lexia-lighter) ;
+							font-family: Tamil MN ;
+				/*			border: purple solid 2px ; */
+						}
+						#search-container {
+				/*			position: absolute;*/
+							width: 16vw ;
+							margin-right: 0 ;
+							padding-right: 0 ;
+				/*			border: chartreuse solid 2px ; */
+						}
+							#searchBox {
+								width: 100% ;
+								padding-right: 0 ;
+								margin-right: 0 ;
+				/*				border: orchid solid 2px ; */
+							}
+					#browse-options {
+						position: relative ;
+						clear: both ;
+						font-weight: bold ;
+						font-size: 1.85vw ;
+						width: 100% ;
+						height: 20px ;
+						margin: 20px 0 40px 0 ;
+						text-align: center ;
+						color: var(--light-silt) ;
+					}
+					#dashboard-features,
+					#dashboard-individual {
+						position: relative ;
+						clear: both ;
+						margin-top: 30px ;
+					}
+						#explanation {
+							position: relative ;
+							clear: both ;
+							font-family: Gill Sans, Eurostile, verdana ;
+							font-size: 1.4em;
+							margin: 0 ;
+							padding: 1% ;
+							color: var(--medium-silt) ; /* SWATCH Medium silt. */
+				/*			border: red solid 2px ; */
+						}
+							#explanation img {
+								float: left;
+								margin: 0 .5em .2em 0;
+								width: 80px;
+							}
+							.activated,
+							#explanation a,
+							.footer a {
+								color: var(--accent) ;
+								text-shadow: var(--dark-silt)  0 0 .3em ; /* SWATCH Dark silt. */
+				/*				border-bottom: dotted .2em ;*/
+							}
+							.activated {
+								font-weight: bold ;
+							}
+							#explanation a {
+								font-weight: normal ;
+							}
+							.activated:hover,
+							#explanation a:hover {
+				/*				border-bottom: solid ;*/
+								text-shadow: var(--highlight)  0 0 .3em ;
+								cursor: pointer ;
+							}
+								#hero {
+									position: relative ;
+									margin: 10px auto 80px auto ;
+									width: 40% ;
+									height: 50px ;
+									text-align: center ;
+				/*					border: orange solid 2px ; */
+								}
+									#hero img {
+										width: 100% ;
+									}
+						#features {
+							position: relative ;
+							clear: both ;
+							display: grid;
+							grid-template-columns: repeat(3, 1fr);
+					/*		grid-auto-rows: minmax(150px, auto);*/
+							grid-gap: 1em;
+						}
+							.feature {
+								box-sizing: border-box ;
+								display: flex;
+								flex-direction: column ;
+								align-items: center;
+								justify-content: flex-start;
+								padding: 1em ;
+							}
+							.feature:nth-child( 3n ) {
+								background-color: var(--dull-gold) ; /* SWATCH Dull gold.*/
+							}
+							.feature:nth-child( 3n + 1 ) {
+								background-color: var(--other-gold) ; /* SWATCH Other gold.*/
+							}
+							.feature:nth-child( 3n + 2 ) {
+								background-color: var(--lexia-lighter) ;
+							}
+							.feature:nth-child( 3n ) i {
+								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+							}
+							.feature:nth-child( 3n + 1 ) i {
+								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+								background-color: var(--other-gold) ; /* SWATCH Other gold.*/
+							}
+							.feature:nth-child( 3n + 2 ) i {
+								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+								background-color: var(--lexia-lighter) ;
+							}
+							i {
+								color: var(--dark-silt) ; /* SWATCH Dark silt. */
+								text-shadow: var(--medium-gold) 0 0 .3em ; /* SWATCH Medium gold.*/
+								font-size: 1.2em ;
+							}
+								#features h4 {
+									margin-bottom: 0 ;
+									/* h4 has opacity: .5 at the global level. */
+									color: var(--dark-silt) ; /* SWATCH Dark silt. */
+									font-size: 1.2em ;
+								}
+								#features p {
+									font-size: 1.1em ;
+								}
+								#features i {
+									font-size: 2em ;
+									padding-right: .2em ;
+								}
+						#home-cloud {
+							position: relative ;
+							float: left ;
+							margin: 0 auto ;
+							width: 90%;
+							background-color: var(--lexia-lighter) ;
+							position:relative;
+							border: var(--lexia-lighter) solid 4px ;
+							padding: 1% ;
+							border-radius: 10px ;
+							/* Styles from padlet, seem to be working well together. 🤷‍♂️ */
+							clear: both;
+							border: var(--light) solid 2px;
+							padding: 1em;
+							border-radius: 10px;
+						}
+						#alert-box {
+							position:relative;
+							clear: both;
+							padding: 1em;
+							-webkit-border-radius: 10px ;
+							-moz-border-radius: 10px ;
+							border-radius: 10px ;
+							color: orange;
+							font-size: 2em ;
+						}
+					#alert-box span,
+					table a,
+					.lexia a {
+						font-weight: normal ;
+						color: black;
+						border-bottom: dotted 1px ;
+					}
+					.inactive {
+						display: none ;
+					}
+					.lexia,
+					.lexia-selected,
+					.lexia-clustered {
+						position: relative ;
+						float: left ;
+						width: 220px ;
+						height: 100px ;
+						overflow: hidden ;
+						background-color: var(--lexia-lighter) ;
+						padding: 1em ;
+						margin: 0 10px ;
+						/* Gradient. */
+						background: -moz-linear-gradient(
+							0% 0% 45deg,
+							var(--lexia-lighter),
+							var(--lexia-darker)
+							) ;
+							/* For Mozilla, you can add parameters like "white 50%, black 100%". */
+						background: -webkit-gradient(
+							linear,
+							left bottom,
+							right top,
+							from( var(--lexia-lighter) ),
+							to( var(--lexia-darker) )
+							) ;
+							/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
+						/* Border: mostly for IE8. */
+						border-bottom: var(--dull-aqua) solid 1px ;
+						/* Round corners. */
+						border-radius: 14px ;
+						transition: all .5s ease-in-out ;
+					}
+					.lexia,
+					.lexia-selected {
+						box-shadow: var(--dull-aqua) 4px 6px 6px ;
+					}
+					/*__________ Clusters. __________*/
+					.cluster{
+						/* Dimensions set in JavaScript. */
+						position: relative ;
+						float: left ;
+						margin: 10px ;
+						border-radius: 50% ;
+					}
+					.cluster:hover {
+						cursor: pointer ;
+					}
+						.cluster-title {
+							position: absolute ;
+							z-index: 3 ;
+							margin-top: 120px ;
+							text-shadow:
+								var(--cluster-shadow) 0 0 .3em,
+								var(--cluster-shadow) 0 0 .7em,
+								var(--cluster-shadow) 0 0 1em
+								;
+							text-align: center ;
+							width: 100% ;
+							color: var(--accent) ;
+							font-size: 2em ;
+						}
+						.cluster-description {
+							position: relative ;
+							width: 60% ;
+							margin: 2% auto ;
+							/*text-shadow:
+											darkSlateGray 0 0 .3em,
+											darkSlateGray 0 0 .7em,
+											darkSlateGray 0 0 1em
+											;*/
+							text-align: center ;
+							color: khaki ;
+							font-size: .45em ; /* WAS .9em ; */
+							opacity: 0 ;
+							transition: all .4s ease-in-out ;
+						}
+						.lexia-clustered {
+							position: absolute ;
+							width: 100px ;
+							height: 100px ;
+							border-radius: 50% ;
+							background: none ;
+				/*			border: red solid 2px ;*/
+				/*			background-size: cover;*/
+							margin: 0 ;
+							padding: 0 ;
+							overflow: hidden ;
+							box-shadow: var(--cluster-shadow) 2px 2px 2px ;
+							transition: all .7s ease-in-out ;
+							filter: saturate( 70% ) ;
+						}
+							.lexia-clustered img {
+								/* width set in badgeShape class below. */
+								float: none ;
+								position: absolute ;
+							}
+							.disk {
+								width: 130px ;
+								top: -15px ;
+								left: -15px ;
+							}
+							.corona {
+								width: 140px ;
+								top: -15px ;
+								left: -15px ;
+							}
+							.ribbons {
+								width: 190px ;
+								top: -20px ;
+								left: -45px ;
+							}
+					/* Using JavaScript instead of hover to enable mobile selection. */
+					.lexia-selected {
+						height: 500px ;
+						/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*/
+						/* Without these compensations, relative positioning would rearrange the other tutorials: */
+						margin-bottom: -400px ;
+						z-index: 10 ;
+					}
+						div.title {
+							font-family: eurostile ;
+							font-family: century gothic, gill sans, eurostile ;
+							font-family: gill sans, eurostile ;
+							color: rgb( 40%, 30%, 0%) ; /* Leather. */
+				/*			font-weight: bold ;*/
+							font-size: 1.3em ;
+							height: 120px ;
+						}
+							div.title img {
+								width: 100px ;
+								float: right;
+								margin:0 0 .5em 1em;
+							}
+							div.title img.fills-box {
+								width: 70px ;
+								margin-right: 14px ;
+								-webkit-box-shadow: black 4px 3px 10px ;
+								-moz-box-shadow: black 4px 3px 10px ;
+								box-shadow: black 4px 3px 10px ;
+							}
+						div.level,
+						div.description,
+						div.tags,
+						div.prerequisites,
+						div.resources,
+						div.screenshot {
+							color: rgb( 40%, 30%, 0%) ; /* Leather. */
+						}
+						div.level {
+							float: right ;
+							width: 30% ;
+							text-align: center ;
+							padding: .3em ;
+							background-color: var(--medium-gold) ;
+							font-size: .7em ;
+						}
+						div.tags {
+							float: left ;
+							width: 60% ;
+							padding: .3em ;
+							border: white solid 1px ;
+							-webkit-border-radius: 6px ;
+							-moz-border-radius: 6px ;
+							border-radius: 6px ;
+							font-size: .8em ;
+						}
+						div.description {
+							clear: both ;
+							padding-top: 10px ;
+						}
+						div.prerequisites { /* This was called prerequisite singular in previous versions. */
+							padding-top: 10px ;
+						}
+						div.prerequisites::before {
+							content: "Prerequisites: " ;
+							font-weight: bold ;
+						}
+						div.resources {
+							margin-top: 0px ;
+							border: red solid 2px ;
+							display: none ; /* Added to prevent click misfire and simplify layout. */
+						}
+						div.resources::before {
+							content: "\00bb " ;
+							color: orangered ;
+							font-weight: bold ;
+							font-size: 1.5em ;
+						}
+						div.screenshot {
+							margin: 10px 0 -20px 0 ; /* WAS -20px ; */
+						}
+							div.screenshot img {
+								width: 180px ;
+								margin-top: 0 ; /* WAS 6px */
+								margin-left: 20px ;
+							}
+							div.screenshot::after {
+								content: "Click to play" ;
+								position: relative ;
+								z-index: 100 ;
+								top: -80px ;
+								left: 66px ;
+								color: white ;
+								font-weight: bold ;
+								background-color: var(--screenshot-background) ;
+								padding: .5em ;
+								font-size: .8em ;
+								/* UPGRADE: This link was not working (conflict with mobile?) so disabled.
+								display: none ;
+								*/
+							}
+					/********** Styles for tables. **********/
+					tr {
+						width: 200px ;
+						display: block ;
+					}
+					td {
+						position: relative ;
+						display: block ;
+						width: 100px ;
+					}
+					/*__________ FAQ. __________*/
+					#faq-container h1 {
+						color: var(--lexia-lighter);
+						opacity: .7;
+					}
+					#faq-container h2 {
+						color: var(--dull-aqua);
+						opacity: 1 !important ;
+					}
+					#faq-container p {
+						color: var(--dark-silt) ; /* SWATCH Dark silt. */
+					}
+					#faq-container h3 {
+						color: var(--medium-silt) ; /* SWATCH Medium silt. */
+					}
+					#faq-container i.fas {
+						color: var(--accent) !important ;
+					}
+		</style>
+		<style id="padlet-style-v01.0">
+			#lexia-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1em;
+			}
+			:is(.lexia, .lexia-selected) {
+				background-color: var(--darker);
+				border: var(--darker) solid 2px;
+				border-radius: 1em;
+				padding: 1em;
+				transition: all 0.2s ease-in-out;
+			}
+			:is(.lexia, .lexia-selected) :is(a, h2) {
+				background-color: transparent;
+				text-decoration: none;
+				color: var(--lightest);
+				opacity: 1 !important ;
+			}
+			:is(.lexia, .lexia-selected) .summary,
+			.tags {
+				color: var(--light);
+			}
+			:is(.lexia, .lexia-selected) .summary {
+				/*  "max-width: 30ch" only works for one line.
+				Someday line-clamp will suffice. In the meantime, 
+				all modern browsers accept the following kludge. */
+				-webkit-line-clamp: 3;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			:is(.lexia, .lexia-selected) .byline {
+				color: var(--medium);
+			}
+			:is(.lexia, .lexia-selected):hover {
+				background-color: var(--medium);
+				border: var(--darkest) solid 2px;
+			}
+			:is(.lexia, .lexia-selected) :is(h2, a):hover {
+				color: white;
+				cursor: pointer;
+				text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
+			}
+			:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
+				color: var(--lightest);
+			}
+		</style>
+		<script id="sniff-browsers-script-2018">
+			/*________________________ Check browser compatibility.________________________*/
+			// Check for browser compliance. If stale browser, go to old browser page.
+			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
+			if (
+				navigator.userAgent.indexOf("MSIE ") > -1 ||
+				navigator.userAgent.indexOf("Trident") > -1
+			) {
+				if (
+					!confirm(
+						"Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway."
+					)
+				) {
+					// ".assign" allows user still to hit the back button.
+					document.location.assign("recommended_browsers.html");
+				}
+			}
+			/* UNUSED legacy code:
+	if ( browsers.ns4 || browsers.ie4 || browsers.ie5 || browsers.ie6 || browsers.ie7 || browsers.saf ) { // Explicit numbers is more future-proof.
+	}
+/*________________________ Check for mobile compatibility.________________________*/
+			let isMobileAgent = navigator.userAgent.match(
+				/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i
+			);
+			let isSmallScreen = window.innerWidth < 768;
+			isMobile = isMobileAgent || isSmallScreen; // Global so it can be used to tweak JavaScript display options.
+			if (isMobile) {
+				alert(
+					"You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser."
+				);
+				/* 
+	if ( !confirm("You appear to be using a mobile browser, but this site is optimized for a larger screen.\n\nClick Cancel to visit our Instagram page, or\n\nOK to proceed anyway.") ) {
+		// ".assign" allows user still to hit the back button.
+		document.location.assign( "https://www.instagram.com/angelo.ippolito.estate/" ) ;
+	}
+	*/
+			}
+		</script>
+		<script
+			id="make-outline-expandable_v01.0"
+			type="text/javascript"
+			charset="utf-8"
+		>
+			// Run when DOM is loaded.
+			function makeOutlineExpandable() {
+				// Gather all headings at a certain level.
+				h3s = document
+					.getElementById("faq-container")
+					.getElementsByTagName("h3"); // Global, because used in a later function.
+				// Go through each heading.
+				for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+					// Add a starting div tag just after the heading.
+					var expandableDiv = document.createElement("div");
+					expandableDiv.className = "expandable";
+					// There is no insertAfter method, so use this to replace it.
+					h3s[h3Counter].parentNode.insertBefore(
+						expandableDiv,
+						h3s[h3Counter].nextSibling
+					);
+					// Can't just look for next h3, because the last one could be at the end.
+					// Or you could run into a higher-level heading before the next h3.
+					var h3FollowingElements = []; // An array of elements?
+					var lastFollowerEle = expandableDiv.nextSibling; // Just a candidate at this point.
+					while (
+						lastFollowerEle &&
+						lastFollowerEle.nodeName != "H3" &&
+						lastFollowerEle.nodeName != "H2" &&
+						lastFollowerEle.nodeName != "H1"
+					) {
+						// Gather all elements up to the next heading (at that level or higher).
+						h3FollowingElements.push(lastFollowerEle);
+						lastFollowerEle = lastFollowerEle.nextSibling;
+					}
+					// Now that you know the last following element, remove the content between headings.
+					for (
+						var eleCounter = h3FollowingElements.length - 1;
+						eleCounter >= 0;
+						eleCounter--
+					) {
+						h3FollowingElements[eleCounter].parentNode.removeChild(
+							h3FollowingElements[eleCounter]
+						);
+					}
+					// Re-insert it as a child of the div.
+					for (
+						var eleCounter = 0;
+						eleCounter < h3FollowingElements.length;
+						eleCounter++
+					) {
+						expandableDiv.appendChild(
+							h3FollowingElements[eleCounter]
+						);
+					}
+					// You have now wrapped the expandable content in a div with class "expandable."
+				}
+				// If you click on an h3, it toggles following div.
+				for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+					h3s[h3Counter].className = "heading-collapsed";
+					h3s[h3Counter].onclick = function () {
+						toggleContent(this);
+					};
+				}
+			}
+			function toggleContent(h3Ele) {
+				var expandingContentDiv = h3Ele.nextSibling; // May have to check this is a div.
+				if (expandingContentDiv.style.display == "block") {
+					// Putting this option first prevents misfiring based on no display defined yet.
+					expandingContentDiv.style.display = "none";
+					h3Ele.className = "heading-collapsed";
+				} else {
+					expandingContentDiv.style.display = "block";
+					h3Ele.className = "heading-expanded";
+				}
+			}
+		</script>
+		<link rel="stylesheet" href="css/fontawesome-5.11.2/css/all.css" />
+		<script id="tagged-lexia-script-v02.0">
+			// Version 2.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
+			// Cheap replacement for ExpandingMenu.js and ThoughtMesh.js, but still requires thought-mesh.css.
+			// Should work with mobile by enabling lexia selection by click or hover.
+			// Based on output-test-script-v01.8.
+			// Add to body onload="harvestData(); registerTags(); enableLexiaSelection();"
+			// Customize the "// Get tag data." line below.
+			// UPGRADE: 1) Pass in DOM reference to tag to avoid customizing each instance of this script. 2) Distinguish an item and a lexia in nomenclature, or merge them.
+			function harvestData() {
+				/*__________ Harvest data. __________*/
+				/********** Harvest table data. **********
+		tableManager = {} ; // Global object.
+		tableManager.dataFromRow = [] ; // I think 0 is labels.
+		tableManager.tagsFromRow = [] ; // I think 0 is labels.
+		// ThoughtMesh nomenclature.
+		tableManager.rows = document.getElementsByTagName( "tr" ) ;
+		itemManager = tableManager.rows ;
+		********** End harvest table data. **********/
+				// Harvest div data.
+				// DEPRECATED: var allDivs = document.getElementsByTagName( "div" ) ; // Not used elsewhere.
+				itemManager = []; // UPGRADE: make this a property of the thoughtmesh object.
+				itemManager.dataFromItem = [];
+				itemManager.tagsFromItem = [];
+				// for ( var divCounter=0; divCounter < allDivs.length; divCounter++ ) {
+				// 	if (  allDivs[ divCounter ].className === "lexia"  ) {
+				// 		itemManager.push( allDivs[ divCounter ] ) ;
+				// 	}
+				// } ;
+				document
+					.querySelectorAll(".lexia")
+					.forEach((lexiaDiv) => itemManager.push(lexiaDiv));
+				// console.log(  '%c itemManager is ' + itemManager, 'color: red; background:yellow ; font-family: Impact; font-weight: bold;' ) ;
+
+				/*__________ Manage tag cloud. __________*/
+				// Drawn from ThoughtMesh.js v6.8.
+				thoughtMesh = {};
+				// DEPRECATED: thoughtMesh.defaultOutsideLexiasScript = "http://vectors.usc.edu/thoughtmesh/json/outsideLexias.json.php" ; // Eventually can be localized for different meshes.
+				thoughtMesh.tagsFromItemCounter = []; // Was an array in original ThoughtMesh, but I'm not assuming items have ids.
+				thoughtMesh.itemsFromTag = {}; // Ditto.
+				thoughtMesh.uniqueTags = []; // This array doubles as a cloud tag manager.
+				thoughtMesh.tagObjs = []; // Separate from selectedTags, because the latter needs to be defined before the former can be created so sizes etc. are normalized.
+				thoughtMesh.tagObjs.getObjectByTag = {}; // Returns cloud tag object without creating empty array elements, eg thoughtMesh.tagObjs.getObjectByTag["1973"].
+				thoughtMesh.selectedTags = []; // Defining this in advance prevents misfire when user clicks on scope radiobutton before clicking on a tag.
+				/********** Find table tags. **********
+		for ( var rowCounter=1; rowCounter < tableManager.rows.length; rowCounter++ ) { // Must start with 1 because first row has labels, not cells.
+			// Get row data.
+			tableManager.dataFromRow[ rowCounter ] = tableManager.rows[ rowCounter ].innerHTML ;
+			// Get tag data.
+			tableManager.tagsFromRow[ rowCounter ] = tableManager.rows[ rowCounter ].getElementsByTagName( "td" )[3].innerHTML.split(",") ;
+			thoughtMesh.tagsFromItemCounter[ rowCounter ] = [] ;
+			// Check whether this item has any tags.
+			if ( tableManager.tagsFromRow[ rowCounter ].length > 0) {
+				// Loop through all tags for this item (row, in this case).
+				for ( var newTagCounter=0; newTagCounter < tableManager.tagsFromRow[ rowCounter ].length; newTagCounter++ ) {
+					var thisTag = tableManager.tagsFromRow[ rowCounter ][ newTagCounter ] ;
+					 // _thisTag = thisTag; debug("_thisTag", 2) ;
+					thisTag = thisTag.trim() ; // Tag with whitespace removed.
+					 // _thoughtMesh_tagsFromItem__rowCounter__ = thoughtMesh.tagsFromItemCounter[ rowCounter ]; debug("_thoughtMesh_tagsFromItem__rowCounter__", 3) ;
+					thoughtMesh.tagsFromItemCounter[ rowCounter ][newTagCounter] = thisTag ; // Add trimmed tag back into tagsFromItemCounter array for future use.
+					if ( typeof thoughtMesh.itemsFromTag[ thisTag ] == "undefined") { // This tag has not yet been registered.
+						thoughtMesh.itemsFromTag[ thisTag ] = [] ;
+						thoughtMesh.uniqueTags.push( thisTag ) ;
+					}
+					thoughtMesh.itemsFromTag[ thisTag ].push( tableManager.rows[ rowCounter ] ) ; // I think you're going to loop through these later and turn their display on.
+				} ;
+			}
+			else {
+				// If there are no tags, leave it as the default (empty) array; it will report length = 0.
+			} ;
+		} ;
+		********** End find table tags. **********/
+				// Find lexia (div) tags.
+				// UPGRADE: Separate UI-specific parts somehow, if that's worth it?
+				for (
+					var itemCounter = 0;
+					itemCounter < itemManager.length;
+					itemCounter++
+				) {
+					// itemCounter starts with 1 for table with labels.
+					// Get div data.
+					itemManager.dataFromItem[itemCounter] =
+						itemManager[itemCounter].innerHTML;
+					// Get tag data.
+					itemManager.tagsFromItem[itemCounter] = itemManager[
+						itemCounter
+					]
+						.querySelector(".tags")
+						.innerHTML.split(","); // This is extremely UI-specific.
+					thoughtMesh.tagsFromItemCounter[itemCounter] = [];
+					// Check whether this item has any tags.
+					if (itemManager.tagsFromItem[itemCounter].length > 0) {
+						// Loop through all tags for this item (div, in this case).
+						for (
+							var newTagCounter = 0;
+							newTagCounter <
+							itemManager.tagsFromItem[itemCounter].length;
+							newTagCounter++
+						) {
+							var thisTag =
+								itemManager.tagsFromItem[itemCounter][
+									newTagCounter
+								];
+							// _thisTag = thisTag; debug("_thisTag", 2) ;
+							thisTag = thisTag.trim(); // Tag with whitespace removed.
+							// _thoughtMesh_tagsFromItem__itemCounter__ = thoughtMesh.tagsFromItemCounter[ itemCounter ]; debug("_thoughtMesh_tagsFromItem__itemCounter__", 3) ;
+							thoughtMesh.tagsFromItemCounter[itemCounter][
+								newTagCounter
+							] = thisTag; // Add trimmed tag back into tagsFromItemCounter array for future use.
+							if (
+								typeof thoughtMesh.itemsFromTag[thisTag] ==
+								"undefined"
+							) {
+								// This tag has not yet been registered.
+								thoughtMesh.itemsFromTag[thisTag] = [];
+								thoughtMesh.uniqueTags.push(thisTag);
+							}
+							thoughtMesh.itemsFromTag[thisTag].push(
+								itemManager[itemCounter]
+							); // I think you're going to loop through these later and turn their display on.
+						}
+					} else {
+						// If there are no tags, leave it as the default (empty) array; it will report length = 0.
+					}
+				}
+				/*__________ Set status __________*/
+				alertUser("ok");
+			}
+			function setTagSize(argObj) {
+				// Don't use thoughtMesh.tagObjs.length, because you want the final one, not the length at the time each tag is added. Use thoughtMesh.uniqueTags.length instead.
+				// Jon used square root to give small numbers a fighting chance. In ems.
+				// It doesn't matter how many there are, it matters how big the max is.
+				// Goal is for the maximum size to be 4em, minimum .8em. So I want a square root function with f(argObj.maximum) = 4 and f(argObj.minimum) = .8.
+				var tagSize =
+					4 * Math.sqrt(0.5 * (argObj.frequency / argObj.maximum));
+				if (tagSize < 1) tagSize = 1;
+				return tagSize;
+			}
+			function sortTagsNumerically(a, b) {
+				return (
+					thoughtMesh.itemsFromTag[a].length -
+					thoughtMesh.itemsFromTag[b].length
+				);
+			}
+			String.prototype.trim = function () {
+				return this.replace(/^\s*/, "").replace(/\s*$/, "");
+			};
+			function sortAlphabeticallyWithoutCase(a, b) {
+				try {
+					a = a.toLowerCase();
+					b = b.toLowerCase();
+					if (a > b) return 1;
+					if (a < b) return -1;
+					return 0;
+				} catch (e) {
+					// This helps IE handle blanks.
+					return 0;
+				}
+			}
+			function CloudTag(argObj) {
+				// Register arguments.
+				this.containerEle =
+					typeof argObj.containerEle == "undefined"
+						? document.body
+						: argObj.containerEle;
+				this.tag =
+					typeof argObj.tag == "undefined"
+						? "[no tag defined!]"
+						: argObj.tag;
+				this.frequency =
+					typeof argObj.frequency == "undefined"
+						? "[no frequency defined!]"
+						: argObj.frequency;
+				// this.documentsFrequency = (typeof argObj.documentsFrequency == "undefined")? "[no documentsFrequency defined!]" : argObj.documentsFrequency ;
+				this.size =
+					typeof argObj.size == "undefined"
+						? "[no size defined!]"
+						: argObj.size;
+				// Note: textNodes are weird, don't seem to afford same handles as elements. Hence the element repetition instead of merely replacing textNode + with -.
+				/* _______ Create a box for holding +,-, and tag. _______*/
+				this.tagBox = document.createElement("span");
+				this.tagBox.className = "tag-box";
+				this.containerEle.appendChild(this.tagBox);
+				/* _______ Create a blank space-holder for plus and minus links. _______*/
+				this.blankLink = document.createElement("span");
+				this.blankLink.className = "blank-link";
+				this.blankLink.innerHTML = "+";
+				this.blankLink.style.fontSize = this.size + "em";
+				this.tagBox.appendChild(this.blankLink);
+				/* _______ Create a link for adding a tag. _______*/
+				this.plusLink = document.createElement("a");
+				this.plusLink.href = "#";
+				this.plusLink.style.fontSize = this.size + "em";
+				this.plusLink.onclick = function () {
+					respondToTag({
+						tagArg: this.cloudTagObj.tag,
+						linkType: "plus",
+					});
+				};
+				this.plusLink.className = "cloud-tag-hidden";
+				this.plusText = document.createTextNode("+");
+				// Add a means of recovering the corresponding tag from the link, for use in the onclick function.
+				this.plusLink.cloudTagObj = this;
+				// Add plus to cloud.
+				this.tagBox.appendChild(this.plusLink);
+				this.plusLink.appendChild(this.plusText);
+				/* _______ Create a link for subtracting a tag. _______*/
+				this.minusLink = document.createElement("a");
+				this.minusLink.href = "#";
+				this.minusLink.style.fontSize = this.size + "em";
+				this.minusLink.className = "cloud-tag-hidden"; // Initially hidden.
+				this.minusLink.onclick = function () {
+					respondToTag({
+						tagArg: this.cloudTagObj.tag,
+						linkType: "minus",
+					});
+				};
+				this.minusText = document.createTextNode("-");
+				// Add a means of recovering the corresponding tag from the link, for use in the onclick function.
+				this.minusLink.cloudTagObj = this;
+				// Add minus to cloud.
+				this.tagBox.appendChild(this.minusLink);
+				this.minusLink.appendChild(this.minusText);
+				/* _______ Create a link for replacing a tag. This is the link from the word itself. _______*/
+				this.replaceLink = document.createElement("a");
+				this.replaceLink.href = "#";
+				this.replaceLink.style.fontSize = this.size + "em";
+				this.replaceLink.className = "cloud-tag";
+				this.replaceText = document.createTextNode(this.tag);
+				// Enable recovery of cloudTagObj from its link, for use in the onclick function.
+				this.replaceLink.cloudTagObj = this;
+				this.replaceLink.onclick = function () {
+					respondToTag({
+						tagArg: this.cloudTagObj.tag,
+						linkType: "replace",
+					});
+				};
+				this.replaceLink.onmouseover = function () {
+					// I think "this" inside this function is the link, not the CloudTag object.
+					try {
+						var documentsFrequency =
+							numTaggedWith.documents[this.cloudTagObj.tag];
+						var lexiasFrequency =
+							numTaggedWith.lexias[this.cloudTagObj.tag];
+						// Build a tooltip.
+						if (documentsFrequency == 1) {
+							// Tag only exists in this document.
+							if (lexiasFrequency == 1) {
+								// Only one lexia with that tag.
+								var toolTip =
+									lexiasFrequency + " excerpt in this ";
+							} else {
+								// More than one lexia, only in this document.
+								var toolTip =
+									lexiasFrequency + " excerpts in this ";
+							}
+						} else {
+							// Tag exists in other documents too. If so, there must be at least two excerpts.
+							var toolTip =
+								lexiasFrequency +
+								" excerpts in " +
+								documentsFrequency;
+						}
+						toolTip +=
+							documentsFrequency > 1 ? " documents" : " document";
+					} catch (e) {
+						var toolTip = "[documentsFrequency failed to load!]";
+					}
+					this.setAttribute("title", toolTip);
+				};
+				// Add replace link to cloud.
+				this.tagBox.appendChild(this.replaceLink);
+				this.replaceLink.appendChild(this.replaceText);
+				/* _______ Add a space to separate tags. _______*/
+				this.containerEle.appendChild(document.createTextNode(" "));
+			}
+			function registerTags() {
+				// This function adds tag properties to dynamic menu.
+				// First sort unique tags by frequency to get max and min values for normalizing tag size.
+				thoughtMesh.uniqueTags.sort(sortTagsNumerically);
+				thoughtMesh.tagFrequencyMin = 0;
+				thoughtMesh.tagFrequencyMax = 0;
+				if (
+					typeof thoughtMesh.itemsFromTag[
+						thoughtMesh.uniqueTags[0]
+					] != "undefined"
+				) {
+					thoughtMesh.tagFrequencyMin =
+						thoughtMesh.itemsFromTag[
+							thoughtMesh.uniqueTags[0]
+						].length;
+					thoughtMesh.tagFrequencyMax =
+						thoughtMesh.itemsFromTag[
+							thoughtMesh.uniqueTags[
+								thoughtMesh.uniqueTags.length - 1
+							]
+						].length;
+				}
+				// Now sort unique tags alphabetically (default).
+				thoughtMesh.uniqueTags.sort(sortAlphabeticallyWithoutCase);
+				// Now add tags to cloud.
+				for (
+					var tagCounter = 0;
+					tagCounter < thoughtMesh.uniqueTags.length;
+					tagCounter++
+				) {
+					var thisTagFrequency =
+						thoughtMesh.itemsFromTag[
+							thoughtMesh.uniqueTags[tagCounter]
+						].length;
+					var thisCloudTag = new CloudTag({
+						containerEle: document.getElementById("home-cloud"),
+						tag: thoughtMesh.uniqueTags[tagCounter],
+						frequency:
+							thoughtMesh.itemsFromTag[
+								thoughtMesh.uniqueTags[tagCounter]
+							].length,
+						size: setTagSize({
+							frequency: thisTagFrequency,
+							minimum: thoughtMesh.tagFrequencyMin,
+							maximum: thoughtMesh.tagFrequencyMax,
+						}),
+					});
+					thoughtMesh.tagObjs.push(thisCloudTag);
+					// Enable recovery of cloudTagObj from its name, for use in style highlighting--eg, thoughtMesh.tagObjs.getObjectByTag["technology"].
+					thoughtMesh.tagObjs.getObjectByTag[
+						thoughtMesh.uniqueTags[tagCounter]
+					] = thisCloudTag;
+				}
+			}
+			function respondToTag(argObj) {
+				/*________________________ Prepare.________________________*/
+				// Register some variables.
+				var tagArg =
+					typeof argObj.tagArg == "undefined"
+						? "[no tagArg passed!]"
+						: argObj.tagArg;
+				var linkType =
+					typeof argObj.linkType == "undefined"
+						? "[no linkType passed]"
+						: argObj.linkType;
+				lexiaExcerptObjs = [];
+				var noContentSelected = true;
+				/*________________________ Adjust tag styles.________________________*/
+				switch (linkType) {
+					case "replace": // Replacing old tags with a single new tag.
+						// Reset all styles.
+						for (
+							var tagCounter = 0;
+							tagCounter < thoughtMesh.tagObjs.length;
+							tagCounter++
+						) {
+							thoughtMesh.tagObjs[
+								tagCounter
+							].replaceLink.className = "cloud-tag";
+							thoughtMesh.tagObjs[
+								tagCounter
+							].plusLink.style.display = "inline";
+							thoughtMesh.tagObjs[
+								tagCounter
+							].minusLink.className = "cloud-tag";
+							thoughtMesh.tagObjs[
+								tagCounter
+							].minusLink.style.display = "none";
+							try {
+								thoughtMesh.tagObjs[
+									tagCounter
+								].blankLink.style.display = "none";
+							} catch (e) {
+								// UPGRADE: log this?
+							}
+						}
+						// Style this tag.
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].replaceLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].plusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.className = "cloud-tag-selected";
+						// If starting over from a new tag, wipe out the old one.
+						thoughtMesh.selectedTags = [];
+						thoughtMesh.selectedTags.push({
+							tag: tagArg,
+							integer: 0,
+						}); // thoughtMesh.selectedTags is a manager of objects with integer index and tag name properties.
+						thoughtMesh.selectedTags.getObjectByTag = {};
+						thoughtMesh.selectedTags.getObjectByTag[tagArg] =
+							thoughtMesh.selectedTags[0];
+						break;
+					case "plus": // Adding a tag in combination.
+						// Register new tag. Currently no limitation on number, but they always intersect.
+						thoughtMesh.selectedTags.push({
+							tag: tagArg,
+							integer: thoughtMesh.selectedTags.length,
+						});
+						// Enable recovery of array index from the tag name, for use in subtracting tag below.
+						thoughtMesh.selectedTags.getObjectByTag[tagArg] =
+							thoughtMesh.selectedTags[
+								thoughtMesh.selectedTags.length - 1
+							]; // This is an object.
+						// Style this tag.
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].replaceLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].plusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].blankLink.style.display = "none";
+						break;
+					case "minus": // Subtracting a tag in combination.
+						thoughtMesh.selectedTags.splice(
+							thoughtMesh.selectedTags.getObjectByTag[tagArg]
+								.integer,
+							1
+						);
+						// The above changes the .integer property of each subsequent tag, so pop the rest of them up to compensate.
+						for (
+							var remainingTagCounter =
+								thoughtMesh.selectedTags.getObjectByTag[tagArg]
+									.integer;
+							remainingTagCounter <
+							thoughtMesh.selectedTags.length;
+							remainingTagCounter++
+						) {
+							thoughtMesh.selectedTags[
+								remainingTagCounter
+							].integer = remainingTagCounter;
+						}
+						// Reset this tag to normal styles.
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].replaceLink.className = "cloud-tag";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].plusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].minusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[
+							tagArg
+						].blankLink.style.display = "none";
+						break;
+				}
+				// Hide content.
+				hideContent();
+				/*________________________ Identify and show matching content.________________________*/
+				// Loop through items.
+				nextItemLabel: for (
+					var itemCounter = 0;
+					itemCounter < itemManager.length;
+					itemCounter++
+				) {
+					// If table, begins with 1 to avoid row of column labels. UPGRADE: make itemCounter content-agnostic, go back to counting from 0.
+					_thoughtMesh_tagsFromItem__itemCounter__ =
+						thoughtMesh.tagsFromItemCounter[itemCounter];
+					debug("_thoughtMesh_tagsFromItem__itemCounter__", 2);
+					if (
+						thoughtMesh.tagsFromItemCounter[itemCounter].length == 0
+					) {
+						// Eliminates menu items without tags.
+						continue nextItemLabel; // Skips to next menu item.
+					} else {
+						itemManager[itemCounter].selectedViaTags = false; // Temporary assignment, usually contradicted below.
+						// Loop through the selected tags in the cloud.
+						for (
+							var cloudTagCounter = 0;
+							cloudTagCounter < thoughtMesh.selectedTags.length;
+							cloudTagCounter++
+						) {
+							itemManager[itemCounter].selectedViaTags = false;
+							// Loop through that item's tags.
+							_thoughtMesh_tagsFromItemCounter =
+								thoughtMesh.tagsFromItemCounter;
+							debug("_thoughtMesh_tagsFromItemCounter", 3);
+							for (
+								var itemTagCounter = 0;
+								itemTagCounter <
+								thoughtMesh.tagsFromItemCounter[itemCounter]
+									.length;
+								itemTagCounter++
+							) {
+								// If an item's tag does not match any one of the selected tags, mark it for non-highlight.
+								if (
+									thoughtMesh.tagsFromItemCounter[
+										itemCounter
+									][itemTagCounter] ==
+									thoughtMesh.selectedTags[cloudTagCounter]
+										.tag
+								) {
+									// A match!
+									itemManager[
+										itemCounter
+									].selectedViaTags = true;
+								} else {
+									// Continue with false.
+								}
+							}
+							if (!itemManager[itemCounter].selectedViaTags) {
+								continue nextItemLabel;
+							}
+						}
+						if (itemManager[itemCounter].selectedViaTags) {
+							showContent(itemManager[itemCounter]);
+							noContentSelected = false;
+						} else {
+							// alertUser( "no match" ) ; This doesn't work here.
+						}
+					}
+				}
+				// Adjust message to user.
+				if (noContentSelected) {
+					alertUser("no match");
+				} else {
+					alertUser("ok");
+				}
+				/*________________________ Identify and show matching content.________________________*/
+				if (typeof thoughtMesh.selectedTags[0] != "undefined") {
+					// UPGRADE: replace below with thoughtMesh.tagList = thoughtMesh.selectedTags.toString()
+					thoughtMesh.tagList = thoughtMesh.selectedTags[0].tag;
+					for (
+						var tagCounter = 1;
+						tagCounter < thoughtMesh.selectedTags.length;
+						tagCounter++
+					) {
+						thoughtMesh.tagList +=
+							"," + thoughtMesh.selectedTags[tagCounter].tag;
+					}
+				} else {
+					alertUser("pick one");
+					// Make plusses go away.
+					for (
+						var tagCounter = 1;
+						tagCounter < thoughtMesh.tagObjs.length;
+						tagCounter++
+					) {
+						thoughtMesh.tagObjs[tagCounter].plusLink.style.display =
+							"none";
+						thoughtMesh.tagObjs[
+							tagCounter
+						].blankLink.style.display = "inline";
+					}
+				}
+			}
+			function hideContent() {
+				// This function is customized for different UIs.
+				/********** Hide table content. **********
+		for ( var rowCounter=1; rowCounter < tableManager.rows.length; rowCounter++ ) {
+			tableManager.rows[ rowCounter ].style.display = "none" ;
+		} ;
+		/********** End hide table content. **********/
+				// Hide div (lexia) content.
+				for (
+					var itemCounter = 0;
+					itemCounter < itemManager.length;
+					itemCounter++
+				) {
+					itemManager[itemCounter].style.display = "none";
+				}
+			}
+			function showContent(ele) {
+				// This function is customized for different UIs.
+				ele.style.display = "table-row";
+			}
+			function showAllContent() {
+				// Consolidate with showContent?
+				for (
+					var itemCounter = 0;
+					itemCounter < itemManager.length;
+					itemCounter++
+				) {
+					itemManager[itemCounter].style.display = "table-row";
+				}
+				alertUser("ok");
+			}
+			function alertUser(status) {
+				switch (status) {
+					case "ok":
+						document.getElementById("alert-box").innerHTML = "";
+						break;
+					case "no match":
+						document.getElementById("alert-box").innerHTML =
+							"No content matches that combination. Unselect a tag.";
+						break;
+					case "pick one":
+						document.getElementById("alert-box").innerHTML =
+							"Pick a tag to see related content or <a onclick='showAllContent()'>show all</a>.";
+						break;
+				}
+			}
+			/*__________ Search option __________*/
+			function searchFilter(searchStr) {
+				// UPGRADE: This is currently UI specific, but that could be changed if useful.
+				var objRegex = new RegExp(searchStr, "i");
+				objRegex.compile(searchStr, "i");
+				/********** Find table matches. **********
+		for (var rowCounter = 1 ; rowCounter < tableManager.rows.length ; rowCounter++ ) {
+			if (objRegex.test( tableManager.dataFromRow[ rowCounter ] )) {
+				tableManager.rows[ rowCounter ].style.display = "table-row" ;
+			}
+			else {
+				tableManager.rows[ rowCounter ].style.display = "none" ;
+			}
+		}
+		********** End find table matches. **********/
+				// Find div (lexia) matches.
+				for (
+					var itemCounter = 0;
+					itemCounter < itemManager.length;
+					itemCounter++
+				) {
+					if (objRegex.test(itemManager.dataFromItem[itemCounter])) {
+						itemManager[itemCounter].style.display = "block";
+					} else {
+						itemManager[itemCounter].style.display = "none";
+					}
+				}
+			}
+			enableLexiaSelection = function () {
+				lexiaDivs = document.getElementsByClassName("lexia");
+				// Assumes inactive lexias are commented out,
+				// which helps load faster.
+				for (
+					var lexiaCounter = 0;
+					lexiaCounter < lexiaDivs.length;
+					lexiaCounter++
+				) {
+					this.selected = false;
+					/* Select lexia on over. */
+					lexiaDivs[lexiaCounter].onmouseover = function () {
+						this.className = "lexia-selected";
+					};
+					lexiaDivs[lexiaCounter].onmouseout = function () {
+						/* Collapse the lexia. */
+						this.className = "lexia";
+					};
+					/* Toggle lexia selection on click, */
+					lexiaDivs[lexiaCounter].onclick = function () {
+						if (this.selected) {
+							this.className = "lexia-selected";
+						} else {
+							/* Collapse the lexia. */
+							this.className = "lexia";
+						}
+						this.selected = !this.selected;
+					};
+				}
+			};
+		</script>
+		<script id="learnwithai-index-script">
+			chooseScreen = () => {
+				if (viewMode === "cluster") {
+					// Display appropriate containers.
+					document.getElementById("cluster-container").style.display =
+						"block";
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
+					document.getElementById(
+						"search-container"
+					).style.visibility = "hidden";
+					document.getElementById(
+						"dashboard-features"
+					).style.display = "none";
+					document.getElementById(
+						"dashboard-individual"
+					).style.display = "none";
+					document.getElementById("faq-container").style.display =
+						"none";
+					// Activate the other navigation options.
+					document
+						.getElementById("browse-clusters")
+						.classList.remove("activated");
+					document
+						.getElementById("browse-individual")
+						.classList.add("activated");
+					document
+						.getElementById("browse-features")
+						.classList.add("activated");
+					document
+						.getElementById("browse-faq")
+						.classList.add("activated");
+					/*
+			if ( ! clustersPublished ) {				
+				// Build clusters.
+				getClusterJSON()
+				.then(
+					clusterJSON => {
+						for (let clusterCounter = 0; clusterCounter < clusterJSON.length; clusterCounter++ ) {
+							let thisClusterId = clusterJSON[ clusterCounter ]["clusterId"] ;
+							let thisClusterObject = new ClusterObject(
+								{
+									clusterId: thisClusterId,
+									title: clusterJSON[ clusterCounter ]["title"],
+									clusterTag: clusterJSON[ clusterCounter ]["clusterTag"],
+									description: clusterJSON[ clusterCounter ]["description"],
+									backgroundColor: clusterJSON[ clusterCounter ]["backgroundColor"],
+									color: clusterJSON[ clusterCounter ]["color"]
+								}
+							) ;
+							clusterObjects.push( thisClusterObject ) ;
+							// Might not be necessary, but probably more efficient that looping each time.
+							lexiaIdsFromClusterId[ thisClusterId ] = [] ;
+						}
+					}
+				)
+				.then(
+					() => {
+						buildLexiasFromJSON() ;
+					}
+				) ;
+				clustersPublished = true ;
+			}
+			*/
+				} else if (viewMode === "individual") {
+					// Display appropriate containers.
+					document.getElementById(
+						"resources-container"
+					).style.display = "block";
+					document.getElementById(
+						"search-container"
+					).style.visibility = "visible";
+					document.getElementById("cluster-container").style.display =
+						"none";
+					document.getElementById(
+						"dashboard-features"
+					).style.display = "none";
+					document.getElementById(
+						"dashboard-individual"
+					).style.display = "block";
+					document.getElementById("faq-container").style.display =
+						"none";
+					// Activate the other navigation options.
+					document
+						.getElementById("browse-clusters")
+						.classList.add("activated");
+					document
+						.getElementById("browse-individual")
+						.classList.remove("activated");
+					document
+						.getElementById("browse-features")
+						.classList.add("activated");
+					document
+						.getElementById("browse-faq")
+						.classList.add("activated");
+					/*
+			if ( ! individualPublished ) {
+				// Build individual badges.
+				getLexiaJSON()
+				.then(
+					getLexiaJSON => {
+						for (let lexiaCounter = 0; lexiaCounter < getLexiaJSON.length; lexiaCounter++ ) {
+							new Lexia(
+								getLexiaJSON[ lexiaCounter ]
+							)
+						}
+					}
+				)
+				.then(
+					() => {
+						harvestData();
+						registerTags();
+						enableLexiaSelection();
+						if ( typeof selectedTag !== "undefined" ) {
+							respondToTag(
+								{
+									tagArg: selectedTag,
+									linkType: "replace"
+								}
+							) ;
+						}
+					}
+				) ;
+				individualPublished = true ;
+			}
+			else { // The lexia have been built already.
+				// Reset individual tutorials in case you left a tag clicked, to make room for a new tag.
+				showAllContent() ;
+				// Reset all tags. This code is lifted from tag cloud script.
+				for (var tagCounter=0; tagCounter < thoughtMesh.tagObjs.length; tagCounter++) {
+					thoughtMesh.tagObjs[tagCounter].replaceLink.className = "cloud-tag" ;
+					thoughtMesh.tagObjs[tagCounter].plusLink.style.display = "inline" ;
+					thoughtMesh.tagObjs[tagCounter].minusLink.className = "cloud-tag" ;
+					thoughtMesh.tagObjs[tagCounter].minusLink.style.display = "none" ;
+					try {
+						thoughtMesh.tagObjs[tagCounter].blankLink.style.display = "none" ;
+					}
+					catch(e) {
+						// UPGRADE: log this?
+					}
+				}
+				if ( typeof selectedTag !== "undefined" ) {
+					respondToTag(
+						{
+							tagArg: selectedTag,
+							linkType: "replace"
+						}
+					) ;
+				}				
+			}
+			*/
+				} else if (viewMode === "features") {
+					// Display appropriate containers.
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
+					document.getElementById(
+						"search-container"
+					).style.visibility = "hidden";
+					document.getElementById("cluster-container").style.display =
+						"none";
+					document.getElementById(
+						"dashboard-features"
+					).style.display = "block";
+					document.getElementById(
+						"dashboard-individual"
+					).style.display = "none";
+					document.getElementById("faq-container").style.display =
+						"none";
+					// Activate the other navigation options.
+					document
+						.getElementById("browse-clusters")
+						.classList.add("activated");
+					document
+						.getElementById("browse-individual")
+						.classList.add("activated");
+					document
+						.getElementById("browse-features")
+						.classList.remove("activated");
+					document
+						.getElementById("browse-faq")
+						.classList.add("activated");
+				} else if (viewMode === "faq") {
+					// Display appropriate containers.
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
+					document.getElementById(
+						"search-container"
+					).style.visibility = "hidden";
+					document.getElementById("cluster-container").style.display =
+						"none";
+					document.getElementById(
+						"dashboard-features"
+					).style.display = "none";
+					document.getElementById(
+						"dashboard-individual"
+					).style.display = "none";
+					document.getElementById("faq-container").style.display =
+						"block";
+					// Activate the other navigation options.
+					document
+						.getElementById("browse-clusters")
+						.classList.add("activated");
+					document
+						.getElementById("browse-individual")
+						.classList.add("activated");
+					document
+						.getElementById("browse-features")
+						.classList.add("activated");
+					document
+						.getElementById("browse-faq")
+						.classList.remove("activated");
+				} else {
+					// Sh*t!
+					console.log(
+						"%c Unrecognized viewMode!",
+						"color: yellow; background:red; font-style: italic ;"
+					);
+				}
+			};
+		</script>
+		<script id="lexias-from-google-sheet-script-v01.1">
+			const Lexia = function (argumentsObject) {
+				// Build lexia.
+				this.lexiaDiv = document.createElement("div");
+				document
+					.getElementById("lexia-container")
+					.appendChild(this.lexiaDiv);
+				this.lexiaDiv.className = "lexia";
+				// Build headline.
+				this.headlineH2 = document.createElement("h2");
+				this.lexiaDiv.appendChild(this.headlineH2);
+				this.headlineH2.className = "headline";
+				// Build link.
+				this.headlineLink = document.createElement("a");
+				this.headlineH2.appendChild(this.headlineLink);
+				this.headlineLink.href = argumentsObject.link;
+				this.headlineLink.innerText = argumentsObject.headline;
+				// Build byline.
+				this.bylineH3 = document.createElement("h3");
+				this.lexiaDiv.appendChild(this.bylineH3);
+				this.bylineH3.className = "byline";
+				this.bylineH3.innerHTML = argumentsObject.byline;
+				// Build summary.
+				this.summaryP = document.createElement("p");
+				this.lexiaDiv.appendChild(this.summaryP);
+				this.summaryP.className = "summary";
+				this.summaryP.innerHTML = argumentsObject.summary;
+				// Build tags.
+				this.tagsDiv = document.createElement("div");
+				this.lexiaDiv.appendChild(this.tagsDiv);
+				this.tagsDiv.className = "tags";
+				this.tagsDiv.innerHTML = argumentsObject.tags;
+			};
+			const fetchSheet = async () => {
+				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
+				// Google Sheet URL for AI + education is https://docs.google.com/sheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit#gid=0
+				// So the object is at https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq
+				let sheetId = "1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw";
+				// let response = await fetch( `https://docs.google.com/sheets/d/${sheetId}/gviz/tq` ) ;
+				let response = await fetch(
+					`https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq`
+				);
+				let sheetAsString = await response.text();
+				return sheetAsString;
+			};
+			const buildLexias = async () => {
+				// sheetAsString = {"version":"0.6","reqId":"0","status":"ok","sig":"987100899","table":{"cols":[{"id":"A","label":"","type":"string"},{"id":"B","label":"","type":"string"},{"id":"C","label":"","type":"string"}],"rows":[{"c":[{"v":"Sort"},{"v":"Category"},{"v":"Tags"}]},{"c":[{"v":"Apples"},{"v":"Fruit"},{"v":"red"}]},{"c":[{"v":"Bananas"},{"v":"Fruit"},{"v":"yellow"}]},{"c":[{"v":"Cherries"},{"v":"Fruit"},{"v":"red, black"}]}],"parsedNumHeaders":0}};
+				let sheetObjectWithBreak = await fetchSheet();
+				// UPGRADE: Removing the line break may not be necessary.
+				let lineBreak = sheetObjectWithBreak.search(/\n/);
+				sheetObject = sheetObjectWithBreak.substr(
+					lineBreak + 1,
+					sheetObjectWithBreak.length
+				);
+				let startOfRows = sheetObject.search(/"rows":/) + 7;
+				let endOfRows = sheetObject.search(/,"parsedNumHeaders"/);
+				rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
+				rowsAsArray = JSON.parse(rowsAsString);
+				rowsAsArray.forEach((row) => {
+					if (row["c"][0]["v"] === "Byline/sort") {
+						// Skip header row.
+					} else {
+						// Will fail if cell empty.
+						let bylinePair = row["c"][0] || { v: "" };
+						let sourcePair = row["c"][1] || { v: "" };
+						let linkPair = row["c"][2] || { v: "" };
+						let tagsPair = row["c"][3] || { v: "" };
+						let summaryPair = row["c"][4] || { v: "" };
+						let thisLexia = new Lexia({
+							byline: bylinePair["v"],
+							headline: sourcePair["v"],
+							link: linkPair["v"],
+							tags: tagsPair["v"],
+							summary: summaryPair["v"],
+						});
+						document
+							.querySelector("#lexia-container")
+							.appendChild(thisLexia.lexiaDiv);
+					}
+				});
+				harvestData();
+				registerTags();
+				enableLexiaSelection();
+			};
+		</script>
+		<script id="safe-email">
+			function turnOnMail() {
+				// By John Bell. Takes a reversed <span class='activemail'> and turns it into an active link.
+				// Have to do this in two steps since there is no getElementsByClassName yet. 8P
+				var spans = document.getElementsByTagName("span");
+				for (i = 0; i < spans.length; i++) {
+					if (spans[i].className == "activemail") {
+						// There's no string.reverse(), either. 8P
+						var reversed = spans[i].innerHTML;
+						var address = "";
+						for (j = reversed.length - 1; j >= 0; j--)
+							address += reversed.charAt(j);
+						spans[i].innerHTML =
+							'<a href="mailto:' +
+							address +
+							'">' +
+							address +
+							"</a>";
+					}
+				}
+			}
+		</script>
+		<script
+			id="debug-pre-script_v01.1"
+			type="text/javascript"
+			charset="utf-8"
+		>
+			function debug(argument) {
+				// Use only if no debug.js found.
+				window.status = "Debug script not found.";
+			}
+			function debugArray(argument) {
+				// Use only if no debug.js found.
+				window.status = "DebugArray script not found.";
+			}
+			function debugObject(argument) {
+				// Use only if no debug.js found.
+				window.status = "DebugObject script not found.";
+			}
+		</script>
+		<script
+			id="debug-external-script"
+			type="text/javascript"
+			language="JavaScript"
+			src="js/debug.js"
+		></script>
+		<script id="debug-open-window">
+			try {
+				openDebugWindow({
+					openerWindow: this,
+					debugIsOn: false,
+					purgeOldReports: true,
+				});
+			} catch (error) {
+				window.status = "Debug script called but " + error;
+			}
+		</script>
+	</head>
+	<body
+		id="learnwithai-body"
+		onload="viewMode='features' ; buildLexias() ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()"
+	>
+		<div id="watermark"></div>
+		<div id="header">
+			<a id="crest" href="http://umaine.edu"
+				><img
+					src="media/ume_crest_logo_gray_tra.png"
+					alt="Ume Crest Gray"
+			/></a>
+			<h2 id="rubric">Learn With AI</h2>
+			<span id="search-container"
+				>Search:
+				<input
+					type="text"
+					id="searchBox"
+					name="searchBox"
+					onkeyup="searchFilter(this.value)"
+			/></span>
+		</div>
+		<div id="browse-options">
+			<span
+				onclick="viewMode='features'; chooseScreen()"
+				id="browse-features"
+				>About the initiative</span
+			>
+			|
+			<span
+				onclick="viewMode='individual'; chooseScreen();"
+				id="browse-individual"
+				>Strategies</span
+			>
+			|
+			<span
+				onclick="viewMode='cluster'; chooseScreen();"
+				id="browse-clusters"
+				>Resources</span
+			>
+			|
+			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq"
+				>FAQ</span
+			>
+		</div>
+		<div id="dashboard-features">
+			<div id="explanation">
+				<p id="hero">
+					<img
+						src="media/nmd_citl_learning_with_ai_ann_1080.png"
+						alt="Nmd Citl Learning With Ai Ann 1080"
+					/>
+				</p>
+				<p>
+					New Media faculty and students offer these free tutorials as
+					part of their
+					<a
+						href="http://www.nmdnet.org/2012/03/31/u-me-new-media-to-launch-just-in-time-learning-experiment/"
+						>Just-In-Time</a
+					>
+					Learning Initiative. Browse tutorials individually,
+					clustered by topic, or learn more about the Learn With AI
+					initiative below.
+				</p>
+			</div>
+			<div id="features">
+				<div id="e" class="feature">
+					<h4>
+						<i class="fas fa-user-graduate"></i> Get lasting
+						credentials
+					</h4>
+					<p>
+						Add badges to your portfolio to show future employers
+						and collaborators.
+					</p>
+				</div>
+				<div id="h" class="feature">
+					<h4>
+						<i class="fas fa-certificate"></i> Verify achievements
+					</h4>
+					<p>
+						Employers can look up a badge to see what it required
+						and when you earned it.
+					</p>
+				</div>
+				<div id="a" class="feature">
+					<h4><i class="fas fa-edit"></i> Test your learning</h4>
+					<p>
+						Complete the fill-in-the-blank or free-form quizzes to
+						earn each badge.
+					</p>
+				</div>
+				<div id="b" class="feature">
+					<h4><i class="fas fa-clock"></i> Take your time</h4>
+					<p>Watch the screencasts online at your own pace.</p>
+				</div>
+				<div id="d" class="feature">
+					<h4><i class="fas fa-list"></i> Level up</h4>
+					<p>
+						Pursue a topic through beginner, intermediate, advanced,
+						and expert levels.
+					</p>
+				</div>
+				<div id="c" class="feature">
+					<h4><i class="fas fa-smile-wink"></i> Get a hint</h4>
+					<p>
+						For free-form answers, get contextual hints to help
+						correct your syntax or vocabulary.
+					</p>
+				</div>
+				<div id="f" class="feature">
+					<h4>
+						<i class="fas fa-user-friends"></i> Learn from peers
+					</h4>
+					<p>Create screencasts for your fellow students.</p>
+				</div>
+				<div id="g" class="feature">
+					<h4><i class="fas fa-random"></i> Flip the classroom</h4>
+					<p>
+						Watch the "lectures" at home so you can work on the
+						homework during class.
+					</p>
+				</div>
+				<div id="i" class="feature">
+					<h4>
+						<i class="fas fa-chalkboard-teacher"></i> In or outside
+						of class
+					</h4>
+					<p>Earn badges for a class or as a personal project.</p>
+				</div>
+			</div>
+		</div>
+		<div id="dashboard-individual">
+			<div id="home-cloud"></div>
+			<div id="alert-box">
+				No matching content for that tag combination
+			</div>
+		</div>
+		<div id="cluster-container"></div>
+		<!-- End cluster-container. -->
+		<div id="resources-container">
+			<div id="lexia-container"></div>
+		</div>
+		<!-- End resources-container. -->
+		<div id="faq-container">
+			<h1>Frequently Asked Questions</h1>
+			<p>
+				If you've ever wanted to learn a skill online but also wanted
+				something to show for it, the Learn With AI initiative was made
+				for you. Created by faculty and students of the University of
+				Maine's New Media program, this free and open collection of
+				tutorials on everything from how to code a web page to how to
+				run a bandsaw makes it easy to learn a skill and share your
+				accomplishment with your friends, teacher, or prospective
+				employers. Just choose a topic, watch the video, and pass the
+				quizzes along the way, and in the end you'll be awarded a
+				digital badge you can show on your portfolio.
+			</p>
+			<p>
+				You don't need a login; just watch the tutorials that interest
+				you and claim them with your email address at the end of each
+				video. For more information contact us at
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</p>
+			<h2><i class="fas fa-certificate"></i> Earning a badge</h2>
+			<h3>What's the point of earning these?</h3>
+			<p>
+				Earn badges to mark your own self-directed learning, or as part
+				of a "flipped" class so that you can focus on applying your
+				knowledge in-class, or as hardware certification (safety
+				training for a bandsaw).
+			</p>
+			<p>
+				Prospective employers will also find evidence of specific skills
+				in the portfolio of badges you have earned ("We need someone who
+				can make a budget and design a logo").
+			</p>
+			<h3>I have a question not in this list.</h3>
+			<p>
+				Contact us at
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</p>
+		</div>
+		<div class="footer">
+			<div id="credit">
+				<p>
+					A project of the University of Maine's
+					<a href="https://umaine.edu/citl/"
+						>Center for Innovation in Teaching and Learning</a
+					>
+					and
+					<a href="https://umaine.edu/newmedia">New Media</a> program
+				</p>
+			</div>
+			<div class="nmd-logo-phrase">
+				<a href="http://newmedia.umaine.edu/"
+					><img
+						src="media/nmd_title_blue_tra_xvga.png"
+						alt="Nmd Title Blue Tra Xvga"
+				/></a>
+			</div>
+		</div>
+	</body>
+</html>
