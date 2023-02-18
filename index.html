@@ -151,9 +151,8 @@
 					h2#rubric,
 					#search-container,
 					#dashboard-features,
-					#dashboard-individual,
-					#resources-container,
-					#cluster-container {
+					#dashboard-strategies,
+					#resources-container {
 						margin: 20px ;
 					}
 					/* Narrower content. */
@@ -240,7 +239,7 @@
 						color: var(--light-silt) ;
 					}
 					#dashboard-features,
-					#dashboard-individual {
+					#dashboard-strategies {
 						position: relative ;
 						clear: both ;
 						margin-top: 30px ;
@@ -380,6 +379,11 @@
 					.inactive {
 						display: none ;
 					}
+					#lexia-container {
+						display: grid;
+						grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+						gap: 1em;
+					}
 					.lexia,
 					.lexia-selected,
 					.lexia-clustered {
@@ -416,9 +420,50 @@
 					.lexia-selected {
 						box-shadow: var(--dull-aqua) 4px 6px 6px ;
 					}
-					/*__________ Clusters. __________*/
+					:is(.lexia, .lexia-selected) {
+						background-color: var(--darker);
+						border: var(--darker) solid 2px;
+						border-radius: 1em;
+						padding: 1em;
+						transition: all 0.2s ease-in-out;
+					}
+					:is(.lexia, .lexia-selected) :is(a, h2) {
+						background-color: transparent;
+						text-decoration: none;
+						color: var(--lightest);
+						opacity: 1 !important ;
+					}
+					:is(.lexia, .lexia-selected) .summary,
+					.tags {
+						color: var(--light);
+					}
+					:is(.lexia, .lexia-selected) .summary {
+						/*  "max-width: 30ch" only works for one line.
+						Someday line-clamp will suffice. In the meantime,
+						all modern browsers accept the following kludge. */
+						-webkit-line-clamp: 3;
+						display: -webkit-box;
+						-webkit-box-orient: vertical;
+						overflow: hidden;
+					}
+					:is(.lexia, .lexia-selected) .byline {
+						color: var(--medium);
+					}
+					:is(.lexia, .lexia-selected):hover {
+						background-color: var(--medium);
+						border: var(--darkest) solid 2px;
+					}
+					:is(.lexia, .lexia-selected) :is(h2, a):hover {
+						color: white;
+						cursor: pointer;
+						text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
+					}
+					:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
+						color: var(--lightest);
+					}
+					/* UNUSED: __________ Clusters. __________*
 					.cluster{
-						/* Dimensions set in JavaScript. */
+						/* Dimensions set in JavaScript. *
 						position: relative ;
 						float: left ;
 						margin: 10px ;
@@ -445,14 +490,9 @@
 							position: relative ;
 							width: 60% ;
 							margin: 2% auto ;
-							/*text-shadow:
-											darkSlateGray 0 0 .3em,
-											darkSlateGray 0 0 .7em,
-											darkSlateGray 0 0 1em
-											;*/
 							text-align: center ;
 							color: khaki ;
-							font-size: .45em ; /* WAS .9em ; */
+							font-size: .45em ;
 							opacity: 0 ;
 							transition: all .4s ease-in-out ;
 						}
@@ -462,8 +502,6 @@
 							height: 100px ;
 							border-radius: 50% ;
 							background: none ;
-				/*			border: red solid 2px ;*/
-				/*			background-size: cover;*/
 							margin: 0 ;
 							padding: 0 ;
 							overflow: hidden ;
@@ -472,7 +510,7 @@
 							filter: saturate( 70% ) ;
 						}
 							.lexia-clustered img {
-								/* width set in badgeShape class below. */
+								/* width set in badgeShape class below. *
 								float: none ;
 								position: absolute ;
 							}
@@ -491,6 +529,7 @@
 								top: -20px ;
 								left: -45px ;
 							}
+					*/
 					/* Using JavaScript instead of hover to enable mobile selection. */
 					.lexia-selected {
 						height: 500px ;
@@ -619,54 +658,6 @@
 					#faq-container i.fas {
 						color: var(--accent) !important ;
 					}
-		</style>
-		<style id="padlet-style-v01.0">
-			#lexia-container {
-				display: grid;
-				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-				gap: 1em;
-			}
-			:is(.lexia, .lexia-selected) {
-				background-color: var(--darker);
-				border: var(--darker) solid 2px;
-				border-radius: 1em;
-				padding: 1em;
-				transition: all 0.2s ease-in-out;
-			}
-			:is(.lexia, .lexia-selected) :is(a, h2) {
-				background-color: transparent;
-				text-decoration: none;
-				color: var(--lightest);
-				opacity: 1 !important ;
-			}
-			:is(.lexia, .lexia-selected) .summary,
-			.tags {
-				color: var(--light);
-			}
-			:is(.lexia, .lexia-selected) .summary {
-				/*  "max-width: 30ch" only works for one line.
-				Someday line-clamp will suffice. In the meantime, 
-				all modern browsers accept the following kludge. */
-				-webkit-line-clamp: 3;
-				display: -webkit-box;
-				-webkit-box-orient: vertical;
-				overflow: hidden;
-			}
-			:is(.lexia, .lexia-selected) .byline {
-				color: var(--medium);
-			}
-			:is(.lexia, .lexia-selected):hover {
-				background-color: var(--medium);
-				border: var(--darkest) solid 2px;
-			}
-			:is(.lexia, .lexia-selected) :is(h2, a):hover {
-				color: white;
-				cursor: pointer;
-				text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
-			}
-			:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
-				color: var(--lightest);
-			}
 		</style>
 		<script id="sniff-browsers-script-2018">
 			/*________________________ Check browser compatibility.________________________*/
@@ -1450,10 +1441,11 @@
 		</script>
 		<script id="learnwithai-index-script">
 			chooseScreen = () => {
-				if (viewMode === "cluster") {
+				if (viewMode === "resources") {
 					// Display appropriate containers.
-					document.getElementById("cluster-container").style.display =
-						"block";
+					document.getElementById(
+						"resources-container"
+					).style.display = "block";
 					document.getElementById(
 						"resources-container"
 					).style.display = "none";
@@ -1464,16 +1456,16 @@
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-individual"
+						"dashboard-strategies"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"none";
 					// Activate the other navigation options.
 					document
-						.getElementById("browse-clusters")
+						.getElementById("browse-resources")
 						.classList.remove("activated");
 					document
-						.getElementById("browse-individual")
+						.getElementById("browse-strategies")
 						.classList.add("activated");
 					document
 						.getElementById("browse-features")
@@ -1513,7 +1505,7 @@
 				clustersPublished = true ;
 			}
 			*/
-				} else if (viewMode === "individual") {
+				} else if (viewMode === "strategies") {
 					// Display appropriate containers.
 					document.getElementById(
 						"resources-container"
@@ -1521,22 +1513,23 @@
 					document.getElementById(
 						"search-container"
 					).style.visibility = "visible";
-					document.getElementById("cluster-container").style.display =
-						"none";
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
 					document.getElementById(
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-individual"
+						"dashboard-strategies"
 					).style.display = "block";
 					document.getElementById("faq-container").style.display =
 						"none";
 					// Activate the other navigation options.
 					document
-						.getElementById("browse-clusters")
+						.getElementById("browse-resources")
 						.classList.add("activated");
 					document
-						.getElementById("browse-individual")
+						.getElementById("browse-strategies")
 						.classList.remove("activated");
 					document
 						.getElementById("browse-features")
@@ -1608,22 +1601,23 @@
 					document.getElementById(
 						"search-container"
 					).style.visibility = "hidden";
-					document.getElementById("cluster-container").style.display =
-						"none";
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
 					document.getElementById(
 						"dashboard-features"
 					).style.display = "block";
 					document.getElementById(
-						"dashboard-individual"
+						"dashboard-strategies"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"none";
 					// Activate the other navigation options.
 					document
-						.getElementById("browse-clusters")
+						.getElementById("browse-resources")
 						.classList.add("activated");
 					document
-						.getElementById("browse-individual")
+						.getElementById("browse-strategies")
 						.classList.add("activated");
 					document
 						.getElementById("browse-features")
@@ -1639,22 +1633,23 @@
 					document.getElementById(
 						"search-container"
 					).style.visibility = "hidden";
-					document.getElementById("cluster-container").style.display =
-						"none";
+					document.getElementById(
+						"resources-container"
+					).style.display = "none";
 					document.getElementById(
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-individual"
+						"dashboard-strategies"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"block";
 					// Activate the other navigation options.
 					document
-						.getElementById("browse-clusters")
+						.getElementById("browse-resources")
 						.classList.add("activated");
 					document
-						.getElementById("browse-individual")
+						.getElementById("browse-strategies")
 						.classList.add("activated");
 					document
 						.getElementById("browse-features")
@@ -1843,14 +1838,14 @@
 			>
 			|
 			<span
-				onclick="viewMode='individual'; chooseScreen();"
-				id="browse-individual"
+				onclick="viewMode='strategies'; chooseScreen();"
+				id="browse-strategies"
 				>Strategies</span
 			>
 			|
 			<span
-				onclick="viewMode='cluster'; chooseScreen();"
-				id="browse-clusters"
+				onclick="viewMode='resources'; chooseScreen();"
+				id="browse-resources"
 				>Resources</span
 			>
 			|
@@ -1945,14 +1940,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="dashboard-individual">
+		<div id="dashboard-strategies">
 			<div id="home-cloud"></div>
 			<div id="alert-box">
 				No matching content for that tag combination
 			</div>
 		</div>
-		<div id="cluster-container"></div>
-		<!-- End cluster-container. -->
+		<!-- End strategies-container. -->
 		<div id="resources-container">
 			<div id="lexia-container"></div>
 		</div>
