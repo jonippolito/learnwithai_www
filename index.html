@@ -342,7 +342,7 @@
 									font-size: 2em ;
 									padding-right: .2em ;
 								}
-						#home-cloud {
+						.home-cloud {
 							position: relative ;
 							float: left ;
 							margin: 0 auto ;
@@ -783,7 +783,7 @@
 			// Add to body onload="harvestData(); registerTags(); enableLexiaSelection();"
 			// Customize the "// Get tag data." line below.
 			// UPGRADE: 1) Pass in DOM reference to tag to avoid customizing each instance of this script. 2) Distinguish an item and a lexia in nomenclature, or merge them.
-			function harvestData() {
+			function harvestData(lexiaContainerId) {
 				/*__________ Harvest data. __________*/
 				// Harvest div data.
 				itemManager = []; // UPGRADE: make this a property of the thoughtmesh object.
@@ -795,7 +795,7 @@
 				// 	}
 				// } ;
 				document
-					.querySelectorAll(".lexia")
+					.querySelectorAll(`#${lexiaContainerId} .lexia`)
 					.forEach((lexiaDiv) => itemManager.push(lexiaDiv));
 				// console.log(  '%c itemManager is ' + itemManager, 'color: red; background:yellow ; font-family: Impact; font-weight: bold;' ) ;
 
@@ -1013,7 +1013,7 @@
 				/* _______ Add a space to separate tags. _______*/
 				this.containerEle.appendChild(document.createTextNode(" "));
 			}
-			function registerTags() {
+			function registerTags(cloudContainerId) {
 				// This function adds tag properties to dynamic menu.
 				// First sort unique tags by frequency to get max and min values for normalizing tag size.
 				thoughtMesh.uniqueTags.sort(sortTagsNumerically);
@@ -1048,7 +1048,9 @@
 							thoughtMesh.uniqueTags[tagCounter]
 						].length;
 					var thisCloudTag = new CloudTag({
-						containerEle: document.getElementById("home-cloud"),
+						containerEle: document.querySelector(
+							`#${cloudContainerId} .home-cloud`
+						),
 						tag: thoughtMesh.uniqueTags[tagCounter],
 						frequency:
 							thoughtMesh.itemsFromTag[
@@ -1300,10 +1302,10 @@
 			function hideContent() {
 				// This function is customized for different UIs.
 				/********** Hide table content. **********
-		for ( var rowCounter=1; rowCounter < tableManager.rows.length; rowCounter++ ) {
-			tableManager.rows[ rowCounter ].style.display = "none" ;
-		} ;
-		/********** End hide table content. **********/
+			for ( var rowCounter=1; rowCounter < tableManager.rows.length; rowCounter++ ) {
+				tableManager.rows[ rowCounter ].style.display = "none" ;
+			} ;
+			/********** End hide table content. **********/
 				// Hide div (lexia) content.
 				for (
 					var itemCounter = 0;
@@ -1349,15 +1351,15 @@
 				var objRegex = new RegExp(searchStr, "i");
 				objRegex.compile(searchStr, "i");
 				/********** Find table matches. **********
-		for (var rowCounter = 1 ; rowCounter < tableManager.rows.length ; rowCounter++ ) {
-			if (objRegex.test( tableManager.dataFromRow[ rowCounter ] )) {
-				tableManager.rows[ rowCounter ].style.display = "table-row" ;
+			for (var rowCounter = 1 ; rowCounter < tableManager.rows.length ; rowCounter++ ) {
+				if (objRegex.test( tableManager.dataFromRow[ rowCounter ] )) {
+					tableManager.rows[ rowCounter ].style.display = "table-row" ;
+				}
+				else {
+					tableManager.rows[ rowCounter ].style.display = "none" ;
+				}
 			}
-			else {
-				tableManager.rows[ rowCounter ].style.display = "none" ;
-			}
-		}
-		********** End find table matches. **********/
+			********** End find table matches. **********/
 				// Find div (lexia) matches.
 				for (
 					var itemCounter = 0;
@@ -1672,7 +1674,6 @@
 				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
 				// Google Sheet URL for AI + education is https://docs.google.com/sheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit#gid=0
 				// So the object is at https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq
-				console.log(sheetId);
 				let response = await fetch(
 					`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq`
 				);
@@ -1681,6 +1682,9 @@
 				// );
 				let sheetAsString = await response.text();
 				return sheetAsString;
+			};
+			const clearLexias = () => {
+				// Use this when switching screens to load from a new data set.
 			};
 			const buildLexias = async (containerId, sheetId) => {
 				// sheetAsString = {"version":"0.6","reqId":"0","status":"ok","sig":"987100899","table":{"cols":[{"id":"A","label":"","type":"string"},{"id":"B","label":"","type":"string"},{"id":"C","label":"","type":"string"}],"rows":[{"c":[{"v":"Sort"},{"v":"Category"},{"v":"Tags"}]},{"c":[{"v":"Apples"},{"v":"Fruit"},{"v":"red"}]},{"c":[{"v":"Bananas"},{"v":"Fruit"},{"v":"yellow"}]},{"c":[{"v":"Cherries"},{"v":"Fruit"},{"v":"red, black"}]}],"parsedNumHeaders":0}};
@@ -1718,8 +1722,8 @@
 							.appendChild(thisLexia.lexiaDiv);
 					}
 				});
-				harvestData();
-				registerTags();
+				harvestData("resources-container");
+				registerTags("resources-container");
 				enableLexiaSelection();
 			};
 		</script>
@@ -1915,7 +1919,7 @@
 		<div id="strategies-container"></div>
 		<!-- End strategies-container. -->
 		<div id="resources-container">
-			<div id="home-cloud"></div>
+			<div class="home-cloud"></div>
 			<div id="alert-box">
 				No matching content for that tag combination
 			</div>
