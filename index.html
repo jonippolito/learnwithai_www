@@ -7,7 +7,7 @@
 			content="A collection of free online tutorials by the University of Maine's New Media Department"
 		/>
 		<!-- Version 6.9, modified to add Jon's 2022 badges in tutorials.json (not here). The site is not yet optimized for mobile and sniffs to warn mobile users. -->
-		<title>Learn With AI tutorials from the University of Maine</title>
+		<title>Learn With AI | resources for</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -141,7 +141,7 @@
 					.nmd-logo-phrase img {
 						width: 100%;
 					}
-					#alert-box span:hover,
+					.alert-box span:hover,
 					a:hover {
 						border-bottom: solid 1px ;
 						cursor: pointer ;
@@ -358,7 +358,7 @@
 							padding: 1em;
 							border-radius: 10px;
 						}
-						#alert-box {
+						.alert-box {
 							position:relative;
 							clear: both;
 							padding: 1em;
@@ -368,7 +368,7 @@
 							color: orange;
 							font-size: 2em ;
 						}
-					#alert-box span,
+					.alert-box span,
 					table a,
 					.lexia a {
 						font-weight: normal ;
@@ -378,7 +378,7 @@
 					.inactive {
 						display: none ;
 					}
-					#lexia-container {
+					.lexia-container {
 						display: grid;
 						grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 						gap: 1em;
@@ -783,7 +783,8 @@
 			// Add to body onload="harvestData(); registerTags(); enableLexiaSelection();"
 			// Customize the "// Get tag data." line below.
 			// UPGRADE: 1) Pass in DOM reference to tag to avoid customizing each instance of this script. 2) Distinguish an item and a lexia in nomenclature, or merge them.
-			function harvestData(lexiaContainerId) {
+			function harvestData() {
+				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				/*__________ Harvest data. __________*/
 				// Harvest div data.
 				itemManager = []; // UPGRADE: make this a property of the thoughtmesh object.
@@ -795,7 +796,7 @@
 				// 	}
 				// } ;
 				document
-					.querySelectorAll(`#${lexiaContainerId} .lexia`)
+					.querySelectorAll(`#${screenContainerId} .lexia`)
 					.forEach((lexiaDiv) => itemManager.push(lexiaDiv));
 				// console.log(  '%c itemManager is ' + itemManager, 'color: red; background:yellow ; font-family: Impact; font-weight: bold;' ) ;
 
@@ -1013,7 +1014,8 @@
 				/* _______ Add a space to separate tags. _______*/
 				this.containerEle.appendChild(document.createTextNode(" "));
 			}
-			function registerTags(cloudContainerId) {
+			function registerTags() {
+				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// This function adds tag properties to dynamic menu.
 				// First sort unique tags by frequency to get max and min values for normalizing tag size.
 				thoughtMesh.uniqueTags.sort(sortTagsNumerically);
@@ -1049,7 +1051,7 @@
 						].length;
 					var thisCloudTag = new CloudTag({
 						containerEle: document.querySelector(
-							`#${cloudContainerId} .home-cloud`
+							`#${screenContainerId} .home-cloud`
 						),
 						tag: thoughtMesh.uniqueTags[tagCounter],
 						frequency:
@@ -1333,14 +1335,20 @@
 			function alertUser(status) {
 				switch (status) {
 					case "ok":
-						document.getElementById("alert-box").innerHTML = "";
+						document.querySelector(
+							`#${screenContainerId} .alert-box`
+						).innerHTML = "";
 						break;
 					case "no match":
-						document.getElementById("alert-box").innerHTML =
+						document.querySelector(
+							`#${screenContainerId} .alert-box`
+						).innerHTML =
 							"No content matches that combination. Unselect a tag.";
 						break;
 					case "pick one":
-						document.getElementById("alert-box").innerHTML =
+						document.querySelector(
+							`#${screenContainerId} .alert-box`
+						).innerHTML =
 							"Pick a tag to see related content or <a onclick='showAllContent()'>show all</a>.";
 						break;
 				}
@@ -1407,6 +1415,7 @@
 		<script id="learnwithai-index-script">
 			chooseScreen = () => {
 				if (viewMode === "resources") {
+					screenContainerId = "resources-container";
 					// Display appropriate containers.
 					document.getElementById(
 						"resources-container"
@@ -1439,10 +1448,7 @@
 						.getElementById("browse-faq")
 						.classList.add("activated");
 					// Build lexias for this screen.
-					buildLexias(
-						"resources-container",
-						"1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw"
-					);
+					buildLexias("1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw");
 					/*
 			if ( ! clustersPublished ) {				
 				// Build clusters.
@@ -1476,6 +1482,7 @@
 			}
 			*/
 				} else if (viewMode === "strategies") {
+					screenContainerId = "strategies-container";
 					// Display appropriate containers.
 					document.getElementById(
 						"strategies-container"
@@ -1564,6 +1571,7 @@
 			}
 			*/
 				} else if (viewMode === "features") {
+					// NECESSARY: reset screenContainerId?
 					// Display appropriate containers.
 					document.getElementById(
 						"resources-container"
@@ -1596,6 +1604,7 @@
 						.getElementById("browse-faq")
 						.classList.add("activated");
 				} else if (viewMode === "faq") {
+					// NECESSARY: reset screenContainerId?
 					// Display appropriate containers.
 					document.getElementById(
 						"resources-container"
@@ -1639,10 +1648,11 @@
 		<script id="lexias-from-google-sheet-script-v01.2">
 			// Modified to allow multiple lexia containers in the same document.
 			const Lexia = function (argumentsObject) {
+				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// Build lexia.
 				this.lexiaDiv = document.createElement("div");
 				document
-					.getElementById(argumentsObject.containerId)
+					.getElementById(screenContainerId)
 					.appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
 				// Build headline.
@@ -1686,7 +1696,8 @@
 			const clearLexias = () => {
 				// Use this when switching screens to load from a new data set.
 			};
-			const buildLexias = async (containerId, sheetId) => {
+			const buildLexias = async (sheetId) => {
+				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// sheetAsString = {"version":"0.6","reqId":"0","status":"ok","sig":"987100899","table":{"cols":[{"id":"A","label":"","type":"string"},{"id":"B","label":"","type":"string"},{"id":"C","label":"","type":"string"}],"rows":[{"c":[{"v":"Sort"},{"v":"Category"},{"v":"Tags"}]},{"c":[{"v":"Apples"},{"v":"Fruit"},{"v":"red"}]},{"c":[{"v":"Bananas"},{"v":"Fruit"},{"v":"yellow"}]},{"c":[{"v":"Cherries"},{"v":"Fruit"},{"v":"red, black"}]}],"parsedNumHeaders":0}};
 				let sheetObjectWithBreak = await fetchSheet(sheetId);
 				// UPGRADE: Removing the line break may not be necessary.
@@ -1710,7 +1721,6 @@
 						let tagsPair = row["c"][3] || { v: "" };
 						let summaryPair = row["c"][4] || { v: "" };
 						let thisLexia = new Lexia({
-							containerId: containerId,
 							byline: bylinePair["v"],
 							headline: sourcePair["v"],
 							link: linkPair["v"],
@@ -1718,7 +1728,7 @@
 							summary: summaryPair["v"],
 						});
 						document
-							.querySelector(`#${containerId}`)
+							.querySelector(`#${screenContainerId}`)
 							.appendChild(thisLexia.lexiaDiv);
 					}
 				});
@@ -1920,10 +1930,10 @@
 		<!-- End strategies-container. -->
 		<div id="resources-container">
 			<div class="home-cloud"></div>
-			<div id="alert-box">
+			<div class="alert-box">
 				No matching content for that tag combination
 			</div>
-			<div id="lexia-container"></div>
+			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
 		<div id="faq-container">
@@ -1946,19 +1956,16 @@
 				video. For more information contact us at
 				<span class="activemail">ude.eniam@otiloppij</span>.
 			</p>
-			<h2><i class="fas fa-certificate"></i> Earning a badge</h2>
-			<h3>What's the point of earning these?</h3>
+			<h2><i class="fas fa-certificate"></i> Meta</h2>
+			<h3>Wait, I want to learn/teach AI as a discipline!</h3>
 			<p>
-				Earn badges to mark your own self-directed learning, or as part
-				of a "flipped" class so that you can focus on applying your
-				knowledge in-class, or as hardware certification (safety
-				training for a bandsaw).
+				This program is not for you; we're focused on how to cope with
+				generative AI when learning <em>any</em> subject. Fortunately,
+				the UMaine AI iniative has programs in Computer Science, Data
+				Science, and related fields.
 			</p>
-			<p>
-				Prospective employers will also find evidence of specific skills
-				in the portfolio of badges you have earned ("We need someone who
-				can make a budget and design a logo").
-			</p>
+			<h3>Was this site made with ChatGPT?</h3>
+			<p>No.</p>
 			<h3>I have a question not in this list.</h3>
 			<p>
 				Contact us at
