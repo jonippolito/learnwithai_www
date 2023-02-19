@@ -75,23 +75,26 @@
 				--other-gold: hsla( 50, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
 				--pale-gold: hsla( 60, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
 				/* Updated. */
-				--light-silt: hsla(200, 30%, 30%, 1) ; /* SWATCH Light silt. */
-				--medium-silt: hsla(200, 30%, 20%, 1) ; /* SWATCH Medium silt. */
-				--dark-silt: hsla(200, 30%, 10%, 1) ; /* SWATCH Dark silt. */
-				--dull-gold: hsla( 190, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
-				--medium-gold: hsla( 190, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
-				--other-gold: hsla( 190, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
-				--pale-gold: hsla( 200, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
+				--h-cooler: 220; /* WAS 205. */
+				--h-medium: 210; /* WAS 200. */
+				--h-warmer: 200; /* WAS 190. */
+				--light-silt: hsla(var(--h-medium), 30%, 30%, 1) ; /* SWATCH Light silt. */
+				--medium-silt: hsla(var(--h-medium), 30%, 20%, 1) ; /* SWATCH Medium silt. */
+				--dark-silt: hsla(var(--h-medium), 30%, 10%, 1) ; /* SWATCH Dark silt. */
+				--dull-gold: hsla( var(--h-warmer), 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
+				--medium-gold: hsla( var(--h-warmer), 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
+				--other-gold: hsla( var(--h-warmer), 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
+				--pale-gold: hsla( var(--h-medium), 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
 				--lexia-lighter: paleturquoise ;
 				--lexia-darker: teal;
 				--dull-aqua: lightseagreen ;
 				/*	Gradients */
-				--gradientStopA: hsla(190, 100%, 20%, .8);
-				--gradientStopB: hsla(190, 100%, 60%, .0);
-				--gradientStopC: hsla(190, 70%, 60%, .8);
-				--gradientStopD: hsla(190, 70%, 60%, .0);
-				--gradientStopE: hsla(205, 90%, 95%, .8);
-				--gradientStopF: hsla(205, 90%, 95%, .0);
+				--gradientStopA: hsla(var(--h-warmer), 100%, 20%, .8);
+				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, .0);
+				--gradientStopC: hsla(var(--h-warmer), 70%, 60%, .8);
+				--gradientStopD: hsla(var(--h-warmer), 70%, 60%, .0);
+				--gradientStopE: hsla(var(--h-cooler), 90%, 95%, .8);
+				--gradientStopF: hsla(var(--h-cooler), 90%, 95%, .0);
 				--gradient-lightest: azure ;'
 				--background-lightest: skyblue ;
 				/*	Shadows. */
@@ -100,14 +103,26 @@
 				/*	Accents. */
 				--accent: aqua ;
 				--highlight: lime ;
-				/* Padlets */
-				--h: 207;
-				--lightest: hsl(var(--h) 90% 94%);
-				--lighter: hsl(var(--h) 60% 88%);
-				--light: hsl(var(--h) 60% 70%);
-				--medium: hsl(var(--h) 100% 50%);
-				--darker: hsl(var(--h) 100% 20%);
-				--darkest: hsl(var(--h) 100% 10%);
+			}
+			/* Padlets */
+			#resources-container {
+				--h: 207 ;
+				--lightest: hsl( var(--h) 90% 94% ) ;
+				--lighter: hsl( var(--h)  60% 88% ) ;
+				--light: hsl( var(--h)  60% 70% ) ;
+				--medium: hsl( var(--h)  100% 50% ) ;
+				--darker: hsl( var(--h)  50% 40% ) ;
+				--darkest: hsl( var(--h)  100% 10% ) ;
+			}
+			#strategies-container {
+				--h: 190 ;
+				--lightest: hsl( var(--h) 90% 94% ) ;
+				--lighter: hsl( var(--h)  60% 88% ) ;
+				--light: hsl( var(--h)  60% 70% ) ;
+				--medium: hsl( var(--h)  100% 50% ) ;
+				--medium: white ;
+				--darker: hsl( var(--h)  100% 20% ) ;
+				--darkest: hsl( var(--h)  100% 10% ) ;
 			}
 			*,
 			:before,
@@ -368,9 +383,7 @@
 						color: orange;
 						font-size: 2em ;
 					}
-				.alert-box span,
-				table a,
-				.lexia a {
+				.alert-box span {
 					font-weight: normal ;
 					color: black;
 					border-bottom: dotted 1px ;
@@ -389,18 +402,17 @@
 					position: relative ;
 					float: left ;
 					width: 220px ;
-					height: 100px ;
-					overflow: hidden ;
+					height: 275px ;
+					/* overflow: hidden ; */
 					background-color: var(--lexia-lighter) ;
 					padding: 1em ;
 					margin: 0 10px ;
-					/* Gradient. */
+					/* Gradient. *
 					background: -moz-linear-gradient(
 						0% 0% 45deg,
 						var(--lexia-lighter),
 						var(--lexia-darker)
 						) ;
-						/* For Mozilla, you can add parameters like "white 50%, black 100%". */
 					background: -webkit-gradient(
 						linear,
 						left bottom,
@@ -415,10 +427,11 @@
 					border-radius: 14px ;
 					transition: all .5s ease-in-out ;
 				}
+				/* Shadow
 				.lexia,
 				.lexia-selected {
 					box-shadow: var(--dull-aqua) 4px 6px 6px ;
-				}
+				} */
 				:is(.lexia, .lexia-selected) {
 					background-color: var(--darker);
 					border: var(--darker) solid 2px;
@@ -530,114 +543,13 @@
 						}
 				*/
 				/* Using JavaScript instead of hover to enable mobile selection. */
+				/* Overlaps everything else:
 				.lexia-selected {
 					height: 500px ;
-					/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*/
-					/* Without these compensations, relative positioning would rearrange the other tutorials: */
+					/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*
+					/* Without these compensations, relative positioning would rearrange the other tutorials: *
 					margin-bottom: -400px ;
 					z-index: 10 ;
-				}
-					div.title {
-						font-family: eurostile ;
-						font-family: century gothic, gill sans, eurostile ;
-						font-family: gill sans, eurostile ;
-						color: rgb( 40%, 30%, 0%) ; /* Leather. */
-			/*			font-weight: bold ;*/
-						font-size: 1.3em ;
-						height: 120px ;
-					}
-						div.title img {
-							width: 100px ;
-							float: right;
-							margin:0 0 .5em 1em;
-						}
-						div.title img.fills-box {
-							width: 70px ;
-							margin-right: 14px ;
-							-webkit-box-shadow: black 4px 3px 10px ;
-							-moz-box-shadow: black 4px 3px 10px ;
-							box-shadow: black 4px 3px 10px ;
-						}
-					div.level,
-					div.description,
-					div.tags,
-					div.prerequisites,
-					div.resources,
-					div.screenshot {
-						color: rgb( 40%, 30%, 0%) ; /* Leather. */
-					}
-					div.level {
-						float: right ;
-						width: 30% ;
-						text-align: center ;
-						padding: .3em ;
-						background-color: var(--medium-gold) ;
-						font-size: .7em ;
-					}
-					div.tags {
-						float: left ;
-						width: 60% ;
-						padding: .3em ;
-						border: white solid 1px ;
-						-webkit-border-radius: 6px ;
-						-moz-border-radius: 6px ;
-						border-radius: 6px ;
-						font-size: .8em ;
-					}
-					div.description {
-						clear: both ;
-						padding-top: 10px ;
-					}
-					div.prerequisites { /* This was called prerequisite singular in previous versions. */
-						padding-top: 10px ;
-					}
-					div.prerequisites::before {
-						content: "Prerequisites: " ;
-						font-weight: bold ;
-					}
-					div.resources {
-						margin-top: 0px ;
-						border: red solid 2px ;
-						display: none ; /* Added to prevent click misfire and simplify layout. */
-					}
-					div.resources::before {
-						content: "\00bb " ;
-						color: orangered ;
-						font-weight: bold ;
-						font-size: 1.5em ;
-					}
-					div.screenshot {
-						margin: 10px 0 -20px 0 ; /* WAS -20px ; */
-					}
-						div.screenshot img {
-							width: 180px ;
-							margin-top: 0 ; /* WAS 6px */
-							margin-left: 20px ;
-						}
-						div.screenshot::after {
-							content: "Click to play" ;
-							position: relative ;
-							z-index: 100 ;
-							top: -80px ;
-							left: 66px ;
-							color: white ;
-							font-weight: bold ;
-							background-color: var(--screenshot-background) ;
-							padding: .5em ;
-							font-size: .8em ;
-							/* UPGRADE: This link was not working (conflict with mobile?) so disabled.
-							display: none ;
-							*/
-						}
-				/********** Styles for tables. **********/
-				tr {
-					width: 200px ;
-					display: block ;
-				}
-				td {
-					position: relative ;
-					display: block ;
-					width: 100px ;
 				}
 				/*__________ FAQ. __________*/
 				#faq-container h1 {
