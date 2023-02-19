@@ -151,7 +151,7 @@
 					h2#rubric,
 					#search-container,
 					#dashboard-features,
-					#dashboard-strategies,
+					#strategies-container,
 					#resources-container {
 						margin: 20px ;
 					}
@@ -238,8 +238,7 @@
 						text-align: center ;
 						color: var(--light-silt) ;
 					}
-					#dashboard-features,
-					#dashboard-strategies {
+					#dashboard-features {
 						position: relative ;
 						clear: both ;
 						margin-top: 30px ;
@@ -660,7 +659,7 @@
 					}
 		</style>
 		<script id="sniff-browsers-script-2018">
-			/*________________________ Check browser compatibility.________________________*/
+			/*________________________ Check browser compatibility.________________________*/ 510;
 			// Check for browser compliance. If stale browser, go to old browser page.
 			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
 			if (
@@ -775,8 +774,9 @@
 			}
 		</script>
 		<link rel="stylesheet" href="css/fontawesome-5.11.2/css/all.css" />
-		<script id="tagged-lexia-script-v02.0">
-			// Version 2.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
+		<script id="multiple-tagged-lexia-script-v01.0">
+			// This is supposed to enable different tag clouds for different screens of the same HTML document.
+			// Based on tagged-lexia-script-v02.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
 			// Cheap replacement for ExpandingMenu.js and ThoughtMesh.js, but still requires thought-mesh.css.
 			// Should work with mobile by enabling lexia selection by click or hover.
 			// Based on output-test-script-v01.8.
@@ -785,16 +785,7 @@
 			// UPGRADE: 1) Pass in DOM reference to tag to avoid customizing each instance of this script. 2) Distinguish an item and a lexia in nomenclature, or merge them.
 			function harvestData() {
 				/*__________ Harvest data. __________*/
-				/********** Harvest table data. **********
-		tableManager = {} ; // Global object.
-		tableManager.dataFromRow = [] ; // I think 0 is labels.
-		tableManager.tagsFromRow = [] ; // I think 0 is labels.
-		// ThoughtMesh nomenclature.
-		tableManager.rows = document.getElementsByTagName( "tr" ) ;
-		itemManager = tableManager.rows ;
-		********** End harvest table data. **********/
 				// Harvest div data.
-				// DEPRECATED: var allDivs = document.getElementsByTagName( "div" ) ; // Not used elsewhere.
 				itemManager = []; // UPGRADE: make this a property of the thoughtmesh object.
 				itemManager.dataFromItem = [];
 				itemManager.tagsFromItem = [];
@@ -818,34 +809,6 @@
 				thoughtMesh.tagObjs = []; // Separate from selectedTags, because the latter needs to be defined before the former can be created so sizes etc. are normalized.
 				thoughtMesh.tagObjs.getObjectByTag = {}; // Returns cloud tag object without creating empty array elements, eg thoughtMesh.tagObjs.getObjectByTag["1973"].
 				thoughtMesh.selectedTags = []; // Defining this in advance prevents misfire when user clicks on scope radiobutton before clicking on a tag.
-				/********** Find table tags. **********
-		for ( var rowCounter=1; rowCounter < tableManager.rows.length; rowCounter++ ) { // Must start with 1 because first row has labels, not cells.
-			// Get row data.
-			tableManager.dataFromRow[ rowCounter ] = tableManager.rows[ rowCounter ].innerHTML ;
-			// Get tag data.
-			tableManager.tagsFromRow[ rowCounter ] = tableManager.rows[ rowCounter ].getElementsByTagName( "td" )[3].innerHTML.split(",") ;
-			thoughtMesh.tagsFromItemCounter[ rowCounter ] = [] ;
-			// Check whether this item has any tags.
-			if ( tableManager.tagsFromRow[ rowCounter ].length > 0) {
-				// Loop through all tags for this item (row, in this case).
-				for ( var newTagCounter=0; newTagCounter < tableManager.tagsFromRow[ rowCounter ].length; newTagCounter++ ) {
-					var thisTag = tableManager.tagsFromRow[ rowCounter ][ newTagCounter ] ;
-					 // _thisTag = thisTag; debug("_thisTag", 2) ;
-					thisTag = thisTag.trim() ; // Tag with whitespace removed.
-					 // _thoughtMesh_tagsFromItem__rowCounter__ = thoughtMesh.tagsFromItemCounter[ rowCounter ]; debug("_thoughtMesh_tagsFromItem__rowCounter__", 3) ;
-					thoughtMesh.tagsFromItemCounter[ rowCounter ][newTagCounter] = thisTag ; // Add trimmed tag back into tagsFromItemCounter array for future use.
-					if ( typeof thoughtMesh.itemsFromTag[ thisTag ] == "undefined") { // This tag has not yet been registered.
-						thoughtMesh.itemsFromTag[ thisTag ] = [] ;
-						thoughtMesh.uniqueTags.push( thisTag ) ;
-					}
-					thoughtMesh.itemsFromTag[ thisTag ].push( tableManager.rows[ rowCounter ] ) ; // I think you're going to loop through these later and turn their display on.
-				} ;
-			}
-			else {
-				// If there are no tags, leave it as the default (empty) array; it will report length = 0.
-			} ;
-		} ;
-		********** End find table tags. **********/
 				// Find lexia (div) tags.
 				// UPGRADE: Separate UI-specific parts somehow, if that's worth it?
 				for (
@@ -1456,7 +1419,7 @@
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-strategies"
+						"strategies-container"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"none";
@@ -1473,6 +1436,11 @@
 					document
 						.getElementById("browse-faq")
 						.classList.add("activated");
+					// Build lexias for this screen.
+					buildLexias(
+						"resources-container",
+						"1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw"
+					);
 					/*
 			if ( ! clustersPublished ) {				
 				// Build clusters.
@@ -1520,7 +1488,7 @@
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-strategies"
+						"strategies-container"
 					).style.display = "block";
 					document.getElementById("faq-container").style.display =
 						"none";
@@ -1608,7 +1576,7 @@
 						"dashboard-features"
 					).style.display = "block";
 					document.getElementById(
-						"dashboard-strategies"
+						"strategies-container"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"none";
@@ -1640,7 +1608,7 @@
 						"dashboard-features"
 					).style.display = "none";
 					document.getElementById(
-						"dashboard-strategies"
+						"strategies-container"
 					).style.display = "none";
 					document.getElementById("faq-container").style.display =
 						"block";
@@ -1666,12 +1634,13 @@
 				}
 			};
 		</script>
-		<script id="lexias-from-google-sheet-script-v01.1">
+		<script id="lexias-from-google-sheet-script-v01.2">
+			// Modified to allow multiple lexia containers in the same document.
 			const Lexia = function (argumentsObject) {
 				// Build lexia.
 				this.lexiaDiv = document.createElement("div");
 				document
-					.getElementById("lexia-container")
+					.getElementById(argumentsObject.containerId)
 					.appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
 				// Build headline.
@@ -1699,21 +1668,23 @@
 				this.tagsDiv.className = "tags";
 				this.tagsDiv.innerHTML = argumentsObject.tags;
 			};
-			const fetchSheet = async () => {
+			const fetchSheet = async (sheetId) => {
 				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
 				// Google Sheet URL for AI + education is https://docs.google.com/sheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit#gid=0
 				// So the object is at https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq
-				let sheetId = "1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw";
-				// let response = await fetch( `https://docs.google.com/sheets/d/${sheetId}/gviz/tq` ) ;
+				console.log(sheetId);
 				let response = await fetch(
-					`https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq`
+					`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq`
 				);
+				// let response = await fetch(
+				// 	`https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq`
+				// );
 				let sheetAsString = await response.text();
 				return sheetAsString;
 			};
-			const buildLexias = async () => {
+			const buildLexias = async (containerId, sheetId) => {
 				// sheetAsString = {"version":"0.6","reqId":"0","status":"ok","sig":"987100899","table":{"cols":[{"id":"A","label":"","type":"string"},{"id":"B","label":"","type":"string"},{"id":"C","label":"","type":"string"}],"rows":[{"c":[{"v":"Sort"},{"v":"Category"},{"v":"Tags"}]},{"c":[{"v":"Apples"},{"v":"Fruit"},{"v":"red"}]},{"c":[{"v":"Bananas"},{"v":"Fruit"},{"v":"yellow"}]},{"c":[{"v":"Cherries"},{"v":"Fruit"},{"v":"red, black"}]}],"parsedNumHeaders":0}};
-				let sheetObjectWithBreak = await fetchSheet();
+				let sheetObjectWithBreak = await fetchSheet(sheetId);
 				// UPGRADE: Removing the line break may not be necessary.
 				let lineBreak = sheetObjectWithBreak.search(/\n/);
 				sheetObject = sheetObjectWithBreak.substr(
@@ -1735,6 +1706,7 @@
 						let tagsPair = row["c"][3] || { v: "" };
 						let summaryPair = row["c"][4] || { v: "" };
 						let thisLexia = new Lexia({
+							containerId: containerId,
 							byline: bylinePair["v"],
 							headline: sourcePair["v"],
 							link: linkPair["v"],
@@ -1742,7 +1714,7 @@
 							summary: summaryPair["v"],
 						});
 						document
-							.querySelector("#lexia-container")
+							.querySelector(`#${containerId}`)
 							.appendChild(thisLexia.lexiaDiv);
 					}
 				});
@@ -1811,7 +1783,7 @@
 	</head>
 	<body
 		id="learnwithai-body"
-		onload="viewMode='features' ; buildLexias() ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()"
+		onload="viewMode='features' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()"
 	>
 		<div id="watermark"></div>
 		<div id="header">
@@ -1940,14 +1912,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="dashboard-strategies">
+		<div id="strategies-container"></div>
+		<!-- End strategies-container. -->
+		<div id="resources-container">
 			<div id="home-cloud"></div>
 			<div id="alert-box">
 				No matching content for that tag combination
 			</div>
-		</div>
-		<!-- End strategies-container. -->
-		<div id="resources-container">
 			<div id="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
