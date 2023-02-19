@@ -65,598 +65,598 @@
 			}
 		</style>
 		<style id="learnwithai-index-style">
-				/* Based on tutorials-index-style and padlet-style. */
-				:root {
-					--light-silt: hsla(60, 30%, 30%, 1) ; /* SWATCH Light silt. */
-					--medium-silt: hsla(60, 30%, 20%, 1) ; /* SWATCH Medium silt. */
-					--dark-silt: hsla(60, 30%, 10%, 1) ; /* SWATCH Dark silt. */
-					--dull-gold: hsla( 50, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
-					--medium-gold: hsla( 50, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
-					--other-gold: hsla( 50, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
-					--pale-gold: hsla( 60, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
-					/* Updated. */
-					--light-silt: hsla(200, 30%, 30%, 1) ; /* SWATCH Light silt. */
-					--medium-silt: hsla(200, 30%, 20%, 1) ; /* SWATCH Medium silt. */
-					--dark-silt: hsla(200, 30%, 10%, 1) ; /* SWATCH Dark silt. */
-					--dull-gold: hsla( 190, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
-					--medium-gold: hsla( 190, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
-					--other-gold: hsla( 190, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
-					--pale-gold: hsla( 200, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
-					--lexia-lighter: paleturquoise ;
-					--lexia-darker: teal;
-					--dull-aqua: lightseagreen ;
-			/*		Gradients */
-					--gradientStopA: hsla(190, 100%, 20%, .8);
-					--gradientStopB: hsla(190, 100%, 60%, .0);
-					--gradientStopC: hsla(190, 70%, 60%, .8);
-					--gradientStopD: hsla(190, 70%, 60%, .0);
-					--gradientStopE: hsla(205, 90%, 95%, .8);
-					--gradientStopF: hsla(205, 90%, 95%, .0);
-					--gradient-lightest: azure ;'
-					--background-lightest: skyblue ;
-			/*		Shadows. */
-					--cluster-shadow: hsla( 180, 5%, 5% );
-					--screenshot-background: hsla(0, 0%, 0%, .5) ;
-			/*		Accents. */
-					--accent: aqua ;
-					--highlight: lime ;
-					/* Padlets */
-					--h: 207;
-					--lightest: hsl(var(--h) 90% 94%);
-					--lighter: hsl(var(--h) 60% 88%);
-					--light: hsl(var(--h) 60% 70%);
-					--medium: hsl(var(--h) 100% 50%);
-					--darker: hsl(var(--h) 100% 20%);
-					--darkest: hsl(var(--h) 100% 10%);
+			/* Based on tutorials-index-style and padlet-style. */
+			:root {
+				--light-silt: hsla(60, 30%, 30%, 1) ; /* SWATCH Light silt. */
+				--medium-silt: hsla(60, 30%, 20%, 1) ; /* SWATCH Medium silt. */
+				--dark-silt: hsla(60, 30%, 10%, 1) ; /* SWATCH Dark silt. */
+				--dull-gold: hsla( 50, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
+				--medium-gold: hsla( 50, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
+				--other-gold: hsla( 50, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
+				--pale-gold: hsla( 60, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
+				/* Updated. */
+				--light-silt: hsla(200, 30%, 30%, 1) ; /* SWATCH Light silt. */
+				--medium-silt: hsla(200, 30%, 20%, 1) ; /* SWATCH Medium silt. */
+				--dark-silt: hsla(200, 30%, 10%, 1) ; /* SWATCH Dark silt. */
+				--dull-gold: hsla( 190, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
+				--medium-gold: hsla( 190, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
+				--other-gold: hsla( 190, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
+				--pale-gold: hsla( 200, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
+				--lexia-lighter: paleturquoise ;
+				--lexia-darker: teal;
+				--dull-aqua: lightseagreen ;
+				/*	Gradients */
+				--gradientStopA: hsla(190, 100%, 20%, .8);
+				--gradientStopB: hsla(190, 100%, 60%, .0);
+				--gradientStopC: hsla(190, 70%, 60%, .8);
+				--gradientStopD: hsla(190, 70%, 60%, .0);
+				--gradientStopE: hsla(205, 90%, 95%, .8);
+				--gradientStopF: hsla(205, 90%, 95%, .0);
+				--gradient-lightest: azure ;'
+				--background-lightest: skyblue ;
+				/*	Shadows. */
+				--cluster-shadow: hsla( 180, 5%, 5% );
+				--screenshot-background: hsla(0, 0%, 0%, .5) ;
+				/*	Accents. */
+				--accent: aqua ;
+				--highlight: lime ;
+				/* Padlets */
+				--h: 207;
+				--lightest: hsl(var(--h) 90% 94%);
+				--lighter: hsl(var(--h) 60% 88%);
+				--light: hsl(var(--h) 60% 70%);
+				--medium: hsl(var(--h) 100% 50%);
+				--darker: hsl(var(--h) 100% 20%);
+				--darkest: hsl(var(--h) 100% 10%);
+			}
+			*,
+			:before,
+			:after {
+				box-sizing: border-box;
+			}
+				html {
+					/* This helps keep gradient from repeating */
+					height: 100%;
 				}
-				*,
-				:before,
-				:after {
-					box-sizing: border-box;
+				body#learnwithai-body {
+					/* These keep gradient from repeating */
+					background-color: var(--background-lightest) ;
+					margin: 0 ; /* Need this to avoid spaces around watermark. */
 				}
-					html {
-						/* This helps keep gradient from repeating */
-						height: 100%;
+				#watermark {
+					/* Adding a background gradient here instead of the body
+					prevents the gradient from repeating somewhere down the page. */
+					position: absolute ;
+					width: 100% ;
+					height: 150%;
+					z-index: -1 ;
+					/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
+					background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%),
+								linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%),
+					            linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
+				}
+				.nmd-logo-phrase {
+					width: 200px;
+				}
+				.nmd-logo-phrase img {
+					width: 100%;
+				}
+				.alert-box span:hover,
+				a:hover {
+					border-bottom: solid 1px ;
+					cursor: pointer ;
+					text-decoration: none ;
+				}
+				/* Wider content. */
+				h2#rubric,
+				#search-container,
+				#dashboard-features,
+				#strategies-container,
+				#resources-container {
+					margin: 20px ;
+				}
+				/* Narrower content. */
+				#header {
+					position: relative ;
+					padding-top: 20px;
+					height: 100px ;
+			/*		border: green solid 2px ;*/
+				}
+				#header,
+				#dashboard-features,
+				#faq-container,
+				.footer {
+					width: 80vw ;
+					margin-left: auto ;
+					margin-right: auto ;
+				}
+				/*	Footer ensures bottom lexias have room to open.*/
+				.footer {
+					display: flex ;
+					align-items: flex-start ;
+					justify-content: center ;
+					height: 400px ;
+					width: 90vw ;
+					padding-top: 20px ;
+				}
+					.footer > * {
+						font-size: 1.2vw;
+						height: 70px ;
+						z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
+			/*			border: chocolate solid 2px ; */
+						padding: 10px;
 					}
-					body#learnwithai-body {
-						/* These keep gradient from repeating */
-						background-color: var(--background-lightest) ;
-						margin: 0 ; /* Need this to avoid spaces around watermark. */
-					}
-					#watermark {
-						/* Adding a background gradient here instead of the body
-						prevents the gradient from repeating somewhere down the page. */
-						position: absolute ;
-						width: 100% ;
-						height: 150%;
-						z-index: -1 ;
-						/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
-						background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%),
-									linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%),
-						            linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
-					}
-					.nmd-logo-phrase {
-						width: 200px;
-					}
-					.nmd-logo-phrase img {
-						width: 100%;
-					}
-					.alert-box span:hover,
-					a:hover {
-						border-bottom: solid 1px ;
-						cursor: pointer ;
-						text-decoration: none ;
-					}
-					/* Wider content. */
-					h2#rubric,
-					#search-container,
-					#dashboard-features,
-					#strategies-container,
-					#resources-container {
-						margin: 20px ;
-					}
-					/* Narrower content. */
-					#header {
-						position: relative ;
-						padding-top: 20px;
-						height: 100px ;
-				/*		border: green solid 2px ;*/
-					}
-					#header,
-					#dashboard-features,
-					#faq-container,
-					.footer {
-						width: 80vw ;
-						margin-left: auto ;
-						margin-right: auto ;
-					}
-					/*	Footer ensures bottom lexias have room to open.*/
-					.footer {
-						display: flex ;
-						align-items: flex-start ;
-						justify-content: center ;
-						height: 400px ;
-						width: 90vw ;
-						padding-top: 20px ;
-					}
-						.footer > * {
-							font-size: 1.2vw;
-							height: 70px ;
-							z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
-				/*			border: chocolate solid 2px ; */
-							padding: 10px;
+						#credit {
+							display: flex ;
 						}
-							#credit {
-								display: flex ;
+							#credit p {
+								align-self: center ;
 							}
-								#credit p {
-									align-self: center ;
-								}
-					#header {
-						display: flex ;
-						align-items: center ;
-						justify-content: space-between ;
-					}
-						#crest {
-				/*				position: absolute ;*/
-								width: 14vw ;
-								opacity: .6 ;
-							}
-							#crest img {
-								width: 100% ;
-							}
-						h2#rubric {
-				/*			position: absolute ;*/
-							width: 60vw ;
-							text-align: center ;
-							font-size: 4.5vw ;
-							color: var(--lexia-lighter) ;
-							font-family: Tamil MN ;
-				/*			border: purple solid 2px ; */
+				#header {
+					display: flex ;
+					align-items: center ;
+					justify-content: space-between ;
+				}
+					#crest {
+			/*				position: absolute ;*/
+							width: 14vw ;
+							opacity: .6 ;
 						}
-						#search-container {
-				/*			position: absolute;*/
-							width: 16vw ;
-							margin-right: 0 ;
-							padding-right: 0 ;
-				/*			border: chartreuse solid 2px ; */
+						#crest img {
+							width: 100% ;
 						}
-							#searchBox {
-								width: 100% ;
-								padding-right: 0 ;
-								margin-right: 0 ;
-				/*				border: orchid solid 2px ; */
-							}
-					#browse-options {
-						position: relative ;
-						clear: both ;
-						font-weight: bold ;
-						font-size: 1.85vw ;
-						width: 100% ;
-						height: 20px ;
-						margin: 20px 0 40px 0 ;
+					h2#rubric {
+			/*			position: absolute ;*/
+						width: 60vw ;
 						text-align: center ;
-						color: var(--light-silt) ;
+						font-size: 4.5vw ;
+						color: var(--lexia-lighter) ;
+						font-family: Tamil MN ;
+			/*			border: purple solid 2px ; */
 					}
-					#dashboard-features {
+					#search-container {
+			/*			position: absolute;*/
+						width: 16vw ;
+						margin-right: 0 ;
+						padding-right: 0 ;
+			/*			border: chartreuse solid 2px ; */
+					}
+						#searchBox {
+							width: 100% ;
+							padding-right: 0 ;
+							margin-right: 0 ;
+			/*				border: orchid solid 2px ; */
+						}
+				#browse-options {
+					position: relative ;
+					clear: both ;
+					font-weight: bold ;
+					font-size: 1.85vw ;
+					width: 100% ;
+					height: 20px ;
+					margin: 20px 0 40px 0 ;
+					text-align: center ;
+					color: var(--light-silt) ;
+				}
+				#dashboard-features {
+					position: relative ;
+					clear: both ;
+					margin-top: 30px ;
+				}
+					#explanation {
 						position: relative ;
 						clear: both ;
-						margin-top: 30px ;
+						font-family: Gill Sans, Eurostile, verdana ;
+						font-size: 1.4em;
+						margin: 0 ;
+						padding: 1% ;
+						color: var(--medium-silt) ; /* SWATCH Medium silt. */
+			/*			border: red solid 2px ; */
 					}
-						#explanation {
-							position: relative ;
-							clear: both ;
-							font-family: Gill Sans, Eurostile, verdana ;
-							font-size: 1.4em;
-							margin: 0 ;
-							padding: 1% ;
-							color: var(--medium-silt) ; /* SWATCH Medium silt. */
-				/*			border: red solid 2px ; */
+						#explanation img {
+							float: left;
+							margin: 0 .5em .2em 0;
+							width: 80px;
 						}
-							#explanation img {
-								float: left;
-								margin: 0 .5em .2em 0;
-								width: 80px;
+						.activated,
+						#explanation a,
+						.footer a {
+							color: var(--accent) ;
+							text-shadow: var(--dark-silt)  0 0 .3em ; /* SWATCH Dark silt. */
+			/*				border-bottom: dotted .2em ;*/
+						}
+						.activated {
+							font-weight: bold ;
+						}
+						#explanation a {
+							font-weight: normal ;
+						}
+						.activated:hover,
+						#explanation a:hover {
+			/*				border-bottom: solid ;*/
+							text-shadow: var(--highlight)  0 0 .3em ;
+							cursor: pointer ;
+						}
+							#hero {
+								position: relative ;
+								margin: 10px auto 80px auto ;
+								width: 40% ;
+								height: 50px ;
+								text-align: center ;
+			/*					border: orange solid 2px ; */
 							}
-							.activated,
-							#explanation a,
-							.footer a {
-								color: var(--accent) ;
-								text-shadow: var(--dark-silt)  0 0 .3em ; /* SWATCH Dark silt. */
-				/*				border-bottom: dotted .2em ;*/
-							}
-							.activated {
-								font-weight: bold ;
-							}
-							#explanation a {
-								font-weight: normal ;
-							}
-							.activated:hover,
-							#explanation a:hover {
-				/*				border-bottom: solid ;*/
-								text-shadow: var(--highlight)  0 0 .3em ;
-								cursor: pointer ;
-							}
-								#hero {
-									position: relative ;
-									margin: 10px auto 80px auto ;
-									width: 40% ;
-									height: 50px ;
-									text-align: center ;
-				/*					border: orange solid 2px ; */
+								#hero img {
+									width: 100% ;
 								}
-									#hero img {
-										width: 100% ;
-									}
-						#features {
-							position: relative ;
-							clear: both ;
-							display: grid;
-							grid-template-columns: repeat(3, 1fr);
-					/*		grid-auto-rows: minmax(150px, auto);*/
-							grid-gap: 1em;
+					#features {
+						position: relative ;
+						clear: both ;
+						display: grid;
+						grid-template-columns: repeat(3, 1fr);
+				/*		grid-auto-rows: minmax(150px, auto);*/
+						grid-gap: 1em;
+					}
+						.feature {
+							box-sizing: border-box ;
+							display: flex;
+							flex-direction: column ;
+							align-items: center;
+							justify-content: flex-start;
+							padding: 1em ;
 						}
-							.feature {
-								box-sizing: border-box ;
-								display: flex;
-								flex-direction: column ;
-								align-items: center;
-								justify-content: flex-start;
-								padding: 1em ;
-							}
-							.feature:nth-child( 3n ) {
-								background-color: var(--dull-gold) ; /* SWATCH Dull gold.*/
-							}
-							.feature:nth-child( 3n + 1 ) {
-								background-color: var(--other-gold) ; /* SWATCH Other gold.*/
-							}
-							.feature:nth-child( 3n + 2 ) {
-								background-color: var(--lexia-lighter) ;
-							}
-							.feature:nth-child( 3n ) i {
-								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-							}
-							.feature:nth-child( 3n + 1 ) i {
-								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-								background-color: var(--other-gold) ; /* SWATCH Other gold.*/
-							}
-							.feature:nth-child( 3n + 2 ) i {
-								color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-								background-color: var(--lexia-lighter) ;
-							}
-							i {
+						.feature:nth-child( 3n ) {
+							background-color: var(--dull-gold) ; /* SWATCH Dull gold.*/
+						}
+						.feature:nth-child( 3n + 1 ) {
+							background-color: var(--other-gold) ; /* SWATCH Other gold.*/
+						}
+						.feature:nth-child( 3n + 2 ) {
+							background-color: var(--lexia-lighter) ;
+						}
+						.feature:nth-child( 3n ) i {
+							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+						}
+						.feature:nth-child( 3n + 1 ) i {
+							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+							background-color: var(--other-gold) ; /* SWATCH Other gold.*/
+						}
+						.feature:nth-child( 3n + 2 ) i {
+							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
+							background-color: var(--lexia-lighter) ;
+						}
+						i {
+							color: var(--dark-silt) ; /* SWATCH Dark silt. */
+							text-shadow: var(--medium-gold) 0 0 .3em ; /* SWATCH Medium gold.*/
+							font-size: 1.2em ;
+						}
+							#features h4 {
+								margin-bottom: 0 ;
+								/* h4 has opacity: .5 at the global level. */
 								color: var(--dark-silt) ; /* SWATCH Dark silt. */
-								text-shadow: var(--medium-gold) 0 0 .3em ; /* SWATCH Medium gold.*/
 								font-size: 1.2em ;
 							}
-								#features h4 {
-									margin-bottom: 0 ;
-									/* h4 has opacity: .5 at the global level. */
-									color: var(--dark-silt) ; /* SWATCH Dark silt. */
-									font-size: 1.2em ;
-								}
-								#features p {
-									font-size: 1.1em ;
-								}
-								#features i {
-									font-size: 2em ;
-									padding-right: .2em ;
-								}
-						.home-cloud {
-							position: relative ;
-							float: left ;
-							margin: 0 auto ;
-							width: 90%;
-							background-color: var(--lexia-lighter) ;
-							position:relative;
-							border: var(--lexia-lighter) solid 4px ;
-							padding: 1% ;
-							border-radius: 10px ;
-							/* Styles from padlet, seem to be working well together. 🤷‍♂️ */
-							clear: both;
-							border: var(--light) solid 2px;
-							padding: 1em;
-							border-radius: 10px;
-						}
-						.alert-box {
-							position:relative;
-							clear: both;
-							padding: 1em;
-							-webkit-border-radius: 10px ;
-							-moz-border-radius: 10px ;
-							border-radius: 10px ;
-							color: orange;
-							font-size: 2em ;
-						}
-					.alert-box span,
-					table a,
-					.lexia a {
-						font-weight: normal ;
-						color: black;
-						border-bottom: dotted 1px ;
-					}
-					.inactive {
-						display: none ;
-					}
-					.lexia-container {
-						display: grid;
-						grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-						gap: 1em;
-					}
-					.lexia,
-					.lexia-selected,
-					.lexia-clustered {
+							#features p {
+								font-size: 1.1em ;
+							}
+							#features i {
+								font-size: 2em ;
+								padding-right: .2em ;
+							}
+					.home-cloud {
 						position: relative ;
 						float: left ;
-						width: 220px ;
-						height: 100px ;
-						overflow: hidden ;
+						margin: 0 auto ;
+						width: 90%;
 						background-color: var(--lexia-lighter) ;
-						padding: 1em ;
-						margin: 0 10px ;
-						/* Gradient. */
-						background: -moz-linear-gradient(
-							0% 0% 45deg,
-							var(--lexia-lighter),
-							var(--lexia-darker)
-							) ;
-							/* For Mozilla, you can add parameters like "white 50%, black 100%". */
-						background: -webkit-gradient(
-							linear,
-							left bottom,
-							right top,
-							from( var(--lexia-lighter) ),
-							to( var(--lexia-darker) )
-							) ;
-							/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
-						/* Border: mostly for IE8. */
-						border-bottom: var(--dull-aqua) solid 1px ;
-						/* Round corners. */
-						border-radius: 14px ;
-						transition: all .5s ease-in-out ;
-					}
-					.lexia,
-					.lexia-selected {
-						box-shadow: var(--dull-aqua) 4px 6px 6px ;
-					}
-					:is(.lexia, .lexia-selected) {
-						background-color: var(--darker);
-						border: var(--darker) solid 2px;
-						border-radius: 1em;
+						position:relative;
+						border: var(--lexia-lighter) solid 4px ;
+						padding: 1% ;
+						border-radius: 10px ;
+						/* Styles from padlet, seem to be working well together. 🤷‍♂️ */
+						clear: both;
+						border: var(--light) solid 2px;
 						padding: 1em;
-						transition: all 0.2s ease-in-out;
+						border-radius: 10px;
 					}
-					:is(.lexia, .lexia-selected) :is(a, h2) {
-						background-color: transparent;
-						text-decoration: none;
-						color: var(--lightest);
-						opacity: 1 !important ;
+					.alert-box {
+						position:relative;
+						clear: both;
+						padding: 1em;
+						-webkit-border-radius: 10px ;
+						-moz-border-radius: 10px ;
+						border-radius: 10px ;
+						color: orange;
+						font-size: 2em ;
 					}
-					:is(.lexia, .lexia-selected) .summary,
-					.tags {
-						color: var(--light);
+				.alert-box span,
+				table a,
+				.lexia a {
+					font-weight: normal ;
+					color: black;
+					border-bottom: dotted 1px ;
+				}
+				.inactive {
+					display: none ;
+				}
+				.lexia-container {
+					display: grid;
+					grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+					gap: 1em;
+				}
+				.lexia,
+				.lexia-selected,
+				.lexia-clustered {
+					position: relative ;
+					float: left ;
+					width: 220px ;
+					height: 100px ;
+					overflow: hidden ;
+					background-color: var(--lexia-lighter) ;
+					padding: 1em ;
+					margin: 0 10px ;
+					/* Gradient. */
+					background: -moz-linear-gradient(
+						0% 0% 45deg,
+						var(--lexia-lighter),
+						var(--lexia-darker)
+						) ;
+						/* For Mozilla, you can add parameters like "white 50%, black 100%". */
+					background: -webkit-gradient(
+						linear,
+						left bottom,
+						right top,
+						from( var(--lexia-lighter) ),
+						to( var(--lexia-darker) )
+						) ;
+						/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
+					/* Border: mostly for IE8. */
+					border-bottom: var(--dull-aqua) solid 1px ;
+					/* Round corners. */
+					border-radius: 14px ;
+					transition: all .5s ease-in-out ;
+				}
+				.lexia,
+				.lexia-selected {
+					box-shadow: var(--dull-aqua) 4px 6px 6px ;
+				}
+				:is(.lexia, .lexia-selected) {
+					background-color: var(--darker);
+					border: var(--darker) solid 2px;
+					border-radius: 1em;
+					padding: 1em;
+					transition: all 0.2s ease-in-out;
+				}
+				:is(.lexia, .lexia-selected) :is(a, h2) {
+					background-color: transparent;
+					text-decoration: none;
+					color: var(--lightest);
+					opacity: 1 !important ;
+				}
+				:is(.lexia, .lexia-selected) .summary,
+				.tags {
+					color: var(--light);
+				}
+				:is(.lexia, .lexia-selected) .summary {
+					/*  "max-width: 30ch" only works for one line.
+					Someday line-clamp will suffice. In the meantime,
+					all modern browsers accept the following kludge. */
+					-webkit-line-clamp: 3;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
+				}
+				:is(.lexia, .lexia-selected) .byline {
+					color: var(--medium);
+				}
+				:is(.lexia, .lexia-selected):hover {
+					background-color: var(--medium);
+					border: var(--darkest) solid 2px;
+				}
+				:is(.lexia, .lexia-selected) :is(h2, a):hover {
+					color: white;
+					cursor: pointer;
+					text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
+				}
+				:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
+					color: var(--lightest);
+				}
+				/* UNUSED: __________ Clusters. __________*
+				.cluster{
+					/* Dimensions set in JavaScript. *
+					position: relative ;
+					float: left ;
+					margin: 10px ;
+					border-radius: 50% ;
+				}
+				.cluster:hover {
+					cursor: pointer ;
+				}
+					.cluster-title {
+						position: absolute ;
+						z-index: 3 ;
+						margin-top: 120px ;
+						text-shadow:
+							var(--cluster-shadow) 0 0 .3em,
+							var(--cluster-shadow) 0 0 .7em,
+							var(--cluster-shadow) 0 0 1em
+							;
+						text-align: center ;
+						width: 100% ;
+						color: var(--accent) ;
+						font-size: 2em ;
 					}
-					:is(.lexia, .lexia-selected) .summary {
-						/*  "max-width: 30ch" only works for one line.
-						Someday line-clamp will suffice. In the meantime,
-						all modern browsers accept the following kludge. */
-						-webkit-line-clamp: 3;
-						display: -webkit-box;
-						-webkit-box-orient: vertical;
-						overflow: hidden;
-					}
-					:is(.lexia, .lexia-selected) .byline {
-						color: var(--medium);
-					}
-					:is(.lexia, .lexia-selected):hover {
-						background-color: var(--medium);
-						border: var(--darkest) solid 2px;
-					}
-					:is(.lexia, .lexia-selected) :is(h2, a):hover {
-						color: white;
-						cursor: pointer;
-						text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
-					}
-					:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
-						color: var(--lightest);
-					}
-					/* UNUSED: __________ Clusters. __________*
-					.cluster{
-						/* Dimensions set in JavaScript. *
+					.cluster-description {
 						position: relative ;
-						float: left ;
-						margin: 10px ;
-						border-radius: 50% ;
+						width: 60% ;
+						margin: 2% auto ;
+						text-align: center ;
+						color: khaki ;
+						font-size: .45em ;
+						opacity: 0 ;
+						transition: all .4s ease-in-out ;
 					}
-					.cluster:hover {
-						cursor: pointer ;
-					}
-						.cluster-title {
-							position: absolute ;
-							z-index: 3 ;
-							margin-top: 120px ;
-							text-shadow:
-								var(--cluster-shadow) 0 0 .3em,
-								var(--cluster-shadow) 0 0 .7em,
-								var(--cluster-shadow) 0 0 1em
-								;
-							text-align: center ;
-							width: 100% ;
-							color: var(--accent) ;
-							font-size: 2em ;
-						}
-						.cluster-description {
-							position: relative ;
-							width: 60% ;
-							margin: 2% auto ;
-							text-align: center ;
-							color: khaki ;
-							font-size: .45em ;
-							opacity: 0 ;
-							transition: all .4s ease-in-out ;
-						}
-						.lexia-clustered {
-							position: absolute ;
-							width: 100px ;
-							height: 100px ;
-							border-radius: 50% ;
-							background: none ;
-							margin: 0 ;
-							padding: 0 ;
-							overflow: hidden ;
-							box-shadow: var(--cluster-shadow) 2px 2px 2px ;
-							transition: all .7s ease-in-out ;
-							filter: saturate( 70% ) ;
-						}
-							.lexia-clustered img {
-								/* width set in badgeShape class below. *
-								float: none ;
-								position: absolute ;
-							}
-							.disk {
-								width: 130px ;
-								top: -15px ;
-								left: -15px ;
-							}
-							.corona {
-								width: 140px ;
-								top: -15px ;
-								left: -15px ;
-							}
-							.ribbons {
-								width: 190px ;
-								top: -20px ;
-								left: -45px ;
-							}
-					*/
-					/* Using JavaScript instead of hover to enable mobile selection. */
-					.lexia-selected {
-						height: 500px ;
-						/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*/
-						/* Without these compensations, relative positioning would rearrange the other tutorials: */
-						margin-bottom: -400px ;
-						z-index: 10 ;
-					}
-						div.title {
-							font-family: eurostile ;
-							font-family: century gothic, gill sans, eurostile ;
-							font-family: gill sans, eurostile ;
-							color: rgb( 40%, 30%, 0%) ; /* Leather. */
-				/*			font-weight: bold ;*/
-							font-size: 1.3em ;
-							height: 120px ;
-						}
-							div.title img {
-								width: 100px ;
-								float: right;
-								margin:0 0 .5em 1em;
-							}
-							div.title img.fills-box {
-								width: 70px ;
-								margin-right: 14px ;
-								-webkit-box-shadow: black 4px 3px 10px ;
-								-moz-box-shadow: black 4px 3px 10px ;
-								box-shadow: black 4px 3px 10px ;
-							}
-						div.level,
-						div.description,
-						div.tags,
-						div.prerequisites,
-						div.resources,
-						div.screenshot {
-							color: rgb( 40%, 30%, 0%) ; /* Leather. */
-						}
-						div.level {
-							float: right ;
-							width: 30% ;
-							text-align: center ;
-							padding: .3em ;
-							background-color: var(--medium-gold) ;
-							font-size: .7em ;
-						}
-						div.tags {
-							float: left ;
-							width: 60% ;
-							padding: .3em ;
-							border: white solid 1px ;
-							-webkit-border-radius: 6px ;
-							-moz-border-radius: 6px ;
-							border-radius: 6px ;
-							font-size: .8em ;
-						}
-						div.description {
-							clear: both ;
-							padding-top: 10px ;
-						}
-						div.prerequisites { /* This was called prerequisite singular in previous versions. */
-							padding-top: 10px ;
-						}
-						div.prerequisites::before {
-							content: "Prerequisites: " ;
-							font-weight: bold ;
-						}
-						div.resources {
-							margin-top: 0px ;
-							border: red solid 2px ;
-							display: none ; /* Added to prevent click misfire and simplify layout. */
-						}
-						div.resources::before {
-							content: "\00bb " ;
-							color: orangered ;
-							font-weight: bold ;
-							font-size: 1.5em ;
-						}
-						div.screenshot {
-							margin: 10px 0 -20px 0 ; /* WAS -20px ; */
-						}
-							div.screenshot img {
-								width: 180px ;
-								margin-top: 0 ; /* WAS 6px */
-								margin-left: 20px ;
-							}
-							div.screenshot::after {
-								content: "Click to play" ;
-								position: relative ;
-								z-index: 100 ;
-								top: -80px ;
-								left: 66px ;
-								color: white ;
-								font-weight: bold ;
-								background-color: var(--screenshot-background) ;
-								padding: .5em ;
-								font-size: .8em ;
-								/* UPGRADE: This link was not working (conflict with mobile?) so disabled.
-								display: none ;
-								*/
-							}
-					/********** Styles for tables. **********/
-					tr {
-						width: 200px ;
-						display: block ;
-					}
-					td {
-						position: relative ;
-						display: block ;
+					.lexia-clustered {
+						position: absolute ;
 						width: 100px ;
+						height: 100px ;
+						border-radius: 50% ;
+						background: none ;
+						margin: 0 ;
+						padding: 0 ;
+						overflow: hidden ;
+						box-shadow: var(--cluster-shadow) 2px 2px 2px ;
+						transition: all .7s ease-in-out ;
+						filter: saturate( 70% ) ;
 					}
-					/*__________ FAQ. __________*/
-					#faq-container h1 {
-						color: var(--lexia-lighter);
-						opacity: .7;
+						.lexia-clustered img {
+							/* width set in badgeShape class below. *
+							float: none ;
+							position: absolute ;
+						}
+						.disk {
+							width: 130px ;
+							top: -15px ;
+							left: -15px ;
+						}
+						.corona {
+							width: 140px ;
+							top: -15px ;
+							left: -15px ;
+						}
+						.ribbons {
+							width: 190px ;
+							top: -20px ;
+							left: -45px ;
+						}
+				*/
+				/* Using JavaScript instead of hover to enable mobile selection. */
+				.lexia-selected {
+					height: 500px ;
+					/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*/
+					/* Without these compensations, relative positioning would rearrange the other tutorials: */
+					margin-bottom: -400px ;
+					z-index: 10 ;
+				}
+					div.title {
+						font-family: eurostile ;
+						font-family: century gothic, gill sans, eurostile ;
+						font-family: gill sans, eurostile ;
+						color: rgb( 40%, 30%, 0%) ; /* Leather. */
+			/*			font-weight: bold ;*/
+						font-size: 1.3em ;
+						height: 120px ;
 					}
-					#faq-container h2 {
-						color: var(--dull-aqua);
-						opacity: 1 !important ;
+						div.title img {
+							width: 100px ;
+							float: right;
+							margin:0 0 .5em 1em;
+						}
+						div.title img.fills-box {
+							width: 70px ;
+							margin-right: 14px ;
+							-webkit-box-shadow: black 4px 3px 10px ;
+							-moz-box-shadow: black 4px 3px 10px ;
+							box-shadow: black 4px 3px 10px ;
+						}
+					div.level,
+					div.description,
+					div.tags,
+					div.prerequisites,
+					div.resources,
+					div.screenshot {
+						color: rgb( 40%, 30%, 0%) ; /* Leather. */
 					}
-					#faq-container p {
-						color: var(--dark-silt) ; /* SWATCH Dark silt. */
+					div.level {
+						float: right ;
+						width: 30% ;
+						text-align: center ;
+						padding: .3em ;
+						background-color: var(--medium-gold) ;
+						font-size: .7em ;
 					}
-					#faq-container h3 {
-						color: var(--medium-silt) ; /* SWATCH Medium silt. */
+					div.tags {
+						float: left ;
+						width: 60% ;
+						padding: .3em ;
+						border: white solid 1px ;
+						-webkit-border-radius: 6px ;
+						-moz-border-radius: 6px ;
+						border-radius: 6px ;
+						font-size: .8em ;
 					}
-					#faq-container i.fas {
-						color: var(--accent) !important ;
+					div.description {
+						clear: both ;
+						padding-top: 10px ;
 					}
+					div.prerequisites { /* This was called prerequisite singular in previous versions. */
+						padding-top: 10px ;
+					}
+					div.prerequisites::before {
+						content: "Prerequisites: " ;
+						font-weight: bold ;
+					}
+					div.resources {
+						margin-top: 0px ;
+						border: red solid 2px ;
+						display: none ; /* Added to prevent click misfire and simplify layout. */
+					}
+					div.resources::before {
+						content: "\00bb " ;
+						color: orangered ;
+						font-weight: bold ;
+						font-size: 1.5em ;
+					}
+					div.screenshot {
+						margin: 10px 0 -20px 0 ; /* WAS -20px ; */
+					}
+						div.screenshot img {
+							width: 180px ;
+							margin-top: 0 ; /* WAS 6px */
+							margin-left: 20px ;
+						}
+						div.screenshot::after {
+							content: "Click to play" ;
+							position: relative ;
+							z-index: 100 ;
+							top: -80px ;
+							left: 66px ;
+							color: white ;
+							font-weight: bold ;
+							background-color: var(--screenshot-background) ;
+							padding: .5em ;
+							font-size: .8em ;
+							/* UPGRADE: This link was not working (conflict with mobile?) so disabled.
+							display: none ;
+							*/
+						}
+				/********** Styles for tables. **********/
+				tr {
+					width: 200px ;
+					display: block ;
+				}
+				td {
+					position: relative ;
+					display: block ;
+					width: 100px ;
+				}
+				/*__________ FAQ. __________*/
+				#faq-container h1 {
+					color: var(--lexia-lighter);
+					opacity: .7;
+				}
+				#faq-container h2 {
+					color: var(--dull-aqua);
+					opacity: 1 !important ;
+				}
+				#faq-container p {
+					color: var(--dark-silt) ; /* SWATCH Dark silt. */
+				}
+				#faq-container h3 {
+					color: var(--medium-silt) ; /* SWATCH Medium silt. */
+				}
+				#faq-container i.fas {
+					color: var(--accent) !important ;
+				}
 		</style>
 		<script id="sniff-browsers-script-2018">
 			/*________________________ Check browser compatibility.________________________*/ 510;
@@ -1514,6 +1514,8 @@
 					document
 						.getElementById("browse-faq")
 						.classList.add("activated");
+					// Build lexias for this screen.
+					buildLexias("1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk");
 					/*
 			if ( ! individualPublished ) {
 				// Build individual badges.
@@ -1698,6 +1700,7 @@
 			};
 			const buildLexias = async (sheetId) => {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
+				// Nevertheless this must be customized for each sheet.
 				// sheetAsString = {"version":"0.6","reqId":"0","status":"ok","sig":"987100899","table":{"cols":[{"id":"A","label":"","type":"string"},{"id":"B","label":"","type":"string"},{"id":"C","label":"","type":"string"}],"rows":[{"c":[{"v":"Sort"},{"v":"Category"},{"v":"Tags"}]},{"c":[{"v":"Apples"},{"v":"Fruit"},{"v":"red"}]},{"c":[{"v":"Bananas"},{"v":"Fruit"},{"v":"yellow"}]},{"c":[{"v":"Cherries"},{"v":"Fruit"},{"v":"red, black"}]}],"parsedNumHeaders":0}};
 				let sheetObjectWithBreak = await fetchSheet(sheetId);
 				// UPGRADE: Removing the line break may not be necessary.
@@ -1711,29 +1714,57 @@
 				rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
 				rowsAsArray = JSON.parse(rowsAsString);
 				rowsAsArray.forEach((row) => {
-					if (row["c"][0]["v"] === "Byline/sort") {
-						// Skip header row.
+					if (screenContainerId === "resources-container") {
+						// UPGRADE: Feels kludgy.
+						if (row["c"][0]["v"] === "Byline/sort") {
+							// Skip header row.
+						} else {
+							// Will fail if cell empty.
+							let bylinePair = row["c"][0] || { v: "" };
+							let sourcePair = row["c"][1] || { v: "" };
+							let linkPair = row["c"][2] || { v: "" };
+							let tagsPair = row["c"][3] || { v: "" };
+							let summaryPair = row["c"][4] || { v: "" };
+							let thisLexia = new Lexia({
+								byline: bylinePair["v"],
+								headline: sourcePair["v"],
+								link: linkPair["v"],
+								tags: tagsPair["v"],
+								summary: summaryPair["v"],
+							});
+							document
+								.querySelector(`#${screenContainerId}`)
+								.appendChild(thisLexia.lexiaDiv);
+						}
+					} else if (screenContainerId === "strategies-container") {
+						if (row["c"][0]["v"] === "Strategy") {
+							// Skip header row.
+						} else {
+							// Will fail if cell empty.
+							let strategyPair = row["c"][0] || { v: "" };
+							let descriptionPair = row["c"][1] || { v: "" };
+							let tagsPair = row["c"][2] || { v: "" };
+							let deleteMe = row["c"][3] || { v: "" };
+							let summaryPair = row["c"][4] || { v: "" };
+							let thisLexia = new Lexia({
+								byline: descriptionPair["v"],
+								headline: strategyPair["v"],
+								link: "[no link defined]",
+								tags: tagsPair["v"],
+								summary: summaryPair["v"],
+							});
+							document
+								.querySelector(`#${screenContainerId}`)
+								.appendChild(thisLexia.lexiaDiv);
+						}
 					} else {
-						// Will fail if cell empty.
-						let bylinePair = row["c"][0] || { v: "" };
-						let sourcePair = row["c"][1] || { v: "" };
-						let linkPair = row["c"][2] || { v: "" };
-						let tagsPair = row["c"][3] || { v: "" };
-						let summaryPair = row["c"][4] || { v: "" };
-						let thisLexia = new Lexia({
-							byline: bylinePair["v"],
-							headline: sourcePair["v"],
-							link: linkPair["v"],
-							tags: tagsPair["v"],
-							summary: summaryPair["v"],
-						});
-						document
-							.querySelector(`#${screenContainerId}`)
-							.appendChild(thisLexia.lexiaDiv);
+						console.warn(
+							"buildLexias called for an unrecognized screen"
+						);
 					}
 				});
-				harvestData("resources-container");
-				registerTags("resources-container");
+				harvestData();
+				registerTags();
 				enableLexiaSelection();
 			};
 		</script>
@@ -1926,7 +1957,13 @@
 				</div>
 			</div>
 		</div>
-		<div id="strategies-container"></div>
+		<div id="strategies-container">
+			<div class="home-cloud"></div>
+			<div class="alert-box">
+				No matching content for that tag combination
+			</div>
+			<div class="lexia-container"></div>
+		</div>
 		<!-- End strategies-container. -->
 		<div id="resources-container">
 			<div class="home-cloud"></div>
