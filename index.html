@@ -170,6 +170,12 @@
 				#resources-container {
 					margin: 20px ;
 				}
+				#strategies-container,
+				#resources-container {
+					display: grid ;
+					grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ) ;
+					gap: 1em ;
+				}
 				/* Narrower content. */
 				#header {
 					position: relative ;
@@ -403,10 +409,11 @@
 					float: left ;
 					width: 220px ;
 					height: 275px ;
+					margin: .5em ;
 					/* overflow: hidden ; */
 					background-color: var(--lexia-lighter) ;
 					padding: 1em ;
-					margin: 0 10px ;
+					/* margin: 0 10px ; */
 					/* Gradient. *
 					background: -moz-linear-gradient(
 						0% 0% 45deg,
@@ -444,6 +451,14 @@
 					text-decoration: none;
 					color: var(--lightest);
 					opacity: 1 !important ;
+					font-size: 1.2em ;
+					/*  "max-width: 30ch" only works for one line.
+					Someday line-clamp will suffice. In the meantime,
+					all modern browsers accept the following kludge. */
+					-webkit-line-clamp: 6;
+					display: -webkit-box;
+					-webkit-box-orient: vertical;
+					overflow: hidden;
 				}
 				:is(.lexia, .lexia-selected) .summary,
 				.tags {
@@ -460,6 +475,7 @@
 				}
 				:is(.lexia, .lexia-selected) .byline {
 					color: var(--medium);
+					display: none;
 				}
 				:is(.lexia, .lexia-selected):hover {
 					background-color: var(--medium);
@@ -468,10 +484,14 @@
 				:is(.lexia, .lexia-selected) :is(h2, a):hover {
 					color: white;
 					cursor: pointer;
-					text-shadow: var(--darkest) 0.1em 0.1em 0.1em;
+					text-decoration: none ;
+					/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
 				}
 				:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
 					color: var(--lightest);
+				}
+				:is(.lexia, .lexia-selected) :is(.tags) {
+					display: none;
 				}
 				/* UNUSED: __________ Clusters. __________*
 				.cluster{
@@ -1566,7 +1586,7 @@
 				// Build lexia.
 				this.lexiaDiv = document.createElement("div");
 				document
-					.getElementById(screenContainerId)
+					.querySelector(`#${screenContainerId} .lexia-container`)
 					.appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
 				// Build headline.
@@ -1767,42 +1787,77 @@
 			>
 			|
 			<span
-				onclick="viewMode='strategies'; chooseScreen();"
-				id="browse-strategies"
-				>Strategies</span
-			>
-			|
-			<span
-				onclick="viewMode='resources'; chooseScreen();"
+			onclick="viewMode='resources'; chooseScreen();"
 				id="browse-resources"
 				>Resources</span
-			>
-			|
-			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq"
+				>
+				|
+				<span
+					onclick="viewMode='strategies'; chooseScreen();"
+					id="browse-strategies"
+					>Strategies</span
+				>
+				|
+			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none"
 				>FAQ</span
 			>
 		</div>
 		<div id="dashboard-features">
 			<div id="explanation">
-				<p id="hero">
-					<img
-						src="media/nmd_citl_learning_with_ai_ann_1080.png"
+				<div style="color: darkslategray; font-size: 1.1em;">
+					<p><img
+						src="media/learning_with_ai_graphic_centered_1080.png"
 						alt="Nmd Citl Learning With Ai Ann 1080"
+						style="float: left; margin:0 1em .5em 0; width: 40%;"
 					/>
-				</p>
-				<p>
-					New Media faculty and students offer these free tutorials as
-					part of their
-					<a
-						href="http://www.nmdnet.org/2012/03/31/u-me-new-media-to-launch-just-in-time-learning-experiment/"
-						>Just-In-Time</a
-					>
-					Learning Initiative. Browse tutorials individually,
-					clustered by topic, or learn more about the Learn With AI
-					initiative below.
-				</p>
+						As the sudden rise of generative AI sends shock waves
+						through society, no sector is feeling the disruption as
+						abruptly and pervasively as education. Large Language
+						Models like ChatGPT threaten to make the term paper
+						obsolete, while diffusion-based text-to-image generators
+						like DALLE-2, Stable Diffusion, and Midjourney offer a
+						way to create images that's completely outside the
+						workflow of illustrators and designers, whether trained
+						in analog or digital media.
+					</p>
+					<p>
+						Rather than try to ban this technology from classrooms
+						outright, the Learning with AI initiative from the
+						University of Maine asks if this moment offers an
+						opportunity to introduce students to the ethical and
+						economic questions wreaked by these new tools, as well
+						as to consider fresh new forms of pedagogy that can
+						exploit them.
+					</p>
+					<p>
+						Launched by the
+						<a href="https://umaine.edu/newmedia"
+							>New Media program</a
+						>
+						and
+						<a href="https://umaine.edu/citl/"
+							>Center for Innovation and Teaching and Learning</a
+						>, the Learning With AI working group unites campus
+						representatives from the sciences and humanities,
+						<a href="https://ai.umaine.edu/">UMaine AI</a>, and
+						outside experts in a series of events meant to survey
+						the challenges and offer resources to any educator or
+						student wondering how to accommodate this disruption.
+					</p>
+					<p>
+						Outcomes expected from this group include public and
+						private events to raise awareness of generative AI's
+						impact on education and brainstorm solutions to its
+						challenges. Another anticipated product is a an online
+						toolkit to arm educators with strategies that either
+						emphasize the humanity of the creator or incorporate AI
+						into the classroom in a way that enhances rather than
+						replaces the learning process.
+					</p>
+					<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class='activemail'>ude.eniam@otiloppij</span> to get involved.</p>
+				</div>
 			</div>
-			<div id="features">
+			<!-- <div id="features">
 				<div id="e" class="feature">
 					<h4>
 						<i class="fas fa-user-graduate"></i> Get lasting
@@ -1866,10 +1921,11 @@
 						of class
 					</h4>
 					<p>Earn badges for a class or as a personal project.</p>
-				</div>
+				</div> -->
 			</div>
 		</div>
 		<div id="strategies-container">
+			<h2 style="color: white" >Click on tags below to filter your search for strategies.</h2>
 			<div class="home-cloud"></div>
 			<div class="alert-box">
 				No matching content for that tag combination
@@ -1878,6 +1934,7 @@
 		</div>
 		<!-- End strategies-container. -->
 		<div id="resources-container">
+			<h2 style="color: white" >Click on tags below to filter your search for resources.</h2>
 			<div class="home-cloud"></div>
 			<div class="alert-box">
 				No matching content for that tag combination
