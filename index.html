@@ -6,7 +6,7 @@
 			name="description"
 			content="A collection of free online tutorials by the University of Maine's New Media Department"
 		/>
-		<!-- Version 1.5, improving selected lexia display. -->
+		<!-- Version 1.6, improving selected lexia display. -->
 		<title>Learn With AI | resources for</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -115,7 +115,7 @@
 				--lighter: hsl( var(--h)  60% 88% ) ;
 				--light: hsl( var(--h)  60% 70% ) ;
 				--medium: hsl( var(--h)  100% 50% ) ;
-				--medium: white ;
+				/* --medium: white ; */
 				--darker: hsl( var(--h)  100% 20% ) ;
 				--darkest: hsl( var(--h)  100% 10% ) ;
 			}
@@ -486,6 +486,9 @@
 				:is(.lexia, .lexia-selected):hover {
 					background-color: var(--medium);
 					border: var(--darkest) solid 2px;
+				}
+				:is(.lexia, .lexia-selected):hover .summary {
+					color: var(--darkest);
 				}
 				:is(.lexia, .lexia-selected) :is(h2, a):hover {
 					color: white;
