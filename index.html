@@ -6,7 +6,7 @@
 			name="description"
 			content="A collection of free online tutorials by the University of Maine's New Media Department"
 		/>
-		<!-- Version 6.9, modified to add Jon's 2022 badges in tutorials.json (not here). The site is not yet optimized for mobile and sniffs to warn mobile users. -->
+		<!-- Version 1.5, improving selected lexia display. -->
 		<title>Learn With AI | resources for</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -67,17 +67,11 @@
 		<style id="learnwithai-index-style">
 			/* Based on tutorials-index-style and padlet-style. */
 			:root {
-				--light-silt: hsla(60, 30%, 30%, 1) ; /* SWATCH Light silt. */
-				--medium-silt: hsla(60, 30%, 20%, 1) ; /* SWATCH Medium silt. */
-				--dark-silt: hsla(60, 30%, 10%, 1) ; /* SWATCH Dark silt. */
-				--dull-gold: hsla( 50, 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
-				--medium-gold: hsla( 50, 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
-				--other-gold: hsla( 50, 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
-				--pale-gold: hsla( 60, 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
 				/* Updated. */
 				--h-cooler: 220; /* WAS 205. */
 				--h-medium: 210; /* WAS 200. */
 				--h-warmer: 200; /* WAS 190. */
+				--h-rotate-from-sepia: 170deg;
 				--light-silt: hsla(var(--h-medium), 30%, 30%, 1) ; /* SWATCH Light silt. */
 				--medium-silt: hsla(var(--h-medium), 30%, 20%, 1) ; /* SWATCH Medium silt. */
 				--dark-silt: hsla(var(--h-medium), 30%, 10%, 1) ; /* SWATCH Dark silt. */
@@ -88,6 +82,7 @@
 				--lexia-lighter: paleturquoise ;
 				--lexia-darker: teal;
 				--dull-aqua: lightseagreen ;
+				--darker-body: hsla(180, 25%, 25%,);
 				/*	Gradients */
 				--gradientStopA: hsla(var(--h-warmer), 100%, 20%, .8);
 				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, .0);
@@ -98,7 +93,7 @@
 				--gradient-lightest: azure ;'
 				--background-lightest: skyblue ;
 				/*	Shadows. */
-				--cluster-shadow: hsla( 180, 5%, 5% );
+				--cluster-shadow: hsl(var(--h-warmer), 5%, 5% );
 				--screenshot-background: hsla(0, 0%, 0%, .5) ;
 				/*	Accents. */
 				--accent: aqua ;
@@ -240,6 +235,7 @@
 						width: 16vw ;
 						margin-right: 0 ;
 						padding-right: 0 ;
+						color: var(--pale-gold)
 			/*			border: chartreuse solid 2px ; */
 					}
 						#searchBox {
@@ -273,11 +269,17 @@
 						padding: 1% ;
 						color: var(--medium-silt) ; /* SWATCH Medium silt. */
 			/*			border: red solid 2px ; */
-					}
+		}
+						#explanation p {
+							color: var(--darker-body); 
+							font-size: 1.5em;
+						}
 						#explanation img {
-							float: left;
-							margin: 0 .5em .2em 0;
-							width: 80px;
+							float: left; margin:0 1em .5em 0; width: 60%;
+						}
+						#explanation .side-image {
+							float: right; margin:0 0 .5em 1em; width: 30%; 
+							filter: sepia(100%) saturate(150%) brightness(110%) hue-rotate(var(--h-rotate-from-sepia));
 						}
 						.activated,
 						#explanation a,
@@ -405,11 +407,11 @@
 				.lexia,
 				.lexia-selected,
 				.lexia-clustered {
-					position: relative ;
+					/* position: relative ;
 					float: left ;
 					width: 220px ;
 					height: 275px ;
-					margin: .5em ;
+					margin: .5em ; */
 					/* overflow: hidden ; */
 					background-color: var(--lexia-lighter) ;
 					padding: 1em ;
@@ -1345,8 +1347,9 @@
 			};
 		</script>
 		<script id="learnwithai-index-script">
-			chooseScreen = () => {
+			const chooseScreen = () => {
 				if (viewMode === "resources") {
+					clearLexias();
 					screenContainerId = "resources-container";
 					// Display appropriate containers.
 					document.getElementById(
@@ -1357,7 +1360,7 @@
 					).style.display = "none";
 					document.getElementById(
 						"search-container"
-					).style.visibility = "hidden";
+					).style.visibility = "visible";
 					document.getElementById(
 						"dashboard-features"
 					).style.display = "none";
@@ -1414,6 +1417,7 @@
 			}
 			*/
 				} else if (viewMode === "strategies") {
+					clearLexias();
 					screenContainerId = "strategies-container";
 					// Display appropriate containers.
 					document.getElementById(
@@ -1581,10 +1585,13 @@
 		</script>
 		<script id="lexias-from-google-sheet-script-v01.2">
 			// Modified to allow multiple lexia containers in the same document.
+			lexiaObjects = [] ;
 			const Lexia = function (argumentsObject) {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// Build lexia.
+				lexiaObjects.push(this);
 				this.lexiaDiv = document.createElement("div");
+				// Appending the lexia div here is more efficient than where Lexia is called.
 				document
 					.querySelector(`#${screenContainerId} .lexia-container`)
 					.appendChild(this.lexiaDiv);
@@ -1629,6 +1636,24 @@
 			};
 			const clearLexias = () => {
 				// Use this when switching screens to load from a new data set.
+				if ( typeof lexiaObjects !== "undefined" ) {
+					lexiaObjects.forEach(
+						lexiaObject => {
+							lexiaObject.lexiaDiv.parentNode.removeChild(lexiaObject.lexiaDiv); 
+						}
+						);
+						lexiaObjects = [];
+					}
+					// NEXT: remove tags.
+					
+				if ( typeof thoughtMesh !== "undefined" ) {
+					thoughtMesh.tagObjs.forEach(
+						tagObject => {
+							tagObject.tagBox.parentNode.removeChild(tagObject.tagBox); 
+						}
+					);
+					thoughtMesh.tagObjs = [];
+				}
 			};
 			const buildLexias = async (sheetId) => {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
@@ -1664,9 +1689,6 @@
 								tags: tagsPair["v"],
 								summary: summaryPair["v"],
 							});
-							document
-								.querySelector(`#${screenContainerId}`)
-								.appendChild(thisLexia.lexiaDiv);
 						}
 					} else if (screenContainerId === "strategies-container") {
 						if (row["c"][0]["v"] === "Strategy") {
@@ -1679,15 +1701,12 @@
 							let deleteMe = row["c"][3] || { v: "" };
 							let summaryPair = row["c"][4] || { v: "" };
 							let thisLexia = new Lexia({
-								byline: descriptionPair["v"],
+								byline: "",
 								headline: strategyPair["v"],
 								link: "[no link defined]",
 								tags: tagsPair["v"],
-								summary: summaryPair["v"],
+								summary: descriptionPair["v"],
 							});
-							document
-								.querySelector(`#${screenContainerId}`)
-								.appendChild(thisLexia.lexiaDiv);
 						}
 					} else {
 						console.warn(
@@ -1804,58 +1823,61 @@
 		</div>
 		<div id="dashboard-features">
 			<div id="explanation">
-				<div style="color: darkslategray; font-size: 1.1em;">
-					<p><img
+				<p>
+					<img
 						src="media/learning_with_ai_graphic_centered_1080.png"
 						alt="Nmd Citl Learning With Ai Ann 1080"
-						style="float: left; margin:0 1em .5em 0; width: 40%;"
 					/>
-						As the sudden rise of generative AI sends shock waves
-						through society, no sector is feeling the disruption as
-						abruptly and pervasively as education. Large Language
-						Models like ChatGPT threaten to make the term paper
-						obsolete, while diffusion-based text-to-image generators
-						like DALLE-2, Stable Diffusion, and Midjourney offer a
-						way to create images that's completely outside the
-						workflow of illustrators and designers, whether trained
-						in analog or digital media.
-					</p>
-					<p>
-						Rather than try to ban this technology from classrooms
-						outright, the Learning with AI initiative from the
-						University of Maine asks if this moment offers an
-						opportunity to introduce students to the ethical and
-						economic questions wreaked by these new tools, as well
-						as to consider fresh new forms of pedagogy that can
-						exploit them.
-					</p>
-					<p>
-						Launched by the
-						<a href="https://umaine.edu/newmedia"
-							>New Media program</a
-						>
-						and
-						<a href="https://umaine.edu/citl/"
-							>Center for Innovation and Teaching and Learning</a
-						>, the Learning With AI working group unites campus
-						representatives from the sciences and humanities,
-						<a href="https://ai.umaine.edu/">UMaine AI</a>, and
-						outside experts in a series of events meant to survey
-						the challenges and offer resources to any educator or
-						student wondering how to accommodate this disruption.
-					</p>
-					<p>
-						Outcomes expected from this group include public and
-						private events to raise awareness of generative AI's
-						impact on education and brainstorm solutions to its
-						challenges. Another anticipated product is a an online
-						toolkit to arm educators with strategies that either
-						emphasize the humanity of the creator or incorporate AI
-						into the classroom in a way that enhances rather than
-						replaces the learning process.
-					</p>
-					<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class='activemail'>ude.eniam@otiloppij</span> to get involved.</p>
-				</div>
+					As the sudden rise of generative AI sends shock waves
+					through society, no sector is feeling the disruption as
+					abruptly and pervasively as education. Large Language
+					Models like ChatGPT threaten to make the term paper
+					obsolete, while diffusion-based text-to-image generators
+					like DALLE-2, Stable Diffusion, and Midjourney offer a
+					way to create images that's completely outside the
+					workflow of illustrators and designers, whether trained
+					in analog or digital media.
+				</p>
+				<p>
+					Rather than try to ban this technology from classrooms
+					outright, the Learning with AI initiative from the
+					University of Maine asks if this moment offers an
+					opportunity to introduce students to the ethical and
+					economic questions wreaked by these new tools, as well
+					as to consider fresh new forms of pedagogy that can
+					exploit them.
+				</p>
+				<p>
+					<img
+						src="media/13orono_digital_humanities_thatcamp_11.JPG"
+						alt="UMaine students and faculty in a workshop"
+						class="side-image"
+					/>
+					Launched by the
+					<a href="https://umaine.edu/newmedia"
+						>New Media program</a
+					>
+					and
+					<a href="https://umaine.edu/citl/"
+						>Center for Innovation and Teaching and Learning</a
+					>, the Learning With AI working group unites campus
+					representatives from the sciences and humanities,
+					<a href="https://ai.umaine.edu/">UMaine AI</a>, and
+					outside experts in a series of events meant to survey
+					the challenges and offer resources to any educator or
+					student wondering how to accommodate this disruption.
+				</p>
+				<p>
+					Outcomes expected from this group include public and
+					private events to raise awareness of generative AI's
+					impact on education and brainstorm solutions to its
+					challenges. Another anticipated product is a an online
+					toolkit to arm educators with strategies that either
+					emphasize the humanity of the creator or incorporate AI
+					into the classroom in a way that enhances rather than
+					replaces the learning process.
+				</p>
+				<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class='activemail'>ude.eniam@otiloppij</span> to get involved.</p>
 			</div>
 			<!-- <div id="features">
 				<div id="e" class="feature">
