@@ -235,6 +235,7 @@
 						width: 16vw ;
 						margin-right: 0 ;
 						padding-right: 0 ;
+						color: var(--pale-gold)
 			/*			border: chartreuse solid 2px ; */
 					}
 						#searchBox {
@@ -447,6 +448,10 @@
 					padding: 1em;
 					transition: all 0.2s ease-in-out;
 				}
+				/* TOO JANKY.
+				.lexia-selected {
+					height: 500px ;
+				} */
 				:is(.lexia, .lexia-selected) :is(a, h2) {
 					background-color: transparent;
 					text-decoration: none;
@@ -469,7 +474,7 @@
 					/*  "max-width: 30ch" only works for one line.
 					Someday line-clamp will suffice. In the meantime,
 					all modern browsers accept the following kludge. */
-					-webkit-line-clamp: 3;
+					-webkit-line-clamp: 6;
 					display: -webkit-box;
 					-webkit-box-orient: vertical;
 					overflow: hidden;
