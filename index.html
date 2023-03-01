@@ -1348,6 +1348,7 @@
 		<script id="learnwithai-index-script">
 			const chooseScreen = () => {
 				if (viewMode === "resources") {
+					clearLexias();
 					screenContainerId = "resources-container";
 					// Display appropriate containers.
 					document.getElementById(
@@ -1358,7 +1359,7 @@
 					).style.display = "none";
 					document.getElementById(
 						"search-container"
-					).style.visibility = "hidden";
+					).style.visibility = "visible";
 					document.getElementById(
 						"dashboard-features"
 					).style.display = "none";
@@ -1415,6 +1416,7 @@
 			}
 			*/
 				} else if (viewMode === "strategies") {
+					clearLexias();
 					screenContainerId = "strategies-container";
 					// Display appropriate containers.
 					document.getElementById(
@@ -1633,13 +1635,24 @@
 			};
 			const clearLexias = () => {
 				// Use this when switching screens to load from a new data set.
-				lexiaObjects.forEach(
-					lexiaObject => {
-						lexiaObject.lexiaDiv.parentNode.removeChild(lexiaObject.lexiaDiv); 
+				if ( typeof lexiaObjects !== "undefined" ) {
+					lexiaObjects.forEach(
+						lexiaObject => {
+							lexiaObject.lexiaDiv.parentNode.removeChild(lexiaObject.lexiaDiv); 
+						}
+						);
+						lexiaObjects = [];
 					}
-				);
-				lexiaObjects = [];
-				// NEXT: remove tags.
+					// NEXT: remove tags.
+					
+				if ( typeof thoughtMesh !== "undefined" ) {
+					thoughtMesh.tagObjs.forEach(
+						tagObject => {
+							tagObject.tagBox.parentNode.removeChild(tagObject.tagBox); 
+						}
+					);
+					thoughtMesh.tagObjs = [];
+				}
 			};
 			const buildLexias = async (sheetId) => {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
