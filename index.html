@@ -6,7 +6,7 @@
 			name="description"
 			content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate."
 		/>
-		<!-- Version 1.6, improving selected lexia display. -->
+		<!-- Version 1.7, adding text and links to strategy lexias. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -163,13 +163,22 @@
 				#dashboard-features,
 				#strategies-container,
 				#resources-container {
-					margin: 20px ;
+					margin: 40px ;
 				}
 				#strategies-container,
 				#resources-container {
 					display: grid ;
 					grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ) ;
 					gap: 1em ;
+				}
+				#strategies-container h3,
+				#resources-container h3 {
+					color: var(--lexia-lighter) ;
+					margin-bottom: 1.5em ;
+				}
+				#strategies-container h3 a,
+				#resources-container h3 a {
+					color: var(--accent) ;
 				}
 				/* Narrower content. */
 				#header {
@@ -446,7 +455,7 @@
 					border: var(--darker) solid 2px;
 					border-radius: 1em;
 					padding: 1em;
-					transition: all 0.2s ease-in-out;
+					transition: all 0.4s ease-in-out;
 				}
 				/* TOO JANKY.
 				.lexia-selected {
@@ -486,13 +495,14 @@
 				:is(.lexia, .lexia-selected):hover {
 					background-color: var(--medium);
 					border: var(--darkest) solid 2px;
+					cursor: pointer;
 				}
 				:is(.lexia, .lexia-selected):hover .summary {
 					color: var(--darkest);
 				}
 				:is(.lexia, .lexia-selected) :is(h2, a):hover {
 					color: white;
-					cursor: pointer;
+					/* cursor: pointer; */
 					text-decoration: none ;
 					/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
 				}
@@ -1340,16 +1350,18 @@
 						/* Collapse the lexia. */
 						this.className = "lexia";
 					};
-					/* Toggle lexia selection on click, */
+					/* REMOVED FOR MULTIPLE VERSION SO YOU CAN CLICK DIRECTLY FOR LINK:
+					Toggle lexia selection on click.
 					lexiaDivs[lexiaCounter].onclick = function () {
 						if (this.selected) {
 							this.className = "lexia-selected";
 						} else {
-							/* Collapse the lexia. */
+							/* Collapse the lexia. *
 							this.className = "lexia";
 						}
 						this.selected = !this.selected;
 					};
+					*/
 				}
 			};
 		</script>
@@ -1603,15 +1615,22 @@
 					.querySelector(`#${screenContainerId} .lexia-container`)
 					.appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
+				this.lexiaDiv.onclick = () => {
+					window.open(argumentsObject.link, "_blank");
+					console.log(argumentsObject.link)
+				}
 				// Build headline.
 				this.headlineH2 = document.createElement("h2");
 				this.lexiaDiv.appendChild(this.headlineH2);
 				this.headlineH2.className = "headline";
+				this.headlineH2.innerText = argumentsObject.headline;
+				/* DEPRECATED: 
 				// Build link.
 				this.headlineLink = document.createElement("a");
 				this.headlineH2.appendChild(this.headlineLink);
 				this.headlineLink.href = argumentsObject.link;
 				this.headlineLink.innerText = argumentsObject.headline;
+				*/
 				// Build byline.
 				this.bylineH3 = document.createElement("h3");
 				this.lexiaDiv.appendChild(this.bylineH3);
@@ -1706,11 +1725,11 @@
 							let descriptionPair = row["c"][1] || { v: "" };
 							let tagsPair = row["c"][2] || { v: "" };
 							let deleteMe = row["c"][3] || { v: "" };
-							let summaryPair = row["c"][4] || { v: "" };
+							let linkPair = row["c"][4] || { v: "" };
 							let thisLexia = new Lexia({
 								byline: "",
 								headline: strategyPair["v"],
-								link: "[no link defined]",
+								link: linkPair["v"],
 								tags: tagsPair["v"],
 								summary: descriptionPair["v"],
 							});
@@ -1813,17 +1832,17 @@
 			>
 			|
 			<span
-			onclick="viewMode='resources'; chooseScreen();"
+				onclick="viewMode='strategies'; chooseScreen();"
+				id="browse-strategies"
+				>Strategies</span
+			>
+			|
+			<span
+				onclick="viewMode='resources'; chooseScreen();"
 				id="browse-resources"
 				>Resources</span
-				>
-				|
-				<span
-					onclick="viewMode='strategies'; chooseScreen();"
-					id="browse-strategies"
-					>Strategies</span
-				>
-				|
+			>
+			|
 			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none"
 				>FAQ</span
 			>
@@ -1954,7 +1973,8 @@
 			</div>
 		</div>
 		<div id="strategies-container">
-			<h2 style="color: white" >Click on tags below to filter your search for strategies.</h2>
+			<h3>The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</h3>
+			<h3>Use the search box or click on tags below to filter the results.</h3>
 			<div class="home-cloud"></div>
 			<div class="alert-box">
 				No matching content for that tag combination
@@ -1963,7 +1983,8 @@
 		</div>
 		<!-- End strategies-container. -->
 		<div id="resources-container">
-			<h2 style="color: white" >Click on tags below to filter your search for resources.</h2>
+			<h3>The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</h3>
+			<h2 style="color: white" >Use the search box or click on tags below to filter the results.</h2>
 			<div class="home-cloud"></div>
 			<div class="alert-box">
 				No matching content for that tag combination
@@ -1974,22 +1995,7 @@
 		<div id="faq-container">
 			<h1>Frequently Asked Questions</h1>
 			<p>
-				If you've ever wanted to learn a skill online but also wanted
-				something to show for it, the Learn With AI initiative was made
-				for you. Created by faculty and students of the University of
-				Maine's New Media program, this free and open collection of
-				tutorials on everything from how to code a web page to how to
-				run a bandsaw makes it easy to learn a skill and share your
-				accomplishment with your friends, teacher, or prospective
-				employers. Just choose a topic, watch the video, and pass the
-				quizzes along the way, and in the end you'll be awarded a
-				digital badge you can show on your portfolio.
-			</p>
-			<p>
-				You don't need a login; just watch the tutorials that interest
-				you and claim them with your email address at the end of each
-				video. For more information contact us at
-				<span class="activemail">ude.eniam@otiloppij</span>.
+				More FAQs coming soon!
 			</p>
 			<h2><i class="fas fa-certificate"></i> Meta</h2>
 			<h3>Wait, I want to learn/teach AI as a discipline!</h3>
