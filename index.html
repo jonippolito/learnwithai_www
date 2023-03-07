@@ -1144,7 +1144,7 @@
 			};
 		</script>
 		<script id="learnwithai-index-script">
-			const chooseScreen = async (selectedTag) => {
+			const chooseScreen = async (selectedTags) => {
 				if (viewMode === "resources") {
 					clearLexias();
 					screenContainerId = "resources-container";
@@ -1215,14 +1215,20 @@
 					document.getElementById("browse-faq").classList.add("activated");
 					// Build lexias for this screen.
 					await buildLexias("1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk");
-					// setTimeout(() => {
-					if (typeof selectedTag !== "undefined") {
+					if (typeof selectedTags !== "undefined") {
 						respondToTag({
-							tagArg: selectedTag,
+							tagArg: selectedTags[0],
 							linkType: "replace",
 						});
+						if (selectedTags.length > 1) {
+							for (let tagCounter = 1; tagCounter < selectedTags.length; tagCounter++) {
+								respondToTag({
+									tagArg: selectedTags[tagCounter],
+									linkType: "plus",
+								});
+							}
+						}
 					}
-					// }, 3000);
 					/*
 			if ( ! individualPublished ) {
 				// Build individual badges.
@@ -1517,39 +1523,39 @@
 				<p>Rather than try to ban this technology from classrooms outright, the Learning with AI initiative from the University of Maine asks if this moment offers an opportunity to introduce students to the ethical and economic questions wreaked by these new tools, as well as to consider fresh new forms of pedagogy that can exploit them.</p>
 				<h3>Sample pathways</h3>
 				<div id="features">
-					<div id="e" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<div id="e" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-handshake"></i> Collaborate with AI</h4>
 						<p>Harness generative AI for human tasks.</p>
 					</div>
-					<div id="h" class="feature" onclick="viewMode = 'strategies'; chooseScreen('human-first');">
+					<div id="h" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['human-first']);">
 						<h4><i class="fa-solid fa-person"></i> Prioritize humanity</h4>
 						<p>Craft assignments that AI can't do.</p>
 					</div>
-					<div id="a" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<div id="a" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['learner-focused']);">
 						<h4><i class="fa-solid fa-book-open-reader"></i> Learn more efficiently</h4>
 						<p>Use AI to generate questions, flashcards, and the like.</p>
 					</div>
-					<!-- <div id="b" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<div id="b" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['prompt', 'text']);">
 						<h4><i class="fa-solid fa-square-pen"></i> Write with AI</h4>
 						<p>Craft prompts to generate new text or get feedback on your own.</p>
 					</div>
-					<div id="d" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
-						<h4><i class="fas fa-list"></i> Level up</h4>
-						<p>Pursue a topic through beginner, intermediate, advanced, and expert levels.</p>
+					<div id="d" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['image', 'creator-focused']);">
+						<h4><i class="fa-solid fa-paintbrush"></i> Make images with AI</h4>
+						<p>Create digital pictures with text-to-image generators.</p>
 					</div>
-					<div id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
-						<h4><i class="fas fa-smile-wink"></i> Get a hint</h4>
-						<p>For free-form answers, get contextual hints to help correct your syntax or vocabulary.</p>
+					<div id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['creator-focused', 'story']);">
+						<h4><i class="fa-solid fa-book-open-reader"></i> Tell stories with AI</h4>
+						<p>Write fiction and illustrate it with AI-generated imagery.</p>
 					</div>
-					<div id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<!-- <div id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-user-friends"></i> Learn from peers</h4>
 						<p>Create screencasts for your fellow students.</p>
 					</div>
-					<div id="g" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<div id="g" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-random"></i> Flip the classroom</h4>
 						<p>Watch the "lectures" at home so you can work on the homework during class.</p>
 					</div>
-					<div id="i" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+					<div id="i" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-chalkboard-teacher"></i> In or outside of class</h4>
 						<p>Earn badges for a class or as a personal project.</p>
 					</div> -->
