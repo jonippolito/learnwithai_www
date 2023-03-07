@@ -2,11 +2,8 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<meta
-			name="description"
-			content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate."
-		/>
-		<!-- Version 1.7, adding text and links to strategy lexias. -->
+		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
+		<!-- Version 1.8, adding boxes to landing page. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -27,19 +24,8 @@
 				display: block;
 			}
 		</style>
-		<link
-			rel="stylesheet"
-			href="css/thought-mesh.css"
-			type="text/css"
-			media="screen"
-			title="no title"
-			charset="utf-8"
-		/>
-		<style
-			id="outline-expandable-styles-v01.1"
-			type="text/css"
-			media="screen"
-		>
+		<link rel="stylesheet" href="css/thought-mesh.css" type="text/css" media="screen" title="no title" charset="utf-8" />
+		<style id="outline-expandable-styles-v01.1" type="text/css" media="screen">
 			/* Modified by Jon to play nice with outline-styles-v1.6 */
 			.heading-expanded:hover,
 			.heading-collapsed:hover {
@@ -72,556 +58,576 @@
 				--h-medium: 210; /* WAS 200. */
 				--h-warmer: 200; /* WAS 190. */
 				--h-rotate-from-sepia: 170deg;
-				--light-silt: hsla(var(--h-medium), 30%, 30%, 1) ; /* SWATCH Light silt. */
-				--medium-silt: hsla(var(--h-medium), 30%, 20%, 1) ; /* SWATCH Medium silt. */
-				--dark-silt: hsla(var(--h-medium), 30%, 10%, 1) ; /* SWATCH Dark silt. */
-				--dull-gold: hsla( var(--h-warmer), 40%, 70%, 1 ) ; /* SWATCH Dull gold.*/
-				--medium-gold: hsla( var(--h-warmer), 60%, 20%, 1 ) ; /* SWATCH Medium gold.*/
-				--other-gold: hsla( var(--h-warmer), 60%, 70%, 1 ) ; /* SWATCH Other gold.*/
-				--pale-gold: hsla( var(--h-medium), 90%, 80%, 1 ) ; /* SWATCH Pale gold.*/
-				--lexia-lighter: paleturquoise ;
+				--light-silt: hsla(var(--h-medium), 30%, 30%, 1); /* SWATCH Light silt. */
+				--medium-silt: hsla(var(--h-medium), 30%, 20%, 1); /* SWATCH Medium silt. */
+				--dark-silt: hsla(var(--h-medium), 30%, 10%, 1); /* SWATCH Dark silt. */
+				--dull-gold: hsla(var(--h-warmer), 40%, 70%, 1); /* SWATCH Dull gold.*/
+				--medium-gold: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium gold.*/
+				--other-gold: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other gold.*/
+				--pale-gold: hsla(var(--h-medium), 90%, 80%, 1); /* SWATCH Pale gold.*/
+				--lexia-lighter: paleturquoise;
 				--lexia-darker: teal;
-				--dull-aqua: lightseagreen ;
-				--darker-body: hsla(180, 25%, 25%,);
+				--dull-aqua: lightseagreen;
+				--darker-body: hsla(180, 25%, 25%);
 				/*	Gradients */
-				--gradientStopA: hsla(var(--h-warmer), 100%, 20%, .8);
-				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, .0);
-				--gradientStopC: hsla(var(--h-warmer), 70%, 60%, .8);
-				--gradientStopD: hsla(var(--h-warmer), 70%, 60%, .0);
-				--gradientStopE: hsla(var(--h-cooler), 90%, 95%, .8);
-				--gradientStopF: hsla(var(--h-cooler), 90%, 95%, .0);
-				--gradient-lightest: azure ;'
-				--background-lightest: skyblue ;
+				--gradientStopA: hsla(var(--h-warmer), 100%, 20%, 0.8);
+				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
+				--gradientStopC: hsla(var(--h-warmer), 70%, 60%, 0.8);
+				--gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
+				--gradientStopE: hsla(var(--h-cooler), 90%, 95%, 0.8);
+				--gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
+				--gradient-lightest: azure;
+				--background-lightest: skyblue;
 				/*	Shadows. */
-				--cluster-shadow: hsl(var(--h-warmer), 5%, 5% );
-				--screenshot-background: hsla(0, 0%, 0%, .5) ;
+				--cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
+				--screenshot-background: hsla(0, 0%, 0%, 0.5);
 				/*	Accents. */
-				--accent: aqua ;
-				--highlight: lime ;
+				--accent: aqua;
+				--highlight: lime;
+			}
+			/* Heading font is set in browse-options, h3. */
+			@font-face {
+				/* Unused? */
+				font-family: "sansation-light";
+				src: url("../fonts/Sansation-Light.ttf") format("truetype");
+			}
+			@font-face {
+				/* Unused? */
+				font-family: "sansation-regular";
+				src: url("../fonts/Sansation-Regular.ttf") format("truetype");
+			}
+			@font-face {
+				font-family: "sansation-bold";
+				src: url("../fonts/Sansation-Bold.ttf") format("truetype");
 			}
 			/* Padlets */
 			#resources-container {
-				--h: 207 ;
-				--lightest: hsl( var(--h) 90% 94% ) ;
-				--lighter: hsl( var(--h)  60% 88% ) ;
-				--light: hsl( var(--h)  60% 70% ) ;
-				--medium: hsl( var(--h)  100% 50% ) ;
-				--darker: hsl( var(--h)  50% 40% ) ;
-				--darkest: hsl( var(--h)  100% 10% ) ;
+				--h: 207;
+				--lightest: hsl(var(--h) 90% 94%);
+				--lighter: hsl(var(--h) 60% 88%);
+				--light: hsl(var(--h) 60% 70%);
+				--medium: hsl(var(--h) 100% 50%);
+				--darker: hsl(var(--h) 50% 40%);
+				--darkest: hsl(var(--h) 100% 10%);
 			}
 			#strategies-container {
-				--h: 190 ;
-				--lightest: hsl( var(--h) 90% 94% ) ;
-				--lighter: hsl( var(--h)  60% 88% ) ;
-				--light: hsl( var(--h)  60% 70% ) ;
-				--medium: hsl( var(--h)  100% 50% ) ;
+				--h: 190;
+				--lightest: hsl(var(--h) 90% 94%);
+				--lighter: hsl(var(--h) 60% 88%);
+				--light: hsl(var(--h) 60% 70%);
+				--medium: hsl(var(--h) 100% 50%);
 				/* --medium: white ; */
-				--darker: hsl( var(--h)  100% 20% ) ;
-				--darkest: hsl( var(--h)  100% 10% ) ;
+				--darker: hsl(var(--h) 100% 20%);
+				--darkest: hsl(var(--h) 100% 10%);
 			}
 			*,
 			:before,
 			:after {
 				box-sizing: border-box;
 			}
-				html {
-					/* This helps keep gradient from repeating */
-					height: 100%;
-				}
-				body#learnwithai-body {
-					/* These keep gradient from repeating */
-					background-color: var(--background-lightest) ;
-					margin: 0 ; /* Need this to avoid spaces around watermark. */
-				}
-				#watermark {
-					/* Adding a background gradient here instead of the body
-					prevents the gradient from repeating somewhere down the page. */
-					position: absolute ;
-					width: 100% ;
-					height: 150%;
-					z-index: -1 ;
-					/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
-					background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%),
-								linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%),
-					            linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
-				}
-				.nmd-logo-phrase {
-					width: 200px;
-				}
-				.nmd-logo-phrase img {
-					width: 100%;
-				}
-				.alert-box span:hover,
-				a:hover {
-					border-bottom: solid 1px ;
-					cursor: pointer ;
-					text-decoration: none ;
-				}
-				/* Wider content. */
-				h2#rubric,
-				#search-container,
-				#dashboard-features,
-				#strategies-container,
-				#resources-container {
-					margin: 40px ;
-				}
-				#strategies-container,
-				#resources-container {
-					display: grid ;
-					grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ) ;
-					gap: 1em ;
-				}
-				#strategies-container h3,
-				#resources-container h3 {
-					color: var(--lexia-lighter) ;
-					margin-bottom: 1.5em ;
-				}
-				#strategies-container h3 a,
-				#resources-container h3 a {
-					color: var(--accent) ;
-				}
-				/* Narrower content. */
-				#header {
-					position: relative ;
-					padding-top: 20px;
-					height: 100px ;
-			/*		border: green solid 2px ;*/
-				}
-				#header,
-				#dashboard-features,
-				#faq-container,
-				.footer {
-					width: 80vw ;
-					margin-left: auto ;
-					margin-right: auto ;
-				}
-				/*	Footer ensures bottom lexias have room to open.*/
-				.footer {
-					display: flex ;
-					align-items: flex-start ;
-					justify-content: center ;
-					height: 400px ;
-					width: 90vw ;
-					padding-top: 20px ;
-				}
-					.footer > * {
-						font-size: 1.2vw;
-						height: 70px ;
-						z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
-			/*			border: chocolate solid 2px ; */
-						padding: 10px;
-					}
-						#credit {
-							display: flex ;
-						}
-							#credit p {
-								align-self: center ;
-							}
-				#header {
-					display: flex ;
-					align-items: center ;
-					justify-content: space-between ;
-				}
-					#crest {
-			/*				position: absolute ;*/
-							width: 14vw ;
-							opacity: .6 ;
-						}
-						#crest img {
-							width: 100% ;
-						}
-					h2#rubric {
-			/*			position: absolute ;*/
-						width: 60vw ;
-						text-align: center ;
-						font-size: 4.5vw ;
-						color: var(--lexia-lighter) ;
-						font-family: Tamil MN ;
-			/*			border: purple solid 2px ; */
-					}
-					#search-container {
-			/*			position: absolute;*/
-						width: 16vw ;
-						margin-right: 0 ;
-						padding-right: 0 ;
-						color: var(--pale-gold)
-			/*			border: chartreuse solid 2px ; */
-					}
-						#searchBox {
-							width: 100% ;
-							padding-right: 0 ;
-							margin-right: 0 ;
-			/*				border: orchid solid 2px ; */
-						}
-				#browse-options {
-					position: relative ;
-					clear: both ;
-					font-weight: bold ;
-					font-size: 1.85vw ;
-					width: 100% ;
-					height: 20px ;
-					margin: 20px 0 40px 0 ;
-					text-align: center ;
-					color: var(--light-silt) ;
-				}
-				#dashboard-features {
-					position: relative ;
-					clear: both ;
-					margin-top: 30px ;
-				}
-					#explanation {
-						position: relative ;
-						clear: both ;
-						font-family: Gill Sans, Eurostile, verdana ;
-						font-size: 1.4em;
-						margin: 0 ;
-						padding: 1% ;
-						color: var(--medium-silt) ; /* SWATCH Medium silt. */
-			/*			border: red solid 2px ; */
-		}
-						#explanation p {
-							color: var(--darker-body); 
-							font-size: 1.5em;
-						}
-						#explanation img {
-							float: left; margin:0 1em .5em 0; width: 60%;
-						}
-						#explanation .side-image {
-							float: right; margin:0 0 .5em 1em; width: 30%; 
-							filter: sepia(100%) saturate(150%) brightness(110%) hue-rotate(var(--h-rotate-from-sepia));
-						}
-						.activated,
-						#explanation a,
-						.footer a {
-							color: var(--accent) ;
-							text-shadow: var(--dark-silt)  0 0 .3em ; /* SWATCH Dark silt. */
-			/*				border-bottom: dotted .2em ;*/
-						}
-						.activated {
-							font-weight: bold ;
-						}
-						#explanation a {
-							font-weight: normal ;
-						}
-						.activated:hover,
-						#explanation a:hover {
-			/*				border-bottom: solid ;*/
-							text-shadow: var(--highlight)  0 0 .3em ;
-							cursor: pointer ;
-						}
-							#hero {
-								position: relative ;
-								margin: 10px auto 80px auto ;
-								width: 40% ;
-								height: 50px ;
-								text-align: center ;
-			/*					border: orange solid 2px ; */
-							}
-								#hero img {
-									width: 100% ;
-								}
-					#features {
-						position: relative ;
-						clear: both ;
-						display: grid;
-						grid-template-columns: repeat(3, 1fr);
+			html {
+				/* This helps keep gradient from repeating */
+				height: 100%;
+			}
+			body#learnwithai-body {
+				/* These keep gradient from repeating */
+				background-color: var(--background-lightest);
+				margin: 0; /* Need this to avoid spaces around watermark. */
+			}
+			#watermark {
+				/* Adding a background gradient here instead of the body
+						prevents the gradient from repeating somewhere down the page. */
+				position: absolute;
+				width: 100%;
+				height: 150%;
+				z-index: -1;
+				/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
+				background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%), linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%), linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
+			}
+			.nmd-logo-phrase {
+				width: 200px;
+			}
+			.nmd-logo-phrase img {
+				width: 100%;
+			}
+			.alert-box span:hover,
+			a:hover {
+				border-bottom: solid 1px;
+				cursor: pointer;
+				text-decoration: none;
+			}
+			/* Wider content. */
+			h2#rubric,
+			#search-container,
+			#dashboard-features,
+			#strategies-container,
+			#resources-container {
+				margin: 40px;
+			}
+			#strategies-container,
+			#resources-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1em;
+			}
+			#strategies-container h3,
+			#resources-container h3 {
+				color: var(--lexia-lighter);
+				margin-bottom: 1.5em;
+			}
+			#strategies-container h3 a,
+			#resources-container h3 a {
+				color: var(--accent);
+			}
+			/* Narrower content. */
+			#header {
+				position: relative;
+				padding-top: 20px;
+				height: 100px;
+				/*		border: green solid 2px ;*/
+			}
+			#header,
+			#dashboard-features,
+			#faq-container,
+			.footer {
+				width: 80vw;
+				margin-left: auto;
+				margin-right: auto;
+			}
+			/*	Footer ensures bottom lexias have room to open.*/
+			.footer {
+				display: flex;
+				align-items: flex-start;
+				justify-content: center;
+				height: 400px;
+				width: 90vw;
+				padding-top: 20px;
+			}
+			.footer > * {
+				font-size: 1.2vw;
+				height: 70px;
+				z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
+				/*			border: chocolate solid 2px ; */
+				padding: 10px;
+			}
+			#credit {
+				display: flex;
+			}
+			#credit p {
+				align-self: center;
+			}
+			#header {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+			}
+			#crest {
+				/*				position: absolute ;*/
+				width: 14vw;
+				opacity: 0.6;
+			}
+			#crest img {
+				width: 100%;
+			}
+			h2#rubric {
+				/*			position: absolute ;*/
+				width: 60vw;
+				text-align: center;
+				/* font-size: 4.5vw; */
+				font-size: 5vw;
+				color: var(--lexia-lighter);
+				/* font-family: Tamil MN; */
+				font-family: sansation-regular;
+				/*			border: purple solid 2px ; */
+			}
+			#search-container {
+				/*			position: absolute;*/
+				width: 16vw;
+				margin-right: 0;
+				padding-right: 0;
+				color: var(--pale-gold);
+				/*			border: chartreuse solid 2px ; */
+			}
+			#searchBox {
+				width: 100%;
+				padding-right: 0;
+				margin-right: 0;
+				/*				border: orchid solid 2px ; */
+			}
+			#browse-options {
+				position: relative;
+				clear: both;
+				/* font-weight: bold; */
+				/* font-size: 1.85vw; */
+				font-family: sansation-bold;
+				font-size: 2.1vw;
+				width: 100%;
+				height: 20px;
+				margin: 20px 0 40px 0;
+				text-align: center;
+				color: var(--light-silt);
+			}
+			#dashboard-features {
+				position: relative;
+				clear: both;
+				margin-top: 30px;
+			}
+			#explanation {
+				position: relative;
+				clear: both;
+				font-family: Gill Sans, Eurostile, verdana;
+				font-size: 1.4em;
+				margin: 0;
+				/* padding: 1% ; */
+				color: var(--medium-silt); /* SWATCH Medium silt. */
+				/*			border: red solid 2px ; */
+			}
+			#explanation h3 {
+				font-family: sansation-bold;
+			}
+			#explanation p {
+				color: var(--darker-body);
+				font-size: 1.2em;
+			}
+			#explanation img {
+				float: left;
+				margin: 0 1em 0.5em 0;
+				width: 100%;
+			}
+			#explanation .side-image {
+				float: right;
+				margin: 0 0 0.5em 1em;
+				width: 30%;
+				filter: sepia(100%) saturate(150%) brightness(110%) hue-rotate(var(--h-rotate-from-sepia));
+			}
+			.activated,
+			#explanation a,
+			.footer a {
+				color: var(--accent);
+				text-shadow: var(--dark-silt) 0 0 0.3em; /* SWATCH Dark silt. */
+				/*				border-bottom: dotted .2em ;*/
+			}
+			.activated {
+				font-weight: bold;
+			}
+			#explanation a {
+				font-weight: normal;
+			}
+			.activated:hover,
+			#explanation a:hover {
+				/*				border-bottom: solid ;*/
+				text-shadow: var(--highlight) 0 0 0.3em;
+				cursor: pointer;
+			}
+			/* DEPRECATED? */
+			#hero {
+				position: relative;
+				margin: 10px auto 80px auto;
+				width: 40%;
+				height: 50px;
+				text-align: center;
+				/*					border: orange solid 2px ; */
+			}
+			#hero img {
+				width: 100%;
+			}
+			#features {
+				position: relative;
+				clear: both;
+				display: grid;
+				grid-template-columns: repeat(3, 1fr);
 				/*		grid-auto-rows: minmax(150px, auto);*/
-						grid-gap: 1em;
-					}
-						.feature {
-							box-sizing: border-box ;
-							display: flex;
-							flex-direction: column ;
-							align-items: center;
-							justify-content: flex-start;
-							padding: 1em ;
-						}
-						.feature:nth-child( 3n ) {
-							background-color: var(--dull-gold) ; /* SWATCH Dull gold.*/
-						}
-						.feature:nth-child( 3n + 1 ) {
-							background-color: var(--other-gold) ; /* SWATCH Other gold.*/
-						}
-						.feature:nth-child( 3n + 2 ) {
-							background-color: var(--lexia-lighter) ;
-						}
-						.feature:nth-child( 3n ) i {
-							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-						}
-						.feature:nth-child( 3n + 1 ) i {
-							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-							background-color: var(--other-gold) ; /* SWATCH Other gold.*/
-						}
-						.feature:nth-child( 3n + 2 ) i {
-							color: var(--pale-gold) ; /* SWATCH Pale gold.*/
-							background-color: var(--lexia-lighter) ;
-						}
-						i {
-							color: var(--dark-silt) ; /* SWATCH Dark silt. */
-							text-shadow: var(--medium-gold) 0 0 .3em ; /* SWATCH Medium gold.*/
-							font-size: 1.2em ;
-						}
-							#features h4 {
-								margin-bottom: 0 ;
-								/* h4 has opacity: .5 at the global level. */
-								color: var(--dark-silt) ; /* SWATCH Dark silt. */
-								font-size: 1.2em ;
-							}
-							#features p {
-								font-size: 1.1em ;
-							}
-							#features i {
-								font-size: 2em ;
-								padding-right: .2em ;
-							}
-					.home-cloud {
+				grid-gap: 1em;
+			}
+			.feature {
+				box-sizing: border-box;
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: flex-start;
+				padding: 1em;
+			}
+			.feature:nth-child(3n) {
+				background-color: var(--dull-gold); /* SWATCH Dull gold.*/
+			}
+			.feature:nth-child(3n + 1) {
+				background-color: var(--other-gold); /* SWATCH Other gold.*/
+			}
+			.feature:nth-child(3n + 2) {
+				background-color: var(--lexia-lighter);
+			}
+			.feature:nth-child(3n) i {
+				color: var(--pale-gold); /* SWATCH Pale gold.*/
+			}
+			.feature:nth-child(3n + 1) i {
+				color: var(--pale-gold); /* SWATCH Pale gold.*/
+				background-color: var(--other-gold); /* SWATCH Other gold.*/
+			}
+			.feature:nth-child(3n + 2) i {
+				color: var(--pale-gold); /* SWATCH Pale gold.*/
+				background-color: var(--lexia-lighter);
+			}
+			/* Font-awesome. */
+			i {
+				color: var(--dark-silt); /* SWATCH Dark silt. */
+				text-shadow: var(--medium-gold) 0 0 0.3em; /* SWATCH Medium gold.*/
+				font-size: 1.2em;
+			}
+			#features h4 {
+				margin-bottom: 0;
+				/* h4 has opacity: .5 at the global level. */
+				color: var(--dark-silt); /* SWATCH Dark silt. */
+				font-size: 1.4em;
+				font-family: sansation-bold;
+			}
+			#features p {
+				font-size: 1.1em;
+			}
+			#features i {
+				font-size: 2em;
+				padding-right: 0.2em;
+			}
+			.home-cloud {
+				position: relative;
+				float: left;
+				margin: 0 auto;
+				width: 90%;
+				background-color: var(--lexia-lighter);
+				position: relative;
+				border: var(--lexia-lighter) solid 4px;
+				padding: 1%;
+				border-radius: 10px;
+				/* Styles from padlet, seem to be working well together. 🤷‍♂️ */
+				clear: both;
+				border: var(--light) solid 2px;
+				padding: 1em;
+				border-radius: 10px;
+			}
+			.alert-box {
+				position: relative;
+				clear: both;
+				padding: 1em;
+				-webkit-border-radius: 10px;
+				-moz-border-radius: 10px;
+				border-radius: 10px;
+				color: orange;
+				font-size: 2em;
+			}
+			.alert-box span {
+				font-weight: normal;
+				color: black;
+				border-bottom: dotted 1px;
+			}
+			.inactive {
+				display: none;
+			}
+			.lexia-container {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+				gap: 1em;
+			}
+			.lexia,
+			.lexia-selected,
+			.lexia-clustered {
+				/* position: relative ;
+						float: left ;
+						width: 220px ;
+						height: 275px ;
+						margin: .5em ; */
+				/* overflow: hidden ; */
+				background-color: var(--lexia-lighter);
+				padding: 1em;
+				/* margin: 0 10px ; */
+				/* Gradient. *
+						background: -moz-linear-gradient(
+							0% 0% 45deg,
+							var(--lexia-lighter),
+							var(--lexia-darker)
+							) ;
+						background: -webkit-gradient(
+							linear,
+							left bottom,
+							right top,
+							from( var(--lexia-lighter) ),
+							to( var(--lexia-darker) )
+							) ;
+							/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
+				/* Border: mostly for IE8. */
+				border-bottom: var(--dull-aqua) solid 1px;
+				/* Round corners. */
+				border-radius: 14px;
+				transition: all 0.5s ease-in-out;
+			}
+			/* Shadow
+					.lexia,
+					.lexia-selected {
+						box-shadow: var(--dull-aqua) 4px 6px 6px ;
+					} */
+			:is(.lexia, .lexia-selected) {
+				background-color: var(--darker);
+				border: var(--darker) solid 2px;
+				border-radius: 1em;
+				padding: 1em;
+				transition: all 0.4s ease-in-out;
+			}
+			/* TOO JANKY.
+					.lexia-selected {
+						height: 500px ;
+					} */
+			:is(.lexia, .lexia-selected) :is(a, h2) {
+				background-color: transparent;
+				text-decoration: none;
+				color: var(--lightest);
+				opacity: 1 !important ;
+				font-size: 1.2em;
+				/*  "max-width: 30ch" only works for one line.
+						Someday line-clamp will suffice. In the meantime,
+						all modern browsers accept the following kludge. */
+				-webkit-line-clamp: 6;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			:is(.lexia, .lexia-selected) .summary,
+			.tags {
+				color: var(--light);
+			}
+			:is(.lexia, .lexia-selected) .summary {
+				/*  "max-width: 30ch" only works for one line.
+						Someday line-clamp will suffice. In the meantime,
+						all modern browsers accept the following kludge. */
+				-webkit-line-clamp: 6;
+				display: -webkit-box;
+				-webkit-box-orient: vertical;
+				overflow: hidden;
+			}
+			:is(.lexia, .lexia-selected) .byline {
+				color: var(--medium);
+				display: none;
+			}
+			:is(.lexia, .lexia-selected):hover {
+				background-color: var(--medium);
+				border: var(--darkest) solid 2px;
+				cursor: pointer;
+			}
+			:is(.lexia, .lexia-selected):hover .summary {
+				color: var(--darkest);
+			}
+			:is(.lexia, .lexia-selected) :is(h2, a):hover {
+				color: white;
+				/* cursor: pointer; */
+				text-decoration: none;
+				/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
+			}
+			:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
+				color: var(--lightest);
+			}
+			:is(.lexia, .lexia-selected) :is(.tags) {
+				display: none;
+			}
+			/* UNUSED: __________ Clusters. __________*
+					.cluster{
+						/* Dimensions set in JavaScript. *
 						position: relative ;
 						float: left ;
-						margin: 0 auto ;
-						width: 90%;
-						background-color: var(--lexia-lighter) ;
-						position:relative;
-						border: var(--lexia-lighter) solid 4px ;
-						padding: 1% ;
-						border-radius: 10px ;
-						/* Styles from padlet, seem to be working well together. 🤷‍♂️ */
-						clear: both;
-						border: var(--light) solid 2px;
-						padding: 1em;
-						border-radius: 10px;
-					}
-					.alert-box {
-						position:relative;
-						clear: both;
-						padding: 1em;
-						-webkit-border-radius: 10px ;
-						-moz-border-radius: 10px ;
-						border-radius: 10px ;
-						color: orange;
-						font-size: 2em ;
-					}
-				.alert-box span {
-					font-weight: normal ;
-					color: black;
-					border-bottom: dotted 1px ;
-				}
-				.inactive {
-					display: none ;
-				}
-				.lexia-container {
-					display: grid;
-					grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-					gap: 1em;
-				}
-				.lexia,
-				.lexia-selected,
-				.lexia-clustered {
-					/* position: relative ;
-					float: left ;
-					width: 220px ;
-					height: 275px ;
-					margin: .5em ; */
-					/* overflow: hidden ; */
-					background-color: var(--lexia-lighter) ;
-					padding: 1em ;
-					/* margin: 0 10px ; */
-					/* Gradient. *
-					background: -moz-linear-gradient(
-						0% 0% 45deg,
-						var(--lexia-lighter),
-						var(--lexia-darker)
-						) ;
-					background: -webkit-gradient(
-						linear,
-						left bottom,
-						right top,
-						from( var(--lexia-lighter) ),
-						to( var(--lexia-darker) )
-						) ;
-						/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
-					/* Border: mostly for IE8. */
-					border-bottom: var(--dull-aqua) solid 1px ;
-					/* Round corners. */
-					border-radius: 14px ;
-					transition: all .5s ease-in-out ;
-				}
-				/* Shadow
-				.lexia,
-				.lexia-selected {
-					box-shadow: var(--dull-aqua) 4px 6px 6px ;
-				} */
-				:is(.lexia, .lexia-selected) {
-					background-color: var(--darker);
-					border: var(--darker) solid 2px;
-					border-radius: 1em;
-					padding: 1em;
-					transition: all 0.4s ease-in-out;
-				}
-				/* TOO JANKY.
-				.lexia-selected {
-					height: 500px ;
-				} */
-				:is(.lexia, .lexia-selected) :is(a, h2) {
-					background-color: transparent;
-					text-decoration: none;
-					color: var(--lightest);
-					opacity: 1 !important ;
-					font-size: 1.2em ;
-					/*  "max-width: 30ch" only works for one line.
-					Someday line-clamp will suffice. In the meantime,
-					all modern browsers accept the following kludge. */
-					-webkit-line-clamp: 6;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					overflow: hidden;
-				}
-				:is(.lexia, .lexia-selected) .summary,
-				.tags {
-					color: var(--light);
-				}
-				:is(.lexia, .lexia-selected) .summary {
-					/*  "max-width: 30ch" only works for one line.
-					Someday line-clamp will suffice. In the meantime,
-					all modern browsers accept the following kludge. */
-					-webkit-line-clamp: 6;
-					display: -webkit-box;
-					-webkit-box-orient: vertical;
-					overflow: hidden;
-				}
-				:is(.lexia, .lexia-selected) .byline {
-					color: var(--medium);
-					display: none;
-				}
-				:is(.lexia, .lexia-selected):hover {
-					background-color: var(--medium);
-					border: var(--darkest) solid 2px;
-					cursor: pointer;
-				}
-				:is(.lexia, .lexia-selected):hover .summary {
-					color: var(--darkest);
-				}
-				:is(.lexia, .lexia-selected) :is(h2, a):hover {
-					color: white;
-					/* cursor: pointer; */
-					text-decoration: none ;
-					/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
-				}
-				:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
-					color: var(--lightest);
-				}
-				:is(.lexia, .lexia-selected) :is(.tags) {
-					display: none;
-				}
-				/* UNUSED: __________ Clusters. __________*
-				.cluster{
-					/* Dimensions set in JavaScript. *
-					position: relative ;
-					float: left ;
-					margin: 10px ;
-					border-radius: 50% ;
-				}
-				.cluster:hover {
-					cursor: pointer ;
-				}
-					.cluster-title {
-						position: absolute ;
-						z-index: 3 ;
-						margin-top: 120px ;
-						text-shadow:
-							var(--cluster-shadow) 0 0 .3em,
-							var(--cluster-shadow) 0 0 .7em,
-							var(--cluster-shadow) 0 0 1em
-							;
-						text-align: center ;
-						width: 100% ;
-						color: var(--accent) ;
-						font-size: 2em ;
-					}
-					.cluster-description {
-						position: relative ;
-						width: 60% ;
-						margin: 2% auto ;
-						text-align: center ;
-						color: khaki ;
-						font-size: .45em ;
-						opacity: 0 ;
-						transition: all .4s ease-in-out ;
-					}
-					.lexia-clustered {
-						position: absolute ;
-						width: 100px ;
-						height: 100px ;
+						margin: 10px ;
 						border-radius: 50% ;
-						background: none ;
-						margin: 0 ;
-						padding: 0 ;
-						overflow: hidden ;
-						box-shadow: var(--cluster-shadow) 2px 2px 2px ;
-						transition: all .7s ease-in-out ;
-						filter: saturate( 70% ) ;
 					}
-						.lexia-clustered img {
-							/* width set in badgeShape class below. *
-							float: none ;
+					.cluster:hover {
+						cursor: pointer ;
+					}
+						.cluster-title {
 							position: absolute ;
+							z-index: 3 ;
+							margin-top: 120px ;
+							text-shadow:
+								var(--cluster-shadow) 0 0 .3em,
+								var(--cluster-shadow) 0 0 .7em,
+								var(--cluster-shadow) 0 0 1em
+								;
+							text-align: center ;
+							width: 100% ;
+							color: var(--accent) ;
+							font-size: 2em ;
 						}
-						.disk {
-							width: 130px ;
-							top: -15px ;
-							left: -15px ;
+						.cluster-description {
+							position: relative ;
+							width: 60% ;
+							margin: 2% auto ;
+							text-align: center ;
+							color: khaki ;
+							font-size: .45em ;
+							opacity: 0 ;
+							transition: all .4s ease-in-out ;
 						}
-						.corona {
-							width: 140px ;
-							top: -15px ;
-							left: -15px ;
+						.lexia-clustered {
+							position: absolute ;
+							width: 100px ;
+							height: 100px ;
+							border-radius: 50% ;
+							background: none ;
+							margin: 0 ;
+							padding: 0 ;
+							overflow: hidden ;
+							box-shadow: var(--cluster-shadow) 2px 2px 2px ;
+							transition: all .7s ease-in-out ;
+							filter: saturate( 70% ) ;
 						}
-						.ribbons {
-							width: 190px ;
-							top: -20px ;
-							left: -45px ;
-						}
-				*/
-				/* Using JavaScript instead of hover to enable mobile selection. */
-				/* Overlaps everything else:
-				.lexia-selected {
-					height: 500px ;
-					/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*
-					/* Without these compensations, relative positioning would rearrange the other tutorials: *
-					margin-bottom: -400px ;
-					z-index: 10 ;
-				}
-				/*__________ FAQ. __________*/
-				#faq-container h1 {
-					color: var(--lexia-lighter);
-					opacity: .7;
-				}
-				#faq-container h2 {
-					color: var(--dull-aqua);
-					opacity: 1 !important ;
-				}
-				#faq-container p {
-					color: var(--dark-silt) ; /* SWATCH Dark silt. */
-				}
-				#faq-container h3 {
-					color: var(--medium-silt) ; /* SWATCH Medium silt. */
-				}
-				#faq-container i.fas {
-					color: var(--accent) !important ;
-				}
+							.lexia-clustered img {
+								/* width set in badgeShape class below. *
+								float: none ;
+								position: absolute ;
+							}
+							.disk {
+								width: 130px ;
+								top: -15px ;
+								left: -15px ;
+							}
+							.corona {
+								width: 140px ;
+								top: -15px ;
+								left: -15px ;
+							}
+							.ribbons {
+								width: 190px ;
+								top: -20px ;
+								left: -45px ;
+							}
+					*/
+			/* Using JavaScript instead of hover to enable mobile selection. */
+			/* Overlaps everything else:
+					.lexia-selected {
+						height: 500px ;
+						/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*
+						/* Without these compensations, relative positioning would rearrange the other tutorials: *
+						margin-bottom: -400px ;
+						z-index: 10 ;
+					}
+					/*__________ FAQ. __________*/
+			#faq-container h1 {
+				color: var(--lexia-lighter);
+				opacity: 0.7;
+			}
+			#faq-container h2 {
+				color: var(--dull-aqua);
+				opacity: 1 !important ;
+			}
+			#faq-container p {
+				color: var(--dark-silt); /* SWATCH Dark silt. */
+			}
+			#faq-container h3 {
+				color: var(--medium-silt); /* SWATCH Medium silt. */
+			}
+			#faq-container i.fas {
+				color: var(--accent) !important ;
+			}
 		</style>
 		<script id="sniff-browsers-script-2018">
 			/*________________________ Check browser compatibility.________________________*/ 510;
 			// Check for browser compliance. If stale browser, go to old browser page.
 			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
-			if (
-				navigator.userAgent.indexOf("MSIE ") > -1 ||
-				navigator.userAgent.indexOf("Trident") > -1
-			) {
-				if (
-					!confirm(
-						"Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway."
-					)
-				) {
+			if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
+				if (!confirm("Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway.")) {
 					// ".assign" allows user still to hit the back button.
 					document.location.assign("recommended_browsers.html");
 				}
@@ -630,15 +636,11 @@
 	if ( browsers.ns4 || browsers.ie4 || browsers.ie5 || browsers.ie6 || browsers.ie7 || browsers.saf ) { // Explicit numbers is more future-proof.
 	}
 /*________________________ Check for mobile compatibility.________________________*/
-			let isMobileAgent = navigator.userAgent.match(
-				/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i
-			);
+			let isMobileAgent = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
 			let isSmallScreen = window.innerWidth < 768;
 			isMobile = isMobileAgent || isSmallScreen; // Global so it can be used to tweak JavaScript display options.
 			if (isMobile) {
-				alert(
-					"You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser."
-				);
+				alert("You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser.");
 				/* 
 	if ( !confirm("You appear to be using a mobile browser, but this site is optimized for a larger screen.\n\nClick Cancel to visit our Instagram page, or\n\nOK to proceed anyway.") ) {
 		// ".assign" allows user still to hit the back button.
@@ -647,60 +649,34 @@
 	*/
 			}
 		</script>
-		<script
-			id="make-outline-expandable_v01.0"
-			type="text/javascript"
-			charset="utf-8"
-		>
+		<script id="make-outline-expandable_v01.0" type="text/javascript" charset="utf-8">
 			// Run when DOM is loaded.
 			function makeOutlineExpandable() {
 				// Gather all headings at a certain level.
-				h3s = document
-					.getElementById("faq-container")
-					.getElementsByTagName("h3"); // Global, because used in a later function.
+				h3s = document.getElementById("faq-container").getElementsByTagName("h3"); // Global, because used in a later function.
 				// Go through each heading.
 				for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
 					// Add a starting div tag just after the heading.
 					var expandableDiv = document.createElement("div");
 					expandableDiv.className = "expandable";
 					// There is no insertAfter method, so use this to replace it.
-					h3s[h3Counter].parentNode.insertBefore(
-						expandableDiv,
-						h3s[h3Counter].nextSibling
-					);
+					h3s[h3Counter].parentNode.insertBefore(expandableDiv, h3s[h3Counter].nextSibling);
 					// Can't just look for next h3, because the last one could be at the end.
 					// Or you could run into a higher-level heading before the next h3.
 					var h3FollowingElements = []; // An array of elements?
 					var lastFollowerEle = expandableDiv.nextSibling; // Just a candidate at this point.
-					while (
-						lastFollowerEle &&
-						lastFollowerEle.nodeName != "H3" &&
-						lastFollowerEle.nodeName != "H2" &&
-						lastFollowerEle.nodeName != "H1"
-					) {
+					while (lastFollowerEle && lastFollowerEle.nodeName != "H3" && lastFollowerEle.nodeName != "H2" && lastFollowerEle.nodeName != "H1") {
 						// Gather all elements up to the next heading (at that level or higher).
 						h3FollowingElements.push(lastFollowerEle);
 						lastFollowerEle = lastFollowerEle.nextSibling;
 					}
 					// Now that you know the last following element, remove the content between headings.
-					for (
-						var eleCounter = h3FollowingElements.length - 1;
-						eleCounter >= 0;
-						eleCounter--
-					) {
-						h3FollowingElements[eleCounter].parentNode.removeChild(
-							h3FollowingElements[eleCounter]
-						);
+					for (var eleCounter = h3FollowingElements.length - 1; eleCounter >= 0; eleCounter--) {
+						h3FollowingElements[eleCounter].parentNode.removeChild(h3FollowingElements[eleCounter]);
 					}
 					// Re-insert it as a child of the div.
-					for (
-						var eleCounter = 0;
-						eleCounter < h3FollowingElements.length;
-						eleCounter++
-					) {
-						expandableDiv.appendChild(
-							h3FollowingElements[eleCounter]
-						);
+					for (var eleCounter = 0; eleCounter < h3FollowingElements.length; eleCounter++) {
+						expandableDiv.appendChild(h3FollowingElements[eleCounter]);
 					}
 					// You have now wrapped the expandable content in a div with class "expandable."
 				}
@@ -724,7 +700,7 @@
 				}
 			}
 		</script>
-		<link rel="stylesheet" href="css/fontawesome-5.11.2/css/all.css" />
+		<link rel="stylesheet" href="css/fontawesome-free-6.3.0-web/css/all.css" />
 		<script id="multiple-tagged-lexia-script-v01.0">
 			// This is supposed to enable different tag clouds for different screens of the same HTML document.
 			// Based on tagged-lexia-script-v02.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
@@ -746,9 +722,7 @@
 				// 		itemManager.push( allDivs[ divCounter ] ) ;
 				// 	}
 				// } ;
-				document
-					.querySelectorAll(`#${screenContainerId} .lexia`)
-					.forEach((lexiaDiv) => itemManager.push(lexiaDiv));
+				document.querySelectorAll(`#${screenContainerId} .lexia`).forEach((lexiaDiv) => itemManager.push(lexiaDiv));
 				// console.log(  '%c itemManager is ' + itemManager, 'color: red; background:yellow ; font-family: Impact; font-weight: bold;' ) ;
 
 				/*__________ Manage tag cloud. __________*/
@@ -763,52 +737,28 @@
 				thoughtMesh.selectedTags = []; // Defining this in advance prevents misfire when user clicks on scope radiobutton before clicking on a tag.
 				// Find lexia (div) tags.
 				// UPGRADE: Separate UI-specific parts somehow, if that's worth it?
-				for (
-					var itemCounter = 0;
-					itemCounter < itemManager.length;
-					itemCounter++
-				) {
+				for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 					// itemCounter starts with 1 for table with labels.
 					// Get div data.
-					itemManager.dataFromItem[itemCounter] =
-						itemManager[itemCounter].innerHTML;
+					itemManager.dataFromItem[itemCounter] = itemManager[itemCounter].innerHTML;
 					// Get tag data.
-					itemManager.tagsFromItem[itemCounter] = itemManager[
-						itemCounter
-					]
-						.querySelector(".tags")
-						.innerHTML.split(","); // This is extremely UI-specific.
+					itemManager.tagsFromItem[itemCounter] = itemManager[itemCounter].querySelector(".tags").innerHTML.split(","); // This is extremely UI-specific.
 					thoughtMesh.tagsFromItemCounter[itemCounter] = [];
 					// Check whether this item has any tags.
 					if (itemManager.tagsFromItem[itemCounter].length > 0) {
 						// Loop through all tags for this item (div, in this case).
-						for (
-							var newTagCounter = 0;
-							newTagCounter <
-							itemManager.tagsFromItem[itemCounter].length;
-							newTagCounter++
-						) {
-							var thisTag =
-								itemManager.tagsFromItem[itemCounter][
-									newTagCounter
-								];
+						for (var newTagCounter = 0; newTagCounter < itemManager.tagsFromItem[itemCounter].length; newTagCounter++) {
+							var thisTag = itemManager.tagsFromItem[itemCounter][newTagCounter];
 							// _thisTag = thisTag; debug("_thisTag", 2) ;
 							thisTag = thisTag.trim(); // Tag with whitespace removed.
 							// _thoughtMesh_tagsFromItem__itemCounter__ = thoughtMesh.tagsFromItemCounter[ itemCounter ]; debug("_thoughtMesh_tagsFromItem__itemCounter__", 3) ;
-							thoughtMesh.tagsFromItemCounter[itemCounter][
-								newTagCounter
-							] = thisTag; // Add trimmed tag back into tagsFromItemCounter array for future use.
-							if (
-								typeof thoughtMesh.itemsFromTag[thisTag] ==
-								"undefined"
-							) {
+							thoughtMesh.tagsFromItemCounter[itemCounter][newTagCounter] = thisTag; // Add trimmed tag back into tagsFromItemCounter array for future use.
+							if (typeof thoughtMesh.itemsFromTag[thisTag] == "undefined") {
 								// This tag has not yet been registered.
 								thoughtMesh.itemsFromTag[thisTag] = [];
 								thoughtMesh.uniqueTags.push(thisTag);
 							}
-							thoughtMesh.itemsFromTag[thisTag].push(
-								itemManager[itemCounter]
-							); // I think you're going to loop through these later and turn their display on.
+							thoughtMesh.itemsFromTag[thisTag].push(itemManager[itemCounter]); // I think you're going to loop through these later and turn their display on.
 						}
 					} else {
 						// If there are no tags, leave it as the default (empty) array; it will report length = 0.
@@ -822,16 +772,12 @@
 				// Jon used square root to give small numbers a fighting chance. In ems.
 				// It doesn't matter how many there are, it matters how big the max is.
 				// Goal is for the maximum size to be 4em, minimum .8em. So I want a square root function with f(argObj.maximum) = 4 and f(argObj.minimum) = .8.
-				var tagSize =
-					4 * Math.sqrt(0.5 * (argObj.frequency / argObj.maximum));
+				var tagSize = 4 * Math.sqrt(0.5 * (argObj.frequency / argObj.maximum));
 				if (tagSize < 1) tagSize = 1;
 				return tagSize;
 			}
 			function sortTagsNumerically(a, b) {
-				return (
-					thoughtMesh.itemsFromTag[a].length -
-					thoughtMesh.itemsFromTag[b].length
-				);
+				return thoughtMesh.itemsFromTag[a].length - thoughtMesh.itemsFromTag[b].length;
 			}
 			String.prototype.trim = function () {
 				return this.replace(/^\s*/, "").replace(/\s*$/, "");
@@ -850,23 +796,11 @@
 			}
 			function CloudTag(argObj) {
 				// Register arguments.
-				this.containerEle =
-					typeof argObj.containerEle == "undefined"
-						? document.body
-						: argObj.containerEle;
-				this.tag =
-					typeof argObj.tag == "undefined"
-						? "[no tag defined!]"
-						: argObj.tag;
-				this.frequency =
-					typeof argObj.frequency == "undefined"
-						? "[no frequency defined!]"
-						: argObj.frequency;
+				this.containerEle = typeof argObj.containerEle == "undefined" ? document.body : argObj.containerEle;
+				this.tag = typeof argObj.tag == "undefined" ? "[no tag defined!]" : argObj.tag;
+				this.frequency = typeof argObj.frequency == "undefined" ? "[no frequency defined!]" : argObj.frequency;
 				// this.documentsFrequency = (typeof argObj.documentsFrequency == "undefined")? "[no documentsFrequency defined!]" : argObj.documentsFrequency ;
-				this.size =
-					typeof argObj.size == "undefined"
-						? "[no size defined!]"
-						: argObj.size;
+				this.size = typeof argObj.size == "undefined" ? "[no size defined!]" : argObj.size;
 				// Note: textNodes are weird, don't seem to afford same handles as elements. Hence the element repetition instead of merely replacing textNode + with -.
 				/* _______ Create a box for holding +,-, and tag. _______*/
 				this.tagBox = document.createElement("span");
@@ -929,31 +863,23 @@
 				this.replaceLink.onmouseover = function () {
 					// I think "this" inside this function is the link, not the CloudTag object.
 					try {
-						var documentsFrequency =
-							numTaggedWith.documents[this.cloudTagObj.tag];
-						var lexiasFrequency =
-							numTaggedWith.lexias[this.cloudTagObj.tag];
+						var documentsFrequency = numTaggedWith.documents[this.cloudTagObj.tag];
+						var lexiasFrequency = numTaggedWith.lexias[this.cloudTagObj.tag];
 						// Build a tooltip.
 						if (documentsFrequency == 1) {
 							// Tag only exists in this document.
 							if (lexiasFrequency == 1) {
 								// Only one lexia with that tag.
-								var toolTip =
-									lexiasFrequency + " excerpt in this ";
+								var toolTip = lexiasFrequency + " excerpt in this ";
 							} else {
 								// More than one lexia, only in this document.
-								var toolTip =
-									lexiasFrequency + " excerpts in this ";
+								var toolTip = lexiasFrequency + " excerpts in this ";
 							}
 						} else {
 							// Tag exists in other documents too. If so, there must be at least two excerpts.
-							var toolTip =
-								lexiasFrequency +
-								" excerpts in " +
-								documentsFrequency;
+							var toolTip = lexiasFrequency + " excerpts in " + documentsFrequency;
 						}
-						toolTip +=
-							documentsFrequency > 1 ? " documents" : " document";
+						toolTip += documentsFrequency > 1 ? " documents" : " document";
 					} catch (e) {
 						var toolTip = "[documentsFrequency failed to load!]";
 					}
@@ -972,43 +898,19 @@
 				thoughtMesh.uniqueTags.sort(sortTagsNumerically);
 				thoughtMesh.tagFrequencyMin = 0;
 				thoughtMesh.tagFrequencyMax = 0;
-				if (
-					typeof thoughtMesh.itemsFromTag[
-						thoughtMesh.uniqueTags[0]
-					] != "undefined"
-				) {
-					thoughtMesh.tagFrequencyMin =
-						thoughtMesh.itemsFromTag[
-							thoughtMesh.uniqueTags[0]
-						].length;
-					thoughtMesh.tagFrequencyMax =
-						thoughtMesh.itemsFromTag[
-							thoughtMesh.uniqueTags[
-								thoughtMesh.uniqueTags.length - 1
-							]
-						].length;
+				if (typeof thoughtMesh.itemsFromTag[thoughtMesh.uniqueTags[0]] != "undefined") {
+					thoughtMesh.tagFrequencyMin = thoughtMesh.itemsFromTag[thoughtMesh.uniqueTags[0]].length;
+					thoughtMesh.tagFrequencyMax = thoughtMesh.itemsFromTag[thoughtMesh.uniqueTags[thoughtMesh.uniqueTags.length - 1]].length;
 				}
 				// Now sort unique tags alphabetically (default).
 				thoughtMesh.uniqueTags.sort(sortAlphabeticallyWithoutCase);
 				// Now add tags to cloud.
-				for (
-					var tagCounter = 0;
-					tagCounter < thoughtMesh.uniqueTags.length;
-					tagCounter++
-				) {
-					var thisTagFrequency =
-						thoughtMesh.itemsFromTag[
-							thoughtMesh.uniqueTags[tagCounter]
-						].length;
+				for (var tagCounter = 0; tagCounter < thoughtMesh.uniqueTags.length; tagCounter++) {
+					var thisTagFrequency = thoughtMesh.itemsFromTag[thoughtMesh.uniqueTags[tagCounter]].length;
 					var thisCloudTag = new CloudTag({
-						containerEle: document.querySelector(
-							`#${screenContainerId} .home-cloud`
-						),
+						containerEle: document.querySelector(`#${screenContainerId} .home-cloud`),
 						tag: thoughtMesh.uniqueTags[tagCounter],
-						frequency:
-							thoughtMesh.itemsFromTag[
-								thoughtMesh.uniqueTags[tagCounter]
-							].length,
+						frequency: thoughtMesh.itemsFromTag[thoughtMesh.uniqueTags[tagCounter]].length,
 						size: setTagSize({
 							frequency: thisTagFrequency,
 							minimum: thoughtMesh.tagFrequencyMin,
@@ -1017,66 +919,36 @@
 					});
 					thoughtMesh.tagObjs.push(thisCloudTag);
 					// Enable recovery of cloudTagObj from its name, for use in style highlighting--eg, thoughtMesh.tagObjs.getObjectByTag["technology"].
-					thoughtMesh.tagObjs.getObjectByTag[
-						thoughtMesh.uniqueTags[tagCounter]
-					] = thisCloudTag;
+					thoughtMesh.tagObjs.getObjectByTag[thoughtMesh.uniqueTags[tagCounter]] = thisCloudTag;
 				}
 			}
 			function respondToTag(argObj) {
 				/*________________________ Prepare.________________________*/
 				// Register some variables.
-				var tagArg =
-					typeof argObj.tagArg == "undefined"
-						? "[no tagArg passed!]"
-						: argObj.tagArg;
-				var linkType =
-					typeof argObj.linkType == "undefined"
-						? "[no linkType passed]"
-						: argObj.linkType;
+				var tagArg = typeof argObj.tagArg == "undefined" ? "[no tagArg passed!]" : argObj.tagArg;
+				var linkType = typeof argObj.linkType == "undefined" ? "[no linkType passed]" : argObj.linkType;
 				lexiaExcerptObjs = [];
 				var noContentSelected = true;
 				/*________________________ Adjust tag styles.________________________*/
 				switch (linkType) {
 					case "replace": // Replacing old tags with a single new tag.
 						// Reset all styles.
-						for (
-							var tagCounter = 0;
-							tagCounter < thoughtMesh.tagObjs.length;
-							tagCounter++
-						) {
-							thoughtMesh.tagObjs[
-								tagCounter
-							].replaceLink.className = "cloud-tag";
-							thoughtMesh.tagObjs[
-								tagCounter
-							].plusLink.style.display = "inline";
-							thoughtMesh.tagObjs[
-								tagCounter
-							].minusLink.className = "cloud-tag";
-							thoughtMesh.tagObjs[
-								tagCounter
-							].minusLink.style.display = "none";
+						for (var tagCounter = 0; tagCounter < thoughtMesh.tagObjs.length; tagCounter++) {
+							thoughtMesh.tagObjs[tagCounter].replaceLink.className = "cloud-tag";
+							thoughtMesh.tagObjs[tagCounter].plusLink.style.display = "inline";
+							thoughtMesh.tagObjs[tagCounter].minusLink.className = "cloud-tag";
+							thoughtMesh.tagObjs[tagCounter].minusLink.style.display = "none";
 							try {
-								thoughtMesh.tagObjs[
-									tagCounter
-								].blankLink.style.display = "none";
+								thoughtMesh.tagObjs[tagCounter].blankLink.style.display = "none";
 							} catch (e) {
 								// UPGRADE: log this?
 							}
 						}
 						// Style this tag.
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].replaceLink.className = "cloud-tag-selected";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].plusLink.style.display = "none";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.style.display = "inline";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].replaceLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].plusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.className = "cloud-tag-selected";
 						// If starting over from a new tag, wipe out the old one.
 						thoughtMesh.selectedTags = [];
 						thoughtMesh.selectedTags.push({
@@ -1084,8 +956,7 @@
 							integer: 0,
 						}); // thoughtMesh.selectedTags is a manager of objects with integer index and tag name properties.
 						thoughtMesh.selectedTags.getObjectByTag = {};
-						thoughtMesh.selectedTags.getObjectByTag[tagArg] =
-							thoughtMesh.selectedTags[0];
+						thoughtMesh.selectedTags.getObjectByTag[tagArg] = thoughtMesh.selectedTags[0];
 						break;
 					case "plus": // Adding a tag in combination.
 						// Register new tag. Currently no limitation on number, but they always intersect.
@@ -1094,114 +965,52 @@
 							integer: thoughtMesh.selectedTags.length,
 						});
 						// Enable recovery of array index from the tag name, for use in subtracting tag below.
-						thoughtMesh.selectedTags.getObjectByTag[tagArg] =
-							thoughtMesh.selectedTags[
-								thoughtMesh.selectedTags.length - 1
-							]; // This is an object.
+						thoughtMesh.selectedTags.getObjectByTag[tagArg] = thoughtMesh.selectedTags[thoughtMesh.selectedTags.length - 1]; // This is an object.
 						// Style this tag.
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].replaceLink.className = "cloud-tag-selected";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].plusLink.style.display = "none";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.className = "cloud-tag-selected";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.style.display = "inline";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].blankLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].replaceLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].plusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].blankLink.style.display = "none";
 						break;
 					case "minus": // Subtracting a tag in combination.
-						thoughtMesh.selectedTags.splice(
-							thoughtMesh.selectedTags.getObjectByTag[tagArg]
-								.integer,
-							1
-						);
+						thoughtMesh.selectedTags.splice(thoughtMesh.selectedTags.getObjectByTag[tagArg].integer, 1);
 						// The above changes the .integer property of each subsequent tag, so pop the rest of them up to compensate.
-						for (
-							var remainingTagCounter =
-								thoughtMesh.selectedTags.getObjectByTag[tagArg]
-									.integer;
-							remainingTagCounter <
-							thoughtMesh.selectedTags.length;
-							remainingTagCounter++
-						) {
-							thoughtMesh.selectedTags[
-								remainingTagCounter
-							].integer = remainingTagCounter;
+						for (var remainingTagCounter = thoughtMesh.selectedTags.getObjectByTag[tagArg].integer; remainingTagCounter < thoughtMesh.selectedTags.length; remainingTagCounter++) {
+							thoughtMesh.selectedTags[remainingTagCounter].integer = remainingTagCounter;
 						}
 						// Reset this tag to normal styles.
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].replaceLink.className = "cloud-tag";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].plusLink.style.display = "inline";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.className = "cloud-tag-selected";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].minusLink.style.display = "none";
-						thoughtMesh.tagObjs.getObjectByTag[
-							tagArg
-						].blankLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].replaceLink.className = "cloud-tag";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].plusLink.style.display = "inline";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.className = "cloud-tag-selected";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.style.display = "none";
+						thoughtMesh.tagObjs.getObjectByTag[tagArg].blankLink.style.display = "none";
 						break;
 				}
 				// Hide content.
 				hideContent();
 				/*________________________ Identify and show matching content.________________________*/
 				// Loop through items.
-				nextItemLabel: for (
-					var itemCounter = 0;
-					itemCounter < itemManager.length;
-					itemCounter++
-				) {
+				nextItemLabel: for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 					// If table, begins with 1 to avoid row of column labels. UPGRADE: make itemCounter content-agnostic, go back to counting from 0.
-					_thoughtMesh_tagsFromItem__itemCounter__ =
-						thoughtMesh.tagsFromItemCounter[itemCounter];
+					_thoughtMesh_tagsFromItem__itemCounter__ = thoughtMesh.tagsFromItemCounter[itemCounter];
 					debug("_thoughtMesh_tagsFromItem__itemCounter__", 2);
-					if (
-						thoughtMesh.tagsFromItemCounter[itemCounter].length == 0
-					) {
+					if (thoughtMesh.tagsFromItemCounter[itemCounter].length == 0) {
 						// Eliminates menu items without tags.
 						continue nextItemLabel; // Skips to next menu item.
 					} else {
 						itemManager[itemCounter].selectedViaTags = false; // Temporary assignment, usually contradicted below.
 						// Loop through the selected tags in the cloud.
-						for (
-							var cloudTagCounter = 0;
-							cloudTagCounter < thoughtMesh.selectedTags.length;
-							cloudTagCounter++
-						) {
+						for (var cloudTagCounter = 0; cloudTagCounter < thoughtMesh.selectedTags.length; cloudTagCounter++) {
 							itemManager[itemCounter].selectedViaTags = false;
 							// Loop through that item's tags.
-							_thoughtMesh_tagsFromItemCounter =
-								thoughtMesh.tagsFromItemCounter;
+							_thoughtMesh_tagsFromItemCounter = thoughtMesh.tagsFromItemCounter;
 							debug("_thoughtMesh_tagsFromItemCounter", 3);
-							for (
-								var itemTagCounter = 0;
-								itemTagCounter <
-								thoughtMesh.tagsFromItemCounter[itemCounter]
-									.length;
-								itemTagCounter++
-							) {
+							for (var itemTagCounter = 0; itemTagCounter < thoughtMesh.tagsFromItemCounter[itemCounter].length; itemTagCounter++) {
 								// If an item's tag does not match any one of the selected tags, mark it for non-highlight.
-								if (
-									thoughtMesh.tagsFromItemCounter[
-										itemCounter
-									][itemTagCounter] ==
-									thoughtMesh.selectedTags[cloudTagCounter]
-										.tag
-								) {
+								if (thoughtMesh.tagsFromItemCounter[itemCounter][itemTagCounter] == thoughtMesh.selectedTags[cloudTagCounter].tag) {
 									// A match!
-									itemManager[
-										itemCounter
-									].selectedViaTags = true;
+									itemManager[itemCounter].selectedViaTags = true;
 								} else {
 									// Continue with false.
 								}
@@ -1228,27 +1037,15 @@
 				if (typeof thoughtMesh.selectedTags[0] != "undefined") {
 					// UPGRADE: replace below with thoughtMesh.tagList = thoughtMesh.selectedTags.toString()
 					thoughtMesh.tagList = thoughtMesh.selectedTags[0].tag;
-					for (
-						var tagCounter = 1;
-						tagCounter < thoughtMesh.selectedTags.length;
-						tagCounter++
-					) {
-						thoughtMesh.tagList +=
-							"," + thoughtMesh.selectedTags[tagCounter].tag;
+					for (var tagCounter = 1; tagCounter < thoughtMesh.selectedTags.length; tagCounter++) {
+						thoughtMesh.tagList += "," + thoughtMesh.selectedTags[tagCounter].tag;
 					}
 				} else {
 					alertUser("pick one");
 					// Make plusses go away.
-					for (
-						var tagCounter = 1;
-						tagCounter < thoughtMesh.tagObjs.length;
-						tagCounter++
-					) {
-						thoughtMesh.tagObjs[tagCounter].plusLink.style.display =
-							"none";
-						thoughtMesh.tagObjs[
-							tagCounter
-						].blankLink.style.display = "inline";
+					for (var tagCounter = 1; tagCounter < thoughtMesh.tagObjs.length; tagCounter++) {
+						thoughtMesh.tagObjs[tagCounter].plusLink.style.display = "none";
+						thoughtMesh.tagObjs[tagCounter].blankLink.style.display = "inline";
 					}
 				}
 			}
@@ -1260,11 +1057,7 @@
 			} ;
 			/********** End hide table content. **********/
 				// Hide div (lexia) content.
-				for (
-					var itemCounter = 0;
-					itemCounter < itemManager.length;
-					itemCounter++
-				) {
+				for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 					itemManager[itemCounter].style.display = "none";
 				}
 			}
@@ -1274,11 +1067,7 @@
 			}
 			function showAllContent() {
 				// Consolidate with showContent?
-				for (
-					var itemCounter = 0;
-					itemCounter < itemManager.length;
-					itemCounter++
-				) {
+				for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 					itemManager[itemCounter].style.display = "table-row";
 				}
 				alertUser("ok");
@@ -1286,21 +1075,13 @@
 			function alertUser(status) {
 				switch (status) {
 					case "ok":
-						document.querySelector(
-							`#${screenContainerId} .alert-box`
-						).innerHTML = "";
+						document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "";
 						break;
 					case "no match":
-						document.querySelector(
-							`#${screenContainerId} .alert-box`
-						).innerHTML =
-							"No content matches that combination. Unselect a tag.";
+						document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "No content matches that combination. Unselect a tag.";
 						break;
 					case "pick one":
-						document.querySelector(
-							`#${screenContainerId} .alert-box`
-						).innerHTML =
-							"Pick a tag to see related content or <a onclick='showAllContent()'>show all</a>.";
+						document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "Pick a tag to see related content or <a onclick='showAllContent()'>show all</a>.";
 						break;
 				}
 			}
@@ -1320,11 +1101,7 @@
 			}
 			********** End find table matches. **********/
 				// Find div (lexia) matches.
-				for (
-					var itemCounter = 0;
-					itemCounter < itemManager.length;
-					itemCounter++
-				) {
+				for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 					if (objRegex.test(itemManager.dataFromItem[itemCounter])) {
 						itemManager[itemCounter].style.display = "block";
 					} else {
@@ -1336,11 +1113,7 @@
 				lexiaDivs = document.getElementsByClassName("lexia");
 				// Assumes inactive lexias are commented out,
 				// which helps load faster.
-				for (
-					var lexiaCounter = 0;
-					lexiaCounter < lexiaDivs.length;
-					lexiaCounter++
-				) {
+				for (var lexiaCounter = 0; lexiaCounter < lexiaDivs.length; lexiaCounter++) {
 					this.selected = false;
 					/* Select lexia on over. */
 					lexiaDivs[lexiaCounter].onmouseover = function () {
@@ -1366,45 +1139,28 @@
 			};
 		</script>
 		<script id="learnwithai-index-script">
-			const chooseScreen = () => {
+			const chooseScreen = async (selectedTag) => {
 				if (viewMode === "resources") {
 					clearLexias();
 					screenContainerId = "resources-container";
+					// Swap rubric for banner.
+					document.getElementById("rubric").style.display = "block";
 					// Display appropriate containers.
-					document.getElementById(
-						"resources-container"
-					).style.display = "block";
-					document.getElementById(
-						"strategies-container"
-					).style.display = "none";
-					document.getElementById(
-						"search-container"
-					).style.visibility = "visible";
-					document.getElementById(
-						"dashboard-features"
-					).style.display = "none";
-					document.getElementById(
-						"strategies-container"
-					).style.display = "none";
-					document.getElementById("faq-container").style.display =
-						"none";
+					document.getElementById("resources-container").style.display = "block";
+					document.getElementById("strategies-container").style.display = "none";
+					document.getElementById("search-container").style.visibility = "visible";
+					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("strategies-container").style.display = "none";
+					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
-					document
-						.getElementById("browse-resources")
-						.classList.remove("activated");
-					document
-						.getElementById("browse-strategies")
-						.classList.add("activated");
-					document
-						.getElementById("browse-features")
-						.classList.add("activated");
-					document
-						.getElementById("browse-faq")
-						.classList.add("activated");
+					document.getElementById("browse-resources").classList.remove("activated");
+					document.getElementById("browse-strategies").classList.add("activated");
+					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-faq").classList.add("activated");
 					// Build lexias for this screen.
 					buildLexias("1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw");
 					/*
-			if ( ! clustersPublished ) {				
+			if ( ! clustersPublished ) {
 				// Build clusters.
 				getClusterJSON()
 				.then(
@@ -1438,39 +1194,30 @@
 				} else if (viewMode === "strategies") {
 					clearLexias();
 					screenContainerId = "strategies-container";
+					// Swap rubric for banner.
+					document.getElementById("rubric").style.display = "block";
 					// Display appropriate containers.
-					document.getElementById(
-						"strategies-container"
-					).style.display = "block";
-					document.getElementById(
-						"search-container"
-					).style.visibility = "visible";
-					document.getElementById(
-						"resources-container"
-					).style.display = "none";
-					document.getElementById(
-						"dashboard-features"
-					).style.display = "none";
-					document.getElementById(
-						"strategies-container"
-					).style.display = "block";
-					document.getElementById("faq-container").style.display =
-						"none";
+					document.getElementById("strategies-container").style.display = "block";
+					document.getElementById("search-container").style.visibility = "visible";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("strategies-container").style.display = "block";
+					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
-					document
-						.getElementById("browse-resources")
-						.classList.add("activated");
-					document
-						.getElementById("browse-strategies")
-						.classList.remove("activated");
-					document
-						.getElementById("browse-features")
-						.classList.add("activated");
-					document
-						.getElementById("browse-faq")
-						.classList.add("activated");
+					document.getElementById("browse-resources").classList.add("activated");
+					document.getElementById("browse-strategies").classList.remove("activated");
+					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-faq").classList.add("activated");
 					// Build lexias for this screen.
-					buildLexias("1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk");
+					await buildLexias("1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk");
+					// setTimeout(() => {
+					if (typeof selectedTag !== "undefined") {
+						respondToTag({
+							tagArg: selectedTag,
+							linkType: "replace",
+						});
+					}
+					// }, 3000);
 					/*
 			if ( ! individualPublished ) {
 				// Build individual badges.
@@ -1524,101 +1271,62 @@
 							linkType: "replace"
 						}
 					) ;
-				}				
+				}
 			}
 			*/
 				} else if (viewMode === "features") {
 					// NECESSARY: reset screenContainerId?
+					// Swap rubric for banner.
+					document.getElementById("rubric").style.display = "none";
 					// Display appropriate containers.
-					document.getElementById(
-						"resources-container"
-					).style.display = "none";
-					document.getElementById(
-						"search-container"
-					).style.visibility = "hidden";
-					document.getElementById(
-						"resources-container"
-					).style.display = "none";
-					document.getElementById(
-						"dashboard-features"
-					).style.display = "block";
-					document.getElementById(
-						"strategies-container"
-					).style.display = "none";
-					document.getElementById("faq-container").style.display =
-						"none";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("search-container").style.visibility = "hidden";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("dashboard-features").style.display = "block";
+					document.getElementById("strategies-container").style.display = "none";
+					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
-					document
-						.getElementById("browse-resources")
-						.classList.add("activated");
-					document
-						.getElementById("browse-strategies")
-						.classList.add("activated");
-					document
-						.getElementById("browse-features")
-						.classList.remove("activated");
-					document
-						.getElementById("browse-faq")
-						.classList.add("activated");
+					document.getElementById("browse-resources").classList.add("activated");
+					document.getElementById("browse-strategies").classList.add("activated");
+					document.getElementById("browse-features").classList.remove("activated");
+					document.getElementById("browse-faq").classList.add("activated");
 				} else if (viewMode === "faq") {
 					// NECESSARY: reset screenContainerId?
+					// Swap rubric for banner.
+					document.getElementById("rubric").style.display = "block";
 					// Display appropriate containers.
-					document.getElementById(
-						"resources-container"
-					).style.display = "none";
-					document.getElementById(
-						"search-container"
-					).style.visibility = "hidden";
-					document.getElementById(
-						"resources-container"
-					).style.display = "none";
-					document.getElementById(
-						"dashboard-features"
-					).style.display = "none";
-					document.getElementById(
-						"strategies-container"
-					).style.display = "none";
-					document.getElementById("faq-container").style.display =
-						"block";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("search-container").style.visibility = "hidden";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("strategies-container").style.display = "none";
+					document.getElementById("faq-container").style.display = "block";
 					// Activate the other navigation options.
-					document
-						.getElementById("browse-resources")
-						.classList.add("activated");
-					document
-						.getElementById("browse-strategies")
-						.classList.add("activated");
-					document
-						.getElementById("browse-features")
-						.classList.add("activated");
-					document
-						.getElementById("browse-faq")
-						.classList.remove("activated");
+					document.getElementById("browse-resources").classList.add("activated");
+					document.getElementById("browse-strategies").classList.add("activated");
+					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-faq").classList.remove("activated");
 				} else {
 					// Sh*t!
-					console.log(
-						"%c Unrecognized viewMode!",
-						"color: yellow; background:red; font-style: italic ;"
-					);
+					console.log("%c Unrecognized viewMode!", "color: yellow; background:red; font-style: italic ;");
 				}
 			};
 		</script>
 		<script id="lexias-from-google-sheet-script-v01.2">
 			// Modified to allow multiple lexia containers in the same document.
-			lexiaObjects = [] ;
+			lexiaObjects = [];
 			const Lexia = function (argumentsObject) {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// Build lexia.
 				lexiaObjects.push(this);
 				this.lexiaDiv = document.createElement("div");
 				// Appending the lexia div here is more efficient than where Lexia is called.
-				document
-					.querySelector(`#${screenContainerId} .lexia-container`)
-					.appendChild(this.lexiaDiv);
+				document.querySelector(`#${screenContainerId} .lexia-container`).appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
 				this.lexiaDiv.onclick = () => {
 					window.open(argumentsObject.link, "_blank");
-					console.log(argumentsObject.link)
-				}
+					console.log(argumentsObject.link);
+				};
 				// Build headline.
 				this.headlineH2 = document.createElement("h2");
 				this.lexiaDiv.appendChild(this.headlineH2);
@@ -1651,9 +1359,7 @@
 				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
 				// Google Sheet URL for AI + education is https://docs.google.com/sheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit#gid=0
 				// So the object is at https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq
-				let response = await fetch(
-					`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq`
-				);
+				let response = await fetch(`https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq`);
 				// let response = await fetch(
 				// 	`https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/gviz/tq`
 				// );
@@ -1662,22 +1368,18 @@
 			};
 			const clearLexias = () => {
 				// Use this when switching screens to load from a new data set.
-				if ( typeof lexiaObjects !== "undefined" ) {
-					lexiaObjects.forEach(
-						lexiaObject => {
-							lexiaObject.lexiaDiv.parentNode.removeChild(lexiaObject.lexiaDiv); 
-						}
-						);
-						lexiaObjects = [];
-					}
-					// NEXT: remove tags.
-					
-				if ( typeof thoughtMesh !== "undefined" ) {
-					thoughtMesh.tagObjs.forEach(
-						tagObject => {
-							tagObject.tagBox.parentNode.removeChild(tagObject.tagBox); 
-						}
-					);
+				if (typeof lexiaObjects !== "undefined") {
+					lexiaObjects.forEach((lexiaObject) => {
+						lexiaObject.lexiaDiv.parentNode.removeChild(lexiaObject.lexiaDiv);
+					});
+					lexiaObjects = [];
+				}
+				// NEXT: remove tags.
+
+				if (typeof thoughtMesh !== "undefined") {
+					thoughtMesh.tagObjs.forEach((tagObject) => {
+						tagObject.tagBox.parentNode.removeChild(tagObject.tagBox);
+					});
 					thoughtMesh.tagObjs = [];
 				}
 			};
@@ -1688,10 +1390,7 @@
 				let sheetObjectWithBreak = await fetchSheet(sheetId);
 				// UPGRADE: Removing the line break may not be necessary.
 				let lineBreak = sheetObjectWithBreak.search(/\n/);
-				sheetObject = sheetObjectWithBreak.substr(
-					lineBreak + 1,
-					sheetObjectWithBreak.length
-				);
+				sheetObject = sheetObjectWithBreak.substr(lineBreak + 1, sheetObjectWithBreak.length);
 				let startOfRows = sheetObject.search(/"rows":/) + 7;
 				let endOfRows = sheetObject.search(/,"parsedNumHeaders"/);
 				rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
@@ -1735,9 +1434,7 @@
 							});
 						}
 					} else {
-						console.warn(
-							"buildLexias called for an unrecognized screen"
-						);
+						console.warn("buildLexias called for an unrecognized screen");
 					}
 				});
 				harvestData();
@@ -1755,23 +1452,13 @@
 						// There's no string.reverse(), either. 8P
 						var reversed = spans[i].innerHTML;
 						var address = "";
-						for (j = reversed.length - 1; j >= 0; j--)
-							address += reversed.charAt(j);
-						spans[i].innerHTML =
-							'<a href="mailto:' +
-							address +
-							'">' +
-							address +
-							"</a>";
+						for (j = reversed.length - 1; j >= 0; j--) address += reversed.charAt(j);
+						spans[i].innerHTML = '<a href="mailto:' + address + '">' + address + "</a>";
 					}
 				}
 			}
 		</script>
-		<script
-			id="debug-pre-script_v01.1"
-			type="text/javascript"
-			charset="utf-8"
-		>
+		<script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
 			function debug(argument) {
 				// Use only if no debug.js found.
 				window.status = "Debug script not found.";
@@ -1785,12 +1472,7 @@
 				window.status = "DebugObject script not found.";
 			}
 		</script>
-		<script
-			id="debug-external-script"
-			type="text/javascript"
-			language="JavaScript"
-			src="js/debug.js"
-		></script>
+		<script id="debug-external-script" type="text/javascript" language="JavaScript" src="js/debug.js"></script>
 		<script id="debug-open-window">
 			try {
 				openDebugWindow({
@@ -1803,208 +1485,111 @@
 			}
 		</script>
 	</head>
-	<body
-		id="learnwithai-body"
-		onload="viewMode='features' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()"
-	>
+	<body id="learnwithai-body" onload="viewMode='features' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 		<div id="watermark"></div>
 		<div id="header">
-			<a id="crest" href="http://umaine.edu"
-				><img
-					src="media/ume_crest_logo_gray_tra.png"
-					alt="Ume Crest Gray"
-			/></a>
+			<a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a>
 			<h2 id="rubric">Learn With AI</h2>
-			<span id="search-container"
-				>Search:
-				<input
-					type="text"
-					id="searchBox"
-					name="searchBox"
-					onkeyup="searchFilter(this.value)"
-			/></span>
+			<span id="search-container">Search: <input type="text" id="searchBox" name="searchBox" onkeyup="searchFilter(this.value)" /></span>
 		</div>
 		<div id="browse-options">
-			<span
-				onclick="viewMode='features'; chooseScreen()"
-				id="browse-features"
-				>About the initiative</span
-			>
+			<span onclick="viewMode='features'; chooseScreen()" id="browse-features">About the toolkit</span>
 			|
-			<span
-			onclick="viewMode='resources'; chooseScreen();"
-			id="browse-resources"
-			>Resources</span
-			>
+			<span onclick="viewMode='resources'; chooseScreen();" id="browse-resources">Resources</span>
 			|
-			<span
-				onclick="viewMode='strategies'; chooseScreen();"
-				id="browse-strategies"
-				>Strategies</span
-			>
+			<span onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies</span>
 			|
-			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none"
-				>FAQ</span
-			>
+			<span onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none">FAQ</span>
 		</div>
 		<div id="dashboard-features">
 			<div id="explanation">
 				<p>
-					<img
-						src="media/learning_with_ai_graphic_centered_1080.png"
-						alt="Nmd Citl Learning With Ai Ann 1080"
-					/>
-					As the sudden rise of generative AI sends shock waves
-					through society, no sector is feeling the disruption as
-					abruptly and pervasively as education. Large Language
-					Models like ChatGPT threaten to make the term paper
-					obsolete, while diffusion-based text-to-image generators
-					like DALLE-2, Stable Diffusion, and Midjourney offer a
-					way to create images that's completely outside the
-					workflow of illustrators and designers, whether trained
-					in analog or digital media.
+					<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" />
+					As the sudden rise of generative AI sends shock waves through society, no sector is feeling the disruption as abruptly and pervasively as education. Large Language Models like ChatGPT threaten to make the term paper obsolete, while diffusion-based text-to-image generators like DALLE-2, Stable Diffusion, and Midjourney offer a way to create images that's completely outside the
+					workflow of illustrators and designers, whether trained in analog or digital media.
 				</p>
+				<p>Rather than try to ban this technology from classrooms outright, the Learning with AI initiative from the University of Maine asks if this moment offers an opportunity to introduce students to the ethical and economic questions wreaked by these new tools, as well as to consider fresh new forms of pedagogy that can exploit them.</p>
+				<h3>Sample pathways</h3>
+				<div id="features">
+					<div id="e" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-handshake"></i> Collaborate with AI</h4>
+						<p>Harness generative AI for human tasks.</p>
+					</div>
+					<div id="h" class="feature" onclick="viewMode = 'strategies'; chooseScreen('human-first');">
+						<h4><i class="fa-solid fa-person"></i> Prioritize humanity</h4>
+						<p>Craft assignments that AI can't do.</p>
+					</div>
+					<div id="a" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fa-solid fa-book-open-reader"></i> Learn more efficiently</h4>
+						<p>Use AI to generate questions, flashcards, and the like.</p>
+					</div>
+					<!-- <div id="b" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fa-solid fa-square-pen"></i> Write with AI</h4>
+						<p>Craft prompts to generate new text or get feedback on your own.</p>
+					</div>
+					<div id="d" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-list"></i> Level up</h4>
+						<p>Pursue a topic through beginner, intermediate, advanced, and expert levels.</p>
+					</div>
+					<div id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-smile-wink"></i> Get a hint</h4>
+						<p>For free-form answers, get contextual hints to help correct your syntax or vocabulary.</p>
+					</div>
+					<div id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-user-friends"></i> Learn from peers</h4>
+						<p>Create screencasts for your fellow students.</p>
+					</div>
+					<div id="g" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-random"></i> Flip the classroom</h4>
+						<p>Watch the "lectures" at home so you can work on the homework during class.</p>
+					</div>
+					<div id="i" class="feature" onclick="viewMode = 'strategies'; chooseScreen('AI-human-collaboration');">
+						<h4><i class="fas fa-chalkboard-teacher"></i> In or outside of class</h4>
+						<p>Earn badges for a class or as a personal project.</p>
+					</div> -->
+				</div>
 				<p>
-					Rather than try to ban this technology from classrooms
-					outright, the Learning with AI initiative from the
-					University of Maine asks if this moment offers an
-					opportunity to introduce students to the ethical and
-					economic questions wreaked by these new tools, as well
-					as to consider fresh new forms of pedagogy that can
-					exploit them.
-				</p>
-				<p>
-					<img
-						src="media/13orono_digital_humanities_thatcamp_11.JPG"
-						alt="UMaine students and faculty in a workshop"
-						class="side-image"
-					/>
 					Launched by the
-					<a href="https://umaine.edu/newmedia"
-						>New Media program</a
-					>
+					<a href="https://umaine.edu/newmedia">New Media program</a>
 					and
-					<a href="https://umaine.edu/citl/"
-						>Center for Innovation and Teaching and Learning</a
-					>, the Learning With AI working group unites campus
-					representatives from the sciences and humanities,
-					<a href="https://ai.umaine.edu/">UMaine AI</a>, and
-					outside experts in a series of events meant to survey
-					the challenges and offer resources to any educator or
-					student wondering how to accommodate this disruption.
+					<a href="https://umaine.edu/citl/">Center for Innovation and Teaching and Learning</a>, the Learning With AI working group unites campus representatives from the sciences and humanities, <a href="https://ai.umaine.edu/">UMaine AI</a>, and outside experts in a series of events meant to survey the challenges and offer resources to any educator or student wondering how to
+					accommodate this disruption.
 				</p>
 				<p>
-					Outcomes expected from this group include public and
-					private events to raise awareness of generative AI's
-					impact on education and brainstorm solutions to its
-					challenges. Another anticipated product is a an online
-					toolkit to arm educators with strategies that either
-					emphasize the humanity of the creator or incorporate AI
-					into the classroom in a way that enhances rather than
+					<img src="media/13orono_digital_humanities_thatcamp_11.JPG" alt="UMaine students and faculty in a workshop" class="side-image" />
+					Outcomes expected from this group include public and private events to raise awareness of generative AI's impact on education and brainstorm solutions to its challenges. Another anticipated product is a an online toolkit to arm educators with strategies that either emphasize the humanity of the creator or incorporate AI into the classroom in a way that enhances rather than
 					replaces the learning process.
 				</p>
-				<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class='activemail'>ude.eniam@otiloppij</span> to get involved.</p>
-			</div>
-			<!-- <div id="features">
-				<div id="e" class="feature">
-					<h4>
-						<i class="fas fa-user-graduate"></i> Get lasting
-						credentials
-					</h4>
-					<p>
-						Add badges to your portfolio to show future employers
-						and collaborators.
-					</p>
-				</div>
-				<div id="h" class="feature">
-					<h4>
-						<i class="fas fa-certificate"></i> Verify achievements
-					</h4>
-					<p>
-						Employers can look up a badge to see what it required
-						and when you earned it.
-					</p>
-				</div>
-				<div id="a" class="feature">
-					<h4><i class="fas fa-edit"></i> Test your learning</h4>
-					<p>
-						Complete the fill-in-the-blank or free-form quizzes to
-						earn each badge.
-					</p>
-				</div>
-				<div id="b" class="feature">
-					<h4><i class="fas fa-clock"></i> Take your time</h4>
-					<p>Watch the screencasts online at your own pace.</p>
-				</div>
-				<div id="d" class="feature">
-					<h4><i class="fas fa-list"></i> Level up</h4>
-					<p>
-						Pursue a topic through beginner, intermediate, advanced,
-						and expert levels.
-					</p>
-				</div>
-				<div id="c" class="feature">
-					<h4><i class="fas fa-smile-wink"></i> Get a hint</h4>
-					<p>
-						For free-form answers, get contextual hints to help
-						correct your syntax or vocabulary.
-					</p>
-				</div>
-				<div id="f" class="feature">
-					<h4>
-						<i class="fas fa-user-friends"></i> Learn from peers
-					</h4>
-					<p>Create screencasts for your fellow students.</p>
-				</div>
-				<div id="g" class="feature">
-					<h4><i class="fas fa-random"></i> Flip the classroom</h4>
-					<p>
-						Watch the "lectures" at home so you can work on the
-						homework during class.
-					</p>
-				</div>
-				<div id="i" class="feature">
-					<h4>
-						<i class="fas fa-chalkboard-teacher"></i> In or outside
-						of class
-					</h4>
-					<p>Earn badges for a class or as a personal project.</p>
-				</div> -->
+				<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class="activemail">ude.eniam@otiloppij</span> to get involved.</p>
 			</div>
 		</div>
 		<div id="strategies-container">
-			<h3>The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</h3>
+			<h3>
+				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</h3>
 			<h3>Use the search box or click on tags below to filter the results.</h3>
 			<div class="home-cloud"></div>
-			<div class="alert-box">
-				No matching content for that tag combination
-			</div>
+			<div class="alert-box">No matching content for that tag combination</div>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End strategies-container. -->
 		<div id="resources-container">
-			<h3>The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</h3>
-			<h2 style="color: white" >Use the search box or click on tags below to filter the results.</h2>
+			<h3>
+				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.
+			</h3>
+			<h2 style="color: white">Use the search box or click on tags below to filter the results.</h2>
 			<div class="home-cloud"></div>
-			<div class="alert-box">
-				No matching content for that tag combination
-			</div>
+			<div class="alert-box">No matching content for that tag combination</div>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
 		<div id="faq-container">
 			<h1>Frequently Asked Questions</h1>
-			<p>
-				More FAQs coming soon!
-			</p>
+			<p>More FAQs coming soon!</p>
 			<h2><i class="fas fa-certificate"></i> Meta</h2>
 			<h3>Wait, I want to learn/teach AI as a discipline!</h3>
-			<p>
-				This program is not for you; we're focused on how to cope with
-				generative AI when learning <em>any</em> subject. Fortunately,
-				the UMaine AI iniative has programs in Computer Science, Data
-				Science, and related fields.
-			</p>
+			<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the UMaine AI iniative has programs in Computer Science, Data Science, and related fields.</p>
 			<h3>Was this site made with ChatGPT?</h3>
 			<p>No.</p>
 			<h3>I have a question not in this list.</h3>
@@ -2017,19 +1602,13 @@
 			<div id="credit">
 				<p>
 					A project of the University of Maine's
-					<a href="https://umaine.edu/citl/"
-						>Center for Innovation in Teaching and Learning</a
-					>
+					<a href="https://umaine.edu/citl/">Center for Innovation in Teaching and Learning</a>
 					and
 					<a href="https://umaine.edu/newmedia">New Media</a> program
 				</p>
 			</div>
 			<div class="nmd-logo-phrase">
-				<a href="http://newmedia.umaine.edu/"
-					><img
-						src="media/nmd_title_blue_tra_xvga.png"
-						alt="Nmd Title Blue Tra Xvga"
-				/></a>
+				<a href="http://newmedia.umaine.edu/"><img src="media/nmd_title_blue_tra_xvga.png" alt="Nmd Title Blue Tra Xvga" /></a>
 			</div>
 		</div>
 	</body>
