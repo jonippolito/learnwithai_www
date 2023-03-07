@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 1.8, adding boxes to landing page. -->
+		<!-- Version 1.9, refining feature box behavior on landing page. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -346,6 +346,11 @@
 				align-items: center;
 				justify-content: flex-start;
 				padding: 1em;
+				transition: box-shadow 0.3s ease-in-out;
+			}
+			.feature:hover {
+				box-shadow: var(--dull-aqua) 3px 4px 6px;
+				cursor: pointer;
 			}
 			.feature:nth-child(3n) {
 				background-color: var(--dull-gold); /* SWATCH Dull gold.*/
@@ -1310,6 +1315,7 @@
 					// Sh*t!
 					console.log("%c Unrecognized viewMode!", "color: yellow; background:red; font-style: italic ;");
 				}
+				window.scrollTo(0, 0);
 			};
 		</script>
 		<script id="lexias-from-google-sheet-script-v01.2">
