@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 1.9, refining feature box behavior on landing page. -->
+		<!-- Version 2.0, clicking a strategy lexia shows related resource lexia via a unique id. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -394,9 +394,9 @@
 			}
 			.home-cloud {
 				position: relative;
-				float: left;
+				/* float: left; */
 				margin: 0 auto;
-				width: 90%;
+				/* width: 90%; */
 				background-color: var(--lexia-lighter);
 				position: relative;
 				border: var(--lexia-lighter) solid 4px;
@@ -425,6 +425,10 @@
 			}
 			.inactive {
 				display: none;
+			}
+			h3.lexia-instructions {
+				position: relative;
+				margin: 1em 0;
 			}
 			.lexia-container {
 				display: grid;
@@ -527,7 +531,7 @@
 			:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
 				color: var(--lightest);
 			}
-			:is(.lexia, .lexia-selected) :is(.tags) {
+			:is(.lexia, .lexia-selected) :is(.tags, .lexia-id) {
 				display: none;
 			}
 			/* UNUSED: __________ Clusters. __________*
@@ -991,6 +995,9 @@
 						thoughtMesh.tagObjs.getObjectByTag[tagArg].minusLink.style.display = "none";
 						thoughtMesh.tagObjs.getObjectByTag[tagArg].blankLink.style.display = "none";
 						break;
+					case "id": // Filter for specific lexias by their ids (unusual case).
+						searchFilter(tagArg);
+						return;
 				}
 				// Hide content.
 				hideContent();
@@ -1163,7 +1170,21 @@
 					document.getElementById("browse-features").classList.add("activated");
 					document.getElementById("browse-faq").classList.add("activated");
 					// Build lexias for this screen.
-					buildLexias("1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw");
+					await buildLexias("1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw");
+					if (typeof selectedTags !== "undefined") {
+						respondToTag({
+							tagArg: selectedTags[0],
+							linkType: "replace",
+						});
+						if (selectedTags.length > 1) {
+							for (let tagCounter = 1; tagCounter < selectedTags.length; tagCounter++) {
+								respondToTag({
+									tagArg: selectedTags[tagCounter],
+									linkType: "plus",
+								});
+							}
+						}
+					}
 					/*
 			if ( ! clustersPublished ) {
 				// Build clusters.
@@ -1330,21 +1351,32 @@
 			const Lexia = function (argumentsObject) {
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// Build lexia.
+				this.id = argumentsObject.id;
 				lexiaObjects.push(this);
 				this.lexiaDiv = document.createElement("div");
 				// Appending the lexia div here is more efficient than where Lexia is called.
 				document.querySelector(`#${screenContainerId} .lexia-container`).appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
-				this.lexiaDiv.onclick = () => {
-					window.open(argumentsObject.link, "_blank");
-					console.log(argumentsObject.link);
+				this.lexiaDiv.onclick = async () => {
+					if (viewMode === "resources") {
+						window.open(argumentsObject.link, "_blank");
+						console.log(argumentsObject.link);
+					} else if (viewMode === "strategies") {
+						if (argumentsObject.id.length === 0) {
+							alert("No resource for this strategy");
+						} else {
+							viewMode = "resources";
+							await chooseScreen();
+							searchFilter(argumentsObject.id);
+						}
+					}
 				};
 				// Build headline.
 				this.headlineH2 = document.createElement("h2");
 				this.lexiaDiv.appendChild(this.headlineH2);
 				this.headlineH2.className = "headline";
 				this.headlineH2.innerText = argumentsObject.headline;
-				/* DEPRECATED: 
+				/* DEPRECATED:
 				// Build link.
 				this.headlineLink = document.createElement("a");
 				this.headlineH2.appendChild(this.headlineLink);
@@ -1366,6 +1398,11 @@
 				this.lexiaDiv.appendChild(this.tagsDiv);
 				this.tagsDiv.className = "tags";
 				this.tagsDiv.innerHTML = argumentsObject.tags;
+				// Build lexia id (may be hidden but still can be filtered via search box).
+				this.idP = document.createElement("p");
+				this.lexiaDiv.appendChild(this.idP);
+				this.idP.className = "lexia-id";
+				this.idP.innerHTML = argumentsObject.id;
 			};
 			const fetchSheet = async (sheetId) => {
 				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
@@ -1419,12 +1456,14 @@
 							let linkPair = row["c"][2] || { v: "" };
 							let tagsPair = row["c"][3] || { v: "" };
 							let summaryPair = row["c"][4] || { v: "" };
+							let idPair = row["c"][5] || { v: "" };
 							let thisLexia = new Lexia({
 								byline: bylinePair["v"],
 								headline: sourcePair["v"],
 								link: linkPair["v"],
 								tags: tagsPair["v"],
 								summary: summaryPair["v"],
+								id: idPair["v"],
 							});
 						}
 					} else if (screenContainerId === "strategies-container") {
@@ -1437,12 +1476,14 @@
 							let tagsPair = row["c"][2] || { v: "" };
 							let deleteMe = row["c"][3] || { v: "" };
 							let linkPair = row["c"][4] || { v: "" };
+							let idPair = row["c"][5] || { v: "" };
 							let thisLexia = new Lexia({
 								byline: "",
 								headline: strategyPair["v"],
 								link: linkPair["v"],
 								tags: tagsPair["v"],
 								summary: descriptionPair["v"],
+								id: idPair["v"],
 							});
 						}
 					} else {
@@ -1580,9 +1621,10 @@
 				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via
 				<span class="activemail">ude.eniam@otiloppij</span>.
 			</h3>
-			<h3>Use the search box or click on tags below to filter the results.</h3>
+			<h3>Use the search box or choose tags below to filter the results:</h3>
 			<div class="home-cloud"></div>
 			<div class="alert-box">No matching content for that tag combination</div>
+			<h3 class="lexia-instructions">Click on an item to see the associated resource:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End strategies-container. -->
@@ -1590,9 +1632,10 @@
 			<h3>
 				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.
 			</h3>
-			<h2 style="color: white">Use the search box or click on tags below to filter the results.</h2>
+			<h3>Use the search box or choose tags below to filter the results:</h3>
 			<div class="home-cloud"></div>
 			<div class="alert-box">No matching content for that tag combination</div>
+			<h3 class="lexia-instructions">Click on an item to visit the external link:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
