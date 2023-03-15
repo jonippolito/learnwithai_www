@@ -55,18 +55,19 @@
 			:root {
 				/* Global dimensions. */
 				--margin-wide: 40px;
+				--lexia-transition-duration: 0.3s;
 				/* Global colors. Screen-specific values are below. */
 				--h-cooler: 220; /* WAS 205. */
 				--h-medium: 210; /* WAS 200. */
 				--h-warmer: 200; /* WAS 190. */
 				--h-rotate-from-sepia: 170deg;
-				--light-silt: hsla(var(--h-medium), 30%, 30%, 1); /* SWATCH Light silt. */
-				--medium-silt: hsla(var(--h-medium), 30%, 20%, 1); /* SWATCH Medium silt. */
-				--dark-silt: hsla(var(--h-medium), 30%, 10%, 1); /* SWATCH Dark silt. */
-				--dull-gold: hsla(var(--h-warmer), 40%, 70%, 1); /* SWATCH Dull gold.*/
-				--medium-gold: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium gold.*/
-				--other-gold: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other gold.*/
-				--pale-gold: hsla(var(--h-medium), 90%, 80%, 1); /* SWATCH Pale gold.*/
+				--light-ice: hsla(var(--h-medium), 30%, 30%, 1); /* SWATCH Light ice. */
+				--medium-ice: hsla(var(--h-medium), 30%, 20%, 1); /* SWATCH Medium ice. */
+				--dark-ice: hsla(var(--h-medium), 30%, 10%, 1); /* SWATCH Dark ice. */
+				--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1); /* SWATCH Dull celeste.*/
+				--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium celeste.*/
+				--other-celeste: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other celeste.*/
+				--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1); /* SWATCH Pale celeste.*/
 				--lexia-lighter: paleturquoise;
 				--lexia-darker: teal;
 				--dull-aqua: lightseagreen;
@@ -182,12 +183,6 @@
 				color: var(--accent);
 			}
 			/* Narrower content. */
-			#header {
-				position: relative;
-				padding-top: 20px;
-				height: 100px;
-				/*		border: green solid 2px ;*/
-			}
 			#header,
 			#dashboard-features,
 			#faq-container,
@@ -195,6 +190,14 @@
 				width: 80vw;
 				margin-left: auto;
 				margin-right: auto;
+			}
+			#header {
+				position: relative;
+				padding-top: 20px;
+				height: 100px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
 			}
 			/*	Footer ensures bottom lexias have room to open.*/
 			.footer {
@@ -218,19 +221,14 @@
 			#credit p {
 				align-self: center;
 			}
-			#header {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-			}
+			/* REMOVED after embedding in maine.edu:
 			#crest {
-				/*				position: absolute ;*/
 				width: 14vw;
 				opacity: 0.6;
 			}
 			#crest img {
 				width: 100%;
-			}
+			} */
 			h2#rubric {
 				/*			position: absolute ;*/
 				width: 60vw;
@@ -248,7 +246,7 @@
 				align-items: center;
 			}
 			.search-container {
-				color: var(--pale-gold);
+				color: var(--pale-celeste);
 			}
 			.search-box {
 				/* width: 100%; */
@@ -268,10 +266,10 @@
 				height: 20px;
 				margin: 20px 0 var(--margin-wide) 0;
 				text-align: center;
-				color: var(--light-silt);
+				color: var(--light-ice);
 			}
 			#browse-options a:not([class="activated"]) {
-				color: var(--light-silt);
+				color: var(--light-ice);
 			}
 			#dashboard-features {
 				position: relative;
@@ -285,7 +283,7 @@
 				font-size: 1.4em;
 				margin: 0;
 				/* padding: 1% ; */
-				color: var(--medium-silt); /* SWATCH Medium silt. */
+				color: var(--medium-ice); /* SWATCH Medium ice. */
 				/*			border: red solid 2px ; */
 			}
 			#explanation h3 {
@@ -310,7 +308,7 @@
 			#explanation a,
 			.footer a {
 				color: var(--accent);
-				text-shadow: var(--dark-silt) 0 0 0.3em; /* SWATCH Dark silt. */
+				text-shadow: var(--dark-ice) 0 0 0.3em; /* SWATCH Dark ice. */
 				/*				border-bottom: dotted .2em ;*/
 			}
 			.activated {
@@ -351,7 +349,7 @@
 				align-items: center;
 				justify-content: flex-start;
 				padding: 1em;
-				border-color: var(--pale-gold);
+				border-color: var(--pale-celeste);
 				transition: box-shadow 0.3s ease-in-out;
 			}
 			.feature:hover {
@@ -359,35 +357,35 @@
 				cursor: pointer;
 			}
 			.feature:nth-child(3n) {
-				background-color: var(--dull-gold); /* SWATCH Dull gold.*/
+				background-color: var(--dull-celeste); /* SWATCH Dull celeste.*/
 			}
 			.feature:nth-child(3n + 1) {
-				background-color: var(--other-gold); /* SWATCH Other gold.*/
+				background-color: var(--other-celeste); /* SWATCH Other celeste.*/
 			}
 			.feature:nth-child(3n + 2) {
 				background-color: var(--lexia-lighter);
 			}
 			.feature:nth-child(3n) i {
-				color: var(--pale-gold); /* SWATCH Pale gold.*/
+				color: var(--pale-celeste); /* SWATCH Pale celeste.*/
 			}
 			.feature:nth-child(3n + 1) i {
-				color: var(--pale-gold); /* SWATCH Pale gold.*/
-				background-color: var(--other-gold); /* SWATCH Other gold.*/
+				color: var(--pale-celeste); /* SWATCH Pale celeste.*/
+				background-color: var(--other-celeste); /* SWATCH Other celeste.*/
 			}
 			.feature:nth-child(3n + 2) i {
-				color: var(--pale-gold); /* SWATCH Pale gold.*/
+				color: var(--pale-celeste); /* SWATCH Pale celeste.*/
 				background-color: var(--lexia-lighter);
 			}
 			/* Font-awesome. */
 			i {
-				color: var(--dark-silt); /* SWATCH Dark silt. */
-				text-shadow: var(--medium-gold) 0 0 0.3em; /* SWATCH Medium gold.*/
+				color: var(--dark-ice); /* SWATCH Dark ice. */
+				text-shadow: var(--medium-celeste) 0 0 0.3em; /* SWATCH Medium celeste.*/
 				font-size: 1.2em;
 			}
 			#features h4 {
 				margin-bottom: 0;
 				/* h4 has opacity: .5 at the global level. */
-				color: var(--dark-silt); /* SWATCH Dark silt. */
+				color: var(--dark-ice); /* SWATCH Dark ice. */
 				font-size: 1.4em;
 				font-family: sansation-bold;
 			}
@@ -471,7 +469,7 @@
 				border-bottom: var(--dull-aqua) solid 1px;
 				/* Round corners. */
 				border-radius: 14px;
-				transition: all 0.5s ease-in-out;
+				transition: all var(--lexia-transition-duration) ease-in-out;
 			}
 			/* Shadow
 					.lexia,
@@ -483,7 +481,7 @@
 				border: var(--darker) solid 2px;
 				border-radius: 1em;
 				padding: 1em;
-				transition: all 0.4s ease-in-out;
+				transition: all var(--lexia-transition-duration) ease-in-out;
 			}
 			/* TOO JANKY.
 					.lexia-selected {
@@ -503,9 +501,13 @@
 				-webkit-box-orient: vertical;
 				overflow: hidden;
 			}
-			:is(.lexia, .lexia-selected) .summary,
-			.tags {
-				color: var(--light);
+			:is(.lexia, .lexia-selected) :is(.tags, .lexia-id, .byline) {
+				display: none;
+			}
+			:is(.lexia, .lexia-selected) .summary {
+				color: var(--darkest);
+				opacity: 0;
+				transition: all var(--lexia-transition-duration) ease-in-out;
 			}
 			:is(.lexia, .lexia-selected) .summary {
 				/*  "max-width: 30ch" only works for one line.
@@ -516,17 +518,13 @@
 				-webkit-box-orient: vertical;
 				overflow: hidden;
 			}
-			:is(.lexia, .lexia-selected) .byline {
-				color: var(--medium);
-				display: none;
-			}
 			:is(.lexia, .lexia-selected):hover {
 				background-color: var(--medium);
 				border: var(--darkest) solid 2px;
 				cursor: pointer;
 			}
 			:is(.lexia, .lexia-selected):hover .summary {
-				color: var(--darkest);
+				opacity: 1;
 			}
 			:is(.lexia, .lexia-selected) :is(h2, a):hover {
 				color: white;
@@ -537,88 +535,7 @@
 			:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
 				color: var(--lightest);
 			}
-			:is(.lexia, .lexia-selected) :is(.tags, .lexia-id) {
-				display: none;
-			}
-			/* UNUSED: __________ Clusters. __________*
-					.cluster{
-						/* Dimensions set in JavaScript. *
-						position: relative ;
-						float: left ;
-						margin: 10px ;
-						border-radius: 50% ;
-					}
-					.cluster:hover {
-						cursor: pointer ;
-					}
-						.cluster-title {
-							position: absolute ;
-							z-index: 3 ;
-							margin-top: 120px ;
-							text-shadow:
-								var(--cluster-shadow) 0 0 .3em,
-								var(--cluster-shadow) 0 0 .7em,
-								var(--cluster-shadow) 0 0 1em
-								;
-							text-align: center ;
-							width: 100% ;
-							color: var(--accent) ;
-							font-size: 2em ;
-						}
-						.cluster-description {
-							position: relative ;
-							width: 60% ;
-							margin: 2% auto ;
-							text-align: center ;
-							color: khaki ;
-							font-size: .45em ;
-							opacity: 0 ;
-							transition: all .4s ease-in-out ;
-						}
-						.lexia-clustered {
-							position: absolute ;
-							width: 100px ;
-							height: 100px ;
-							border-radius: 50% ;
-							background: none ;
-							margin: 0 ;
-							padding: 0 ;
-							overflow: hidden ;
-							box-shadow: var(--cluster-shadow) 2px 2px 2px ;
-							transition: all .7s ease-in-out ;
-							filter: saturate( 70% ) ;
-						}
-							.lexia-clustered img {
-								/* width set in badgeShape class below. *
-								float: none ;
-								position: absolute ;
-							}
-							.disk {
-								width: 130px ;
-								top: -15px ;
-								left: -15px ;
-							}
-							.corona {
-								width: 140px ;
-								top: -15px ;
-								left: -15px ;
-							}
-							.ribbons {
-								width: 190px ;
-								top: -20px ;
-								left: -45px ;
-							}
-					*/
-			/* Using JavaScript instead of hover to enable mobile selection. */
-			/* Overlaps everything else:
-					.lexia-selected {
-						height: 500px ;
-						/* Formula is margin-bottom = -height + 100, eg 480 = -(-380) + 100*
-						/* Without these compensations, relative positioning would rearrange the other tutorials: *
-						margin-bottom: -400px ;
-						z-index: 10 ;
-					}
-					/*__________ FAQ. __________*/
+			/*__________ FAQ. __________*/
 			#faq-container h1 {
 				color: var(--lexia-lighter);
 				opacity: 0.7;
@@ -628,10 +545,10 @@
 				opacity: 1 !important ;
 			}
 			#faq-container p {
-				color: var(--dark-silt); /* SWATCH Dark silt. */
+				color: var(--dark-ice); /* SWATCH Dark ice. */
 			}
 			#faq-container h3 {
-				color: var(--medium-silt); /* SWATCH Medium silt. */
+				color: var(--medium-ice); /* SWATCH Medium ice. */
 			}
 			#faq-container i.fas {
 				color: var(--accent) !important ;
@@ -878,23 +795,15 @@
 				this.replaceLink.onmouseover = function () {
 					// I think "this" inside this function is the link, not the CloudTag object.
 					try {
-						var documentsFrequency = numTaggedWith.documents[this.cloudTagObj.tag];
-						var lexiasFrequency = numTaggedWith.lexias[this.cloudTagObj.tag];
+						var lexiasFrequency = this.cloudTagObj.frequency;
 						// Build a tooltip.
-						if (documentsFrequency == 1) {
-							// Tag only exists in this document.
-							if (lexiasFrequency == 1) {
-								// Only one lexia with that tag.
-								var toolTip = lexiasFrequency + " excerpt in this ";
-							} else {
-								// More than one lexia, only in this document.
-								var toolTip = lexiasFrequency + " excerpts in this ";
-							}
+						if (lexiasFrequency == 1) {
+							// Only one lexia with that tag.
+							var toolTip = lexiasFrequency + " item with this tag";
 						} else {
-							// Tag exists in other documents too. If so, there must be at least two excerpts.
-							var toolTip = lexiasFrequency + " excerpts in " + documentsFrequency;
+							// More than one lexia, only in this document.
+							var toolTip = lexiasFrequency + " items with this tag";
 						}
-						toolTip += documentsFrequency > 1 ? " documents" : " document";
 					} catch (e) {
 						var toolTip = "[documentsFrequency failed to load!]";
 					}
@@ -1598,7 +1507,7 @@
 			</div>
 			<div class="home-cloud"></div>
 			<div class="alert-box">No matching content for that tag combination</div>
-			<h3 class="lexia-instructions">Click on an item to see the associated resource:</h3>
+			<h3 class="lexia-instructions">Hover to learn more or click to see an associated resource:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End strategies-container. -->
@@ -1612,7 +1521,7 @@
 			</div>
 			<div class="home-cloud"></div>
 			<div class="alert-box">No matching content for that tag combination</div>
-			<h3 class="lexia-instructions">Click on an item to visit the external link:</h3>
+			<h3 class="lexia-instructions">Hover to learn more or click to visit an outside link:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
