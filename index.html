@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.1, improving accessibility. -->
+		<!-- Version 2.2, improving accessibility through color contrast. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -68,18 +68,20 @@
 				--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium celeste.*/
 				--other-celeste: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other celeste.*/
 				--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1); /* SWATCH Pale celeste.*/
+				--lexia-lightest: azure;
 				--lexia-lighter: paleturquoise;
 				--lexia-darker: teal;
 				--dull-aqua: lightseagreen;
 				--darker-body: hsla(180, 25%, 25%);
 				/*	Gradients */
-				--gradientStopA: hsla(var(--h-warmer), 100%, 20%, 0.8);
+				--gradientStopA: hsla(var(--h-warmer), 100%, 15%, 0.8);
 				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
-				--gradientStopC: hsla(var(--h-warmer), 70%, 60%, 0.8);
+				--gradientStopC: hsla(var(--h-warmer), 70%, 55%, 0.8);
 				--gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
-				--gradientStopE: hsla(var(--h-cooler), 90%, 95%, 0.8);
+				--gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
 				--gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
 				--gradient-lightest: azure;
+				--gradient-lightest: hsla(var(--h-warmer), 90%, 95%, 1);
 				--background-lightest: skyblue;
 				/*	Shadows. */
 				--cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
@@ -92,16 +94,16 @@
 			@font-face {
 				/* Unused? */
 				font-family: "sansation-light";
-				src: url("../fonts/Sansation-Light.ttf") format("truetype");
+				src: url("fonts/Sansation-Light.ttf") format("truetype");
 			}
 			@font-face {
 				/* Unused? */
 				font-family: "sansation-regular";
-				src: url("../fonts/Sansation-Regular.ttf") format("truetype");
+				src: url("fonts/Sansation-Regular.ttf") format("truetype");
 			}
 			@font-face {
 				font-family: "sansation-bold";
-				src: url("../fonts/Sansation-Bold.ttf") format("truetype");
+				src: url("fonts/Sansation-Bold.ttf") format("truetype");
 			}
 			/* Padlets */
 			#resources-container {
@@ -110,7 +112,7 @@
 				--lighter: hsl(var(--h) 60% 88%);
 				--light: hsl(var(--h) 60% 70%);
 				--medium: hsl(var(--h) 100% 50%);
-				--darker: hsl(var(--h) 50% 40%);
+				--darker: hsl(var(--h) 60% 60%);
 				--darkest: hsl(var(--h) 100% 10%);
 			}
 			#strategies-container {
@@ -135,6 +137,7 @@
 			body#learnwithai-body {
 				/* These keep gradient from repeating */
 				background-color: var(--background-lightest);
+				background-color: var(--gradient-lightest);
 				margin: 0; /* Need this to avoid spaces around watermark. */
 			}
 			#watermark {
@@ -142,10 +145,13 @@
 						prevents the gradient from repeating somewhere down the page. */
 				position: absolute;
 				width: 100%;
-				height: 150%;
+				height: 2000px;
 				z-index: -1;
 				/* Gradient: dark, medium, light. 0deg is bottom to top, then clockwise. */
-				background: linear-gradient(150deg, var(--gradientStopA), var(--gradientStopB) 65%), linear-gradient(217deg, var(--gradientStopC), var(--gradientStopD) 50%), linear-gradient(0deg, var(--gradientStopE), var(--gradientStopF) 20%);
+				background-image: linear-gradient(150deg, var(--gradientStopA), var(--gradient-lightest) 55%), linear-gradient(217deg, var(--gradientStopC), var(--gradient-lightest) 50%), linear-gradient(0deg, var(--gradientStopE), var(--gradient-lightest) 20%);
+				/* background-image: linear-gradient(150deg, var(--gradientStopA), var(--gradient-lightest) 65%); */
+				/* background-attachment: fixed; Necessary? */
+				background-color: var(--gradient-lightest);
 			}
 			.nmd-logo-phrase {
 				width: 200px;
@@ -235,7 +241,7 @@
 				text-align: center;
 				/* font-size: 4.5vw; */
 				font-size: 5vw;
-				color: var(--lexia-lighter);
+				color: var(--lexia-lightest);
 				/* font-family: Tamil MN; */
 				font-family: sansation-regular;
 				/*			border: purple solid 2px ; */
@@ -246,7 +252,7 @@
 				align-items: center;
 			}
 			.search-container {
-				color: var(--pale-celeste);
+				color: var(--medium-ice);
 			}
 			.search-box {
 				/* width: 100%; */
@@ -269,7 +275,7 @@
 				color: var(--light-ice);
 			}
 			#browse-options a:not([class="activated"]) {
-				color: var(--light-ice);
+				color: var(--medium-ice);
 			}
 			#dashboard-features {
 				position: relative;
@@ -340,7 +346,7 @@
 				clear: both;
 				display: grid;
 				grid-template-columns: repeat(3, 1fr);
-				/*		grid-auto-rows: minmax(150px, auto);*/
+				grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Stretch columns to fit. */
 				grid-gap: 1em;
 			}
 			.feature {
@@ -529,31 +535,24 @@
 			}
 		</style>
 		<script id="sniff-browsers-script-2018">
-			/*________________________ Check browser compatibility.________________________*/ 510;
-			// Check for browser compliance. If stale browser, go to old browser page.
-			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
-			if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
-				if (!confirm("Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway.")) {
-					// ".assign" allows user still to hit the back button.
-					document.location.assign("recommended_browsers.html");
-				}
-			}
-			/* UNUSED legacy code:
-	if ( browsers.ns4 || browsers.ie4 || browsers.ie5 || browsers.ie6 || browsers.ie7 || browsers.saf ) { // Explicit numbers is more future-proof.
-	}
-/*________________________ Check for mobile compatibility.________________________*/
-			let isMobileAgent = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
-			let isSmallScreen = window.innerWidth < 768;
-			isMobile = isMobileAgent || isSmallScreen; // Global so it can be used to tweak JavaScript display options.
-			if (isMobile) {
-				alert("You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser.");
-				/* 
-	if ( !confirm("You appear to be using a mobile browser, but this site is optimized for a larger screen.\n\nClick Cancel to visit our Instagram page, or\n\nOK to proceed anyway.") ) {
-		// ".assign" allows user still to hit the back button.
-		document.location.assign( "https://www.instagram.com/angelo.ippolito.estate/" ) ;
-	}
-	*/
-			}
+						/*________________________ Check browser compatibility.________________________*/ 510;
+						// Check for browser compliance. If stale browser, go to old browser page.
+						// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
+						if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
+							if (!confirm("Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway.")) {
+								// ".assign" allows user still to hit the back button.
+								document.location.assign("recommended_browsers.html");
+							}
+						}
+			/*________________________ DISABLED: Check for mobile compatibility.________________________*
+						let isMobileAgent = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
+						let isSmallScreen = window.innerWidth < 768;
+						isMobile = isMobileAgent || isSmallScreen; // Global so it can be used to tweak JavaScript display options.
+						if (isMobile) {
+							alert("You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser.");
+						}
+			*/
+						}
 		</script>
 		<script id="make-outline-expandable_v01.0" type="text/javascript" charset="utf-8">
 			// Run when DOM is loaded.
@@ -1181,7 +1180,6 @@
 			const sendEnterToFirstResult = (event) => {
 				// JavaScript keycode for "enter/return" is 13.
 				if (event.keyCode === 13) {
-					alert("goddam it, stop now.");
 					// Trap for enter key.
 					event.stopPropagation();
 					event.preventDefault();
@@ -1412,11 +1410,11 @@
 		</div>
 		<nav id="browse-options">
 			<a href="#" onclick="viewMode='features'; chooseScreen()" id="browse-features">About the toolkit</a>
-			|
+			<span aria-hidden="true">|</span>
 			<a href="#" onclick="viewMode='resources'; chooseScreen();" id="browse-resources">Resources</a>
-			|
+			<span aria-hidden="true">|</span>
 			<a href="#" onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies</a>
-			|
+			<span aria-hidden="true">|</span>
 			<a href="#" onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none">FAQ</a>
 		</nav>
 		<div id="dashboard-features">
@@ -1430,39 +1428,39 @@
 				<h3>Sample pathways</h3>
 				<div id="features">
 					<button id="e" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
-						<h4><i class="fas fa-handshake"></i> Collaborate with AI</h4>
+						<h4><i class="fas fa-handshake" aria-hidden="true"></i> Collaborate with AI</h4>
 						<p>Harness generative AI for human tasks.</p>
 					</button>
 					<button id="h" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['human-first']);">
-						<h4><i class="fa-solid fa-person"></i> Prioritize humanity</h4>
+						<h4><i class="fa-solid fa-person" aria-hidden="true"></i> Prioritize humanity</h4>
 						<p>Craft assignments that AI can't do.</p>
 					</button>
 					<button id="a" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['learner-focused']);">
-						<h4><i class="fa-solid fa-book-open-reader"></i> Learn more efficiently</h4>
+						<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Learn more efficiently</h4>
 						<p>Use AI to generate questions, flashcards, and the like.</p>
 					</button>
 					<button id="b" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['prompt', 'text']);">
-						<h4><i class="fa-solid fa-square-pen"></i> Write with AI</h4>
+						<h4><i class="fa-solid fa-square-pen" aria-hidden="true"></i> Write with AI</h4>
 						<p>Craft prompts to generate new text or get feedback on your own.</p>
 					</button>
 					<button id="d" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['image', 'creator-focused']);">
-						<h4><i class="fa-solid fa-paintbrush"></i> Make images with AI</h4>
+						<h4><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> Make images with AI</h4>
 						<p>Create digital pictures with text-to-image generators.</p>
 					</button>
 					<button id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['creator-focused', 'story']);">
-						<h4><i class="fa-solid fa-book-open-reader"></i> Tell stories with AI</h4>
+						<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Tell stories with AI</h4>
 						<p>Write fiction and illustrate it with AI-generated imagery.</p>
 					</button>
 					<!-- <button id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
-						<h4><i class="fas fa-user-friends"></i> Learn from peers</h4>
+						<h4><i class="fas fa-user-friends" aria-hidden="true"></i> Learn from peers</h4>
 						<p>Create screencasts for your fellow students.</p>
 					</button>
 					<button id="g" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
-						<h4><i class="fas fa-random"></i> Flip the classroom</h4>
+						<h4><i class="fas fa-random" aria-hidden="true"></i> Flip the classroom</h4>
 						<p>Watch the "lectures" at home so you can work on the homework during class.</p>
 					</button>
 					<button id="i" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
-						<h4><i class="fas fa-chalkboard-teacher"></i> In or outside of class</h4>
+						<h4><i class="fas fa-chalkboard-teacher" aria-hidden="true"></i> In or outside of class</h4>
 						<p>Earn badges for a class or as a personal project.</p>
 					</button> -->
 				</div>
@@ -1513,7 +1511,7 @@
 		<div id="faq-container">
 			<h1>Frequently Asked Questions</h1>
 			<p>More FAQs coming soon!</p>
-			<h2><i class="fas fa-certificate"></i> Meta</h2>
+			<h2><i class="fas fa-certificate" aria-hidden="true"></i> Meta</h2>
 			<h3>Wait, I want to learn/teach AI as a discipline!</h3>
 			<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the UMaine AI iniative has programs in Computer Science, Data Science, and related fields.</p>
 			<h3>Was this site made with ChatGPT?</h3>
