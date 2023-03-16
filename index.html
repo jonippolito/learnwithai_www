@@ -440,48 +440,16 @@
 				gap: 1em;
 			}
 			.lexia,
-			.lexia-selected,
-			.lexia-clustered {
-				/* position: relative ;
-						float: left ;
-						width: 220px ;
-						height: 275px ;
-						margin: .5em ; */
-				/* overflow: hidden ; */
-				background-color: var(--lexia-lighter);
-				padding: 1em;
-				/* margin: 0 10px ; */
-				/* Gradient. *
-						background: -moz-linear-gradient(
-							0% 0% 45deg,
-							var(--lexia-lighter),
-							var(--lexia-darker)
-							) ;
-						background: -webkit-gradient(
-							linear,
-							left bottom,
-							right top,
-							from( var(--lexia-lighter) ),
-							to( var(--lexia-darker) )
-							) ;
-							/* For Webkit, you can add parameters like "color-stop( 0.5, khaki )". */
-				/* Border: mostly for IE8. */
-				border-bottom: var(--dull-aqua) solid 1px;
-				/* Round corners. */
-				border-radius: 14px;
-				transition: all var(--lexia-transition-duration) ease-in-out;
-			}
-			/* Shadow
-					.lexia,
-					.lexia-selected {
-						box-shadow: var(--dull-aqua) 4px 6px 6px ;
-					} */
-			:is(.lexia, .lexia-selected) {
+			.lexia-selected {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-start;
 				background-color: var(--darker);
 				border: var(--darker) solid 2px;
 				border-radius: 1em;
 				padding: 1em;
 				transition: all var(--lexia-transition-duration) ease-in-out;
+				/* box-shadow: var(--dull-aqua) 4px 6px 6px ; */
 			}
 			/* TOO JANKY.
 					.lexia-selected {
@@ -492,7 +460,7 @@
 				text-decoration: none;
 				color: var(--lightest);
 				opacity: 1 !important ;
-				font-size: 1.2em;
+				font-size: 1.4em;
 				/*  "max-width: 30ch" only works for one line.
 						Someday line-clamp will suffice. In the meantime,
 						all modern browsers accept the following kludge. */
@@ -552,6 +520,12 @@
 			}
 			#faq-container i.fas {
 				color: var(--accent) !important ;
+			}
+			/* ________________ Accessibility features. _________________ */
+			#dialog-tag-selected {
+				position: absolute;
+				/* top: -100vh;
+				left: -100vw; */
 			}
 		</style>
 		<script id="sniff-browsers-script-2018">
@@ -881,6 +855,9 @@
 						}); // thoughtMesh.selectedTags is a manager of objects with integer index and tag name properties.
 						thoughtMesh.selectedTags.getObjectByTag = {};
 						thoughtMesh.selectedTags.getObjectByTag[tagArg] = thoughtMesh.selectedTags[0];
+						// For accessibility, assume user wants to tab immediately to the lexias after clicking a tag.
+						// thoughtMesh.tagObjs.getObjectByTag[tagArg].replaceLink.addEventListener("blur", (event) => setSpecialTabBehavior(false));
+						setSpecialTabBehavior(true);
 						break;
 					case "plus": // Adding a tag in combination.
 						// Register new tag. Currently no limitation on number, but they always intersect.
@@ -1131,62 +1108,6 @@
 							}
 						}
 					}
-					/*
-			if ( ! individualPublished ) {
-				// Build individual badges.
-				getLexiaJSON()
-				.then(
-					getLexiaJSON => {
-						for (let lexiaCounter = 0; lexiaCounter < getLexiaJSON.length; lexiaCounter++ ) {
-							new Lexia(
-								getLexiaJSON[ lexiaCounter ]
-							)
-						}
-					}
-				)
-				.then(
-					() => {
-						harvestData();
-						registerTags();
-						enableLexiaSelection();
-						if ( typeof selectedTag !== "undefined" ) {
-							respondToTag(
-								{
-									tagArg: selectedTag,
-									linkType: "replace"
-								}
-							) ;
-						}
-					}
-				) ;
-				individualPublished = true ;
-			}
-			else { // The lexia have been built already.
-				// Reset individual tutorials in case you left a tag clicked, to make room for a new tag.
-				showAllContent() ;
-				// Reset all tags. This code is lifted from tag cloud script.
-				for (var tagCounter=0; tagCounter < thoughtMesh.tagObjs.length; tagCounter++) {
-					thoughtMesh.tagObjs[tagCounter].replaceLink.className = "cloud-tag" ;
-					thoughtMesh.tagObjs[tagCounter].plusLink.style.display = "inline" ;
-					thoughtMesh.tagObjs[tagCounter].minusLink.className = "cloud-tag" ;
-					thoughtMesh.tagObjs[tagCounter].minusLink.style.display = "none" ;
-					try {
-						thoughtMesh.tagObjs[tagCounter].blankLink.style.display = "none" ;
-					}
-					catch(e) {
-						// UPGRADE: log this?
-					}
-				}
-				if ( typeof selectedTag !== "undefined" ) {
-					respondToTag(
-						{
-							tagArg: selectedTag,
-							linkType: "replace"
-						}
-					) ;
-				}
-			}
-			*/
 				} else if (viewMode === "features") {
 					// NECESSARY: reset screenContainerId?
 					// Swap rubric for banner.
@@ -1225,6 +1146,69 @@
 				}
 				window.scrollTo(0, 0);
 			};
+			// Not sure if I'll keep these globals.
+			tabHasSpecialBehavior = false;
+			enterHasSpecialBehavior = false;
+			const setSpecialTabBehavior = (wantSpecialTab) => {
+				// Sends screen reader to modal so disabled person can jump to result lexias.
+				if (wantSpecialTab) {
+					window.addEventListener("keydown", sendTabToModal, true);
+					tabHasSpecialBehavior = true;
+				} else {
+					window.removeEventListener("keydown", sendTabToModal, true);
+					tabHasSpecialBehavior = false;
+				}
+			};
+			const sendTabToModal = (event) => {
+				// JavaScript keycode for "tab" is 9.
+				if (event.keyCode === 9) {
+					document.querySelector("#dialog-tag-selected").showModal();
+					setSpecialEnterBehavior(true);
+					setSpecialTabBehavior(false);
+				}
+			};
+			//UPGRADE: These two functions don't do squat in ChromeVox.
+			const setSpecialEnterBehavior = (wantSpecialEnter) => {
+				console.log("trapping enter");
+				if (wantSpecialEnter) {
+					window.addEventListener("keydown", sendEnterToFirstResult, true);
+					enterHasSpecialBehavior = true;
+				} else {
+					window.removeEventListener("keydown", sendEnterToFirstResult, true);
+					enterHasSpecialBehavior = false;
+				}
+			};
+			const sendEnterToFirstResult = (event) => {
+				// JavaScript keycode for "enter/return" is 13.
+				if (event.keyCode === 13) {
+					alert("goddam it, stop now.");
+					// Trap for enter key.
+					event.stopPropagation();
+					event.preventDefault();
+					// if (document.activeElement !== document.querySelector("#dialog-tag-selected button")) {
+					// Do nothing if user presses enter key.
+					// } else {
+					console.log("OK pressed");
+					// Respond if user presses tab key.
+					document.querySelector("#dialog-tag-selected").close();
+					setSpecialTabBehavior(false);
+					setSpecialEnterBehavior(false);
+					focusFirstResult();
+					// }
+				}
+			};
+			const focusFirstResult = () => {
+				console.log("focusFirstResult called");
+				// I'm not trapping for the lack of a lexia for that tag, because this should never be true 🤷‍♂️.
+				for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
+					console.log(itemManager[itemCounter].style.display);
+					document.querySelector("#dialog-tag-selected").close();
+					if (itemManager[itemCounter].style.display !== "none") {
+						itemManager[itemCounter].focus();
+						return;
+					}
+				}
+			};
 		</script>
 		<script id="lexias-from-google-sheet-script-v01.2">
 			// Modified to allow multiple lexia containers in the same document.
@@ -1234,7 +1218,8 @@
 				// Build lexia.
 				this.id = argumentsObject.id;
 				lexiaObjects.push(this);
-				this.lexiaDiv = document.createElement("div");
+				// NOTE: for accessibility, I changed this from div to button but the variable names still say "div".
+				this.lexiaDiv = document.createElement("button");
 				// Appending the lexia div here is more efficient than where Lexia is called.
 				document.querySelector(`#${screenContainerId} .lexia-container`).appendChild(this.lexiaDiv);
 				this.lexiaDiv.className = "lexia";
@@ -1552,5 +1537,11 @@
 				<a href="http://newmedia.umaine.edu/"><img src="media/nmd_title_blue_tra_xvga.png" alt="Nmd Title Blue Tra Xvga" /></a>
 			</div>
 		</div>
+		<dialog id="dialog-tag-selected">
+			<!-- <form method="dialog"> -->
+			You've filtered the selection by this tag. Click the button to navigate among the results or the Enter key to return to the main page.
+			<button onclick="focusFirstResult()">Jump to results</button>
+			<!-- </form> -->
+		</dialog>
 	</body>
 </html>
