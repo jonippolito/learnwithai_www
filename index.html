@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.2, improving accessibility through color contrast. -->
+		<!-- Version 2.3, improving accessibility for FAQ, adding Events. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -25,8 +25,18 @@
 			}
 		</style>
 		<link rel="stylesheet" href="css/thought-mesh.css" type="text/css" media="screen" title="no title" charset="utf-8" />
-		<style id="outline-expandable-styles-v01.1" type="text/css" media="screen">
-			/* Modified by Jon to play nice with outline-styles-v1.6 */
+		<style id="outline-expandable-styles-v02.0" type="text/css" media="screen">
+			/* Modified by Jon to replace h3s with buttons for accessibility. */
+			.heading-expanded,
+			.heading-collapsed {
+				display: block;
+				background-color: transparent;
+				font-size: 1.4em;
+				font-weight: bold;
+				margin: 1em;
+				border-style: none;
+				color: var(--medium-ice);
+			}
 			.heading-expanded:hover,
 			.heading-collapsed:hover {
 				cursor: pointer;
@@ -62,8 +72,8 @@
 				--h-warmer: 200; /* WAS 190. */
 				--h-rotate-from-sepia: 170deg;
 				--light-ice: hsla(var(--h-medium), 30%, 30%, 1); /* SWATCH Light ice. */
-				--medium-ice: hsla(var(--h-medium), 30%, 20%, 1); /* SWATCH Medium ice. */
-				--dark-ice: hsla(var(--h-medium), 30%, 10%, 1); /* SWATCH Dark ice. */
+				--medium-ice: hsla(var(--h-medium), 100%, 20%, 1); /* SWATCH Medium ice. */
+				--dark-ice: hsla(var(--h-medium), 100%, 10%, 1); /* SWATCH Dark ice. */
 				--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1); /* SWATCH Dull celeste.*/
 				--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium celeste.*/
 				--other-celeste: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other celeste.*/
@@ -90,7 +100,7 @@
 				--accent: aqua;
 				--highlight: lime;
 			}
-			/* Heading font is set in browse-options, h3. */
+			/* Heading font is set in browse-options, button. */
 			@font-face {
 				/* Unused? */
 				font-family: "sansation-light";
@@ -168,7 +178,7 @@
 			/* Wider content. */
 			h2#rubric,
 			#search-instructions,
-			#dashboard-features,
+			#about-container,
 			#strategies-container,
 			#resources-container {
 				margin: var(--margin-wide);
@@ -190,7 +200,8 @@
 			}
 			/* Narrower content. */
 			#header,
-			#dashboard-features,
+			#about-container,
+			#events-container,
 			#faq-container,
 			.footer {
 				width: 80vw;
@@ -277,17 +288,18 @@
 			#browse-options a:not([class="activated"]) {
 				color: var(--medium-ice);
 			}
-			#dashboard-features {
+			#about-container {
 				position: relative;
 				clear: both;
 				margin-top: 30px;
 			}
-			#explanation {
+			#explanation,
+			#events-container p {
 				position: relative;
-				clear: both;
+				/* clear: both; */
 				font-family: Gill Sans, Eurostile, verdana;
 				font-size: 1.4em;
-				margin: 0;
+				/* margin: 0; */
 				/* padding: 1% ; */
 				color: var(--medium-ice); /* SWATCH Medium ice. */
 				/*			border: red solid 2px ; */
@@ -295,7 +307,8 @@
 			#explanation h3 {
 				font-family: sansation-bold;
 			}
-			#explanation p {
+			#explanation p,
+			#events-container {
 				color: var(--darker-body);
 				font-size: 1.2em;
 			}
@@ -304,7 +317,7 @@
 				margin: 0 1em 0.5em 0;
 				width: 100%;
 			}
-			#explanation .side-image {
+			.side-image {
 				float: right;
 				margin: 0 0 0.5em 1em;
 				width: 30%;
@@ -312,6 +325,7 @@
 			}
 			.activated,
 			#explanation a,
+			#events-container a,
 			.footer a {
 				color: var(--accent);
 				text-shadow: var(--dark-ice) 0 0 0.3em; /* SWATCH Dark ice. */
@@ -510,19 +524,35 @@
 				color: var(--lightest);
 			}
 			/*__________ FAQ. __________*/
-			#faq-container h1 {
+			#faq-container h1,
+			#events-container h1 {
 				color: var(--lexia-lighter);
 				opacity: 0.7;
 			}
-			#faq-container h2 {
-				color: var(--dull-aqua);
+			#faq-container h2,
+			#events-container h2 {
+				color: var(--medium-ice);
 				opacity: 1 !important ;
+			}
+			#events-list {
+				border: 2px solid var(--dull-celeste);
+				padding: 0 1em 1em 1em;
+				border-radius: 1em;
+			}
+			#events-list p {
+				margin: 0.2em;
+			}
+			#events-list h2 {
+				margin-top: 1em;
 			}
 			#faq-container p {
 				color: var(--dark-ice); /* SWATCH Dark ice. */
 			}
-			#faq-container h3 {
+			#faq-container :is(.heading-expanded, .heading-collapsed) {
 				color: var(--medium-ice); /* SWATCH Medium ice. */
+			}
+			#faq-container :is(.heading-expanded, .heading-collapsed):hover {
+				color: var(--accent);
 			}
 			#faq-container i.fas {
 				color: var(--accent) !important ;
@@ -535,15 +565,15 @@
 			}
 		</style>
 		<script id="sniff-browsers-script-2018">
-						/*________________________ Check browser compatibility.________________________*/ 510;
-						// Check for browser compliance. If stale browser, go to old browser page.
-						// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
-						if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
-							if (!confirm("Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway.")) {
-								// ".assign" allows user still to hit the back button.
-								document.location.assign("recommended_browsers.html");
-							}
-						}
+			/*________________________ Check browser compatibility.________________________*/ 510;
+			// Check for browser compliance. If stale browser, go to old browser page.
+			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
+			if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
+				if (!confirm("Your browser doesn't appear to support all the features of this site.\n\nClick Cancel to learn more, or\n\nOK to proceed anyway.")) {
+					// ".assign" allows user still to hit the back button.
+					document.location.assign("recommended_browsers.html");
+				}
+			}
 			/*________________________ DISABLED: Check for mobile compatibility.________________________*
 						let isMobileAgent = navigator.userAgent.match(/(iPhone|iPod|iPad|Android|webOS|BlackBerry|IEMobile|Opera Mini)/i);
 						let isSmallScreen = window.innerWidth < 768;
@@ -551,57 +581,70 @@
 						if (isMobile) {
 							alert("You appear to be using a mobile browser, but this site is optimized for a larger screen. Please visit again on a laptop or desktop browser.");
 						}
-			*/
-						}
+					}
+					*/
 		</script>
-		<script id="make-outline-expandable_v01.0" type="text/javascript" charset="utf-8">
+		<script id="make-outline-expandable_v02.0" type="text/javascript" charset="utf-8">
+			// Accessible version based on v01.0.
 			// Run when DOM is loaded.
 			function makeOutlineExpandable() {
-				// Gather all headings at a certain level.
-				h3s = document.getElementById("faq-container").getElementsByTagName("h3"); // Global, because used in a later function.
-				// Go through each heading.
-				for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
-					// Add a starting div tag just after the heading.
+				// Gather all heading/buttons at a certain level.
+				buttons = document.getElementById("faq-container").getElementsByTagName("button"); // Global, because used in a later function.
+				// Go through each heading/button.
+				for (var buttonCounter = 0; buttonCounter < buttons.length; buttonCounter++) {
+					// Add a starting button tag just after the heading/button.
 					var expandableDiv = document.createElement("div");
 					expandableDiv.className = "expandable";
 					// There is no insertAfter method, so use this to replace it.
-					h3s[h3Counter].parentNode.insertBefore(expandableDiv, h3s[h3Counter].nextSibling);
-					// Can't just look for next h3, because the last one could be at the end.
-					// Or you could run into a higher-level heading before the next h3.
-					var h3FollowingElements = []; // An array of elements?
+					buttons[buttonCounter].parentNode.insertBefore(expandableDiv, buttons[buttonCounter].nextSibling);
+					// Can't just look for next button, because the last one could be at the end.
+					// Or you could run into a higher-level heading/button before the next button.
+					var buttonFollowingElements = []; // An array of elements?
 					var lastFollowerEle = expandableDiv.nextSibling; // Just a candidate at this point.
-					while (lastFollowerEle && lastFollowerEle.nodeName != "H3" && lastFollowerEle.nodeName != "H2" && lastFollowerEle.nodeName != "H1") {
-						// Gather all elements up to the next heading (at that level or higher).
-						h3FollowingElements.push(lastFollowerEle);
+					while (lastFollowerEle && lastFollowerEle.nodeName != "BUTTON" && lastFollowerEle.nodeName != "H2" && lastFollowerEle.nodeName != "H1") {
+						// Gather all elements up to the next heading/button (at that level or higher).
+						buttonFollowingElements.push(lastFollowerEle);
 						lastFollowerEle = lastFollowerEle.nextSibling;
 					}
-					// Now that you know the last following element, remove the content between headings.
-					for (var eleCounter = h3FollowingElements.length - 1; eleCounter >= 0; eleCounter--) {
-						h3FollowingElements[eleCounter].parentNode.removeChild(h3FollowingElements[eleCounter]);
+					// Now that you know the last following element, remove the content between heading/buttons.
+					for (var eleCounter = buttonFollowingElements.length - 1; eleCounter >= 0; eleCounter--) {
+						buttonFollowingElements[eleCounter].parentNode.removeChild(buttonFollowingElements[eleCounter]);
 					}
 					// Re-insert it as a child of the div.
-					for (var eleCounter = 0; eleCounter < h3FollowingElements.length; eleCounter++) {
-						expandableDiv.appendChild(h3FollowingElements[eleCounter]);
+					for (var eleCounter = 0; eleCounter < buttonFollowingElements.length; eleCounter++) {
+						expandableDiv.appendChild(buttonFollowingElements[eleCounter]);
 					}
 					// You have now wrapped the expandable content in a div with class "expandable."
+					// Accessibility.
+					expandableDiv.setAttribute("aria-labelled-by", `outline-heading-${buttonCounter}`);
 				}
-				// If you click on an h3, it toggles following div.
-				for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
-					h3s[h3Counter].className = "heading-collapsed";
-					h3s[h3Counter].onclick = function () {
+				// If you click on an button, it toggles following div.
+				for (var buttonCounter = 0; buttonCounter < buttons.length; buttonCounter++) {
+					buttons[buttonCounter].className = "heading-collapsed";
+					buttons[buttonCounter].onclick = function () {
 						toggleContent(this);
 					};
+					// Accessibility.
+					buttons[buttonCounter].setAttribute("tabindex", "0");
+					buttons[buttonCounter].setAttribute("aria-expanded", "false");
+					buttons[buttonCounter].setAttribute("aria-controls", `outline-heading-${buttonCounter}`);
 				}
 			}
-			function toggleContent(h3Ele) {
-				var expandingContentDiv = h3Ele.nextSibling; // May have to check this is a div.
+			function toggleContent(buttonEle) {
+				var expandingContentDiv = buttonEle.nextSibling; // May have to check this is a div.
 				if (expandingContentDiv.style.display == "block") {
 					// Putting this option first prevents misfiring based on no display defined yet.
 					expandingContentDiv.style.display = "none";
-					h3Ele.className = "heading-collapsed";
+					buttonEle.className = "heading-collapsed";
 				} else {
 					expandingContentDiv.style.display = "block";
-					h3Ele.className = "heading-expanded";
+					buttonEle.className = "heading-expanded";
+				}
+				// Accessibility.
+				if (buttonEle.getAttribute("aria-expanded") === "true") {
+					buttonEle.setAttribute("aria-expanded", "false");
+				} else {
+					buttonEle.setAttribute("aria-expanded", "true");
 				}
 			}
 		</script>
@@ -1026,39 +1069,52 @@
 						/* Collapse the lexia. */
 						this.className = "lexia";
 					};
-					/* REMOVED FOR MULTIPLE VERSION SO YOU CAN CLICK DIRECTLY FOR LINK:
-					Toggle lexia selection on click.
-					lexiaDivs[lexiaCounter].onclick = function () {
-						if (this.selected) {
-							this.className = "lexia-selected";
-						} else {
-							/* Collapse the lexia. *
-							this.className = "lexia";
-						}
-						this.selected = !this.selected;
-					};
-					*/
 				}
 			};
 		</script>
 		<script id="learnwithai-index-script">
+			const screens = ["about", "resources", "strategies", "events", "faq"];
 			const chooseScreen = async (selectedTags) => {
-				if (viewMode === "resources") {
+				screens.forEach((screen) => {
+					document.querySelector(`#${screen}-container`).style.display = "none";
+					document.querySelector(`#browse-${screen}`).classList.add("activated");
+				});
+				document.querySelector(`#${viewMode}-container`).style.display = "block";
+				document.querySelector(`#browse-${viewMode}`).classList.remove("activated");
+				if (viewMode === "about") {
+					// Swap rubric for banner.
+					document.getElementById("rubric").style.display = "none";
+					/*
+					// Display appropriate containers.
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("resources-container").style.display = "none";
+					document.getElementById("about-container").style.display = "block";
+					document.getElementById("strategies-container").style.display = "none";
+					document.getElementById("faq-container").style.display = "none";
+					// Activate the other navigation options.
+					document.getElementById("browse-resources").classList.add("activated");
+					document.getElementById("browse-strategies").classList.add("activated");
+					document.getElementById("browse-about").classList.remove("activated");
+					document.getElementById("browse-faq").classList.add("activated");
+					*/
+				} else if (viewMode === "resources") {
 					clearLexias();
 					screenContainerId = "resources-container";
 					// Swap rubric for banner.
 					document.getElementById("rubric").style.display = "block";
+					/*
 					// Display appropriate containers.
 					document.getElementById("resources-container").style.display = "block";
 					document.getElementById("strategies-container").style.display = "none";
-					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("about-container").style.display = "none";
 					document.getElementById("strategies-container").style.display = "none";
 					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
 					document.getElementById("browse-resources").classList.remove("activated");
 					document.getElementById("browse-strategies").classList.add("activated");
-					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-about").classList.add("activated");
 					document.getElementById("browse-faq").classList.add("activated");
+					*/
 					// Build lexias for this screen.
 					await buildLexias("1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw");
 					if (typeof selectedTags !== "undefined") {
@@ -1080,17 +1136,19 @@
 					screenContainerId = "strategies-container";
 					// Swap rubric for banner.
 					document.getElementById("rubric").style.display = "block";
+					/*
 					// Display appropriate containers.
 					document.getElementById("strategies-container").style.display = "block";
 					document.getElementById("resources-container").style.display = "none";
-					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("about-container").style.display = "none";
 					document.getElementById("strategies-container").style.display = "block";
 					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
 					document.getElementById("browse-resources").classList.add("activated");
 					document.getElementById("browse-strategies").classList.remove("activated");
-					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-about").classList.add("activated");
 					document.getElementById("browse-faq").classList.add("activated");
+					*/
 					// Build lexias for this screen.
 					await buildLexias("1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk");
 					if (typeof selectedTags !== "undefined") {
@@ -1107,41 +1165,45 @@
 							}
 						}
 					}
-				} else if (viewMode === "features") {
+				} else if (viewMode === "events") {
 					// NECESSARY: reset screenContainerId?
 					// Swap rubric for banner.
-					document.getElementById("rubric").style.display = "none";
+					document.getElementById("rubric").style.display = "block";
+					/*
 					// Display appropriate containers.
 					document.getElementById("resources-container").style.display = "none";
 					// document.querySelectorAll(".search-container").forEach((div) => (div.style.visibility = "hidden"));
 					document.getElementById("resources-container").style.display = "none";
-					document.getElementById("dashboard-features").style.display = "block";
+					document.getElementById("about-container").style.display = "block";
 					document.getElementById("strategies-container").style.display = "none";
 					document.getElementById("faq-container").style.display = "none";
 					// Activate the other navigation options.
 					document.getElementById("browse-resources").classList.add("activated");
 					document.getElementById("browse-strategies").classList.add("activated");
-					document.getElementById("browse-features").classList.remove("activated");
+					document.getElementById("browse-about").classList.remove("activated");
 					document.getElementById("browse-faq").classList.add("activated");
+					*/
 				} else if (viewMode === "faq") {
 					// NECESSARY: reset screenContainerId?
 					// Swap rubric for banner.
 					document.getElementById("rubric").style.display = "block";
+					/*
 					// Display appropriate containers.
 					document.getElementById("resources-container").style.display = "none";
 					// document.querySelectorAll(".search-container").forEach((div) => (div.style.visibility = "hidden"));
 					document.getElementById("resources-container").style.display = "none";
-					document.getElementById("dashboard-features").style.display = "none";
+					document.getElementById("about-container").style.display = "none";
 					document.getElementById("strategies-container").style.display = "none";
 					document.getElementById("faq-container").style.display = "block";
 					// Activate the other navigation options.
 					document.getElementById("browse-resources").classList.add("activated");
 					document.getElementById("browse-strategies").classList.add("activated");
-					document.getElementById("browse-features").classList.add("activated");
+					document.getElementById("browse-about").classList.add("activated");
 					document.getElementById("browse-faq").classList.remove("activated");
+					*/
 				} else {
 					// Sh*t!
-					console.log("%c Unrecognized viewMode!", "color: yellow; background:red; font-style: italic ;");
+					console.warn(`%c Unrecognized viewMode: ${viewMode}`, "color: yellow; background:red; font-style: italic ;");
 				}
 				window.scrollTo(0, 0);
 			};
@@ -1248,7 +1310,7 @@
 				this.headlineLink.innerText = argumentsObject.headline;
 				*/
 				// Build byline.
-				this.bylineH3 = document.createElement("h3");
+				this.bylineH3 = document.createElement("button");
 				this.lexiaDiv.appendChild(this.bylineH3);
 				this.bylineH3.className = "byline";
 				this.bylineH3.innerHTML = argumentsObject.byline;
@@ -1402,22 +1464,24 @@
 			}
 		</script>
 	</head>
-	<body id="learnwithai-body" onload="viewMode='features' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+	<body id="learnwithai-body" onload="viewMode='about' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 		<div id="watermark"></div>
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
 			<h2 id="rubric">Learn With AI</h2>
 		</div>
 		<nav id="browse-options">
-			<a href="#" onclick="viewMode='features'; chooseScreen()" id="browse-features">About the toolkit</a>
+			<a href="#" onclick="viewMode='about'; chooseScreen()" id="browse-about">About the toolkit</a>
 			<span aria-hidden="true">|</span>
 			<a href="#" onclick="viewMode='resources'; chooseScreen();" id="browse-resources">Resources</a>
 			<span aria-hidden="true">|</span>
 			<a href="#" onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies</a>
 			<span aria-hidden="true">|</span>
-			<a href="#" onclick="viewMode='faq'; chooseScreen();" id="browse-faq" style="display: none">FAQ</a>
+			<a href="#" onclick="viewMode='events'; chooseScreen();" id="browse-events">Events</a>
+			<span aria-hidden="true">|</span>
+			<a href="#" onclick="viewMode='faq'; chooseScreen();" id="browse-faq">FAQ</a>
 		</nav>
-		<div id="dashboard-features">
+		<div id="about-container">
 			<div id="explanation">
 				<p>
 					<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" />
@@ -1464,36 +1528,8 @@
 						<p>Earn badges for a class or as a personal project.</p>
 					</button> -->
 				</div>
-				<!-- <p>
-					Launched by the
-					<a href="https://umaine.edu/newmedia">New Media program</a>
-					and
-					<a href="https://umaine.edu/citl/">Center for Innovation and Teaching and Learning</a>, the Learning With AI working group unites campus representatives from the sciences and humanities, <a href="https://ai.umaine.edu/">UMaine AI</a>, and outside experts in a series of events meant to survey the challenges and offer resources to any educator or student wondering how to
-					accommodate this disruption.
-				</p>
-				<p>
-					<img src="media/13orono_digital_humanities_thatcamp_11.JPG" alt="UMaine students and faculty in a workshop" class="side-image" />
-					Outcomes expected from this group include public and private events to raise awareness of generative AI's impact on education and brainstorm solutions to its challenges. Another anticipated product is a an online toolkit to arm educators with strategies that either emphasize the humanity of the creator or incorporate AI into the classroom in a way that enhances rather than
-					replaces the learning process.
-				</p>
-				<p>News about upcoming events will be <strong>featured here soon</strong>. For now, click on <em>Strategies</em> or <em>Resources</em> above for related links, or contact <span class="activemail">ude.eniam@otiloppij</span> to get involved.</p> -->
 			</div>
 		</div>
-		<div id="strategies-container">
-			<h3>
-				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via
-				<span class="activemail">ude.eniam@otiloppij</span>.
-			</h3>
-			<div class="search-instructions">
-				<h3>Use the search box or choose tags below to filter the results:</h3>
-				<div class="search-container">Search: <input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" /></div>
-			</div>
-			<div class="home-cloud"></div>
-			<div class="alert-box">No matching content for that tag combination</div>
-			<h3 class="lexia-instructions">Hover to learn more or click to see an associated resource:</h3>
-			<div class="lexia-container"></div>
-		</div>
-		<!-- End strategies-container. -->
 		<div id="resources-container">
 			<h3>
 				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.
@@ -1508,15 +1544,109 @@
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
+		<div id="strategies-container">
+			<h3>
+				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</h3>
+			<div class="search-instructions">
+				<h3>Use the search box or choose tags below to filter the results:</h3>
+				<div class="search-container">Search: <input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" /></div>
+			</div>
+			<div class="home-cloud"></div>
+			<div class="alert-box">No matching content for that tag combination</div>
+			<h3 class="lexia-instructions">Hover to learn more or click to see an associated resource:</h3>
+			<div class="lexia-container"></div>
+		</div>
+		<div id="events-container">
+			<h1>Past and future events</h1>
+			<p>
+				<img src="media/13orono_digital_humanities_thatcamp_11.JPG" alt="UMaine students and faculty in a workshop" class="side-image" />
+				<em>Learning With AI</em>
+				is organized by the
+				<a href="https://umaine.edu/newmedia">New Media program</a>
+				and
+				<a href="https://umaine.edu/citl/">Center for Innovation and Teaching and Learning</a>, who have invited outside experts in a series of events meant to survey the challenges and offer resources to any educator or student wondering how to accommodate this disruption.
+			</p>
+			<p>Other partners in the initiative include the <a href="https://umaine.edu/edhd/">College of Education and Human Development</a>, <a href="https://ece.umaine.edu/">Department of Electrical and Computer Engineering</a>, <a href="http://umaine.edu/history">Digital and Spatial History Lab</a>, and <a href="https://ai.umaine.edu">UMaine AI</a>.</p>
+			<p>The organizers are hosting the following public and private events to raise awareness of generative AI's impact on education and brainstorm solutions to its challenges. Do you have a related event? <a href="#" onclick="viewMode='faq'; chooseScreen()">Let us know</a>.</p>
+			<div id="events-list">
+				<h2>Large Language Models: BERT, GPT and ChatGPT</h2>
+				<p>March 10, 2023 @ 2:00pm</p>
+				<p>Barrows Hall, UMaine</p>
+				<p>Presenter: Dr. Yifeng Zhu</p>
+				<h2>Introduction to Generative AI and Its Impact on Higher Education</h2>
+				<p>March 20, 2023 @ 1:00pm</p>
+				<p>Bangor Room Memorial Union*</p>
+				<p>Facilitators: Peter Schilling & Jon Ippolito</p>
+				<p>(Registration is requested)</p>
+				<h2>Smarter Planet To Wiser Earth: Re-Envisioning Relationships Between Ai Technologies, Human Society, And Natural World.</h2>
+				<p>March 23 @ 12:30-1:45</p>
+				<p>A virtual presentation of the Socialist and Marxist Studies Series</p>
+				<h2>The Future of Work: How Generative AI May Change Professions and Tasks Ranging from Law, Journalism, Software Programmer, Videographer, Medicine, and More</h2>
+				<p>April 6 @ 2:00pm</p>
+				<p>102 Fernald Hall*</p>
+				<p>Facilitators: Peter Schilling & Jon Ippolito</p>
+				<p>(Registration is requested)</p>
+				<h2>Pedagogy: Teaching in the Age of Artificial Intelligence</h2>
+				<p>April 11 @ 1:00pm</p>
+				<p>Location: 102 Fernald Hall*</p>
+				<p>Facilitators: Peter Schilling, Sheridan Adams, Karen Pelletreau</p>
+				<p>(Registration is requested)</p>
+				<h2>How Should Universities Approach Generative AI?</h2>
+				<p>April 21 @ 2:00pm (tentative)</p>
+				<p>Location: TBD</p>
+				<p>Facilitators: TBD</p>
+				<p>(Registration is requested)</p>
+				<h2>Generative AI's Impact on Art and Design</h2>
+				<p>Date: TBD</p>
+				<p>Location: TBD</p>
+				<p>Facilitators: Aaron Boothroyd</p>
+				<p>(Registration is requested)</p>
+				<p>*Zoom links are available for Machias faculty on request.</p>
+			</div>
+			<p>News about additional events will be <strong>featured here soon</strong>. Contact <span class="activemail">ude.eniam@otiloppij</span> to learn more.</p>
+		</div>
+		<!-- End strategies-container. -->
 		<div id="faq-container">
 			<h1>Frequently Asked Questions</h1>
-			<p>More FAQs coming soon!</p>
-			<h2><i class="fas fa-certificate" aria-hidden="true"></i> Meta</h2>
-			<h3>Wait, I want to learn/teach AI as a discipline!</h3>
-			<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the UMaine AI iniative has programs in Computer Science, Data Science, and related fields.</p>
-			<h3>Was this site made with ChatGPT?</h3>
+			<!-- <p>More FAQs coming soon!</p> -->
+			<h2><i class="fas fa-robot" aria-hidden="true"></i> What is generative AI?</h2>
+			<button>What does generative artificial intelligence do?</button>
+			<p>When you type a question or request into a text generator like ChatGPT, the bot will type back an answer based on the data it has been trained on. This is typically information available on websites such as Wikipedia and news outlets. Media generators like Midjourney will attempt to show you an image they have constructed from existing images with similar caption descriptions.</p>
+			<button>What are examples of generative AI tools?</button>
+			<p>Notable text generators include ChatGPT and Google's Bard. Notable image generators include DALLE-2, Stable Diffusion, and Midjourney.</p>
+			<h2><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> How does generative AI work?</h2>
+			<button>Can you explain generative AI at a grade school level?</button>
+			<p>Generative AI is like a more versatile version of the predictive text on your phone that suggests they next word you will type.</p>
+			<button>Can you explain generative AI at a high school level?</button>
+			<p>Generative AI is like a disembodied, clueless brain. Researchers feed these systems information from the Internet and then ask them questions. When the bots guess better answers to these questions, researchers reinforce the connections that led to those answers. With enough training by researchers, the system can improve its accuracy.</p>
+			<button>Can you explain generative AI at a college level?</button>
+			<p>
+				Every piece of information fed to generative AI--like the words "rain," "umbrella", and "dinosaur"--occupies a different point in an abstract mathematical space. Researchers train the system to recognize correlations among these points in existing sources like web pages. That enables the AI to measure semantic distances between points; for example, the words "umbrella" and "rain"
+				would be closer in this space than "umbrella" and "dinosaur." When prompted by the user with a string of words, the system finds the corresponding points in space and gives back a text or image that essentially represents the average of all those points.
+			</p>
+			<button>Can you explain generative AI at a graduate level?</button>
+			<p>
+				Each point in the space described above is a multidimensional vector. In the case of large language models like ChatGPT, the number of variables in each vector can be in the millions. These variables can be combined in various ways to calculate the "average" of any set of existing points. This average may not have been a point in the original dataset, which is why image generators
+				like Midjourney can create simulated photographs that have never existed before based on photographs it has already categorized.
+			</p>
+			<h2><i class="fas fa-toolbox" aria-hidden="true"></i> Using this toolkit</h2>
+			<button>Is there any cost to using the material on this site?</button>
+			<p>No, we created it to share information and tactics with anyone interested in how generative AI may transform education. That said, we encourage you to cite <a href="https://LearnWithAI.org">LearnWithAI.org</a> if you've found the site helpful.</p>
+			<button>Can I contribute to this resource?</button>
+			<p>Yes! We'd love to hear your suggestions--just email them to <span class="activemail">ude.eniam@otiloppij</span>.</p>
+			<h2><i class="fas fa-circle-info" aria-hidden="true"></i> More information</h2>
+			<button>Wait, I want to learn/teach AI as a discipline!</button>
+			<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the <a href="https://ai.umaine.edu/">UMaine AI</a> cluster offers degrees and certificates in Computer Science, Data Science, and related fields.</p>
+			<button>Was this site made with ChatGPT?</button>
 			<p>No.</p>
-			<h3>I have a question not in this list.</h3>
+			<button>I have a question not in this list.</button>
+			<p>
+				Let us know at
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</p>
+			<button>How can I contact you?</button>
 			<p>
 				Contact us at
 				<span class="activemail">ude.eniam@otiloppij</span>.
