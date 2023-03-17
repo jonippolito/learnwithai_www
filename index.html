@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.3, improving accessibility for FAQ, adding Events. -->
+		<!-- Version 2.4, improving accessibility for tags, adjusting Events. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -35,7 +35,8 @@
 				font-weight: bold;
 				margin: 1em;
 				border-style: none;
-				color: var(--medium-ice);
+				color: var(--darker-ice);
+				text-shadow: var(--pale-celeste) 0 0 0.2em;
 			}
 			.heading-expanded:hover,
 			.heading-collapsed:hover {
@@ -70,23 +71,31 @@
 				--h-cooler: 220; /* WAS 205. */
 				--h-medium: 210; /* WAS 200. */
 				--h-warmer: 200; /* WAS 190. */
+				--h-warmest: 160;
 				--h-rotate-from-sepia: 170deg;
-				--light-ice: hsla(var(--h-medium), 30%, 30%, 1); /* SWATCH Light ice. */
-				--medium-ice: hsla(var(--h-medium), 100%, 20%, 1); /* SWATCH Medium ice. */
-				--dark-ice: hsla(var(--h-medium), 100%, 10%, 1); /* SWATCH Dark ice. */
-				--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1); /* SWATCH Dull celeste.*/
-				--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1); /* SWATCH Medium celeste.*/
-				--other-celeste: hsla(var(--h-warmer), 60%, 70%, 1); /* SWATCH Other celeste.*/
-				--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1); /* SWATCH Pale celeste.*/
+				/* Ice: a cool, dull blue. */
+				--pale-ice: azure;
+				--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
+				--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
+				--darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
+				/* Celeste: a more saturated, warmer blue. */
+				--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1);
+				--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
+				--deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
+				--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+				/* Jade: even more saturated and warmer. */
+				--pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
+				--medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
+				/* Lexia and other backgrounds. */
 				--lexia-lightest: azure;
 				--lexia-lighter: paleturquoise;
 				--lexia-darker: teal;
 				--dull-aqua: lightseagreen;
 				--darker-body: hsla(180, 25%, 25%);
 				/*	Gradients */
-				--gradientStopA: hsla(var(--h-warmer), 100%, 15%, 0.8);
+				--gradientStopA: hsla(var(--h-warmer), 100%, 10%, 0.8);
 				--gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
-				--gradientStopC: hsla(var(--h-warmer), 70%, 55%, 0.8);
+				--gradientStopC: hsla(var(--h-warmer), 70%, 35%, 0.8);
 				--gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
 				--gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
 				--gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
@@ -193,6 +202,7 @@
 			#resources-container h3 {
 				color: var(--lexia-lighter);
 				margin-bottom: 1.5em;
+				text-shadow: var(--darkest-ice) 0 0 0.2em;
 			}
 			#strategies-container h3 a,
 			#resources-container h3 a {
@@ -225,7 +235,7 @@
 				width: 90vw;
 				padding-top: 20px;
 			}
-			.footer > * {
+			.footer > img {
 				font-size: 1.2vw;
 				height: 70px;
 				z-index: 1; /* No idea why this is needed. Something else must be overlapping it. */
@@ -247,15 +257,12 @@
 				width: 100%;
 			} */
 			h2#rubric {
-				/*			position: absolute ;*/
 				width: 60vw;
 				text-align: center;
-				/* font-size: 4.5vw; */
 				font-size: 5vw;
 				color: var(--lexia-lightest);
-				/* font-family: Tamil MN; */
 				font-family: sansation-regular;
-				/*			border: purple solid 2px ; */
+				text-shadow: black 0 0 0.2em;
 			}
 			.search-instructions {
 				display: flex;
@@ -263,7 +270,7 @@
 				align-items: center;
 			}
 			.search-container {
-				color: var(--medium-ice);
+				color: var(--darker-ice);
 			}
 			.search-box {
 				/* width: 100%; */
@@ -278,15 +285,15 @@
 				/* font-weight: bold; */
 				/* font-size: 1.85vw; */
 				font-family: sansation-bold;
-				font-size: 2.1vw;
+				font-size: clamp(2em, 2.1vw, 2.1vw);
 				width: 100%;
 				height: 20px;
 				margin: 20px 0 var(--margin-wide) 0;
 				text-align: center;
-				color: var(--light-ice);
+				color: var(--dark-ice);
 			}
 			#browse-options a:not([class="activated"]) {
-				color: var(--medium-ice);
+				color: var(--darker-ice);
 			}
 			#about-container {
 				position: relative;
@@ -301,7 +308,7 @@
 				font-size: 1.4em;
 				/* margin: 0; */
 				/* padding: 1% ; */
-				color: var(--medium-ice); /* SWATCH Medium ice. */
+				color: var(--darker-ice); /* SWATCH Medium ice. */
 				/*			border: red solid 2px ; */
 			}
 			#explanation h3 {
@@ -328,7 +335,7 @@
 			#events-container a,
 			.footer a {
 				color: var(--accent);
-				text-shadow: var(--dark-ice) 0 0 0.3em; /* SWATCH Dark ice. */
+				text-shadow: var(--darkest-ice) 0 0 0.3em; /* SWATCH Dark ice. */
 				/*				border-bottom: dotted .2em ;*/
 			}
 			.activated {
@@ -377,12 +384,15 @@
 				cursor: pointer;
 			}
 			.feature:nth-child(3n) {
+				/* Third of three columns. */
 				background-color: var(--dull-celeste); /* SWATCH Dull celeste.*/
 			}
 			.feature:nth-child(3n + 1) {
-				background-color: var(--other-celeste); /* SWATCH Other celeste.*/
+				/* First of three columns. */
+				background-color: var(--deep-celeste); /* SWATCH Other celeste.*/
 			}
 			.feature:nth-child(3n + 2) {
+				/* Second of three columns. */
 				background-color: var(--lexia-lighter);
 			}
 			.feature:nth-child(3n) i {
@@ -390,7 +400,7 @@
 			}
 			.feature:nth-child(3n + 1) i {
 				color: var(--pale-celeste); /* SWATCH Pale celeste.*/
-				background-color: var(--other-celeste); /* SWATCH Other celeste.*/
+				background-color: var(--deep-celeste); /* SWATCH Other celeste.*/
 			}
 			.feature:nth-child(3n + 2) i {
 				color: var(--pale-celeste); /* SWATCH Pale celeste.*/
@@ -398,14 +408,14 @@
 			}
 			/* Font-awesome. */
 			i {
-				color: var(--dark-ice); /* SWATCH Dark ice. */
+				color: var(--darkest-ice); /* SWATCH Dark ice. */
 				text-shadow: var(--medium-celeste) 0 0 0.3em; /* SWATCH Medium celeste.*/
 				font-size: 1.2em;
 			}
 			#features h4 {
 				margin-bottom: 0;
 				/* h4 has opacity: .5 at the global level. */
-				color: var(--dark-ice); /* SWATCH Dark ice. */
+				color: var(--darkest-ice); /* SWATCH Dark ice. */
 				font-size: 1.4em;
 				font-family: sansation-bold;
 			}
@@ -431,6 +441,17 @@
 				border: var(--light) solid 2px;
 				padding: 1em;
 				border-radius: 10px;
+			}
+			.cloud-tag-selected {
+				/* Customized for accessibility. */
+				color: var(--medium-jade);
+				background-color: var(--pale-ice);
+			}
+			.tag-box a:nth-of-type(1):hover {
+				color: var(--medium-jade);
+			}
+			.tag-box a:nth-of-type(2):hover {
+				color: red;
 			}
 			.alert-box {
 				position: relative;
@@ -528,11 +549,14 @@
 			#events-container h1 {
 				color: var(--lexia-lighter);
 				opacity: 0.7;
+				margin-top: 2em;
+				text-shadow: var(--darkest-ice) 0 0 0.2em;
 			}
 			#faq-container h2,
 			#events-container h2 {
-				color: var(--medium-ice);
+				color: var(--darker-ice);
 				opacity: 1 !important ;
+				text-shadow: var(--pale-celeste) 0 0 0.2em;
 			}
 			#events-list {
 				border: 2px solid var(--dull-celeste);
@@ -546,10 +570,10 @@
 				margin-top: 1em;
 			}
 			#faq-container p {
-				color: var(--dark-ice); /* SWATCH Dark ice. */
+				color: var(--darkest-ice); /* SWATCH Dark ice. */
 			}
 			#faq-container :is(.heading-expanded, .heading-collapsed) {
-				color: var(--medium-ice); /* SWATCH Medium ice. */
+				color: var(--darker-ice); /* SWATCH Medium ice. */
 			}
 			#faq-container :is(.heading-expanded, .heading-collapsed):hover {
 				color: var(--accent);
@@ -557,7 +581,7 @@
 			#faq-container i.fas {
 				color: var(--accent) !important ;
 			}
-			/* ________________ Accessibility features. _________________ */
+			/* ________________ UNUSED: Accessibility features. _________________ */
 			#dialog-tag-selected {
 				position: absolute;
 				/* top: -100vh;
@@ -654,6 +678,7 @@
 			// Based on tagged-lexia-script-v02.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
 			// Cheap replacement for ExpandingMenu.js and ThoughtMesh.js, but still requires thought-mesh.css.
 			// Should work with mobile by enabling lexia selection by click or hover.
+			// I've hidden the cloud from screen readers for accessibility (see also custom styles for .cloud- blah elsewhere in this page.)
 			// Based on output-test-script-v01.8.
 			// Add to body onload="harvestData(); registerTags(); enableLexiaSelection();"
 			// Customize the "// Get tag data." line below.
@@ -759,11 +784,15 @@
 				this.blankLink.className = "blank-link";
 				this.blankLink.innerHTML = "+";
 				this.blankLink.style.fontSize = this.size + "em";
+				this.blankLink.ariaHidden = "true";
+				this.blankLink.tabIndex = -1;
 				this.tagBox.appendChild(this.blankLink);
 				/* _______ Create a link for adding a tag. _______*/
 				this.plusLink = document.createElement("a");
 				this.plusLink.href = "#";
 				this.plusLink.style.fontSize = this.size + "em";
+				this.plusLink.ariaHidden = "true";
+				this.plusLink.tabIndex = -1;
 				this.plusLink.onclick = function () {
 					respondToTag({
 						tagArg: this.cloudTagObj.tag,
@@ -781,6 +810,8 @@
 				this.minusLink = document.createElement("a");
 				this.minusLink.href = "#";
 				this.minusLink.style.fontSize = this.size + "em";
+				this.minusLink.ariaHidden = "true";
+				this.minusLink.tabIndex = -1;
 				this.minusLink.className = "cloud-tag-hidden"; // Initially hidden.
 				this.minusLink.onclick = function () {
 					respondToTag({
@@ -798,6 +829,8 @@
 				this.replaceLink = document.createElement("a");
 				this.replaceLink.href = "#";
 				this.replaceLink.style.fontSize = this.size + "em";
+				this.replaceLink.ariaHidden = "true";
+				this.replaceLink.tabIndex = -1;
 				this.replaceLink.className = "cloud-tag";
 				this.replaceText = document.createTextNode(this.tag);
 				// Enable recovery of cloudTagObj from its link, for use in the onclick function.
@@ -899,7 +932,7 @@
 						thoughtMesh.selectedTags.getObjectByTag[tagArg] = thoughtMesh.selectedTags[0];
 						// For accessibility, assume user wants to tab immediately to the lexias after clicking a tag.
 						// thoughtMesh.tagObjs.getObjectByTag[tagArg].replaceLink.addEventListener("blur", (event) => setSpecialTabBehavior(false));
-						setSpecialTabBehavior(true);
+						// setSpecialTabBehavior(true); UNUSED--disabling screen reader access to tags instead.
 						break;
 					case "plus": // Adding a tag in combination.
 						// Register new tag. Currently no limitation on number, but they always intersect.
@@ -1207,7 +1240,8 @@
 				}
 				window.scrollTo(0, 0);
 			};
-			// Not sure if I'll keep these globals.
+			/* UNUSED ACCESSIBILITY TACTIC: 
+			used a Gordian Knot approach instead, by disabling tag cloud for screen readers.
 			tabHasSpecialBehavior = false;
 			enterHasSpecialBehavior = false;
 			const setSpecialTabBehavior = (wantSpecialTab) => {
@@ -1269,6 +1303,7 @@
 					}
 				}
 			};
+			*/
 		</script>
 		<script id="lexias-from-google-sheet-script-v01.2">
 			// Modified to allow multiple lexia containers in the same document.
@@ -1634,6 +1669,7 @@
 			<h2><i class="fas fa-toolbox" aria-hidden="true"></i> Using this toolkit</h2>
 			<button>Is there any cost to using the material on this site?</button>
 			<p>No, we created it to share information and tactics with anyone interested in how generative AI may transform education. That said, we encourage you to cite <a href="https://LearnWithAI.org">LearnWithAI.org</a> if you've found the site helpful.</p>
+			<p>We make no claims about the validity of content on third-party sites, however.</p>
 			<button>Can I contribute to this resource?</button>
 			<p>Yes! We'd love to hear your suggestions--just email them to <span class="activemail">ude.eniam@otiloppij</span>.</p>
 			<h2><i class="fas fa-circle-info" aria-hidden="true"></i> More information</h2>
@@ -1665,11 +1701,11 @@
 				<a href="http://newmedia.umaine.edu/"><img src="media/nmd_title_blue_tra_xvga.png" alt="Nmd Title Blue Tra Xvga" /></a>
 			</div>
 		</div>
-		<dialog id="dialog-tag-selected">
-			<!-- <form method="dialog"> -->
+		<!--
+			UNUSED: disabled tag cloud for screen readers instead.
+			<dialog id="dialog-tag-selected">
 			You've filtered the selection by this tag. Click the button to navigate among the results or the Enter key to return to the main page.
 			<button onclick="focusFirstResult()">Jump to results</button>
-			<!-- </form> -->
-		</dialog>
+		</dialog> -->
 	</body>
 </html>
