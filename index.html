@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.6, events on home, improve styling. -->
+		<!-- Version 2.7, responsive events on home. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -655,6 +655,17 @@
 						left: -100vw; */
 			}
 			@media only screen and (max-device-width: 414px) {
+				#explanation {
+					grid-template-columns: 1fr;
+				}
+				#events-preview-list {
+					grid-template-columns: 4fr 1fr;
+					/* gap: calc(2 * var(--padding-section)) 0; */
+				}
+				#events-preview-list h2,
+				#events-preview-list p {
+					font-size: 2em;
+				}
 				#events-list {
 					grid-template:
 						"inperson"
@@ -1544,15 +1555,15 @@
 					<h3>Upcoming events</h3>
 					<div id="events-preview-list">
 						<div>
-							<h2>The Future of Work</h2>
-							<p>Thursday 6 April 2pm, UMaine campus</p>
-						</div>
-						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
-						<div>
 							<h2>AI in the classroom</h2>
 							<p>Tuesday 4 April 3pm, free webinar</p>
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+						<div>
+							<h2>The Future of Work</h2>
+							<p>Thursday 6 April 2pm, UMaine campus</p>
+						</div>
+						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					</div>
 					<p id="events-preview-more"><a href="#" onclick="viewMode='events'; chooseScreen()">Learn more</a></p>
 				</div>
