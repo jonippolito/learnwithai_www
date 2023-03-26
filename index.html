@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.7, responsive events on home. -->
+		<!-- Version 2.8, anchors w JS to buttons for WordPress compatibility. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -63,6 +63,7 @@
 		</style>
 		<style id="learnwithai-index-style">
 			/* Based on tutorials-index-style and padlet-style. */
+			/* ________________ Design parameters. ________________ */
 			:root {
 				/* Global dimensions. */
 				--margin-wide: 40px;
@@ -145,6 +146,7 @@
 				--darker: hsl(var(--h) 100% 20%);
 				--darkest: hsl(var(--h) 100% 10%);
 			}
+			/* ________________ Universal tags. ________________ */
 			*,
 			:before,
 			:after {
@@ -163,6 +165,70 @@
 			h1 {
 				font-family: sansation-bold;
 			}
+			/* ________________ Links and buttons. ________________ */
+			/* Nav bar buttons that look like text. */
+			#browse-options button {
+				font-weight: bold;
+				background-color: transparent;
+				border: none;
+				font-size: 1em;
+			}
+			.activated {
+				color: var(--accent);
+				text-shadow: black 0 0 0.15em, black 0 0 0.1em;
+			}
+			#browse-options button:not([class="activated"]) {
+				color: var(--darker-ice);
+			}
+			#browse-options button.activated:hover {
+				/*				border-bottom: solid ;*/
+				/* text-shadow: var(--highlight) 0 0 0.3em; */
+				cursor: pointer;
+				background-color: var(--dark-ice);
+			}
+			/* Block-style links. */
+			button.block-style {
+				background-color: var(--deep-celeste);
+				color: white;
+				padding: 0.3em 0.5em;
+				box-sizing: border-box;
+				font-size: 1em;
+				border-style: none;
+				border-radius: 0.3em;
+			}
+			button.block-style:hover {
+				text-shadow: var(--highlight) 0 0 0.3em;
+				cursor: pointer;
+				background-color: var(--dark-ice);
+			}
+			/* Inline-style links. */
+			#about-container a,
+			#strategies-container h3 a,
+			#resources-container h3 a,
+			#events-container a,
+			#faq-container a,
+			.footer a {
+				color: var(--darker-ice);
+				font-weight: normal;
+				/* background-color: var(--dark-ice); */
+				background-image: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
+				background-repeat: no-repeat;
+				background-size: 100% 0.2em;
+				background-position: 0 88%;
+				transition: background-size 0.1s ease-in;
+			}
+			#strategies-container h3,
+			#resources-container h3 {
+				font-weight: normal;
+			}
+			#about-container a:hover,
+			#strategies-container h3 a:hover,
+			#resources-container h3 a:hover,
+			#events-container a:hover,
+			.footer a:hover {
+				background-size: 100% 88%;
+			}
+			/* ________________ Header and footer. ________________ */
 			#watermark {
 				/* Adding a background gradient here instead of the body
 								prevents the gradient from repeating somewhere down the page. */
@@ -204,13 +270,10 @@
 			}
 			#strategies-container h3,
 			#resources-container h3 {
-				color: var(--lexia-lighter);
+				color: var(--darker-ice);
+				/* color: var(--lexia-lighter);
 				margin-bottom: 1.5em;
-				text-shadow: var(--darkest-ice) 0 0 0.2em;
-			}
-			#strategies-container h3 a,
-			#resources-container h3 a {
-				color: var(--accent);
+				text-shadow: var(--darkest-ice) 0 0 0.2em; */
 			}
 			/* Narrower content. */
 			#header,
@@ -303,9 +366,6 @@
 				text-align: center;
 				color: var(--dark-ice);
 			}
-			#browse-options a:not([class="activated"]) {
-				color: var(--darker-ice);
-			}
 			#about-container {
 				position: relative;
 				clear: both;
@@ -338,13 +398,6 @@
 				width: 30%;
 				filter: sepia(100%) saturate(150%) brightness(110%) hue-rotate(var(--h-rotate-from-sepia));
 			}
-			.activated,
-			#about-container a,
-			#events-container a,
-			.footer a {
-				color: var(--accent);
-				text-shadow: black 0 0 0.15em, black 0 0 0.1em;
-			}
 			#explanation {
 				display: grid;
 				gap: 1em;
@@ -354,18 +407,6 @@
 				color: var(--darker-ice);
 				font-size: 1.3em;
 				margin: 1em 0 -1em 0;
-			}
-			.activated {
-				font-weight: bold;
-			}
-			#about-container a {
-				font-weight: normal;
-			}
-			.activated:hover,
-			#about-container a:hover {
-				/*				border-bottom: solid ;*/
-				text-shadow: var(--highlight) 0 0 0.3em;
-				cursor: pointer;
 			}
 			/* See Events below for #events-preview. */
 			#features {
@@ -655,6 +696,9 @@
 						left: -100vw; */
 			}
 			@media only screen and (max-device-width: 414px) {
+				.safe-mail-wrapper {
+					display: none;
+				}
 				#explanation {
 					grid-template-columns: 1fr;
 				}
@@ -699,7 +743,7 @@
 			// Run when DOM is loaded.
 			function makeOutlineExpandable() {
 				// Gather all heading/buttons at a certain level.
-				buttons = document.getElementById("faq-container").getElementsByTagName("button"); // Global, because used in a later function.
+				buttons = document.getElementById("faq-questions").getElementsByTagName("button"); // Global, because used in a later function.
 				// Go through each heading/button.
 				for (var buttonCounter = 0; buttonCounter < buttons.length; buttonCounter++) {
 					// Add a starting button tag just after the heading/button.
@@ -1531,15 +1575,15 @@
 			<h2 id="rubric">Learn With AI</h2>
 		</div>
 		<nav id="browse-options">
-			<a href="#" onclick="viewMode='about'; chooseScreen()" id="browse-about">About the toolkit</a>
+			<button onclick="viewMode='about'; chooseScreen()" id="browse-about">About the toolkit</button>
 			<span aria-hidden="true">|</span>
-			<a href="#" onclick="viewMode='resources'; chooseScreen();" id="browse-resources">Resources</a>
+			<button onclick="viewMode='resources'; chooseScreen();" id="browse-resources">Resources</button>
 			<span aria-hidden="true">|</span>
-			<a href="#" onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies</a>
+			<button onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies<button>
 			<span aria-hidden="true">|</span>
-			<a href="#" onclick="viewMode='events'; chooseScreen();" id="browse-events">Events</a>
+			<button onclick="viewMode='events'; chooseScreen();" id="browse-events">Events</button>
 			<span aria-hidden="true">|</span>
-			<a href="#" onclick="viewMode='faq'; chooseScreen();" id="browse-faq">FAQ</a>
+			<button onclick="viewMode='faq'; chooseScreen();" id="browse-faq">FAQ</button>
 		</nav>
 		<div id="about-container">
 			<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" id="hero" />
@@ -1565,7 +1609,7 @@
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					</div>
-					<p id="events-preview-more"><a href="#" onclick="viewMode='events'; chooseScreen()">Learn more</a></p>
+					<p id="events-preview-more"><button class="block-style" onclick="viewMode='events'; chooseScreen()">Learn more</button></p>
 				</div>
 			</div>
 			<!-- End "explanation" div. -->
@@ -1616,7 +1660,8 @@
 		</div>
 		<div id="resources-container">
 			<h3>
-				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.
+				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>.
+				<span class="safe-mail-wrapper">If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</span>
 			</h3>
 			<div class="search-instructions">
 				<h3>Use the search box or choose tags below to filter the results:</h3>
@@ -1630,8 +1675,11 @@
 		<!-- End resources-container. -->
 		<div id="strategies-container">
 			<h3>
-				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>. If you'd like to suggest additional strategies to feature here, please contact us via
-				<span class="activemail">ude.eniam@otiloppij</span>.
+				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>.
+				<span class="safe-mail-wrapper">
+					If you'd like to suggest additional strategies to feature here, please contact us via
+					<span class="activemail">ude.eniam@otiloppij</span>.
+				</span>
 			</h3>
 			<div class="search-instructions">
 				<h3>Use the search box or choose tags below to filter the results:</h3>
@@ -1728,55 +1776,59 @@
 		</div>
 		<!-- End strategies-container. -->
 		<div id="faq-container">
-			<h1>Frequently Asked Questions</h1>
-			<!-- <p>More FAQs coming soon!</p> -->
-			<h2><i class="fas fa-robot" aria-hidden="true"></i> What is generative AI?</h2>
-			<button>What does generative artificial intelligence do?</button>
-			<p>When you type a question or request into a text generator like ChatGPT, the bot will type back an answer based on the data it has been trained on. This is typically information available on websites such as Wikipedia and news outlets. Media generators like Midjourney will attempt to show you an image they have constructed from existing images with similar caption descriptions.</p>
-			<button>What are examples of generative AI tools?</button>
-			<p>Notable text generators include ChatGPT and Google's Bard. Notable image generators include DALLE-2, Stable Diffusion, and Midjourney.</p>
-			<h2><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> How does generative AI work?</h2>
-			<button>Can you explain generative AI at a grade school level?</button>
-			<p>Generative AI is a more versatile version of the predictive text you see when typing a message on your phone, which suggests words you are likely to type next.</p>
-			<button>Can you explain generative AI at a high school level?</button>
-			<p>Generative AI is like a disembodied, clueless brain. Researchers feed this "neural network" information from the Internet and then ask it questions. When the network guesses better answers to these questions, researchers reinforce the connections that led to those answers. With enough training by researchers, the system can improve its accuracy.</p>
-			<button>Can you explain generative AI at a college level?</button>
-			<p>
-				Every piece of information fed to generative AI--like the words "rain," "umbrella", and "dinosaur"--occupies a different point in an abstract mathematical space. Researchers train the system to recognize correlations among these points in existing web pages like Wikipedia. That enables the AI to measure semantic distances between points; for example, the words "umbrella" and "rain"
-				would be closer in this space than "umbrella" and "dinosaur." When prompted by the user with a string of words, the system finds the corresponding points in space and gives back a text or image that essentially represents the average of all those points.
-			</p>
-			<button>Can you explain generative AI at a graduate level?</button>
-			<p>
-				Each point in the space described above is a multidimensional vector. In the case of large language models like ChatGPT, the number of variables in each vector can be in the millions. These variables can be combined in various ways to calculate the "average" of any set of existing points. This average may not have been a point in the original dataset, which is why image generators
-				like Midjourney can create simulated photographs that have never existed before based on photographs it has already categorized.
-			</p>
-			<h2><i class="fas fa-toolbox" aria-hidden="true"></i> Using this toolkit</h2>
-			<button>Is there any cost to using the material on this site?</button>
-			<p>No, we created it to share information and tactics with anyone interested in how generative AI may transform education. That said, we encourage you to cite <a href="https://LearnWithAI.org">LearnWithAI.org</a> if you've found the site helpful.</p>
-			<p>We make no claims about the validity of content on third-party sites, however.</p>
-			<button>Can I contribute to this resource?</button>
-			<p>Yes! We'd love to hear your suggestions--just email them to <span class="activemail">ude.eniam@otiloppij</span>.</p>
-			<h2><i class="fas fa-circle-info" aria-hidden="true"></i> More information</h2>
-			<button>Who is behind this toolkit?</button>
-			<p>
-				Learning With AI was convened by UMaine's <a href="https://umaine.edu/newmedia">New Media major</a> and <a href="https://umaine.edu/citl">Center for Innovation in Teaching and Learning</a>. Other partners in the initiative include the College of Education and Human Development, Department of Electrical and Computer Engineering, Digital and Spatial History Lab, and UMaine AI. Learn
-				more in the official <a href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press release</a>.
-			</p>
-			<button>Wait, I want to learn/teach AI as a discipline!</button>
-			<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the <a href="https://ai.umaine.edu/">UMaine AI</a> cluster offers degrees and certificates in Computer Science, Data Science, and related fields.</p>
-			<button>Was this site made with ChatGPT?</button>
-			<p>No.</p>
-			<button>I have a question not in this list.</button>
-			<p>
-				Let us know at
-				<span class="activemail">ude.eniam@otiloppij</span>.
-			</p>
-			<button>How can I contact you?</button>
-			<p>
-				Contact us at
-				<span class="activemail">ude.eniam@otiloppij</span>.
-			</p>
-		</div>
+			<div id="faq-questions">
+				<h1>Frequently Asked Questions</h1>
+				<!-- <p>More FAQs coming soon!</p> -->
+				<h2><i class="fas fa-robot" aria-hidden="true"></i> What is generative AI?</h2>
+				<button>What does generative artificial intelligence do?</button>
+				<p>When you type a question or request into a text generator like ChatGPT, the bot will type back an answer based on the data it has been trained on. This is typically information available on websites such as Wikipedia and news outlets. Media generators like Midjourney will attempt to show you an image they have constructed from existing images with similar caption descriptions.</p>
+				<button>What are examples of generative AI tools?</button>
+				<p>Notable text generators include ChatGPT and Google's Bard. Notable image generators include DALLE-2, Stable Diffusion, and Midjourney.</p>
+				<h2><i class="fas fa-screwdriver-wrench" aria-hidden="true"></i> How does generative AI work?</h2>
+				<button>Can you explain generative AI at a grade school level?</button>
+				<p>Generative AI is a more versatile version of the predictive text you see when typing a message on your phone, which suggests words you are likely to type next.</p>
+				<button>Can you explain generative AI at a high school level?</button>
+				<p>Generative AI is like a disembodied, clueless brain. Researchers feed this "neural network" information from the Internet and then ask it questions. When the network guesses better answers to these questions, researchers reinforce the connections that led to those answers. With enough training by researchers, the system can improve its accuracy.</p>
+				<button>Can you explain generative AI at a college level?</button>
+				<p>
+					Every piece of information fed to generative AI--like the words "rain," "umbrella", and "dinosaur"--occupies a different point in an abstract mathematical space. Researchers train the system to recognize correlations among these points in existing web pages like Wikipedia. That enables the AI to measure semantic distances between points; for example, the words "umbrella" and "rain"
+					would be closer in this space than "umbrella" and "dinosaur." When prompted by the user with a string of words, the system finds the corresponding points in space and gives back a text or image that essentially represents the average of all those points.
+				</p>
+				<button>Can you explain generative AI at a graduate level?</button>
+				<p>
+					Each point in the space described above is a multidimensional vector. In the case of large language models like ChatGPT, the number of variables in each vector can be in the millions. These variables can be combined in various ways to calculate the "average" of any set of existing points. This average may not have been a point in the original dataset, which is why image generators
+					like Midjourney can create simulated photographs that have never existed before based on photographs it has already categorized.
+				</p>
+				<h2><i class="fas fa-toolbox" aria-hidden="true"></i> Using this toolkit</h2>
+				<button>Is there any cost to using the material on this site?</button>
+				<p>No, we created it to share information and tactics with anyone interested in how generative AI may transform education. That said, we encourage you to cite <a href="https://LearnWithAI.org">LearnWithAI.org</a> if you've found the site helpful.</p>
+				<p>We make no claims about the validity of content on third-party sites, however.</p>
+				<button class="safe-mail-wrapper">Can I contribute to this resource?</button>
+				<p class="safe-mail-wrapper">Yes! We'd love to hear your suggestions--just contact us via the link below.</p>
+				<h2><i class="fas fa-circle-info" aria-hidden="true"></i> More information</h2>
+				<button>Who is behind this toolkit?</button>
+				<p>
+					Learning With AI was convened by UMaine's <a href="https://umaine.edu/newmedia">New Media major</a> and <a href="https://umaine.edu/citl">Center for Innovation in Teaching and Learning</a>. Other partners in the initiative include the College of Education and Human Development, Department of Electrical and Computer Engineering, Digital and Spatial History Lab, and UMaine AI. Learn
+					more in the official <a href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press release</a>.
+				</p>
+				<button>Wait, I want to learn/teach AI as a discipline!</button>
+				<p>This program is not for you; we're focused on how to cope with generative AI when learning <em>any</em> subject. Fortunately, the <a href="https://ai.umaine.edu/">UMaine AI</a> cluster offers degrees and certificates in Computer Science, Data Science, and related fields.</p>
+				<button>Was this site made with ChatGPT?</button>
+				<p>No.</p>
+				<button class="safe-mail-wrapper">I have a question not in this list.</button>
+				<p class="safe-mail-wrapper">
+					Let us know via the link below.
+				</p>
+			</div><!--  End "faq-questions".  -->
+			<div id="contact" class="safe-mail-wrapper">
+				<h1>Contact us</h1>
+				<h3>
+					<i class="fas fa-envelope" aria-hidden="true"></i> 
+					Have a question or resources to contribute? Email us  at 
+					<span class="activemail">ude.eniam@otiloppij</span>.
+				</h3>
+			</div><!--  End "contact".  -->
+		</div><!--  End "faq-container".  -->
 		<div class="footer">
 			<div id="credit">
 				<p>
