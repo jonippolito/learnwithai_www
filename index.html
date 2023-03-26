@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.8, anchors w JS to buttons for WordPress compatibility. -->
+		<!-- Version 2.9, tweaks for responsive/accessible. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -456,7 +456,7 @@
 			/* Font-awesome. */
 			i {
 				color: var(--darkest-ice); /* SWATCH Dark ice. */
-				text-shadow: var(--medium-celeste) 0 0 0.3em; /* SWATCH Medium celeste.*/
+				text-shadow: var(--medium-celeste) 0 0 0.1em; /* SWATCH Medium celeste.*/
 				font-size: 1.2em;
 			}
 			#features h4 {
@@ -715,6 +715,9 @@
 				#events-preview-list p {
 					font-size: 2em;
 				}
+				/* #events-container {
+					height: 1000em;
+				} */
 				#events-list {
 					grid-template:
 						"inperson"
@@ -1677,8 +1680,7 @@
 			<div class="alert-box desktop">No matching content for that tag combination</div>
 			<h3 class="lexia-instructions desktop">Hover to learn more or click to visit an outside link:</h3>
 			<div class="lexia-container"></div>
-		</div>
-		<!-- End resources-container. -->
+		</div><!-- End resources-container. -->
 		<div id="strategies-container">
 			<h3>
 				The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this Google Sheet</a>.
@@ -1696,7 +1698,7 @@
 			<div class="alert-box desktop">No matching content for that tag combination</div>
 			<h3 class="lexia-instructions desktop">Hover to learn more or click to see an associated resource:</h3>
 			<div class="lexia-container"></div>
-		</div>
+		</div><!-- End strategies-container. -->
 		<div id="events-container">
 			<h1>Past and future events</h1>
 			<p>
@@ -1780,8 +1782,7 @@
 				</div>
 			</div>
 			<p><a href="#" onclick="viewMode='faq'; chooseScreen()">Contact us</a> to learn more about these events.</p>
-		</div>
-		<!-- End strategies-container. -->
+		</div><!-- End events-container. -->
 		<div id="faq-container">
 			<div id="faq-questions">
 				<h1>Frequently Asked Questions</h1>
