@@ -689,13 +689,18 @@
 			#faq-container i.fas {
 				color: var(--accent) !important ;
 			}
-			/* ________________ UNUSED: Accessibility features. _________________ */
-			#dialog-tag-selected {
-				position: absolute;
-				/* top: -100vh;
-						left: -100vw; */
+			/* ________________ Mobile accommodations. ________________ */
+			/* Avoid setting visible versions of these styles to "block" because they may be flex etc. in context. */
+			.mobile-browsing-warning {
+				display: none;
 			}
 			@media only screen and (max-device-width: 414px) {
+				.mobile-browsing-warning {
+					display: block;
+				}
+				.desktop {
+					display: none;
+				}
 				.safe-mail-wrapper {
 					display: none;
 				}
@@ -719,7 +724,7 @@
 			}
 		</style>
 		<script id="sniff-browsers-script-2018">
-			/*________________________ Check browser compatibility.________________________*/ 510;
+			/*________________________ Check browser compatibility.________________________*/
 			// Check for browser compliance. If stale browser, go to old browser page.
 			// IE 11 doesn't provide MSIE, it provides Trident. You should consider it;
 			if (navigator.userAgent.indexOf("MSIE ") > -1 || navigator.userAgent.indexOf("Trident") > -1) {
@@ -1663,13 +1668,14 @@
 				The resources below include articles, videos, and other background for generative AI in education, sourced from <a href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this Google Sheet</a>.
 				<span class="safe-mail-wrapper">If you'd like to suggest additional resources to feature here, please contact us via <span class="activemail">ude.eniam@otiloppij</span>.</span>
 			</h3>
-			<div class="search-instructions">
+			<h3 class="mobile-browsing-warning">For a better browsing experience, please visit this site on a non-mobile browser.</h3>
+			<div class="search-instructions desktop">
 				<h3>Use the search box or choose tags below to filter the results:</h3>
 				<div class="search-container">Search: <input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" /></div>
 			</div>
-			<div class="home-cloud"></div>
-			<div class="alert-box">No matching content for that tag combination</div>
-			<h3 class="lexia-instructions">Hover to learn more or click to visit an outside link:</h3>
+			<div class="home-cloud desktop"></div>
+			<div class="alert-box desktop">No matching content for that tag combination</div>
+			<h3 class="lexia-instructions desktop">Hover to learn more or click to visit an outside link:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<!-- End resources-container. -->
@@ -1681,13 +1687,14 @@
 					<span class="activemail">ude.eniam@otiloppij</span>.
 				</span>
 			</h3>
-			<div class="search-instructions">
+			<h3 class="mobile-browsing-warning">For a better browsing experience, please visit this site on a non-mobile browser.</h3>
+			<div class="search-instructions desktop">
 				<h3>Use the search box or choose tags below to filter the results:</h3>
 				<div class="search-container">Search: <input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" /></div>
 			</div>
-			<div class="home-cloud"></div>
-			<div class="alert-box">No matching content for that tag combination</div>
-			<h3 class="lexia-instructions">Hover to learn more or click to see an associated resource:</h3>
+			<div class="home-cloud desktop"></div>
+			<div class="alert-box desktop">No matching content for that tag combination</div>
+			<h3 class="lexia-instructions desktop">Hover to learn more or click to see an associated resource:</h3>
 			<div class="lexia-container"></div>
 		</div>
 		<div id="events-container">
