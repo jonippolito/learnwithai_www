@@ -1,0 +1,1216 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="description" content="A project by Jon Ippolito">
+<title>Just-in-Time Learning Quiz Generator</title>
+<!--Version number below--modified by Jon to fix missing metadata, allow no badge option.-->
+<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
+<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+<style id="set-html5-blocks">
+  article, aside, details, figcaption, figure, footer, header,
+  hgroup, menu, nav, section { display: block ; }
+</style>
+<style id="outline-styles-v2.1">
+	/* Outline styles v2.1, revised to tweak margins, colors in watermark div.*/
+	/*__________ Layout hierarchy. __________*/
+	body {
+		font-family: verdana ;
+		margin: 3em 3em ;
+	}
+	strong {
+		color: purple ;
+	}
+	em {
+		color: olive ;
+	}
+	h1 {
+		font-variant: small-caps ;
+		font-size: 1.5em ;
+		color: rgb(100%, 75%, 25% ) ;
+	}
+	h2 {
+		margin: 20px ;
+		font-size: 1.2em ;
+		color: rgb(90%, 70%, 22% ) ;
+	}
+	h3 {
+		margin-left: 40px ;
+		color: rgb(80%, 60%, 20% ) ;
+	}
+	h4 {
+		font-weight: normal ;
+		margin-left: 60px ;
+		color: rgb(60%, 45%, 15% ) ;
+	}
+	h5 {
+		font-weight: normal ;
+		margin: .8em 0 .0 80px ;
+		color: olive ;
+		color: rgb(40%, 30%, 10% ) ;
+	}
+	h6 {
+		font-size: .8em ;
+		font-weight: normal ;
+		margin: .8em 0 0 100px ;
+		color: rgb(20%, 15%, 5% ) ;
+	}
+	p,
+	blockquote {
+		font-size: .9em ;
+		font-weight: normal ;
+		margin: .8em 0 0 84px ;
+		color: rgb(10%, 7%, 2% ) ;
+	}
+	p {
+		margin: .8em 0 0 84px ;
+	}
+	blockquote p {
+		margin: .8em 20px 0 80px ;
+	}
+	ul,
+	ol {
+		font-size: .9em ;
+		margin: .8em 0 0 60px ;
+		padding-left: 40px ; /*For IE.*/
+		color: dimgray ;
+	}
+	li {
+		margin-top: .5em ;
+	}
+	pre {
+/*		background-color: rgb( 100%, 100%, 20%) ;*/
+	}
+	/*__________ Links. __________*/
+	a {
+		font-weight: bold ;
+		text-decoration: none ;
+		color: tomato ;
+	}
+	a:hover {
+		text-decoration: underline ;
+	}
+	/*__________ Headings. __________*/
+	div.watermark {
+		width: 90% ;
+		margin: 0 5% ;
+		text-align: center ;
+		padding: 1em ;
+		color: rgb(80%, 75%, 65% ) ; /* Putty. */
+	}
+		div.watermark h1,
+		div.watermark h2,
+		div.watermark h3,
+		div.watermark h4 {
+			color: rgb(54%, 50%, 42% ) ; /* Dark putty (2/3 values) */
+			margin-top: 0 ;
+		}
+		/* Use logo for page title inside watermark. */
+		/* Version number can follow as plain text.*/
+		div#logo {
+			font-size: 1.8em ;
+			margin: .5em 0 ;
+			font-weight: bold ;
+		}
+		.caption {
+			font-size: .6em ;
+			margin-top: -1em ;
+		}
+		.folder {
+			color: rgb( 20%, 60%, 40% ) ;
+		}
+	/*__________ Inline emphasis. __________*/
+		.good,
+		.confirmation {
+			color: lightgreen ;
+		}
+		.bad,
+		.warning {
+			color: red ;
+		}
+		.confirmation,
+		.warning {
+			font-weight: bold ;
+		}
+		tt {
+			color: steelblue ;
+		}
+	/*__________ Block emphasis. __________*/
+		.callout { /*Meant to apply to a div.*/
+			border: black solid 1px ;
+			padding: .5em ;
+			width: 80%
+		}
+		.code {
+			border: dimgray solid 1px ;
+			background-color: white !important ;
+			font-family: courier ;
+			padding: .5em ;
+			margin: .8em 0 0 84px ;
+			font-size: .8em ;
+		}
+			.code em {
+				font-style: normal ;
+				color: purple ;
+			}
+	/*__________ Table styles. __________*/
+	/*Use with this HTML:
+		<table border="1" cellspacing="0" cellpadding="2">
+			<tbody>
+				<tr class="labels">
+					<th>First label</th>
+					<th>Second label</th>
+				</tr>
+				<tr>
+					<td>Content</td>
+					<td>Content</td>
+				</tr>
+				...
+	*/
+	table,
+	tr,
+	td,
+	th {
+		border-color: #fff ;
+		border-style: solid ;
+		border-width: .2em ;
+		padding: .4em ;
+	}
+		tr {
+			background-color: powderblue ;
+			background-color: palegoldenrod ;
+		}
+		tr.labels {
+			background-color: black ;
+			background-color: peru ;
+			color: white
+		}
+</style><!-- end outline-styles. -->
+<style id="outline-styles-v1.0-blais">
+/* Based on toggler-styles-v2.3-blais. */
+body {
+	font-family: verdana ;
+/*	background-color: lightsteelblue ;*/
+}
+h1 {
+	color: midnightblue ;
+}
+strong {
+	color: purple ;
+}
+em {
+	color: mediumorchid;
+}
+strong em,
+em strong {
+	background-color: rgb(100%,90%,100%) ;
+	color: fuchsia ;
+}
+h2 {
+	color: darkblue ;
+}
+h3 {
+	color: darkslateblue ;
+}
+h4 {
+	color: steelblue ;
+}
+h5 {
+	color: darkcyan ;
+}
+	.toggler,
+	.toggler-over {
+		color: slateblue ;
+	}
+</style>
+<style id = "quiz-generator-style">
+/*Has dead wood from choose adventure style.*/
+	body {
+		margin: 0 0 0 2% ;
+	}
+	#logo {
+		color: powderBlue ; 
+	}
+	h2,
+	.watermark h2 {
+		color: steelBlue !important ;
+	}
+	.watermark h2 {
+		font-weight: normal ;
+	}
+	.column h2 {
+		text-align: center ;
+		color: lightSlateGray !important ;
+	}
+	h4 {
+		color: steelblue ;
+		font-weight: bold ;
+		font-size: 1.1em ;
+		margin: .7em 0 .2em 0 ;
+	}
+	p {
+		margin-left: 0 ;
+		margin-bottom: .5em;
+		color: dimgray ;
+	}
+	li {
+		margin: 0 0 0 1em ;
+	}
+	.column li {
+		list-style-type: none ;
+		margin: -.5em -5em ;
+	}
+	p#reset {
+		text-align: right ;
+		margin: 0 40px 4px 0 ;
+	}
+	.row {
+		position: relative ;
+		clear: both ;
+		min-height: 30px ;
+		border-top: silver dashed 4px ;
+	}
+		.column,
+		.quiz-container {
+			position: relative ;
+			float: left ;
+			border: gainsboro solid 2px ;
+			border-radius: 10px ;
+			padding: .5% ;
+			margin: 20px 0 20px 2% ;
+			box-sizing: border-box ;
+			font-size: .9em ;
+			color: darkGray ;
+			background-color: whiteSmoke ;
+		}
+		.column {
+			width: 26% ;
+		}
+		.quiz-container {
+			width: 28% ;
+		}
+			/* Slant */
+			div.arrow-container {
+				position: relative ;
+				float: left ;
+				margin-left: 1%;
+			}
+			div.arrow-box-right {
+				position: relative ;
+				float: left ;
+				margin-top: 40px;
+				width: 12px ;
+				height: 120px ;
+				background-color: powderBlue ;
+			}
+			div.arrow-right {
+				position: relative ;
+				float: left ;
+				width:0px;
+				height:0px;
+				border-bottom:100px solid transparent;  /* left arrow slant */
+				border-top:100px solid transparent; /* right arrow slant */
+				border-left:30px solid powderBlue ; /* bottom, add background color here */
+				/* For IE: */
+				font-size:0px;
+				line-height:0px;
+			}
+			label {
+				color: steelBlue ;
+				font-size: 1em ;
+			}
+			label::after {
+			    /* Content can be any text. */
+			    content: ":" ;
+				font-size: 1em ;
+			}
+		/*	Or can write input[type="text"]*/
+			input,
+			textarea {
+				width: 90% ;
+				border-radius: .4em ;
+				padding: 2%;
+				margin: 0 0 1em 0 ;
+				border: solid 1px silver ;
+				transition: box-shadow 1.5s ease-in ;
+		/*		box-shadow: 0 0 5px 1px transparent ; */
+			}
+			input:focus,
+			input.focus,
+			textarea:focus,
+			textarea.focus {
+				border: solid 1px dimGray ;
+				box-shadow: 0 0 5px 1px azure ;
+			}
+			input.numeric {
+				width: 10% ;
+			}
+			textarea.memo {
+				height: 6em ;
+		/*		border: inset silver 1px ;*/
+		/*		border-color: silver ;*/
+			}
+			.answer-paragraph {
+				margin-top: 0 ;
+				margin-bottom: -.5em ;
+			}
+				.answer-number {
+					font-size: .8em ;
+					color: cadetBlue ;
+					padding: 0 .5em 0 0 ;
+				}
+				.post-text,
+				.pre-text {
+					color: lightSlateGray ;
+					font-size: .8em ;
+				}
+				.pre-text {
+					padding: 0 1em 0 0 ;
+				}
+				.post-text {
+					padding: 0 1em 0 1em ;
+				}
+			.numeric-paragraph {
+				margin-top: -.5em ;
+				margin-bottom: -.5em ;
+			}
+			.possible-answer-link {
+				position: relative ;
+				margin-left: 5% ;
+			}
+			.possible-answers {
+				position: relative ;
+			}
+			/* Hints. */
+			.hint {
+				background-color: tomato ;
+				color: white ;
+				font-size:11px;
+				padding: 2px 5px ;
+				border-radius: .8em ;
+			}
+			.popup {
+				position: absolute ;
+				border: cadetBlue solid 4px ;
+				opacity: .95 ;
+				width: 160px ;
+				height: 180px ;
+				overflow: auto ;
+				padding: 1em ;
+				background-color: azure ;
+				color: cadetBlue ; 
+				-webkit-border-radius: 10px ; 
+				-moz-border-radius: 10px ;
+				border-radius: 10px ;
+				font-size: .9em ;
+			}
+				.popup-close {
+					position: absolute ;
+					width: 5% ;
+					left: 92% ;
+					top: .5em ;
+					font-size: .9em ;
+					color: darkSlateGray ;
+					font-weight: bold ;
+				}
+				.popup-close:hover {
+					color: tomato ;
+					cursor: pointer ;
+				}
+			/* Form placeholders */
+			::-webkit-input-placeholder {
+				color: lightSkyBlue;
+			}
+			:-moz-placeholder {
+				/* Firefox 18- */ color: lightSkyBlue;
+			}
+			::-moz-placeholder {
+				/* Firefox 19+ */ color: lightSkyBlue;
+			}
+			:-ms-input-placeholder {
+				color: lightSkyBlue;
+			}
+			#report {
+				padding: 1em ;
+				font-size: .7em ;
+				background-color: whiteSmoke ;
+				border: silver solid 2px ;
+				border-radius: 8px ;
+				margin: 10px 5% 20px 10% ;
+				color: royalBlue ; 
+			}
+				.report-comment {
+					color: blueViolet ;
+				}
+				.quiz-key { /* Labels for metadata in report. */
+					color: dimGray ;
+				}
+				.quiz-value {
+					color: mediumPurple ;
+				}
+				.quiz-answer {
+					color: mediumOrchid ;
+				}
+			/* Custom tweaks. */
+			#jit-filename {
+				margin-top: 1em ; /* Makes room for hint. */
+			}
+</style>
+<script id="quiz-generator-script">
+	/*__________ Utilities. __________*/
+	addTabHTML = function( indentInt ) {
+		var tabHTML = "" ;
+		var spacesPerTab = 4 ;
+		for ( var spaceCounter=0; spaceCounter < (indentInt * spacesPerTab) ; spaceCounter++ ) {
+			tabHTML += "&nbsp;"
+		} ;
+		return tabHTML ;
+	}
+	popupObjs = [] ;
+	popupObjs.getPopupObjById = {} ;
+	Popup = function( event, elementClickedId ) {
+		this.popupDiv = document.createElement( "div" ) ;
+		document.body.appendChild( this.popupDiv ) ;
+		this.popupDiv.className = "popup" ;
+		this.popupDiv.obj = this ;
+		// I'm moving the popup up and to the left 20px to cover the ? button.
+		// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
+		// Only danger is if user re-sizes the screen to reveal the ? button.
+		// I'm ignoring that contingency for now.
+		this.popupDiv.style.left = event.clientX - 20 + "px" ;
+		this.popupDiv.style.top = event.clientY - 20 + "px" ;
+		this.popupDiv.onclick = function() {
+			this.parentNode.removeChild( this ) ;
+		}
+		// Add the X for show--you can really click anywhere on the popup to close it.
+		this.closeDiv = document.createElement( "div" ) ;
+		this.popupDiv.appendChild( this.closeDiv ) ;
+		this.closeDiv.className = "popup-close" ;
+		this.closeDiv.innerHTML = "X" ;
+		/* UPGRADE: This may be overkill, so you don't need elementClickedId in the function arguments.
+		this.isOpen = true ;
+		popupObjs.push( this ) ;
+		this.elementClickedId = elementClickedId || "[No elementClickedId defined!]" ;
+		popupObjs.getPopupObjById[ elementClickedId ] = this ;
+		*/
+	}
+	showHint = function( elementClicked, event ) {
+		switch( elementClicked.id ) {
+			case "hint-dimensions" :
+				var popupObj = new Popup( event, elementClicked.id ) ;
+				popupObj.popupDiv.innerHTML += "Your video should be as small as possible while keeping the details, especially code, easy to read.<br /><br />Common formats include 960 x 600, 768 x 480, 672 x 420, and 480 x 300."
+				break ;
+			case "hint-badge-id" :
+				var popupObj = new Popup( event, elementClicked.id ) ;
+				popupObj.popupDiv.innerHTML += "You can get the badge id from the badge uploader.<br /><br />If you don't know how to do this, ask your administrator."
+				break ;
+			case "hint-filename" :
+				var popupObj = new Popup( event, elementClicked.id ) ;
+				popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
+				break ;
+			case "hint-secondary" :
+				var popupObj = new Popup( event, elementClicked.id ) ;
+				popupObj.popupDiv.innerHTML += "If you can, convert your video into two formats for maximum compatibility.<br /><br/ >We recommend <em>webm</em> as primary and <em>mp4</em> as secondary."
+				break ;
+			case "hint-extras" :
+				var popupObj = new Popup( event, elementClicked.id ) ;
+				popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
+				break ;
+		}
+	}
+	/*__________ Managers. __________*/
+	quizzes = [] ;
+	/*__________ Input and output __________*/
+	FillInAnswer = function( argObj ) {
+		// This constructor returns an isolated HTML tag, not a JS object.
+		// It does not append them to any container yet. That happens via newParagraphFor().
+		this.id = argObj.id || "[No id defined!]" ;
+		this.subcontainerEle = argObj.subcontainerEle || "[No subcontainerEle defined!]" ;
+		this.placeHolderText = argObj.placeHolderText || "[No placeHolderText defined!]" ;
+		this.preText = argObj.preText || "[No preText defined!]" ;
+		this.postText = argObj.postText || "[No postText defined!]" ;
+		this.ele = document.createElement( "input" ) ;
+		this.ele.setAttribute( "type", this.type ) ;
+		this.ele.setAttribute( "placeholder", this.placeHolderText ) ;
+		this.ele.id = this.id ;
+		// "this" is the JS wrapper; what is returned is the associated HTML element "this.ele".
+		this.ele.obj = this ;
+// 		console.log( this ) ;
+		return this ;
+	}
+	Query = function( argObj ) {
+		// This constructor returns an isolated HTML tag, not a JS object.
+		// It does not append them to any container yet. That happens via newParagraphFor().
+		this.id = argObj.id || "[No id defined!]" ;
+		this.fieldType = argObj.fieldType || "[No fieldType defined!]" ;
+		this.placeHolderText = argObj.placeHolderText || "[No placeHolderText defined!]" ;
+		this.preText = argObj.preText || "[No preText defined!]" ;
+		this.postText = argObj.postText || "[No postText defined!]" ;
+		this.number = argObj.number || "[No number defined!]" ;
+		this.isRunTogether = argObj.isRunTogether || false ;
+		// Create the field.
+		switch( this.fieldType ) {
+			case "question" :
+				this.ele = document.createElement( "textarea" ) ;
+				break ;
+			case "answer" :
+				this.ele = document.createElement( "input" ) ;
+				this.ele.setAttribute( "type", this.type ) ;
+				break ;
+			case "numeric" :
+				this.ele = document.createElement( "input" ) ;
+				this.ele.setAttribute( "type", this.type ) ;
+				this.ele.className = "numeric" ;
+				break ;
+		}
+		this.ele.id = this.id ;
+		this.ele.setAttribute( "placeholder", this.placeHolderText ) ;
+		// "this" is the JS wrapper; what is returned is the associated HTML element "this.ele".
+		this.ele.obj = this ;
+		return this ;
+	}
+	Quiz = function( argObj ) {
+		// Add to manager that tracks quiz boxes on this page.
+		// "quizzes" is different from "quizDataObjs", which becomes the JSON used in actual tutorials.
+		quizzes.push( this ) ;
+		// Add a new quiz container to the section where quizzes go.
+		this.containerDiv = document.createElement( "div" ) ;
+		this.containerDiv.obj = this ;
+		this.containerDiv.className = "quiz-container" ;
+		document.getElementById( "row-quizzes" ).appendChild( this.containerDiv ) ;
+		// Multiple choice or fill in the blank?
+		this.quizType = argObj.quizType || "[No quizType defined!]" ;
+		// Add a rubric to show it's a quiz.
+		this.rubricH4 = document.createElement( "h4" ) ;
+		this.containerDiv.appendChild( this.rubricH4 ) ;
+		if ( this.quizType === "multiple" ) {
+			this.rubricH4.innerHTML = "Multiple-choice Quiz" ;
+		}
+		else if ( this.quizType === "fill" ) {
+			this.rubricH4.innerHTML = "Fill-in Quiz" ;
+		}
+		else {
+			alert( "I don't recognize that quiz type." ) ;
+		}
+		// This convenience method adds a paragraph to the containing div
+		// And puts the element passed inside that paragraph.
+		// I'm only doing this to facilitate styling of line-heights etc.
+		// The approach is weird but it works in Firefox, Chrome, Safari. Untested in MS.
+		this.newParagraphFor = function( queryObj ) {
+// 			console.log( "HEY" + queryObj.subcontainerEle ) ;
+			var subcontainerEle = queryObj.subcontainerEle || "[No subcontainer defined!]" ;
+			// debugObject( queryObj )
+			if ( queryObj.isRunTogether ) {
+				debug("'isRunTogether'") ;
+				// Put the field next to the label instead of in a separate paragraph.
+				// lastChild can include comments and whitespace.
+				var paragraphEle = this.containerDiv.lastElementChild ;
+			}
+			else if ( subcontainerEle !== "[No subcontainer defined!]" ) {
+				var paragraphEle = subcontainerEle ;
+// 				console.log( "HEY paragraphEle is " + paragraphEle ) ;
+			}
+			else {
+				var paragraphEle = document.createElement( "p" ) ;
+				this.containerDiv.appendChild( paragraphEle ) ;
+			}
+// 			console.log( "queryObj is " + queryObj ) ;
+			paragraphEle.appendChild( queryObj.ele ) ;
+			if ( queryObj.fieldType === "answer" ) {
+				paragraphEle.className = "answer-paragraph" ;
+				var numberSpan = document.createElement( "span" ) ;
+				paragraphEle.insertBefore( numberSpan, paragraphEle.firstChild ) ;
+				numberSpan.className = "answer-number" ;
+				numberSpan.innerHTML = queryObj.number ;
+			}
+			if ( queryObj.fieldType === "numeric" ) {
+				paragraphEle.className = "numeric-paragraph" ;
+			}
+			// Add units, as in "seconds", after the form field.
+			// I'm excluding labels, which don't have postText. It's a bit kludgy.
+			 _queryObj_postText = queryObj.postText; debug("_queryObj_postText", 3) ;
+			if (  queryObj.fieldType != "label" ) {
+			  	if (  queryObj.postText != "[No postText defined!]"  ) {
+					var postText = document.createElement( "span" ) ;
+					postText.className = "post-text" ;
+					postText.innerHTML = queryObj.postText ;
+					paragraphEle.appendChild( postText ) ;
+				}
+			  	if (  queryObj.preText != "[No preText defined!]"  ) {
+					var preText = document.createElement( "span" ) ;
+					preText.className = "pre-text" ;
+					preText.innerHTML = queryObj.preText ;
+					 _queryObj_ele = queryObj.ele; debug("_queryObj_ele", 2) ;
+					queryObj.ele.parentNode.insertBefore( preText, queryObj.ele ) ;
+				}
+			}
+		}
+		this.addLabel = function( labelText ) {
+			// Only doing this for compatibility with Query, which is an object.
+			// Both get passed to newParagraphFor so I need both to be objects.
+			var labelObj = {
+				ele: document.createElement( "label" ),
+				fieldType: "label"
+			} ;
+			// labelObj.ele = ;
+			this.newParagraphFor( labelObj ) ;
+			labelObj.ele.innerHTML = labelText ;
+		}
+		/*__________ Add the quiz question. __________*/
+		// Add an HTML label tag.
+		this.addLabel( "Question" ) ;
+		// Add question.
+		this.questionObj = new Query(
+			{
+				id: "quiz" + quizzes.length + "-question",
+				fieldType: "question",
+				placeHolderText: "Under what conditions is a square knot useful?"
+			}
+		) ;
+		this.newParagraphFor( this.questionObj ) ;
+		/*__________ Add the quiz answers. __________*/
+		if ( this.quizType === "multiple") {
+			this.addLabel( "Answers (one correct)" ) ;
+			this.answer1Obj = new Query(
+				{
+					id: "quiz" + quizzes.length + "-answer1",
+					fieldType: "answer",
+					number: 1,
+					placeHolderText: "When the two ropes are different sizes.",
+				}
+			) ;
+			this.newParagraphFor( this.answer1Obj ) ;
+			this.answer2Obj = new Query(
+				{
+					id: "quiz" + quizzes.length + "-answer2",
+					fieldType: "answer",
+					number: 2,
+					placeHolderText: "When the two ropes are identical."
+				}
+			) ;
+			this.newParagraphFor( this.answer2Obj ) ;
+			this.answer3Obj = new Query(
+				{
+					id: "quiz" + quizzes.length + "-answer3",
+					fieldType: "answer",
+					number: 3,
+					placeHolderText: "When splicing fishing line."
+				}
+			) ;
+			this.newParagraphFor( this.answer3Obj ) ;
+			this.answer4Obj = new Query(
+				{
+					id: "quiz" + quizzes.length + "-answer4",
+					fieldType: "answer",
+					number: 4,
+					placeHolderText: "None of the above."
+				}
+			) ;
+			this.newParagraphFor( this.answer4Obj ) ;
+			// Add numeric fields.
+			this.addLabel( "Correct answer" ) ;
+			this.correctAnswerEle = new Query(
+				{
+					id: "quiz" + quizzes.length + "-correct",
+					fieldType: "numeric",
+					placeHolderText: 2,
+					isRunTogether: false 
+				}
+			) ;
+			this.newParagraphFor( this.correctAnswerEle ) ;
+		}
+		else if ( this.quizType === "fill") {
+			this.addLabel( "Answers (all correct)" ) ;
+			// Remember, "this" is the Quiz JS object. "this.containerDiv" is the columnar div containing all data for this quiz.
+			this.possibleAnswers = [ ] ;
+			// We need the following boilerplate because newParagraphFor function below requires a JS wrapper.
+			this.newAnswerLink = { } ; 
+			this.newAnswerLink.preText = "[No preText defined!]" ;
+			this.newAnswerLink.postText = "[No postText defined!]" ;
+			this.newAnswerLink.isRunTogether = true ;
+			// OK, here's the practical part of this link:
+			this.newAnswerLink.ele = document.createElement( "a" ) ;
+			this.newAnswerLink.ele.href = "#" ;
+			this.newAnswerLink.ele.innerHTML = "Add answer" ;
+			this.newAnswerLink.ele.className = "possible-answer-link" ;
+			this.newAnswerLink.ele.onclick = function() {
+				// "this" is the <a> link you clicked on.
+				// "this.parentNode" is the <p>, and "this.parentNode.parentNode" is the container div enclosing the data for that quiz.
+				// "this.parentNode.parentNode.obj" is the JS object for that container div.
+				this.parentNode.parentNode.obj.newParagraphFor(
+					new FillInAnswer(
+						{
+							id: "no idea",
+							placeHolderText: "possible answer",
+							preText: "[No preText defined!]",
+							postText: "[No postText defined!]",
+							isRunTogether: false,
+							subcontainerEle: this.parentNode.parentNode.obj.possibleAnswersDiv
+						}
+					)
+				) ;
+				return false ;
+			}
+			this.newParagraphFor( this.newAnswerLink ) ;
+			// Create a div for the possible answers to go.
+			this.possibleAnswersDiv = document.createElement( "div" ) ;
+			this.containerDiv.appendChild( this.possibleAnswersDiv ) ; // Not a paragraph, so not using newParagraphFor().
+			this.possibleAnswersDiv.className = "possible-answers" ;			
+		}
+		// When does quiz start?
+		this.addLabel( "Begin at time" ) ;
+		this.beginInSecondsTotal = new Query(
+			{
+				id: "quiz" + quizzes.length + "-begin",
+				fieldType: "numeric",
+				placeHolderText: 90,
+				postText: "seconds total;",
+				isRunTogether: false 
+			}
+		) ;
+		this.newParagraphFor( this.beginInSecondsTotal ) ;
+		this.beginInMinutes = new Query(
+			{
+				id: "quiz" + quizzes.length + "-begin-minutes",
+				fieldType: "numeric",
+				placeHolderText: 1,
+				preText: "or",
+				postText: "minutes",
+				isRunTogether: false 
+			}
+		) ;
+		this.newParagraphFor( this.beginInMinutes ) ;
+		this.beginInSeconds = new Query(
+			{
+				id: "quiz" + quizzes.length + "-begin-seconds",
+				fieldType: "numeric",
+				placeHolderText: 30,
+				postText: "seconds.",
+				isRunTogether: true 
+			}
+		) ;
+		this.newParagraphFor( this.beginInSeconds ) ;
+		// When do you rewind to if user fails quiz?
+		this.addLabel( "Rewind to time" ) ;
+		this.rewindToInSecondsTotal = new Query(
+			{
+				id: "quiz" + quizzes.length + "-rewind",
+				fieldType: "numeric",
+				placeHolderText: 90,
+				postText: "seconds total;",
+				isRunTogether: false 
+			}
+		) ;
+		this.newParagraphFor( this.rewindToInSecondsTotal ) ;
+		this.rewindToInMinutes = new Query(
+			{
+				id: "quiz" + quizzes.length + "-rewind-minutes",
+				fieldType: "numeric",
+				placeHolderText: 1,
+				preText: "or",
+				postText: "minutes ",
+				isRunTogether: false
+			}
+		) ;
+		this.newParagraphFor( this.rewindToInMinutes ) ;
+		this.rewindToInSeconds = new Query(
+			{
+				id: "quiz" + quizzes.length + "-rewind-seconds",
+				fieldType: "numeric",
+				placeHolderText: 30,
+				postText: "seconds.",
+				isRunTogether: true 
+			}
+		) ;
+		this.newParagraphFor( this.rewindToInSeconds ) ;
+	}
+	Report = function() {
+		this.HTML = "" ;
+		quizDataObjs = [] ;
+		// Set the basic metadata, which will appear via JavaScript in the index.html page.
+		/*__________ Lesson metadata. __________*/
+		quizDataObjs.tutorialTitle = document.getElementById( "jit-title" ).value ;
+		quizDataObjs.tutorialCreator = document.getElementById( "jit-creator" ).value ;
+		// For the headshot image filename, convert tutorial creator from Firstname Lastname to firstname_lastname.
+		// Don't switch the order to prevent errors.
+		var headshotFilename = document.getElementById( "jit-creator" ).value ;
+		headshotFilename = headshotFilename.replace( /\s/g, "_" ).toLowerCase() ;
+		quizDataObjs.headshotPaths = "['../headshots/" + headshotFilename + "_thu.jpg']" ;
+		quizDataObjs.welcomeMessage = "&lt;h4&gt;" + quizDataObjs.tutorialTitle + "&lt;/h4&gt;" ;
+		quizDataObjs.welcomeMessage += "&lt;p&gt;Level: &lt;em&gt;" + document.getElementById( "jit-level" ).value + "&lt;/em&gt;&lt;/p&gt;" ;
+		quizDataObjs.welcomeMessage += "&lt;p&gt;" + document.getElementById( "jit-welcome" ).value + "&lt;/p&gt;";
+		/*__________ Video metadata. __________*/
+		quizDataObjs.videoBoxWidthInt = parseInt(  document.getElementById( "jit-width" ).value  ) ;
+		quizDataObjs.videoBoxHeightInt = parseInt(  document.getElementById( "jit-height" ).value  ) ;
+		// Calculate the time that the video should halt and play the final message.
+		// The system works best when still playing, so subtract a second to stop the video just before the end.
+		var minutesSecondsIsValid = false ;
+		if  (   parseInt( document.getElementById("jit-duration-minutes").value )  >  0  ||  parseInt( document.getElementById("jit-duration-seconds").value )  > 0  )  {
+			minutesSecondsIsValid = true ;
+		}
+		if (   parseInt(  document.getElementById( "jit-duration" ).value ) > 0   ) {
+			// Easy: the user calculated the total duration in seconds.
+			var endingTimeInSeconds = parseInt(  document.getElementById( "jit-duration" ).value ) - 1 ;
+		}
+		else if ( minutesSecondsIsValid ) {
+			// User gave minutes and seconds--need to convert just to total seconds.
+			var endingTimeInSeconds = parseInt( document.getElementById("jit-duration-minutes").value ) * 60 + parseInt( document.getElementById("jit-duration-seconds").value ) - 1 ;
+		}
+		else {
+			// User f*cked up.
+			var endingTimeInSeconds = "[[No ending time declared]]"
+		}
+		quizDataObjs.endMessageTime = parseInt(endingTimeInSeconds) ;
+		// The following lines concatenate the filename ("prepare_web_project") with the file extension ("webm").
+		quizDataObjs.videoPathPrimary = "media/" + document.getElementById( "jit-filename" ).value + "." + document.getElementById( "jit-primary-format" ).value ;
+		if (  document.getElementById( "jit-secondary-format" ).value  === "none"  ) {
+			quizDataObjs.videoPathSecondary = "[[No secondary video format declared]]" ;
+		}
+		else {
+			quizDataObjs.videoPathSecondary = "media/"  + document.getElementById( "jit-filename" ).value + "." + document.getElementById( "jit-secondary-format" ).value ;
+		}
+		/*__________ Badge metadata. __________*/
+		quizDataObjs.level = document.getElementById( "jit-level" ).value ;
+		quizDataObjs.badgeMaxPath = "media/" + document.getElementById( "jit-filename" ).value + "_max.png" ;
+		// Check if there's a badge id yet.
+		var isBadgePlanned = ! document.getElementById( "jit-no-badge-planned" ).checked ;
+		var isBadgeId = ! document.getElementById( "jit-no-badge-id" ).checked ;
+		var badgeId = isBadgeId? document.getElementById( "jit-badge-id" ).value : "[[No badge id declared.]]"
+		quizDataObjs.badgeIdAsString = badgeId.toString() ;
+		quizDataObjs.isBadgePlanned = isBadgePlanned ;
+		// Check if the user cited a badge designer.
+		var isBadgeDesigner = ! document.getElementById( "jit-no-badge-designer" ).checked ;
+		var badgeDesigner = isBadgeDesigner? document.getElementById( "jit-badge-designer" ).value : "[[No badge designer declared.]]"
+		quizDataObjs.badgeDesignCredit = "Badge design by " + badgeDesigner ;
+		quizDataObjs.scriptExists = document.getElementById( "jit-script" ).checked? true : false ;
+		quizDataObjs.relatedFilesExist = document.getElementById( "jit-related-files" ).checked? true : false ;
+		quizDataObjs.relatedTutorialsExist = document.getElementById( "jit-related-tutorials" ).checked? true : false ;
+		quizDataObjs.relatedTutorialObjs = "[]" // UPGRADE: currently no way for user to add to this array.
+		for ( var quizCounter=0 ; quizCounter < quizzes.length ; quizCounter++ ) {
+			// "quizCounter + 1" is 1, 2, 3...an easy way to distinguish the ids of fields in various quizzes.
+			// eg, quiz1-question, quiz2-question, quiz1-answer1, quiz1-answer2, etc.
+			/*__________ Decide best time to begin, based on options given the user. __________*/
+			var minutesSecondsIsValid = false ;
+			thisQuizId = "quiz" + eval(quizCounter + 1) ; // Looks like "quiz1", "quiz2", etc.
+			quizzes[ quizCounter ].containerDiv.id = thisQuizId ;
+			console.log(  'document.getElementById( thisQuizId + "-begin-minutes" ) is ' +  document.getElementById( thisQuizId + "-begin-minutes" ) ) ;
+			if  (   parseInt(  document.getElementById( thisQuizId + "-begin-minutes" ).value  )  >  0  ||  parseInt( document.getElementById( thisQuizId + "-begin-seconds").value )  > 0  )  {
+				minutesSecondsIsValid = true ;
+			}
+			if (   parseInt(  document.getElementById( thisQuizId + "-begin" ).value  ) > 0   ) {
+				// Easy: the user calculated the total duration in seconds.
+				var beginTimeInSeconds = parseInt(  document.getElementById( thisQuizId + "-begin" ).value ) ;
+			}
+			else if ( minutesSecondsIsValid ) {
+				// User gave minutes and seconds--need to convert just to total seconds.
+				var beginTimeInSeconds = parseInt( document.getElementById( thisQuizId + "-begin-minutes" ).value ) * 60 + parseInt( document.getElementById( thisQuizId + "-begin-seconds" ).value ) ;
+			}
+			else {
+				// User f*cked up.
+				var beginTimeInSeconds = "[[No beginning time declared]]"
+			}
+			/*__________ Decide best time to rewind to, based on options given the user. __________*/
+			var minutesSecondsIsValid = false ;
+			if  (   parseInt(  document.getElementById( thisQuizId + "-rewind-minutes" ).value  )  >  0  ||  parseInt( document.getElementById( thisQuizId + "-rewind-seconds").value )  > 0  )  {
+				minutesSecondsIsValid = true ;
+			}
+			if (   parseInt(  document.getElementById( thisQuizId + "-rewind" ).value  ) > 0   ) {
+				// Easy: the user calculated the total duration in seconds.
+				var rewindTimeInSeconds = parseInt(  document.getElementById( thisQuizId + "-rewind" ).value ) ;
+			}
+			else if ( minutesSecondsIsValid ) {
+				// User gave minutes and seconds--need to convert just to total seconds.
+				var rewindTimeInSeconds = parseInt( document.getElementById( thisQuizId + "-rewind-minutes" ).value ) * 60 + parseInt( document.getElementById( thisQuizId + "-rewind-seconds" ).value ) ;
+			}
+			else {
+				// User f*cked up.
+				var rewindTimeInSeconds = "[[No rewinding time declared]]"
+			}
+			// Add the quiz, with all its metadata.
+			if ( quizzes[ quizCounter ].quizType === "fill" ) {
+				var fillInputs = document.getElementById( thisQuizId ).getElementsByClassName( "possible-answers" )[ 0 ].getElementsByTagName( "input" ) ;
+				var matchRegexAsString = "" ;
+				for ( var inputCounter=0; inputCounter < fillInputs.length; inputCounter++ ) {
+					// These are the fill-in answer options the user added.
+					matchRegexAsString += "(" + fillInputs[ inputCounter ].value + ")";
+					// Don't add a piping symbol for the last answer in the series, eg "apples|oranges|bananas".
+					// Eg, if there are 4 inputs, a pipe will only be added for inputCounter 0 through 2 (cause 3 is the last),
+					// so allow for inputCounter < 3.
+					if ( inputCounter < fillInputs.length - 1 ) {
+						matchRegexAsString += "|" ;
+					}
+				} ;
+				quizDataObjs.push(
+					{
+						type: "pattern-match",
+						token: "",
+						beginAtTimeInSeconds:  beginTimeInSeconds,
+						returnToTimeInSeconds:  rewindTimeInSeconds,
+						question: "&lt;h4&gt;Free-form answer&lt;/h4&gt;&lt;p&gt;" + document.getElementById(  thisQuizId + "-question"  ).value + "&lt;/p&gt;",
+						prompt: "type your answer here",
+						patternTests: [
+							{
+								match: "/^" + matchRegexAsString + "$/ig",
+								stringTested : "contentToTest",
+								wantCondition : true,
+								hint: "Type the word or words that were used in the voiceover for this section."
+							}
+						]
+					}
+				) ;	
+			}
+			else if ( quizzes[ quizCounter ].quizType === "multiple" ) {
+				/*__________ Multiple-choice Quiz metadata. __________*/
+				quizDataObjs.push(
+					{
+						type: "multiple-choice",
+						token: "",
+						question: document.getElementById(  thisQuizId + "-question"  ).value ,
+						answers: [
+							document.getElementById( thisQuizId + "-answer1" ).value,
+							document.getElementById( thisQuizId + "-answer2" ).value,
+							document.getElementById( thisQuizId + "-answer3" ).value,
+							document.getElementById( thisQuizId + "-answer4" ).value
+						],
+						correctAnswerInt: parseInt(  document.getElementById( thisQuizId + "-correct" ).value  ) ,
+						beginAtTimeInSeconds:  beginTimeInSeconds,
+						returnToTimeInSeconds:  rewindTimeInSeconds
+					}
+				) ;		
+			} ;
+		}
+		/*__________ Methods. __________*/
+		this.showReport = function() {
+			// Separate the two kinds of data, because otherwise the quizzes report before the metadata.
+			// The metadata are just things like the tutorial name and duration.
+			this.metadataHTML = "" ;
+			this.quizzesHTML = "" ;
+			for ( var property in quizDataObjs ) {
+				// This is a kludgy way of seeing whether the property is a quiz.
+				// If you don't do this, then the arrays are listed among the properties
+				if ( typeof quizDataObjs[ property ].question !== "string" ) {
+					if ( typeof quizDataObjs[ property ] === "number" || typeof quizDataObjs[ property ] === "boolean" || property === "headshotPaths" || property === "relatedTutorialObjs" ) {
+						// Get rid of the quotes around the value, or the browser won't recognize it as a number, boolean, or array.
+						this.metadataHTML += "<span class='quiz-key'>quizDataObjs." + property + " = </span> " + quizDataObjs[ property ] + " <span class='quiz-key'>;</span><br /> " ;
+					}
+					else {
+						// The value of this property is a string, so put quotes.
+						this.metadataHTML += "<span class='quiz-key'>quizDataObjs." + property + " = </span> '" + quizDataObjs[ property ] + "' <span class='quiz-key'>;</span><br /> " ;
+					}
+				}
+				else {
+					/*__________ Report the quizzes. __________*/
+					// These are the quizzes, and property is 0, 1, 2. etc.
+					// They have to be broken down by properties like question and answers.
+					this.quizzesHTML += "<span class='quiz-key'>quizDataObjs.push(<br/>" ;
+					this.quizzesHTML += addTabHTML( 1 ) + "{<br/>" ;
+					this.quizzesHTML += addTabHTML( 2 ) + "question: '<span class='quiz-value'>" + quizDataObjs[ property ].question + "</span>',<br />" ;
+					this.quizzesHTML += addTabHTML( 2 ) + "beginAtTimeInSeconds: <span class='quiz-value'>" + quizDataObjs[ property ].beginAtTimeInSeconds + "</span>,<br />" ;
+					this.quizzesHTML += addTabHTML( 2 ) + "returnToTimeInSeconds: <span class='quiz-value'>" + quizDataObjs[ property ].returnToTimeInSeconds + "</span>,<br />" ;
+					console.log(  'quizDataObjs[ property ].type is ' +  quizDataObjs[ property ].type ) ;
+					if ( quizDataObjs[ property ].type === "multiple-choice" ) {
+						this.quizzesHTML += addTabHTML( 2 ) + "type: 'multiple-choice',<br/>" ;
+						this.quizzesHTML += addTabHTML( 2 ) + "correctAnswerInt: <span class='quiz-value'>" + quizDataObjs[ property ].correctAnswerInt + "</span>,<br />" ;
+						this.quizzesHTML += addTabHTML( 2 ) + "answers: [<br/>" ;
+						for ( var answerCounter=0; answerCounter < quizDataObjs[ property ].answers.length; answerCounter++ ) {
+							this.quizzesHTML += addTabHTML( 3 ) + "'<span class='quiz-answer'>" + quizDataObjs[ property ].answers[ answerCounter ] + "</span>',<br />" ;
+						} ;
+						this.quizzesHTML += addTabHTML( 2 ) + "]<br/>" ;
+					}
+					else if ( quizDataObjs[ property ].type === "pattern-match" ) {
+						this.quizzesHTML += addTabHTML( 2 ) + "prompt: '<span class=\'quiz-value\'>" + quizDataObjs[ property ].prompt + "</span>',<br />" ;
+						// This assumes only one pattern test based on multiple possible words to match.
+						// In this version, you can't add any other tests (eg, to create hints based on incorrect answers.)
+						this.quizzesHTML += addTabHTML( 2 ) + "type: 'pattern-match',<br/>" ;
+						this.quizzesHTML += addTabHTML( 2 ) + "token: '1',<br/>" ;
+						this.quizzesHTML += addTabHTML( 2 ) + "patternTests: [<br/>" ;
+						this.quizzesHTML += addTabHTML( 3 ) + "{</span><br />" ;
+						this.quizzesHTML += addTabHTML( 4 ) + "match: <span class='quiz-answer'>" + quizDataObjs[ property ]["patternTests"][0]["match"] + "</span>,<br />" ;
+						this.quizzesHTML += addTabHTML( 4 ) + "stringTested: '<span class='quiz-answer'>" + quizDataObjs[ property ]["patternTests"][0]["stringTested"] + "',</span><br />" ;
+						this.quizzesHTML += addTabHTML( 4 ) + "wantCondition: <span class='quiz-answer'>" + quizDataObjs[ property ]["patternTests"][0]["wantCondition"] + ",</span><br />" ;
+						this.quizzesHTML += addTabHTML( 4 ) + "hint:  '<span class='quiz-answer'>" + quizDataObjs[ property ]["patternTests"][0]["hint"] + "'</span><br />" ;
+						this.quizzesHTML += addTabHTML( 3 ) + "</span>}<br />" ;
+						this.quizzesHTML += addTabHTML( 2 ) + "]<br/>" ;
+					}
+					this.quizzesHTML += addTabHTML( 1 ) + "}<br/>" ;
+					this.quizzesHTML += ") ;</span><br/>" ;
+				}
+			}
+			// Write the report to the page.
+			var timeStamp = new Date() ;
+			document.getElementById( "report" ).innerHTML = "<span class='report-comment'>// Tutorial data, saved " + timeStamp.toString() + "</span><br />" ; // Or "return this" if you want multiple sections.
+			document.getElementById( "report" ).innerHTML += "<span class='quiz-key'>quizDataObjs =</span> [] ;<br />"
+			document.getElementById( "report" ).innerHTML += this.metadataHTML ; // Or "return this" if you want multiple sections.
+			this.metadataHTML += "// Here are the " + quizDataObjs.length + " quizzes." ;
+			document.getElementById( "report" ).innerHTML += this.quizzesHTML ; // Or "return this" if you want multiple sections.
+		}
+	}
+	createReport = function() {
+		var myReport = new Report() ;
+		myReport.showReport() ;
+		 _myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1) ;
+	}
+	resetForm = function() {
+		var allInputs = document.getElementsByTagName( "input" ) ;
+		for ( var inputCounter=0; inputCounter < allInputs.length; inputCounter++ ) {
+			if (  allInputs[ inputCounter ].type === "text"  ) {
+				allInputs[ inputCounter ].value = "" ;				
+			}
+			if (  allInputs[ inputCounter ].type === "checkbox"  ) {
+				allInputs[ inputCounter ].checked = false ;				
+			}
+			if (  allInputs[ inputCounter ].type === "radio"  ) {
+				allInputs[ inputCounter ].checked = false ;				
+			}
+		} ;
+		var allTextareas = document.getElementsByTagName( "textarea" ) ;
+		for ( var textareaCounter=0; textareaCounter < allTextareas.length; textareaCounter++ ) {
+			allTextareas[ textareaCounter ].value = "" ;				
+		} ;
+		// Clear data.
+		quizDataObjs = [ ] ;
+		quizzes = [ ] ;
+		// Clear report.
+		document.getElementById( "report" ).innerHTML = "(No report yet)" ;
+	}
+</script>
+<script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
+	function debug (argument) {
+		// Use only if no debug.js found.
+		window.status = "Debug script not found."
+	}
+	function debugArray (argument) {
+		// Use only if no debug.js found.
+		window.status = "DebugArray script not found."
+	}
+	function debugObject (argument) {
+		// Use only if no debug.js found.
+		window.status = "DebugObject script not found."
+}
+</script>
+<script id="debug-external-script" type="text/javascript" language="JavaScript" src="js/debug.js"></script>
+<script  id="debug-open-window">
+    try {
+        openDebugWindow( { openerWindow: this, debugIsOn: false, purgeOldReports: true }) ;
+    }
+    catch(error) {
+        window.status = "Debug script called but " + error ;
+    }
+</script>
+</head>
+<body>
+<div class="watermark">
+	<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
+	<div id="logo">
+		Just-in-Time Learning Quiz Generator
+	</div>
+	<h2>Complete the form and your code will be generated below</h2>
+	<div class="caption" id="version">
+		Version 1.9
+	</div>
+	<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span class="warning"><strong>'</strong></span>) in any fields.</p>
+</div>
+<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
+<div id="lesson" class="column">
+	<h2>Lesson</h2>
+	<h4>Description</h4>
+	<label for='jit-title'>Written title</label>
+	<input type='text' id='jit-title' placeholder='How To Do Something Cool'></input><br />
+	<label for='jit-filename'>Filename <a href="#" class="hint" id="hint-filename" onclick="showHint( this, event )">?</a></label>
+	<input type='text' id='jit-filename' placeholder='do_something_cool'></input><br />
+	<label for='jit-welcome'>Welcome message</label>
+	<textarea class="memo" id='jit-welcome' placeholder='Learn how to ...'></textarea><br />
+	<h4>Creator</h4>
+	<label for='jit-creator'>Tutorial creator/s</label>
+	<input type='text' id='jit-creator' placeholder='Michelle Rodriguez, Sam Hong'></input><br />
+</div>
+<div class="arrow-container">
+	<div class="arrow-box-right">
+	</div>
+	<div class="arrow-right">
+	</div>
+</div>
+<div id="video" class="column">
+	<h2>Video</h2>
+	<h4>Video dimensions <a href="#" class="hint" id="hint-dimensions" onclick="showHint( this, event )">?</a></h4>
+	<label for='jit-width'>Width</label>
+	<input type='text' id='jit-width' placeholder='720' class='numeric' /> pixels<br />
+	<label for='jit-height'>Height</label>
+	<input type='text' id='jit-height' placeholder='450' class='numeric' /> pixels<br />
+	<h4>Duration</h4>
+	<input type='text' id='jit-duration' placeholder='90' class='numeric' /> seconds<br />
+	<p>or</p>
+	<input type='text' id='jit-duration-minutes' placeholder='10' class='numeric' /> min.
+	<input type='text' id='jit-duration-seconds' placeholder='30' class='numeric' /> seconds<br />
+	<h4>Primary format</h4>
+	<select id="jit-primary-format">
+		<option  value='webm' /> .webm (WebM)</option>
+		<option value='mp4'  /> .mp4 (MPEG-4)</option>
+		<option value='mov'  /> .mov (QuickTime)</option>
+		<option value='ogv'  /> .ogv (Ogg Vorbis)</option>
+	</select>
+	<h4>Secondary format <a href="#" class="hint" id="hint-secondary" onclick="showHint( this, event )">?</a></h4>
+	<select id="jit-secondary-format">
+		<option value='mp4'  /> .mp4 (MPEG-4)</option>
+		<option  value='webm' /> .webm (WebM)</option>
+		<option value='mov'  /> .mov (QuickTime)</option>
+		<option value='ogv'  /> .ogv (Ogg Vorbis)</option>
+		<option value='none'  /> none</option>
+	</select>
+</div>
+<div class="arrow-container">
+	<div class="arrow-box-right">
+	</div>
+	<div class="arrow-right">
+	</div>
+</div>
+<div id="badge" class="column">
+	<h2>Badge</h2>
+	<input type='checkbox' id='jit-no-badge-planned' value='mp4' class='numeric' />No badge planned</br />
+	<label for='jit-badge-id'>Badge id <a href="#" class="hint" id="hint-badge-id" onclick="showHint( this, event )">?</a></label>
+	<input type='text' id='jit-badge-id' placeholder='153' class='numeric' /><br />
+	<input type='checkbox' id='jit-no-badge-id' value='mp4' class='numeric' />No badge id (yet)</br />
+	<label for='jit-badge-designer'>Badge designer</label>
+	<input type='text' id='jit-badge-designer' placeholder='Joe King'></input><br />
+	<input type='checkbox' id='jit-no-badge-designer' value='mp4' class='numeric' />No badge designer (yet)<br />
+	<h4>Level</h4>
+	<select id="jit-level">
+	  <option value="beginner">Beginner</option>
+	  <option value="intermediate">Intermediate</option>
+	  <option value="advanced">Advanced</option>
+	  <option value="expert">Expert</option>
+	</select>
+	<h4>Extras include <a href="#" class="hint" id="hint-extras" onclick="showHint( this, event )">?</a></h4>
+	<ul>
+		<li><input type='checkbox' id='jit-script' class='numeric' /> A script/instructions</li>
+		<li><input type='checkbox' id='jit-related-files' class='numeric' /> Related files</li>
+		<li><input type='checkbox' id='jit-related-tutorials' class='numeric' /> Related tutorials</li>
+	</ul>
+</div>
+<div id="row-quizzes" class="row">
+	<p><a href="#" onclick="new Quiz( {quizType: 'multiple'} ); return false;">Add multiple-choice quiz</a> | <a href="#" onclick="new Quiz( {quizType: 'fill'} ); return false;">Add fill-in quiz</a></p>
+	<div class="arrow-container">
+		<div class="arrow-box-right">
+		</div>
+		<div class="arrow-right">
+		</div>
+	</div>
+</div>
+<div class="row">
+	<p><a href="#report-anchor" onclick="createReport()">Generate code</a></p>
+	<div class="arrow-container">
+		<div class="arrow-box-right">
+		</div>
+		<div class="arrow-right">
+		</div>
+	</div>
+</div>
+<a name="report-anchor"><h2>Code</h2></a>
+<p>Your tutorial and quizzes are encoded in the JSON below. Copy this code to a text or code editor and save as plain text.</p>
+<div id="report">
+	(No code generated yet)
+</div>
+</body>
+</html>
