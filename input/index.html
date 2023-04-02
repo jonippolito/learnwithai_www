@@ -499,7 +499,7 @@ h5 {
 				background-color: var(--block-warm-lighter);
 				border-radius: .3em;
 				border: var(--block-warm-medium) solid 2px;
-				padding: .2em 0 0 .2em;
+				padding: .2em 0 0 .2em; /* You can't have negative padding. */
 				margin: .2em .3em 0 0;
 			}
 			#tags span.tag-active {
@@ -522,17 +522,9 @@ h5 {
 		tagObjects.push( new TagObject("list", "general") );
 		tagObjects.push( new TagObject("network", "general") );
 		tagObjects.push( new TagObject("software", "general") );
-		tagObjects.push( new TagObject("speech", "general") );
 		tagObjects.push( new TagObject("success", "general") );
-		tagObjects.push( new TagObject("text", "general") );
 		tagObjects.push( new TagObject("tool", "general") );
 		tagObjects.push( new TagObject("work", "general") );
-		<!-- *audiovisual -->
-		tagObjects.push( new TagObject("animation", "audiovisual") );
-		tagObjects.push( new TagObject("design", "audiovisual") );
-		tagObjects.push( new TagObject("image", "audiovisual") );
-		tagObjects.push( new TagObject("movie", "audiovisual") );
-		tagObjects.push( new TagObject("video", "audiovisual") );
 		<!-- *creator-focused -->
 		tagObjects.push( new TagObject("creator-focused", "creator-focused") );
 		tagObjects.push( new TagObject("editing", "creator-focused") );
@@ -564,6 +556,13 @@ h5 {
 		<!-- *learner-focused -->
 		tagObjects.push( new TagObject("learner-focused", "learner-focused") );
 		tagObjects.push( new TagObject("study", "learner-focused") );
+		<!-- *medium-specific -->
+		tagObjects.push( new TagObject("animation", "medium-specific") );
+		tagObjects.push( new TagObject("design", "medium-specific") );
+		tagObjects.push( new TagObject("image", "medium-specific") );
+		tagObjects.push( new TagObject("speech", "medium-specific") );
+		tagObjects.push( new TagObject("text", "medium-specific") );
+		tagObjects.push( new TagObject("video", "medium-specific") );
 		<!-- *research -->
 		tagObjects.push( new TagObject("bias", "research") );
 		tagObjects.push( new TagObject("community", "research") );
@@ -635,6 +634,7 @@ h5 {
 		}
 	}
 	/*__________ General metadata. __________*/
+	// No scripts needed, just HTML form fields.
 	/*__________ Tags. __________*/
 	let currentFieldsetId = "[[ No fieldset id defined!]]";
 	const TagObject = function(tagName, fieldsetName) {
@@ -693,18 +693,48 @@ h5 {
 	}
 	/* ________________ Report. ________________ */
 	Report = function() {
-		this.HTML = "" ;
+		let reportHTML = "" ;
+		// Metadata.
+		this.title = document.querySelector("#lwa-title").value;
+		this.summary = document.querySelector("#lwa-summary").value;
+		if (document.querySelector("#type-strategy").checked) {
+			this.type = "strategy";
+		} else {
+			this.type = "resource";
+		};
+		this.submitterName = document.querySelector("#lwa-submitter-name").value;
+		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
+		this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
+		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
+		// Tags.
+		this.tags = "";
+		document.querySelectorAll("input[type='checkbox']").forEach(
+			checkbox => {
+				if (checkbox.checked) {					
+					this.tags += checkbox.id + ", ";
+				};
+			}
+		);
+		if (this.type === "resource") {
+			this.url = document.querySelector("#lwa-resource-url").value;
+			this.author = document.querySelector("#lwa-author").value;
+			for( property in this ) {
+				console.log(property)
+				console.log(this[property])
+				reportHTML += this[ property ] + "\n";
+			}
+		} else { // Submitting a strategy.
+			this.resourceId = document.querySelector("#lwa-resource-id").value;
+		}
 		/*__________ Methods. __________*/
 		this.showReport = function() {
-			this.metadataHTML = "" ;
-			this.tagsHTML = "" ;
-			document.getElementById( "report" ).innerHTML += this.tagsHTML ; // Or "return this" if you want multiple sections.
+			document.getElementById( "report" ).innerHTML = reportHTML ; // Or "return this" if you want multiple sections.
 		}
 	}
 	createReport = function() {
 		var myReport = new Report() ;
 		myReport.showReport() ;
-		 _myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1) ;
+		_myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1) ;
 	}
 	resetForm = function() {
 		var allInputs = document.getElementsByTagName( "input" ) ;
@@ -773,15 +803,15 @@ h5 {
 	<h2>Basics</h2>
 	<label for='lwa-title'>Headline or title</label>
 	<input type='text' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-	<label for='lwa-welcome'>Summary</label>
-	<textarea class="memo" id='lwa-welcome' placeholder='This article explains how to ...'></textarea><br />
+	<label for='lwa-summary'>Summary</label>
+	<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 	<fieldset>
 		<legend>Select a type</legend>
 		<div class="grid-radio">
 			<label for="type-resource">Resource</label>
 			<input type="radio" id="type-resource" name="type" value="resource" checked onclick="chooseType(this)">
-			<label for="strategy">Strategy</label>
-			<input type="radio" id="strategy" name="type" value="strategy" onclick="chooseType(this)">
+			<label for="type-strategy">Strategy</label>
+			<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
 		</div>
 	</fieldset>
 </div>
@@ -795,15 +825,17 @@ h5 {
 	<h2 class="resource-only">Resource</h2>
 	<h2 class="strategy-only">Strategy</h2>
 	<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint" id="hint-filename" onclick="showHint( this, event )">?</a></label>
-	<input class="resource-only" type='text' id='lwa-resource-url' placeholder='https://example.com/make_flashcards.html'></input>
+	<input class="resource-only" type='url' id='lwa-resource-url' placeholder='https://example.com/make_flashcards.html'></input>
 	<label class="resource-only" for='lwa-author'>Original author/byline</label>
 	<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
 	<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint" id="hint-filename" onclick="showHint( this, event )">?</a></label>
 	<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input><br />
-	<label for='lwa-submitter'>Submitter name (optional)</label>
-	<input type='text' id='lwa-submitter' placeholder='Michelle Rodriguez'></input><br />
-	<label for='lwa-email'>Submitter email (optional)</label>
-	<input type='email' id='lwa-email' placeholder='michelle@example.com'></input><br />
+	<label for='lwa-submitter-name'>Submitter name (optional)</label>
+	<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
+	<label for='lwa-submitter-email'>Submitter email (optional)</label>
+	<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
+	<label for='lwa-submitter-website'>Submitter website (optional)</label>
+	<input type='url' id='lwa-submitter-website' placeholder='https://michelle.com'></input><br />
 </div>
 <div id="row-tags" class="row">
 	<div class="arrow-container">
@@ -815,19 +847,19 @@ h5 {
 	<div id="tags">
 	</div>
 </div>
-<div class="row">
-	<p><a href="#report-anchor" onclick="createReport()">Generate code</a></p>
-	<div class="arrow-container">
-		<div class="arrow-box-right">
-		</div>
-		<div class="arrow-right">
-		</div>
+<!-- <div class="arrow-container">
+	<div class="arrow-box-right">
 	</div>
+	<div class="arrow-right">
+	</div>
+</div> -->
+<div class="row">
+	<p><a onclick="createReport()">Review submission</a></p>
 </div>
-<a name="report-anchor"><h2>Code</h2></a>
 <p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as plain text.</p>
 <div id="report">
 	(No code generated yet)
 </div>
+<p><a onclick="submitReport()">Submit your suggestion</a></p>
 </body>
 </html>
