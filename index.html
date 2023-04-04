@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 2.9, tweaks for responsive/accessible. -->
+		<!-- Version 3.0, enable filtering by array of resource ids. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -1385,9 +1385,18 @@
 			// Modified to allow multiple lexia containers in the same document.
 			lexiaObjects = [];
 			const Lexia = function (argumentsObject) {
+				// UPGRADE: Trap for nonexistent argumentsObject parameters.
 				// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 				// Build lexia.
-				this.id = argumentsObject.id;
+				if (viewMode === "resources") {
+					// This id is specific to a resource Lexia.
+					this.id = argumentsObject.id; 
+				} else if (viewMode === "strategies") {
+					// Strategy lexias have no id.
+					// Their spreadsheet cell contains a string of resource ids separated by commas.
+					// Convert this into an array of related resource lexias.
+					this.resourceIds = argumentsObject.resourceIdsAsString.split(",");
+				}
 				lexiaObjects.push(this);
 				// NOTE: for accessibility, I changed this from div to button but the variable names still say "div".
 				this.lexiaDiv = document.createElement("button");
@@ -1399,12 +1408,22 @@
 						window.open(argumentsObject.link, "_blank");
 						console.log(argumentsObject.link);
 					} else if (viewMode === "strategies") {
-						if (argumentsObject.id.length === 0) {
+						if (this.resourceIds.length === 0) {
 							alert("No resource for this strategy");
 						} else {
 							viewMode = "resources";
 							await chooseScreen();
-							searchFilter(argumentsObject.id);
+							let regexAsString = `(`;
+							// -1 because we don't want to add a pipe to the last id.
+							for ( let idCounter = 0; idCounter < this.resourceIds.length - 1; idCounter++ ) {
+								let trimmedId = this.resourceIds[ idCounter ].trim(); // Omit white space around commas.
+								regexAsString += `${ trimmedId }|` ;
+							}
+							// Capture last id in the array. Note trailing parethesis.
+							let lastId = this.resourceIds[ this.resourceIds.length - 1 ].trim();
+							regexAsString += `${ lastId })` ;
+							console.log(regexAsString)
+							searchFilter( regexAsString );
 						}
 					}
 				};
@@ -1436,10 +1455,15 @@
 				this.tagsDiv.className = "tags";
 				this.tagsDiv.innerHTML = argumentsObject.tags;
 				// Build lexia id (may be hidden but still can be filtered via search box).
+				// This could be a single id (for resource lexias) or an array (for strategy lexias).
 				this.idP = document.createElement("p");
 				this.lexiaDiv.appendChild(this.idP);
 				this.idP.className = "lexia-id";
-				this.idP.innerHTML = argumentsObject.id;
+				if (viewMode === "resources") {
+					this.idP.innerHTML = this.id;
+				} else if (viewMode === "strategies") {
+					this.idP.innerHTML = this.resourceIds;
+				}
 			};
 			const fetchSheet = async (sheetId) => {
 				// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
@@ -1520,7 +1544,7 @@
 								link: linkPair["v"],
 								tags: tagsPair["v"],
 								summary: descriptionPair["v"],
-								id: idPair["v"],
+								resourceIdsAsString: idPair["v"],
 							});
 						}
 					} else {
