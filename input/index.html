@@ -677,6 +677,7 @@ h5 {
 		}
 	}
 	tagObjects = [] ;
+	currentReport = "[[No report defined!]]";
 	/* ________________ Select submission type. ________________ */
 	const chooseType = radioButton => {
 		let strategyOnlyElements = document.querySelectorAll(".strategy-only");
@@ -721,7 +722,7 @@ h5 {
 			for( property in this ) {
 				console.log(property)
 				console.log(this[property])
-				reportHTML += this[ property ] + "\n";
+				reportHTML += this[ property ] + "%%";
 			}
 		} else { // Submitting a strategy.
 			this.resourceId = document.querySelector("#lwa-resource-id").value;
@@ -729,6 +730,7 @@ h5 {
 		/*__________ Methods. __________*/
 		this.showReport = function() {
 			document.getElementById( "report" ).innerHTML = reportHTML ; // Or "return this" if you want multiple sections.
+			currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
 		}
 	}
 	createReport = function() {
@@ -736,7 +738,7 @@ h5 {
 		myReport.showReport() ;
 		_myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1) ;
 	}
-	resetForm = function() {
+	resetForm = function() { // UPGRADE: Need to customize this.
 		var allInputs = document.getElementsByTagName( "input" ) ;
 		for ( var inputCounter=0; inputCounter < allInputs.length; inputCounter++ ) {
 			if (  allInputs[ inputCounter ].type === "text"  ) {
@@ -759,8 +761,47 @@ h5 {
 		// Clear report.
 		document.getElementById( "report" ).innerHTML = "(No report yet)" ;
 	}
+	const submitReport = () => {
+		firebase.database().ref( "submissions/").push(
+			{
+				submission: currentReport,
+		    }
+		)
+		.then(
+			(data) => {
+				console.log("Success!");
+			}
+		).catch(
+			console.warn("There was a problem adding your submission")
+		)
+	}
 	/* ________________ Act onload. ________________ */
 	window.addEventListener("DOMContentLoaded", buildTags);
+</script>
+<!-- ============================= -->
+<!-- = = = Firebase scripts. = = = -->
+<!-- ============================= -->
+<!-- Note: It's OK to expose this in client-side HTML. See https://stackoverflow.com/questions/37482366/is-it-safe-to-expose-firebase-apikey-to-the-public. -->
+<!-- This is a backwards-compatible approach that doesn't rely on the module format. -->
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+<!-- Model: <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
+<script>
+	// Note addition of the value of `databaseURL` depending on the location of the database:
+	const firebaseConfig = {
+		apiKey: "AIzaSyChp7kQ4Ek-pmXdZf3MlfwDbmgrj_cP6j0",
+		authDomain: "learnwithai-submissions.firebaseapp.com",
+		projectId: "learnwithai-submissions",
+		storageBucket: "learnwithai-submissions.appspot.com",
+		messagingSenderId: "217852760536",
+		appId: "1:217852760536:web:ba08035e144212c3a2e2ad",
+		databaseURL: "https://learnwithai-submissions-default-rtdb.firebaseio.com/",
+	};
+	// Initialize Firebase
+	const app = firebase.initializeApp(firebaseConfig);
+	// Initialize Realtime Database and get a reference to the service
+	// const firebase.database = firebase.getDatabase(app);
 </script>
 <script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
 	function debug (argument) {
@@ -794,7 +835,7 @@ h5 {
 	</div>
 	<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
 	<div class="caption" id="version">
-		Version 1.0
+		Version 1.1
 	</div>
 	<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span class="warning"><strong>'</strong></span>) in any fields.</p>
 </div>
