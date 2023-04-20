@@ -365,7 +365,8 @@ h5 {
 				width: 10% ;
 			}
 			textarea.memo {
-				height: 6em ;
+				font-size: .8em;
+				height: 12em ;
 		/*		border: inset silver 1px ;*/
 		/*		border-color: silver ;*/
 			}
@@ -517,7 +518,10 @@ h5 {
 	const buildTags = () => {
 		<!-- *general -->
 		tagObjects.push( new TagObject("AI", "general") );
+		tagObjects.push( new TagObject("AI-human-collaboration", "general") );
 		tagObjects.push( new TagObject("education", "general") );
+		tagObjects.push( new TagObject("defect", "general") );
+		tagObjects.push( new TagObject("human-first", "general") );
 		tagObjects.push( new TagObject("identity", "general") );
 		tagObjects.push( new TagObject("list", "general") );
 		tagObjects.push( new TagObject("network", "general") );
@@ -534,7 +538,10 @@ h5 {
 		tagObjects.push( new TagObject("prompt", "creator-focused") );
 		tagObjects.push( new TagObject("story", "creator-focused") );
 		<!-- *discipline-specific -->
+		tagObjects.push( new TagObject("economics", "discipline-specific") );
+		tagObjects.push( new TagObject("governance", "discipline-specific") );
 		tagObjects.push( new TagObject("healthcare", "discipline-specific") );
+		tagObjects.push( new TagObject("history", "discipline-specific") );
 		tagObjects.push( new TagObject("journalism", "discipline-specific") );
 		tagObjects.push( new TagObject("language", "discipline-specific") );
 		tagObjects.push( new TagObject("law", "discipline-specific") );
@@ -542,10 +549,10 @@ h5 {
 		tagObjects.push( new TagObject("marketing", "discipline-specific") );
 		tagObjects.push( new TagObject("nursing", "discipline-specific") );
 		tagObjects.push( new TagObject("psychology", "discipline-specific") );
-		tagObjects.push( new TagObject("resources", "discipline-specific") );
 		tagObjects.push( new TagObject("science", "discipline-specific") );
 		<!-- *educator-focused -->
 		tagObjects.push( new TagObject("assessment", "educator-focused") );
+		tagObjects.push( new TagObject("assignment", "educator-focused") );
 		tagObjects.push( new TagObject("classroom", "educator-focused") );
 		tagObjects.push( new TagObject("detection", "educator-focused") );
 		tagObjects.push( new TagObject("educator-focused", "educator-focused") );
@@ -569,11 +576,8 @@ h5 {
 		tagObjects.push( new TagObject("conference", "research") );
 		tagObjects.push( new TagObject("culture", "research") );
 		tagObjects.push( new TagObject("data", "research") );
-		tagObjects.push( new TagObject("defect", "research") );
 		tagObjects.push( new TagObject("disinformation", "research") );
-		tagObjects.push( new TagObject("economics", "research") );
 		tagObjects.push( new TagObject("ethics", "research") );
-		tagObjects.push( new TagObject("governance", "research") );
 		tagObjects.push( new TagObject("hype", "research") );
 		tagObjects.push( new TagObject("media coverage", "research") );
 		tagObjects.push( new TagObject("publication", "research") );
@@ -585,6 +589,13 @@ h5 {
 </script>
 <script id="quiz-generator-script">
 	/*__________ Utilities. __________*/
+	const copyToClipboard = string => {
+		if (navigator && navigator.clipboard && navigator.clipboard.writeText) {			
+			return navigator.clipboard.writeText(string);
+		} else {			
+			return Promise.reject('The Clipboard API is not available.');
+		}
+	};
 	addTabHTML = function( indentInt ) {
 		var tabHTML = "" ;
 		var spacesPerTab = 4 ;
@@ -693,6 +704,8 @@ h5 {
 		}
 	}
 	/* ________________ Report. ________________ */
+	resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"] ; // UPGRADE: add "id" at end.
+	strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"] ;
 	Report = function() {
 		let reportHTML = "" ;
 		// Metadata.
@@ -703,34 +716,44 @@ h5 {
 		} else {
 			this.type = "resource";
 		};
+		console.log("type", this.type)
 		this.submitterName = document.querySelector("#lwa-submitter-name").value;
 		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
 		this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
 		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
 		// Tags.
-		this.tags = "";
+		this.tags = [];
 		document.querySelectorAll("input[type='checkbox']").forEach(
 			checkbox => {
-				if (checkbox.checked) {					
-					this.tags += checkbox.id + ", ";
+				if (checkbox.checked) {
+					this.tags.push( checkbox.id );
 				};
 			}
 		);
+		this.tagsAsString = "";
+		// -1 to prevent trailing comma.
+		for ( let tagCounter = 0; tagCounter < this.tags.length - 1; tagCounter++ ) {
+			this.tagsAsString += `${this.tags[tagCounter]}, `;
+		}
+		// Add last tag without comma.
+		this.tagsAsString += this.tags[ this.tags.length -1 ];
 		if (this.type === "resource") {
 			this.url = document.querySelector("#lwa-resource-url").value;
 			this.author = document.querySelector("#lwa-author").value;
-			for( property in this ) {
-				console.log(property)
-				console.log(this[property])
-				reportHTML += this[ property ] + "%%";
-			}
+			resourceKeysInOrder.forEach(
+				key => reportHTML += `${this[key]}\t`
+			)
 		} else { // Submitting a strategy.
 			this.resourceId = document.querySelector("#lwa-resource-id").value;
+			strategyKeysInOrder.forEach(
+				key => reportHTML += `${this[key]}\t`
+			)
 		}
 		/*__________ Methods. __________*/
 		this.showReport = function() {
 			document.getElementById( "report" ).innerHTML = reportHTML ; // Or "return this" if you want multiple sections.
 			currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
+			copyToClipboard( reportHTML ); // For Jon to add directly to Google Sheet.
 		}
 	}
 	createReport = function() {
@@ -835,7 +858,7 @@ h5 {
 	</div>
 	<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
 	<div class="caption" id="version">
-		Version 1.1
+		Version 1.3
 	</div>
 	<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span class="warning"><strong>'</strong></span>) in any fields.</p>
 </div>

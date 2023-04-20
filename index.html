@@ -401,7 +401,10 @@
 			#explanation {
 				display: grid;
 				gap: 1em;
-				grid-template-columns: 2fr 1fr;
+				grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+			}
+			#explanation .side-image {
+				max-width: 200px;
 			}
 			#explanation h2 {
 				color: var(--darker-ice);
@@ -613,23 +616,28 @@
 				border-radius: var(--padding-section);
 				background-color: hsl(200, 100%, 100%, 0.2);
 			}
-			#events-preview {
+			#events-preview i,
+			#events-list i {
+				color: var(--dull-aqua);
+				text-shadow: none;
+			}
+				#events-preview {
 				margin-top: 1em;
 				padding-bottom: -2em;
 			}
-			#events-preview-list {
+			.events-preview-list {
 				display: grid;
 				grid-template-columns: 3fr 2fr;
 				gap: calc(2 * var(--padding-section)) 0;
 			}
-			#events-preview-list h2 {
+			#about-container .events-preview-list h2 {
 				margin: 0 0 0.5em 0;
 			}
-			#events-preview-list p {
+			#about-container .events-preview-list p {
 				font-size: 1em;
 				margin: 0.5em 0 0 0;
 			}
-			#events-preview-list .side-image {
+			#about-container .events-preview-list .side-image {
 				/* object-fit: contain; */
 				width: 100%;
 				margin: 0;
@@ -640,13 +648,16 @@
 			#events-list {
 				display: grid;
 				grid-template:
-					"inperson	webinar"
-					"past		past"
+					"webinar		past"
+					"recorded		past"	
 					/ 1fr 1fr;
 				gap: 0 calc(2 * var(--padding-section));
 			}
-			#events-inperson {
+			#events-inperson { /* Over. */
 				grid-area: inperson;
+			}
+			#events-recorded {
+				grid-area: recorded;
 			}
 			#events-webinar {
 				grid-area: webinar;
@@ -707,12 +718,12 @@
 				#explanation {
 					grid-template-columns: 1fr;
 				}
-				#events-preview-list {
+				.events-preview-list {
 					grid-template-columns: 4fr 1fr;
 					/* gap: calc(2 * var(--padding-section)) 0; */
 				}
-				#events-preview-list h2,
-				#events-preview-list p {
+				.events-preview-list h2,
+				.events-preview-list p {
 					font-size: 2em;
 				}
 				/* #events-container {
@@ -1629,16 +1640,32 @@
 				</div>
 				<div id="events-preview">
 					<h3>Upcoming events</h3>
-					<div id="events-preview-list">
+					<div class="events-preview-list">
 						<div>
-							<h2>AI in the classroom</h2>
-							<p>Tuesday 4 April 3pm, free webinar</p>
-							<a target="_blank" href="https://maine.zoom.us/webinar/register/WN_cP3MndpzSlSwpZo4OwIEKA">Register for free</a>
+							<h2>The Generative Workplace</h2>
+							<p>Thursday 20 April 2023 10-11am</p>
+							<p>Zoom</p>
+							<p><i class="fa-solid fa-circle-check" aria-hidden="true"></i> <a href="https://maine.zoom.us/webinar/register/WN_HLcaJHJ9SDqcwZHJMWqO6g">Register for free</a></p>
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 						<div>
-							<h2>The Future of Work</h2>
-							<p>Thursday 6 April 2pm, UMaine campus</p>
+							<h2>
+								Making images with generative AI
+							</h2>
+							<p>Wednesday 26 April 2023 3:30-4:30pm</p>
+							<p>Zoom</p>
+							<p><i class="fa-solid fa-circle-check" aria-hidden="true"></i> <a target="_blank" href="https://maine.zoom.us/webinar/register/WN_1A9cQMYmScaGCFOD-643hQ">Register for free</a></p>
+						</div>
+						<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+					</div>
+					<h3>Featured recordings</h3>
+					<div class="events-preview-list">
+						<div>
+							<h2>
+								AI in the classroom
+							</h2>
+							<p>Wednesday 4 April</p>
+							<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View interactive recording</a></p>
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					</div>
@@ -1657,7 +1684,7 @@
 					<p>Craft assignments that AI can't do.</p>
 				</button>
 				<button id="a" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['learner-focused']);">
-					<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Learn more efficiently</h4>
+					<h4><i class="fa-solid fa-clipboard-question" aria-hidden="true"></i> Learn more efficiently</h4>
 					<p>Use AI to generate questions, flashcards, and the like.</p>
 				</button>
 				<button id="b" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['prompt', 'text']);">
@@ -1671,6 +1698,10 @@
 				<button id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['creator-focused', 'story']);">
 					<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Tell stories with AI</h4>
 					<p>Write fiction and illustrate it with AI-generated imagery.</p>
+				</button>
+				<button id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['educator-focused', 'guidelines']);">
+					<h4><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Set AI guidelines</h4>
+					<p>Set a classroom or university policy for students and faculty.</p>
 				</button>
 				<!-- <button id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-user-friends" aria-hidden="true"></i> Learn from peers</h4>
@@ -1738,72 +1769,72 @@
 			<p>Other partners in the initiative include the <a target="_blank" href="https://umaine.edu/edhd/">College of Education and Human Development</a>, <a target="_blank" href="https://ece.umaine.edu/">Department of Electrical and Computer Engineering</a>, <a target="_blank" href="http://umaine.edu/history">Digital and Spatial History Lab</a>, and <a target="_blank" href="https://ai.umaine.edu">UMaine AI</a>.</p>
 			<p>The organizers are hosting the following public and private events to raise awareness of generative AI's impact on education and brainstorm solutions to its challenges. All times are EDT.</p>
 			<div id="events-list">
-				<div id="events-inperson">
-					<h1>In-person events</h1>
-					<h2>
-						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
-						The Future of Work
-					</h2>
-					<h3>How Generative AI May Change Professions and Tasks Ranging from Law, Journalism, Software Programmer, Videographer, Medicine, and More</h3>
-					<p>Thursday 6 April 2:00pm</p>
-					<p>102 Fernald Hall*</p>
-					<p>Facilitators: Peter Schilling (<a href="https://umaine.edu/citl">CITL</a>) &amp; Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
-					<p>(<a target="_blank" href="https://umaine.edu/citl/event/the-future-of-work-how-generative-ai-may-change-professions-and-tasks-ranging-from-law-journalism-software-programmer-videographer-medicine-and-more/">Registration is requested</a>)</p>
-					<h2>PedAIgogy</h2>
-					<h3>Teaching in the Age of Artificial Intelligence</h3>
-					<p>Tuesday 11 April 1:00pm</p>
-					<p>Location: 102 Fernald Hall*</p>
-					<p>Facilitators: Peter Schilling, Sheridan Adams, Karen Pelletreau (<a href="https://umaine.edu/citl">CITL</a>)</p>
-					<p>(<a target="_blank" href="https://umaine.edu/citl/event/pedagogy-teaching-in-the-age-of-artificial-intelligence/">Registration is requested</a>)</p>
-					<h2>How Should Universities Approach Generative AI?</h2>
-					<p>Tuesday 18 April 2:00pm</p>
-					<p>Location: TBD</p>
-					<p>Facilitators: TBD</p>
+				<!-- <div id="events-inperson">
 					<p>(<a target="_blank" href="https://umaine.edu/citl/event/how-should-umaine-approach-generative-ai/">Registration is requested</a>)</p>
-					<!-- <h2>Generative AI's Impact on Art and Design</h2>
-					<p>Date: TBD</p>
-					<p>Location: TBD</p>
-					<p>Facilitator: Aaron Boothroyd (<a href="https://umaine.edu/newmedia">New Media</a>)</p> -->
-					<p>*Zoom links are available for Machias faculty on request.</p>
-				</div>
+				</div> -->
 				<div id="events-webinar">
 					<h1>Free webinars</h1>
 					<h2>
 						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+						The Generative Workplace</h2>
+					<h3>How AI Is Already Disrupting Familiar Careers</h3>
+					<p>Thursday 20 April 2023 10-11am</p>
+					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
+					<p><a href="https://blog.still-water.net/webinars-examine-impact-of-ai-on-coders-and-creators/">More details</a></p>
+					<p><a href="https://maine.zoom.us/webinar/register/WN_HLcaJHJ9SDqcwZHJMWqO6g">Register for free</a></p>
+					<h2>
+						Making images with generative AI
+					</h2>
+					<p>Wednesday 26 April 2023 3:30-4:30pm</p>
+					<p>Facilitator: Aaron Boothroyd (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
+					<p><a target="_blank" href="https://maine.zoom.us/webinar/register/WN_1A9cQMYmScaGCFOD-643hQ">Register for free</a></p>
+					<h1>Recorded events</h1>
+					<h2>
+						<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 						AI in the classroom
 					</h2>
 					<h3>Disruptor or superpower?</h3>
-					<p>Tuesday 4 April 3-4pm</p>
-					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>) and Peter Schilling (<a href="https://umaine.edu/citl">CITL</a>)</p>
-					<p><a target="_blank" href="https://maine.zoom.us/webinar/register/WN_cP3MndpzSlSwpZo4OwIEKA">Register for free</a></p>
-					<h2>
-						<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
-						Making images with generative AI
-					</h2>
-					<p>Wednesday 26 April 3:30-4:30pm</p>
-					<p>Facilitator: Aaron Boothroyd (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
-					<p><a target="_blank" href="https://maine.zoom.us/webinar/register/WN_1A9cQMYmScaGCFOD-643hQ">Register for free</a></p>
+					<p>4 April 2023</p>
+					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>) and Peter Schilling (<a target="_blank" href="https://umaine.edu/citl">CITL</a>)</p>
+					<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View interactive recording</a></p>					
 				</div>
 				<div id="events-past">
 					<h1>Past events</h1>
-					<h2>The Humanities and ChatGPT</h2>
-					<h3>Should We Worry?</h3>
-					<p>7 March 2023 11:30pm</p>
-					<p>Digital and Spatial History Lab, UMaine</p>
-					<p>Presenter: Gregory Gaines (History)</p>
-					<h2>Large Language Models</h2>
-					<h3>BERT, GPT and ChatGPT</h3>
-					<p>10 March 2023 2:00pm</p>
-					<p>Barrows Hall, UMaine</p>
-					<p>Presenter: Yifeng Zhu (Computer and Electrical Engineering)</p>
-					<h2>Introduction to Generative AI and Its Impact on Higher Education</h2>
-					<p>20 March 2023 1:00pm</p>
-					<p>Bangor Room Memorial Union*</p>
+					<h2><img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+						How Should Universities Approach Generative AI?</h2>
+					<p>Tuesday 18 April 2:00pm</p>
+					<p>102 Fernald Hall*</p>
+					<p>Facilitator: Peter Schilling (<a href="https://umaine.edu/citl">CITL</a>)</p>
+					<h2>PedAIgogy</h2>
+					<h3>Teaching in the Age of Artificial Intelligence</h3>
+					<p>11 April 2023 1:00pm</p>
+					<p>102 Fernald Hall*</p>
+					<p>Facilitators: Peter Schilling, Sheridan Adams, Karen Pelletreau (<a href="https://umaine.edu/citl">CITL</a>)</p>
+					<h2>
+						The Future of Work
+					</h2>
+					<h3>How Generative AI May Change Professions and Tasks Ranging from Law, Journalism, Software Programmer, Videographer, Medicine, and More</h3>
+					<p>6 April 2023 2:00pm</p>
+					<p>102 Fernald Hall*</p>
 					<p>Facilitators: Peter Schilling (<a href="https://umaine.edu/citl">CITL</a>) &amp; Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
 					<h2>Smarter Planet To Wiser Earth</h2>
 					<h3>Re-Envisioning Relationships Between Ai Technologies, Human Society, And Natural World</h3>
 					<p>23 March 2023 12:30-1:45</p>
 					<p>Presenter: Gray Cox, College of the Atlantic (organized by <a target="_blank" href="https://umaine.edu/socialistandmarxiststudiesseries/">Socialist and Marxist Studies</a></p>
+					<h2>Introduction to Generative AI and Its Impact on Higher Education</h2>
+					<p>20 March 2023 1:00pm</p>
+					<p>Bangor Room Memorial Union*</p>
+					<p>Facilitators: Peter Schilling (<a href="https://umaine.edu/citl">CITL</a>) &amp; Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
+					<h2>Large Language Models</h2>
+					<h3>BERT, GPT and ChatGPT</h3>
+					<p>10 March 2023 2:00pm</p>
+					<p>Barrows Hall, UMaine</p>
+					<p>Presenter: Yifeng Zhu (Computer and Electrical Engineering)</p>
+					<h2>The Humanities and ChatGPT</h2>
+					<h3>Should We Worry?</h3>
+					<p>7 March 2023 11:30pm</p>
+					<p>Digital and Spatial History Lab, UMaine</p>
+					<p>Presenter: Gregory Gaines (History)</p>
 				</div>
 			</div>
 			<p><a href="#" onclick="viewMode='faq'; chooseScreen()">Contact us</a> to learn more about these events.</p>
