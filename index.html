@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 3.0, enable filtering by array of resource ids. -->
+		<!-- Version 3.1, fix click strategy lexia gives resource lexias. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -1417,8 +1417,8 @@
 				this.lexiaDiv.onclick = async () => {
 					if (viewMode === "resources") {
 						window.open(argumentsObject.link, "_blank");
-						console.log(argumentsObject.link);
 					} else if (viewMode === "strategies") {
+						console.log(this.resourceIds)
 						if (this.resourceIds.length === 0) {
 							alert("No resource for this strategy");
 						} else {
@@ -1546,16 +1546,16 @@
 							let strategyPair = row["c"][0] || { v: "" };
 							let descriptionPair = row["c"][1] || { v: "" };
 							let tagsPair = row["c"][2] || { v: "" };
-							let deleteMe = row["c"][3] || { v: "" };
-							let linkPair = row["c"][4] || { v: "" };
-							let idPair = row["c"][5] || { v: "" };
+							let idPair = row["c"][3] || { v: "" };
+							// let deleteMe = row["c"][3] || { v: "" };
+							// let linkPair = row["c"][4] || { v: "" };
 							let thisLexia = new Lexia({
-								byline: "",
 								headline: strategyPair["v"],
-								link: linkPair["v"],
 								tags: tagsPair["v"],
 								summary: descriptionPair["v"],
 								resourceIdsAsString: idPair["v"],
+								byline: "",
+								link: "",
 							});
 						}
 					} else {
@@ -1642,13 +1642,6 @@
 					<h3>Upcoming events</h3>
 					<div class="events-preview-list">
 						<div>
-							<h2>The Generative Workplace</h2>
-							<p>Thursday 20 April 2023 10-11am</p>
-							<p>Zoom</p>
-							<p><i class="fa-solid fa-circle-check" aria-hidden="true"></i> <a href="https://maine.zoom.us/webinar/register/WN_HLcaJHJ9SDqcwZHJMWqO6g">Register for free</a></p>
-						</div>
-						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
-						<div>
 							<h2>
 								Making images with generative AI
 							</h2>
@@ -1668,6 +1661,12 @@
 							<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View interactive recording</a></p>
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+						<div>
+							<h2>The Generative Workplace</h2>
+							<p>Thursday 20 April 2023 10-11am</p>
+							<p>Recording coming soon!</p>
+						</div>
+						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					</div>
 					<p id="events-preview-more"><button class="block-style" onclick="viewMode='events'; chooseScreen()">Learn more</button></p>
 				</div>
