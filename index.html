@@ -384,6 +384,9 @@
 				color: var(--darker-ice); /* SWATCH Medium ice. */
 				/*			border: red solid 2px ; */
 			}
+			#events-container > p > .side-image {
+				max-width: 400px;
+			}
 			#about-container h3 {
 				font-family: sansation-bold;
 				font-size: 1.4rem;
@@ -401,7 +404,7 @@
 			#explanation {
 				display: grid;
 				gap: 1em;
-				grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
+				grid-template-columns: 1fr 2fr ;
 			}
 			#explanation .side-image {
 				max-width: 200px;
@@ -665,22 +668,26 @@
 			#events-past {
 				grid-area: past;
 			}
+			#events-list {
+				clear: both;
+			}
 			#events-list h1 {
-				margin-top: 1em;
+				margin: 1em 0 -1em 0;
 				color: var(--lexia-lightest);
 			}
 			#events-list h2 {
-				margin-top: 1em;
+				margin-top: 2.5em;
 				font-size: 1.3rem;
 				font-family: sansation-bold;
+				clear: both ;
 			}
 			#events-list h3,
 			#events-list p {
-				margin-top: 0.5em;
 				color: var(--darker-ice);
 				font-weight: normal;
 			}
 			#events-list h3 {
+				margin: 0.5em 0 .5em 0;
 				font-size: 1.1rem;
 				font-family: sansation-bold;
 			}
@@ -1774,14 +1781,6 @@
 				<div id="events-webinar">
 					<h1>Free webinars</h1>
 					<h2>
-						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
-						The Generative Workplace</h2>
-					<h3>How AI Is Already Disrupting Familiar Careers</h3>
-					<p>Thursday 20 April 2023 10-11am</p>
-					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
-					<p><a href="https://blog.still-water.net/webinars-examine-impact-of-ai-on-coders-and-creators/">More details</a></p>
-					<p><a href="https://maine.zoom.us/webinar/register/WN_HLcaJHJ9SDqcwZHJMWqO6g">Register for free</a></p>
-					<h2>
 						Making images with generative AI
 					</h2>
 					<p>Wednesday 26 April 2023 3:30-4:30pm</p>
@@ -1796,6 +1795,14 @@
 					<p>4 April 2023</p>
 					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>) and Peter Schilling (<a target="_blank" href="https://umaine.edu/citl">CITL</a>)</p>
 					<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View interactive recording</a></p>					
+					<h2>
+						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
+						The Generative Workplace</h2>
+					<h3>How AI Is Already Disrupting Familiar Careers</h3>
+					<p>Thursday 20 April 2023 10-11am</p>
+					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
+					<p><a href="https://blog.still-water.net/webinars-examine-impact-of-ai-on-coders-and-creators/">More details</a></p>
+					<p>Recording coming soon!</p>
 				</div>
 				<div id="events-past">
 					<h1>Past events</h1>
