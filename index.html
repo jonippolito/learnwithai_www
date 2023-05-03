@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-		<!-- Version 3.3, webinar updates. -->
+		<!-- Version 3.4, iframe scroll fix. -->
 		<title>Learn With AI | a toolkit for learners and educators</title>
 		<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 		<!--[if IE]>
@@ -1340,7 +1340,10 @@
 					// Sh*t!
 					console.warn(`%c Unrecognized viewMode: ${viewMode}`, "color: yellow; background:red; font-style: italic ;");
 				}
-				// window.scrollTo(0, 0);
+				// This works if there is no page enclosing this page with an iframe:
+				window.scrollTo(0, 0);
+				// This assumes an appropriate listener has been added to a page enclosing this with an iframe.
+				window.parent.postMessage("scroll to top", "https://umaine.edu/learnwithai");
 			};
 			/* UNUSED ACCESSIBILITY TACTIC: 
 			used a Gordian Knot approach instead, by disabling tag cloud for screen readers.
@@ -1658,10 +1661,10 @@
 					<div class="events-preview-list">
 						<div>
 							<h2>
-								Making images with generative AI
+								Making Images with AI
 							</h2>
 							<p>Wednesday 26 April 2023 3:30-4:30pm</p>
-							<p>Recording coming soon!</p>
+							<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_images_2023.html">View interactive recording</a></p>					
 						</div>
 						<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" style="clip-path: inset(20px 0  50px 0); margin-bottom: -40px;" />
 						<div style="">
@@ -1785,17 +1788,17 @@
 				<div id="events-webinar">
 					<h1>Recorded events</h1>
 					<h2>
-						Making images with generative AI
+						Making Images with AI
 					</h2>
-					<p>Wednesday 26 April 2023 3:30</p>
+					<p>Wednesday 26 April 2023</p>
 					<p>Facilitator: Aaron Boothroyd (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
-					<p>Recording coming soon!</p>
+					<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_images_2023.html">View interactive recording</a></p>					
 					<h2>
 						<img src="media/23orono_learnwithai_mar_20_03_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 						The Generative Workplace
 					</h2>
 					<h3>How AI Is Already Disrupting Familiar Careers</h3>
-					<p>Thursday 20 April 2023 10-11am</p>
+					<p>Thursday 20 April 2023</p>
 					<p>Facilitator: Jon Ippolito (<a href="https://umaine.edu/newmedia">New Media</a>)</p>
 					<p><a href="https://blog.still-water.net/webinars-examine-impact-of-ai-on-coders-and-creators/">More details</a></p>
 					<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_generative_workplace_2023.html">View interactive recording</a></p>					
