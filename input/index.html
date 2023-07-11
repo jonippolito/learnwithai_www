@@ -1,162 +1,208 @@
 <!doctype html>
+<!-- Version 1.4, with good interface but reCaptcha crap that doesn't work. -->
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="description" content="A project by Jon Ippolito">
-<title>Learning With AI: Contribute a Resource</title>
-<!--Version number below.-->
-<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
-<!--[if IE]>
+	<meta charset="utf-8">
+	<meta name="description" content="A project by Jon Ippolito">
+	<title>Learning With AI: Contribute a Resource</title>
+	<!--Version number below.-->
+	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
+	<!--[if IE]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-<style id="set-html5-blocks">
-  article, aside, details, figcaption, figure, footer, header,
-  hgroup, menu, nav, section { display: block ; }
-</style>
-<style id="outline-styles-v2.1">
-	/* Outline styles v2.1, revised to tweak margins, colors in watermark div.*/
-	/*__________ Layout hierarchy. __________*/
-	body {
-		font-family: verdana ;
-		margin: 3em 3em ;
-	}
-	strong {
-		color: purple ;
-	}
-	em {
-		color: olive ;
-	}
-	h1 {
-		font-variant: small-caps ;
-		font-size: 1.5em ;
-		color: rgb(100%, 75%, 25% ) ;
-	}
-	h2 {
-		margin: 20px ;
-		font-size: 1.2em ;
-		color: rgb(90%, 70%, 22% ) ;
-	}
-	h3 {
-		margin-left: 40px ;
-		color: rgb(80%, 60%, 20% ) ;
-	}
-	h4 {
-		font-weight: normal ;
-		margin-left: 60px ;
-		color: rgb(60%, 45%, 15% ) ;
-	}
-	h5 {
-		font-weight: normal ;
-		margin: .8em 0 .0 80px ;
-		color: olive ;
-		color: rgb(40%, 30%, 10% ) ;
-	}
-	h6 {
-		font-size: .8em ;
-		font-weight: normal ;
-		margin: .8em 0 0 100px ;
-		color: rgb(20%, 15%, 5% ) ;
-	}
-	p,
-	blockquote {
-		font-size: .9em ;
-		font-weight: normal ;
-		margin: .8em 0 0 84px ;
-		color: rgb(10%, 7%, 2% ) ;
-	}
-	p {
-		margin: .8em 0 0 84px ;
-	}
-	blockquote p {
-		margin: .8em 20px 0 80px ;
-	}
-	ul,
-	ol {
-		font-size: .9em ;
-		margin: .8em 0 0 60px ;
-		padding-left: 40px ; /*For IE.*/
-		color: dimgray ;
-	}
-	li {
-		margin-top: .5em ;
-	}
-	pre {
-/*		background-color: rgb( 100%, 100%, 20%) ;*/
-	}
-	/*__________ Links. __________*/
-	a {
-		font-weight: bold ;
-		text-decoration: none ;
-		color: tomato ;
-	}
-	a:hover {
-		text-decoration: underline ;
-	}
-	/*__________ Headings. __________*/
-	div.watermark {
-		width: 90% ;
-		margin: 0 5% ;
-		text-align: center ;
-		padding: 1em ;
-		color: rgb(80%, 75%, 65% ) ; /* Putty. */
-	}
+	<style id="set-html5-blocks">
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		section {
+			display: block;
+		}
+	</style>
+	<style id="outline-styles-v2.1">
+		/* Outline styles v2.1, revised to tweak margins, colors in watermark div.*/
+		/*__________ Layout hierarchy. __________*/
+		body {
+			font-family: verdana;
+			margin: 3em 3em;
+		}
+
+		strong {
+			color: purple;
+		}
+
+		em {
+			color: olive;
+		}
+
+		h1 {
+			font-variant: small-caps;
+			font-size: 1.5em;
+			color: rgb(100%, 75%, 25%);
+		}
+
+		h2 {
+			margin: 20px;
+			font-size: 1.2em;
+			color: rgb(90%, 70%, 22%);
+		}
+
+		h3 {
+			margin-left: 40px;
+			color: rgb(80%, 60%, 20%);
+		}
+
+		h4 {
+			font-weight: normal;
+			margin-left: 60px;
+			color: rgb(60%, 45%, 15%);
+		}
+
+		h5 {
+			font-weight: normal;
+			margin: .8em 0 .0 80px;
+			color: olive;
+			color: rgb(40%, 30%, 10%);
+		}
+
+		h6 {
+			font-size: .8em;
+			font-weight: normal;
+			margin: .8em 0 0 100px;
+			color: rgb(20%, 15%, 5%);
+		}
+
+		p,
+		blockquote {
+			font-size: .9em;
+			font-weight: normal;
+			margin: .8em 0 0 84px;
+			color: rgb(10%, 7%, 2%);
+		}
+
+		p {
+			margin: .8em 0 0 84px;
+		}
+
+		blockquote p {
+			margin: .8em 20px 0 80px;
+		}
+
+		ul,
+		ol {
+			font-size: .9em;
+			margin: .8em 0 0 60px;
+			padding-left: 40px;
+			/*For IE.*/
+			color: dimgray;
+		}
+
+		li {
+			margin-top: .5em;
+		}
+
+		pre {
+			/*		background-color: rgb( 100%, 100%, 20%) ;*/
+		}
+
+		/*__________ Links. __________*/
+		a {
+			font-weight: bold;
+			text-decoration: none;
+			color: tomato;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		/*__________ Headings. __________*/
+		div.watermark {
+			width: 90%;
+			margin: 0 5%;
+			text-align: center;
+			padding: 1em;
+			color: rgb(80%, 75%, 65%);
+			/* Putty. */
+		}
+
 		div.watermark h1,
 		div.watermark h2,
 		div.watermark h3,
 		div.watermark h4 {
-			color: rgb(54%, 50%, 42% ) ; /* Dark putty (2/3 values) */
-			margin-top: 0 ;
+			color: rgb(54%, 50%, 42%);
+			/* Dark putty (2/3 values) */
+			margin-top: 0;
 		}
+
 		/* Use logo for page title inside watermark. */
 		/* Version number can follow as plain text.*/
 		div#logo {
-			font-size: 1.8em ;
-			margin: .5em 0 ;
-			font-weight: bold ;
+			font-size: 1.8em;
+			margin: .5em 0;
+			font-weight: bold;
 		}
+
 		.caption {
-			font-size: .6em ;
-			margin-top: -1em ;
+			font-size: .6em;
+			margin-top: -1em;
 		}
+
 		.folder {
-			color: rgb( 20%, 60%, 40% ) ;
+			color: rgb(20%, 60%, 40%);
 		}
-	/*__________ Inline emphasis. __________*/
+
+		/*__________ Inline emphasis. __________*/
 		.good,
 		.confirmation {
-			color: lightgreen ;
+			color: lightgreen;
 		}
+
 		.bad,
 		.warning {
-			color: red ;
+			color: red;
 		}
+
 		.confirmation,
 		.warning {
-			font-weight: bold ;
+			font-weight: bold;
 		}
+
 		tt {
-			color: steelblue ;
+			color: steelblue;
 		}
-	/*__________ Block emphasis. __________*/
-		.callout { /*Meant to apply to a div.*/
-			border: black solid 1px ;
-			padding: .5em ;
+
+		/*__________ Block emphasis. __________*/
+		.callout {
+			/*Meant to apply to a div.*/
+			border: black solid 1px;
+			padding: .5em;
 			width: 80%
 		}
+
 		.code {
-			border: dimgray solid 1px ;
-			background-color: white !important ;
-			font-family: courier ;
-			padding: .5em ;
-			margin: .8em 0 0 84px ;
-			font-size: .8em ;
+			border: dimgray solid 1px;
+			background-color: white !important;
+			font-family: courier;
+			padding: .5em;
+			margin: .8em 0 0 84px;
+			font-size: .8em;
 		}
-			.code em {
-				font-style: normal ;
-				color: purple ;
-			}
-	/*__________ Table styles. __________*/
-	/*Use with this HTML:
+
+		.code em {
+			font-style: normal;
+			color: purple;
+		}
+
+		/*__________ Table styles. __________*/
+		/*Use with this HTML:
 		<table border="1" cellspacing="0" cellpadding="2">
 			<tbody>
 				<tr class="labels">
@@ -169,761 +215,865 @@
 				</tr>
 				...
 	*/
-	table,
-	tr,
-	td,
-	th {
-		border-color: #fff ;
-		border-style: solid ;
-		border-width: .2em ;
-		padding: .4em ;
-	}
-		tr {
-			background-color: powderblue ;
-			background-color: palegoldenrod ;
+		table,
+		tr,
+		td,
+		th {
+			border-color: #fff;
+			border-style: solid;
+			border-width: .2em;
+			padding: .4em;
 		}
+
+		tr {
+			background-color: powderblue;
+			background-color: palegoldenrod;
+		}
+
 		tr.labels {
-			background-color: black ;
-			background-color: peru ;
+			background-color: black;
+			background-color: peru;
 			color: white
 		}
-</style><!-- end outline-styles. -->
-<style id="outline-styles-v1.0-blais">
-/* Based on toggler-styles-v2.3-blais. */
-body {
-	font-family: verdana ;
-/*	background-color: lightsteelblue ;*/
-}
-h1 {
-	color: midnightblue ;
-}
-strong {
-	color: purple ;
-}
-em {
-	color: mediumorchid;
-}
-strong em,
-em strong {
-	background-color: rgb(100%,90%,100%) ;
-	color: fuchsia ;
-}
-h2 {
-	color: darkblue ;
-}
-h3 {
-	color: darkslateblue ;
-}
-h4 {
-	color: steelblue ;
-}
-h5 {
-	color: darkcyan ;
-}
-	.toggler,
-	.toggler-over {
-		color: slateblue ;
-	}
-</style>
-<style id = "quiz-generator-style-v01.1">
-	/* Modified from v1.0 to adapt to Learning With AI needs. */
-	/*Has dead wood from choose adventure style.*/
-	:root {
-		--block-warm-medium: darkgray;
-		--block-warm-light: gainsboro;
-		--block-warm-lighter: whitesmoke;
-		--block-cool-light: powderblue;
-	}
-	body {
-		margin: 0 0 0 2% ;
-	}
-	#logo {
-		color: powderBlue ;
-	}
-	h2,
-	.watermark h2 {
-		color: steelBlue !important ;
-	}
-	.watermark h2 {
-		font-weight: normal ;
-	}
-	.column h2 {
-		text-align: center ;
-		color: lightSlateGray !important ;
-	}
-	h4 {
-		color: steelblue ;
-		font-weight: bold ;
-		font-size: 1.1em ;
-		margin: .7em 0 .2em 0 ;
-	}
-	p {
-		margin-left: 0 ;
-		margin-bottom: .5em;
-		color: dimgray ;
-	}
-	li {
-		margin: 0 0 0 1em ;
-	}
-	.column li {
-		list-style-type: none ;
-		margin: -.5em -5em ;
-	}
-	p#reset {
-		text-align: right ;
-		margin: 0 40px 4px 0 ;
-	}
-	.row {
-		position: relative ;
-		clear: both ;
-		min-height: 30px ;
-		border-top: silver dashed 4px ;
-	}
+	</style><!-- end outline-styles. -->
+	<style id="outline-styles-v1.0-blais">
+		/* Based on toggler-styles-v2.3-blais. */
+		body {
+			font-family: verdana;
+			/*	background-color: lightsteelblue ;*/
+		}
+
+		h1 {
+			color: midnightblue;
+		}
+
+		strong {
+			color: purple;
+		}
+
+		em {
+			color: mediumorchid;
+		}
+
+		strong em,
+		em strong {
+			background-color: rgb(100%, 90%, 100%);
+			color: fuchsia;
+		}
+
+		h2 {
+			color: darkblue;
+		}
+
+		h3 {
+			color: darkslateblue;
+		}
+
+		h4 {
+			color: steelblue;
+		}
+
+		h5 {
+			color: darkcyan;
+		}
+
+		.toggler,
+		.toggler-over {
+			color: slateblue;
+		}
+	</style>
+	<style id="quiz-generator-style-v01.1">
+		/* Modified from v1.0 to adapt to Learning With AI needs. */
+		/*Has dead wood from choose adventure style.*/
+		:root {
+			--block-warm-medium: darkgray;
+			--block-warm-light: gainsboro;
+			--block-warm-lighter: whitesmoke;
+			--block-cool-light: powderblue;
+		}
+
+		body {
+			margin: 0 0 0 2%;
+		}
+
+		#logo {
+			color: powderBlue;
+		}
+
+		h2,
+		.watermark h2 {
+			color: steelBlue !important;
+		}
+
+		.watermark h2 {
+			font-weight: normal;
+		}
+
+		.column h2 {
+			text-align: center;
+			color: lightSlateGray !important;
+		}
+
+		h4 {
+			color: steelblue;
+			font-weight: bold;
+			font-size: 1.1em;
+			margin: .7em 0 .2em 0;
+		}
+
+		p {
+			margin-left: 0;
+			margin-bottom: .5em;
+			color: dimgray;
+		}
+
+		li {
+			margin: 0 0 0 1em;
+		}
+
+		.column li {
+			list-style-type: none;
+			margin: -.5em -5em;
+		}
+
+		p#reset {
+			text-align: right;
+			margin: 0 40px 4px 0;
+		}
+
+		.row {
+			position: relative;
+			clear: both;
+			min-height: 30px;
+			border-top: silver dashed 4px;
+		}
+
 		.column,
 		.quiz-container {
-			position: relative ;
-			float: left ;
-			border: gainsboro solid 2px ;
-			border-radius: 10px ;
-			padding: .5% ;
-			margin: 20px 0 20px 2% ;
-			box-sizing: border-box ;
-			font-size: .9em ;
-			color: darkGray ;
-			background-color: whiteSmoke ;
+			position: relative;
+			float: left;
+			border: gainsboro solid 2px;
+			border-radius: 10px;
+			padding: .5%;
+			margin: 20px 0 20px 2%;
+			box-sizing: border-box;
+			font-size: .9em;
+			color: darkGray;
+			background-color: whiteSmoke;
 		}
+
 		.column {
-			width: 26% ;
+			width: 26%;
 		}
+
 		.quiz-container {
-			width: 28% ;
+			width: 28%;
 		}
-			/* Slant */
-			div.arrow-container {
-				position: relative ;
-				float: left ;
-				margin-left: 1%;
-			}
-			div.arrow-box-right {
-				position: relative ;
-				float: left ;
-				margin-top: 40px;
-				width: 12px ;
-				height: 120px ;
-				background-color: powderBlue ;
-			}
-			div.arrow-right {
-				position: relative ;
-				float: left ;
-				width:0px;
-				height:0px;
-				border-bottom:100px solid transparent;  /* left arrow slant */
-				border-top:100px solid transparent; /* right arrow slant */
-				border-left:30px solid powderBlue ; /* bottom, add background color here */
-				/* For IE: */
-				font-size:0px;
-				line-height:0px;
-			}
-			/* Choices. */
-			.grid-radio {
-				display: grid;
-				grid-template-columns: 3fr 1fr;
-				align-items: center;
-				gap: 1em 0;
-			}
-				.grid-radio > * {
-					margin: 0;
-					padding: 0;
-				}
-			label {
-				color: steelBlue ;
-				font-size: 1em ;
-			}
-			/* label::after {
+
+		/* Slant */
+		div.arrow-container {
+			position: relative;
+			float: left;
+			margin-left: 1%;
+		}
+
+		div.arrow-box-right {
+			position: relative;
+			float: left;
+			margin-top: 40px;
+			width: 12px;
+			height: 120px;
+			background-color: powderBlue;
+		}
+
+		div.arrow-right {
+			position: relative;
+			float: left;
+			width: 0px;
+			height: 0px;
+			border-bottom: 100px solid transparent;
+			/* left arrow slant */
+			border-top: 100px solid transparent;
+			/* right arrow slant */
+			border-left: 30px solid powderBlue;
+			/* bottom, add background color here */
+			/* For IE: */
+			font-size: 0px;
+			line-height: 0px;
+		}
+
+		/* Choices. */
+		.grid-radio {
+			display: grid;
+			grid-template-columns: 3fr 1fr;
+			align-items: center;
+			gap: 1em 0;
+		}
+
+		.grid-radio>* {
+			margin: 0;
+			padding: 0;
+		}
+
+		label {
+			color: steelBlue;
+			font-size: 1em;
+		}
+
+		/* label::after {
 			    content: ":" ;
 				font-size: 1em ;
 			} */
 		/*	Or can write input[type="text"]*/
-			input,
-			textarea {
-				width: 90% ;
-				border-radius: .4em ;
-				padding: 2%;
-				margin: 0 0 1em 0 ;
-				border: solid 1px silver ;
-				transition: box-shadow 1.5s ease-in ;
-		/*		box-shadow: 0 0 5px 1px transparent ; */
-			}
-			input:focus,
-			input.focus,
-			textarea:focus,
-			textarea.focus {
-				border: solid 1px dimGray ;
-				box-shadow: 0 0 5px 1px azure ;
-			}
-			input.numeric {
-				width: 10% ;
-			}
-			textarea.memo {
-				font-size: .8em;
-				height: 12em ;
-		/*		border: inset silver 1px ;*/
-		/*		border-color: silver ;*/
-			}
-			.answer-paragraph {
-				margin-top: 0 ;
-				margin-bottom: -.5em ;
-			}
-				.answer-number {
-					font-size: .8em ;
-					color: cadetBlue ;
-					padding: 0 .5em 0 0 ;
-				}
-				.post-text,
-				.pre-text {
-					color: lightSlateGray ;
-					font-size: .8em ;
-				}
-				.pre-text {
-					padding: 0 1em 0 0 ;
-				}
-				.post-text {
-					padding: 0 1em 0 1em ;
-				}
-			.numeric-paragraph {
-				margin-top: -.5em ;
-				margin-bottom: -.5em ;
-			}
-			.possible-answer-link {
-				position: relative ;
-				margin-left: 5% ;
-			}
-			.possible-answers {
-				position: relative ;
-			}
-			/* Hints. */
-			.hint {
-				background-color: tomato ;
-				color: white ;
-				font-size:11px;
-				padding: 2px 5px ;
-				border-radius: .8em ;
-			}
-			.popup {
-				position: absolute ;
-				border: cadetBlue solid 4px ;
-				opacity: .95 ;
-				width: 160px ;
-				height: 180px ;
-				overflow: auto ;
-				padding: 1em ;
-				background-color: azure ;
-				color: cadetBlue ;
-				-webkit-border-radius: 10px ;
-				-moz-border-radius: 10px ;
-				border-radius: 10px ;
-				font-size: .9em ;
-			}
-				.popup-close {
-					position: absolute ;
-					width: 5% ;
-					left: 92% ;
-					top: .5em ;
-					font-size: .9em ;
-					color: darkSlateGray ;
-					font-weight: bold ;
-				}
-				.popup-close:hover {
-					color: tomato ;
-					cursor: pointer ;
-				}
-			/* Form placeholders */
-			::-webkit-input-placeholder {
-				color: lightSkyBlue;
-			}
-			:-moz-placeholder {
-				/* Firefox 18- */ color: lightSkyBlue;
-			}
-			::-moz-placeholder {
-				/* Firefox 19+ */ color: lightSkyBlue;
-			}
-			:-ms-input-placeholder {
-				color: lightSkyBlue;
-			}
-			#report {
-				padding: 1em ;
-				font-size: .7em ;
-				background-color: whiteSmoke ;
-				border: silver solid 2px ;
-				border-radius: 8px ;
-				margin: 10px 5% 20px 10% ;
-				color: royalBlue ;
-			}
-				.report-comment {
-					color: blueViolet ;
-				}
-				.quiz-key { /* Labels for metadata in report. */
-					color: dimGray ;
-				}
-				.quiz-value {
-					color: mediumPurple ;
-				}
-				.quiz-answer {
-					color: mediumOrchid ;
-				}
-			/* Submission types. */
-			.resource-only {
-				display: block;
-			}
-			.strategy-only {
-				display: none;
-			}
-			/* Adjust labels. */
-			#submission-type input {
-				margin-top: .7em ; /* Makes room for hint. */
-			}
-			/* Tags */
-			#tags {
-				display: grid;
-				/* Stage 3a: grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ); Leave space for empty columns. Most common choice 👍 */
-				grid-template-columns: repeat( auto-fill, minmax(250px, 1fr) ); /* Stretch columns to fit. */
-			}
-			#tags fieldset {
-				display: flex;
-				flex-wrap: wrap;
-				justify-content: space-between;
-				align-items: flex-start;
-			}
-			#tags span {
-				/* white-space: nowrap; */
-				font-size: .8em;
-				background-color: var(--block-warm-lighter);
-				border-radius: .3em;
-				border: var(--block-warm-medium) solid 2px;
-				padding: .2em 0 0 .2em; /* You can't have negative padding. */
-				margin: .2em .3em 0 0;
-			}
-			#tags span.tag-active {
-				background-color: var(--block-cool-light);
-			}
-			#tags input {
-				width: auto;
-				margin-right: .2em;
-			}
-			#tags label {
-				margin-right: 1em;
-			}
-</style>
-<script id="build-tags-script">
-	const buildTags = () => {
-		<!-- *general -->
-		tagObjects.push( new TagObject("AI", "general") );
-		tagObjects.push( new TagObject("AI-human-collaboration", "general") );
-		tagObjects.push( new TagObject("education", "general") );
-		tagObjects.push( new TagObject("defect", "general") );
-		tagObjects.push( new TagObject("human-first", "general") );
-		tagObjects.push( new TagObject("identity", "general") );
-		tagObjects.push( new TagObject("list", "general") );
-		tagObjects.push( new TagObject("network", "general") );
-		tagObjects.push( new TagObject("software", "general") );
-		tagObjects.push( new TagObject("success", "general") );
-		tagObjects.push( new TagObject("tool", "general") );
-		tagObjects.push( new TagObject("work", "general") );
-		<!-- *creator-focused -->
-		tagObjects.push( new TagObject("creator-focused", "creator-focused") );
-		tagObjects.push( new TagObject("editing", "creator-focused") );
-		tagObjects.push( new TagObject("howto", "creator-focused") );
-		tagObjects.push( new TagObject("presentation", "creator-focused") );
-		tagObjects.push( new TagObject("promotion", "creator-focused") );
-		tagObjects.push( new TagObject("prompt", "creator-focused") );
-		tagObjects.push( new TagObject("story", "creator-focused") );
-		<!-- *discipline-specific -->
-		tagObjects.push( new TagObject("economics", "discipline-specific") );
-		tagObjects.push( new TagObject("governance", "discipline-specific") );
-		tagObjects.push( new TagObject("healthcare", "discipline-specific") );
-		tagObjects.push( new TagObject("history", "discipline-specific") );
-		tagObjects.push( new TagObject("journalism", "discipline-specific") );
-		tagObjects.push( new TagObject("language", "discipline-specific") );
-		tagObjects.push( new TagObject("law", "discipline-specific") );
-		tagObjects.push( new TagObject("literature", "discipline-specific") );
-		tagObjects.push( new TagObject("marketing", "discipline-specific") );
-		tagObjects.push( new TagObject("nursing", "discipline-specific") );
-		tagObjects.push( new TagObject("psychology", "discipline-specific") );
-		tagObjects.push( new TagObject("science", "discipline-specific") );
-		<!-- *educator-focused -->
-		tagObjects.push( new TagObject("assessment", "educator-focused") );
-		tagObjects.push( new TagObject("assignment", "educator-focused") );
-		tagObjects.push( new TagObject("classroom", "educator-focused") );
-		tagObjects.push( new TagObject("detection", "educator-focused") );
-		tagObjects.push( new TagObject("educator-focused", "educator-focused") );
-		tagObjects.push( new TagObject("evaluation", "educator-focused") );
-		tagObjects.push( new TagObject("guidelines", "educator-focused") );
-		tagObjects.push( new TagObject("plagiarism", "educator-focused") );
-		tagObjects.push( new TagObject("syllabus", "educator-focused") );
-		<!-- *learner-focused -->
-		tagObjects.push( new TagObject("learner-focused", "learner-focused") );
-		tagObjects.push( new TagObject("study", "learner-focused") );
-		<!-- *medium-specific -->
-		tagObjects.push( new TagObject("animation", "medium-specific") );
-		tagObjects.push( new TagObject("design", "medium-specific") );
-		tagObjects.push( new TagObject("image", "medium-specific") );
-		tagObjects.push( new TagObject("speech", "medium-specific") );
-		tagObjects.push( new TagObject("text", "medium-specific") );
-		tagObjects.push( new TagObject("video", "medium-specific") );
-		<!-- *research -->
-		tagObjects.push( new TagObject("bias", "research") );
-		tagObjects.push( new TagObject("community", "research") );
-		tagObjects.push( new TagObject("conference", "research") );
-		tagObjects.push( new TagObject("culture", "research") );
-		tagObjects.push( new TagObject("data", "research") );
-		tagObjects.push( new TagObject("disinformation", "research") );
-		tagObjects.push( new TagObject("ethics", "research") );
-		tagObjects.push( new TagObject("hype", "research") );
-		tagObjects.push( new TagObject("media coverage", "research") );
-		tagObjects.push( new TagObject("publication", "research") );
-		tagObjects.push( new TagObject("research", "research") );
-		<!-- *technical -->
-		tagObjects.push( new TagObject("code", "technical") );
-		tagObjects.push( new TagObject("computer science", "technical") );
-	}
-</script>
-<script id="quiz-generator-script">
-	/*__________ Utilities. __________*/
-	const copyToClipboard = string => {
-		if (navigator && navigator.clipboard && navigator.clipboard.writeText) {			
-			return navigator.clipboard.writeText(string);
-		} else {			
-			return Promise.reject('The Clipboard API is not available.');
+		input,
+		textarea {
+			width: 90%;
+			border-radius: .4em;
+			padding: 2%;
+			margin: 0 0 1em 0;
+			border: solid 1px silver;
+			transition: box-shadow 1.5s ease-in;
+			/*		box-shadow: 0 0 5px 1px transparent ; */
 		}
-	};
-	addTabHTML = function( indentInt ) {
-		var tabHTML = "" ;
-		var spacesPerTab = 4 ;
-		for ( var spaceCounter=0; spaceCounter < (indentInt * spacesPerTab) ; spaceCounter++ ) {
-			tabHTML += "&nbsp;"
-		} ;
-		return tabHTML ;
-	}
-	popupObjs = [] ;
-	popupObjs.getPopupObjById = {} ;
-	Popup = function( event, elementClickedId ) {
-		this.popupDiv = document.createElement( "div" ) ;
-		document.body.appendChild( this.popupDiv ) ;
-		this.popupDiv.className = "popup" ;
-		this.popupDiv.obj = this ;
-		// I'm moving the popup up and to the left 20px to cover the ? button.
-		// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
-		// Only danger is if user re-sizes the screen to reveal the ? button.
-		// I'm ignoring that contingency for now.
-		this.popupDiv.style.left = event.clientX - 20 + "px" ;
-		this.popupDiv.style.top = event.clientY - 20 + "px" ;
-		this.popupDiv.onclick = function() {
-			this.parentNode.removeChild( this ) ;
+
+		input:focus,
+		input.focus,
+		textarea:focus,
+		textarea.focus {
+			border: solid 1px dimGray;
+			box-shadow: 0 0 5px 1px azure;
 		}
-		// Add the X for show--you can really click anywhere on the popup to close it.
-		this.closeDiv = document.createElement( "div" ) ;
-		this.popupDiv.appendChild( this.closeDiv ) ;
-		this.closeDiv.className = "popup-close" ;
-		this.closeDiv.innerHTML = "X" ;
-		/* UPGRADE: This may be overkill, so you don't need elementClickedId in the function arguments.
-		this.isOpen = true ;
-		popupObjs.push( this ) ;
-		this.elementClickedId = elementClickedId || "[No elementClickedId defined!]" ;
-		popupObjs.getPopupObjById[ elementClickedId ] = this ;
-		*/
-	}
-	showHint = function( elementClicked, event ) {
-		switch( elementClicked.id ) {
-			case "hint-filename" :
-				var popupObj = new Popup( event, elementClicked.id ) ;
-				popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
-				break ;
-			case "hint-extras" :
-				var popupObj = new Popup( event, elementClicked.id ) ;
-				popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
-				break ;
+
+		input.numeric {
+			width: 10%;
 		}
-	}
-	/*__________ General metadata. __________*/
-	// No scripts needed, just HTML form fields.
-	/*__________ Tags. __________*/
-	let currentFieldsetId = "[[ No fieldset id defined!]]";
-	const TagObject = function(tagName, fieldsetName) {
-		if ( fieldsetName !== currentFieldsetId  ) {
-			currentFieldsetId = fieldsetName;
-			// Build new fieldset. This assumes fieldsets are already grouped in buildTags.
-			let newFieldset = document.createElement( "fieldset" ) ;
-			newFieldset.id = fieldsetName;
-			document.querySelector("#tags").appendChild( newFieldset ) ;
-			let newLegend = document.createElement( "legend" ) ;
-			newLegend.innerHTML = fieldsetName;
-			newFieldset.appendChild( newLegend ) ;
+
+		textarea.memo {
+			font-size: .8em;
+			height: 12em;
+			/*		border: inset silver 1px ;*/
+			/*		border-color: silver ;*/
 		}
-		// Build span to contain tag.
-		this.tagSpan = document.createElement( "span" ) ;
-		document.querySelector(`#${ currentFieldsetId}`).appendChild( this.tagSpan ) ;
-		this.tagSpan.className = "tag-span" ;
-		// Create handle.
-		this.tagSpan.object = this;
-		// Build tag checkbox.
-		this.tagCheckbox = document.createElement( "input" ) ;
-		this.tagSpan.appendChild( this.tagCheckbox ) ;
-		this.tagCheckbox.type = "checkbox" ;
-		this.tagCheckbox.id = tagName ;
-		// this.tagCheckbox.name = fieldsetName ; // Not sure this is correct.
-		// Build tag label.
-		this.tagLabel = document.createElement( "label" ) ;
-		this.tagSpan.appendChild( this.tagLabel ) ;
-		this.tagLabel.for = tagName ;
-		this.tagLabel.innerHTML = tagName ;
-		this.tagLabel.onclick = () => {
-			// "this.tagSpan" is the span.
-			if (!this.tagCheckbox.checked ) {
-				this.tagSpan.classList.add("tag-active");
-				this.tagCheckbox.checked = true;
+
+		.answer-paragraph {
+			margin-top: 0;
+			margin-bottom: -.5em;
+		}
+
+		.answer-number {
+			font-size: .8em;
+			color: cadetBlue;
+			padding: 0 .5em 0 0;
+		}
+
+		.post-text,
+		.pre-text {
+			color: lightSlateGray;
+			font-size: .8em;
+		}
+
+		.pre-text {
+			padding: 0 1em 0 0;
+		}
+
+		.post-text {
+			padding: 0 1em 0 1em;
+		}
+
+		.numeric-paragraph {
+			margin-top: -.5em;
+			margin-bottom: -.5em;
+		}
+
+		.possible-answer-link {
+			position: relative;
+			margin-left: 5%;
+		}
+
+		.possible-answers {
+			position: relative;
+		}
+
+		/* Hints. */
+		.hint {
+			background-color: tomato;
+			color: white;
+			font-size: 11px;
+			padding: 2px 5px;
+			border-radius: .8em;
+		}
+
+		.popup {
+			position: absolute;
+			border: cadetBlue solid 4px;
+			opacity: .95;
+			width: 160px;
+			height: 180px;
+			overflow: auto;
+			padding: 1em;
+			background-color: azure;
+			color: cadetBlue;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			font-size: .9em;
+		}
+
+		.popup-close {
+			position: absolute;
+			width: 5%;
+			left: 92%;
+			top: .5em;
+			font-size: .9em;
+			color: darkSlateGray;
+			font-weight: bold;
+		}
+
+		.popup-close:hover {
+			color: tomato;
+			cursor: pointer;
+		}
+
+		/* Form placeholders */
+		::-webkit-input-placeholder {
+			color: lightSkyBlue;
+		}
+
+		:-moz-placeholder {
+			/* Firefox 18- */
+			color: lightSkyBlue;
+		}
+
+		::-moz-placeholder {
+			/* Firefox 19+ */
+			color: lightSkyBlue;
+		}
+
+		:-ms-input-placeholder {
+			color: lightSkyBlue;
+		}
+
+		#report {
+			padding: 1em;
+			font-size: .7em;
+			background-color: whiteSmoke;
+			border: silver solid 2px;
+			border-radius: 8px;
+			margin: 10px 5% 20px 10%;
+			color: royalBlue;
+		}
+
+		.report-comment {
+			color: blueViolet;
+		}
+
+		.quiz-key {
+			/* Labels for metadata in report. */
+			color: dimGray;
+		}
+
+		.quiz-value {
+			color: mediumPurple;
+		}
+
+		.quiz-answer {
+			color: mediumOrchid;
+		}
+
+		/* Submission types. */
+		.resource-only {
+			display: block;
+		}
+
+		.strategy-only {
+			display: none;
+		}
+
+		/* Adjust labels. */
+		#submission-type input {
+			margin-top: .7em;
+			/* Makes room for hint. */
+		}
+
+		/* Tags */
+		#tags {
+			display: grid;
+			/* Stage 3a: grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ); Leave space for empty columns. Most common choice 👍 */
+			grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+			/* Stretch columns to fit. */
+		}
+
+		#tags fieldset {
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: space-between;
+			align-items: flex-start;
+		}
+
+		#tags span {
+			/* white-space: nowrap; */
+			font-size: .8em;
+			background-color: var(--block-warm-lighter);
+			border-radius: .3em;
+			border: var(--block-warm-medium) solid 2px;
+			padding: .2em 0 0 .2em;
+			/* You can't have negative padding. */
+			margin: .2em .3em 0 0;
+		}
+
+		#tags span.tag-active {
+			background-color: var(--block-cool-light);
+		}
+
+		#tags input {
+			width: auto;
+			margin-right: .2em;
+		}
+
+		#tags label {
+			margin-right: 1em;
+		}
+	</style>
+	<script id="build-tags-script">
+		const buildTags = () => {
+			//  general .
+			tagObjects.push(new TagObject("AI", "general"));
+			tagObjects.push(new TagObject("AI-human-collaboration", "general"));
+			tagObjects.push(new TagObject("education", "general"));
+			tagObjects.push(new TagObject("defect", "general"));
+			tagObjects.push(new TagObject("human-first", "general"));
+			tagObjects.push(new TagObject("identity", "general"));
+			tagObjects.push(new TagObject("list", "general"));
+			tagObjects.push(new TagObject("network", "general"));
+			tagObjects.push(new TagObject("software", "general"));
+			tagObjects.push(new TagObject("success", "general"));
+			tagObjects.push(new TagObject("tool", "general"));
+			tagObjects.push(new TagObject("work", "general"));
+			// creator - focused.
+			tagObjects.push(new TagObject("creator-focused", "creator-focused"));
+			tagObjects.push(new TagObject("editing", "creator-focused"));
+			tagObjects.push(new TagObject("howto", "creator-focused"));
+			tagObjects.push(new TagObject("presentation", "creator-focused"));
+			tagObjects.push(new TagObject("promotion", "creator-focused"));
+			tagObjects.push(new TagObject("prompt", "creator-focused"));
+			tagObjects.push(new TagObject("story", "creator-focused"));
+			// discipline - specific.
+			tagObjects.push(new TagObject("economics", "discipline-specific"));
+			tagObjects.push(new TagObject("governance", "discipline-specific"));
+			tagObjects.push(new TagObject("healthcare", "discipline-specific"));
+			tagObjects.push(new TagObject("history", "discipline-specific"));
+			tagObjects.push(new TagObject("journalism", "discipline-specific"));
+			tagObjects.push(new TagObject("language", "discipline-specific"));
+			tagObjects.push(new TagObject("law", "discipline-specific"));
+			tagObjects.push(new TagObject("literature", "discipline-specific"));
+			tagObjects.push(new TagObject("marketing", "discipline-specific"));
+			tagObjects.push(new TagObject("nursing", "discipline-specific"));
+			tagObjects.push(new TagObject("psychology", "discipline-specific"));
+			tagObjects.push(new TagObject("science", "discipline-specific"));
+			// educator - focused.
+			tagObjects.push(new TagObject("assessment", "educator-focused"));
+			tagObjects.push(new TagObject("assignment", "educator-focused"));
+			tagObjects.push(new TagObject("classroom", "educator-focused"));
+			tagObjects.push(new TagObject("detection", "educator-focused"));
+			tagObjects.push(new TagObject("educator-focused", "educator-focused"));
+			tagObjects.push(new TagObject("evaluation", "educator-focused"));
+			tagObjects.push(new TagObject("guidelines", "educator-focused"));
+			tagObjects.push(new TagObject("plagiarism", "educator-focused"));
+			tagObjects.push(new TagObject("syllabus", "educator-focused"));
+			// learner - focused.
+			tagObjects.push(new TagObject("learner-focused", "learner-focused"));
+			tagObjects.push(new TagObject("study", "learner-focused"));
+			// medium - specific.
+			tagObjects.push(new TagObject("animation", "medium-specific"));
+			tagObjects.push(new TagObject("design", "medium-specific"));
+			tagObjects.push(new TagObject("image", "medium-specific"));
+			tagObjects.push(new TagObject("speech", "medium-specific"));
+			tagObjects.push(new TagObject("text", "medium-specific"));
+			tagObjects.push(new TagObject("video", "medium-specific"));
+			//  * research.
+			tagObjects.push(new TagObject("bias", "research"));
+			tagObjects.push(new TagObject("community", "research"));
+			tagObjects.push(new TagObject("conference", "research"));
+			tagObjects.push(new TagObject("culture", "research"));
+			tagObjects.push(new TagObject("data", "research"));
+			tagObjects.push(new TagObject("disinformation", "research"));
+			tagObjects.push(new TagObject("ethics", "research"));
+			tagObjects.push(new TagObject("hype", "research"));
+			tagObjects.push(new TagObject("media coverage", "research"));
+			tagObjects.push(new TagObject("publication", "research"));
+			tagObjects.push(new TagObject("research", "research"));
+			//  * technical.
+			tagObjects.push(new TagObject("code", "technical"));
+			tagObjects.push(new TagObject("computer science", "technical"));
+		}
+	</script>
+	<script id="quiz-generator-script">
+		/*__________ Utilities. __________*/
+		const copyToClipboard = string => {
+			if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
+				return navigator.clipboard.writeText(string);
 			} else {
-				this.tagSpan.classList.remove("tag-active");
-				this.tagCheckbox.checked = false;
+				return Promise.reject('The Clipboard API is not available.');
 			}
-		}
-	}
-	tagObjects = [] ;
-	currentReport = "[[No report defined!]]";
-	/* ________________ Select submission type. ________________ */
-	const chooseType = radioButton => {
-		let strategyOnlyElements = document.querySelectorAll(".strategy-only");
-		let resourceOnlyElements = document.querySelectorAll(".resource-only");
-		if (radioButton.value === "resource") {
-			resourceOnlyElements.forEach( element => element.style.display = "block");
-			strategyOnlyElements.forEach( element => element.style.display = "none");
-		} else if (radioButton.value === "strategy") {
-			resourceOnlyElements.forEach( element => element.style.display = "none");
-			strategyOnlyElements.forEach( element => element.style.display = "block");
-		} else {
-			console.warn( `${radioButton.value} is not a valid submission type!` );
-		}
-	}
-	/* ________________ Report. ________________ */
-	resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"] ; // UPGRADE: add "id" at end.
-	strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"] ;
-	Report = function() {
-		let reportHTML = "" ;
-		// Metadata.
-		this.title = document.querySelector("#lwa-title").value;
-		this.summary = document.querySelector("#lwa-summary").value;
-		if (document.querySelector("#type-strategy").checked) {
-			this.type = "strategy";
-		} else {
-			this.type = "resource";
 		};
-		console.log("type", this.type)
-		this.submitterName = document.querySelector("#lwa-submitter-name").value;
-		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
-		this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
-		this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
-		// Tags.
-		this.tags = [];
-		document.querySelectorAll("input[type='checkbox']").forEach(
-			checkbox => {
-				if (checkbox.checked) {
-					this.tags.push( checkbox.id );
-				};
-			}
-		);
-		this.tagsAsString = "";
-		// -1 to prevent trailing comma.
-		for ( let tagCounter = 0; tagCounter < this.tags.length - 1; tagCounter++ ) {
-			this.tagsAsString += `${this.tags[tagCounter]}, `;
+		addTabHTML = function (indentInt) {
+			var tabHTML = "";
+			var spacesPerTab = 4;
+			for (var spaceCounter = 0; spaceCounter < (indentInt * spacesPerTab); spaceCounter++) {
+				tabHTML += "&nbsp;"
+			};
+			return tabHTML;
 		}
-		// Add last tag without comma.
-		this.tagsAsString += this.tags[ this.tags.length -1 ];
-		if (this.type === "resource") {
-			this.url = document.querySelector("#lwa-resource-url").value;
-			this.author = document.querySelector("#lwa-author").value;
-			resourceKeysInOrder.forEach(
-				key => reportHTML += `${this[key]}\t`
+		popupObjs = [];
+		popupObjs.getPopupObjById = {};
+		Popup = function (event, elementClickedId) {
+			this.popupDiv = document.createElement("div");
+			document.body.appendChild(this.popupDiv);
+			this.popupDiv.className = "popup";
+			this.popupDiv.obj = this;
+			// I'm moving the popup up and to the left 20px to cover the ? button.
+			// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
+			// Only danger is if user re-sizes the screen to reveal the ? button.
+			// I'm ignoring that contingency for now.
+			this.popupDiv.style.left = event.clientX - 20 + "px";
+			this.popupDiv.style.top = event.clientY - 20 + "px";
+			this.popupDiv.onclick = function () {
+				this.parentNode.removeChild(this);
+			}
+			// Add the X for show--you can really click anywhere on the popup to close it.
+			this.closeDiv = document.createElement("div");
+			this.popupDiv.appendChild(this.closeDiv);
+			this.closeDiv.className = "popup-close";
+			this.closeDiv.innerHTML = "X";
+			/* UPGRADE: This may be overkill, so you don't need elementClickedId in the function arguments.
+			this.isOpen = true ;
+			popupObjs.push( this ) ;
+			this.elementClickedId = elementClickedId || "[No elementClickedId defined!]" ;
+			popupObjs.getPopupObjById[ elementClickedId ] = this ;
+			*/
+		}
+		showHint = function (elementClicked, event) {
+			switch (elementClicked.id) {
+				case "hint-filename":
+					var popupObj = new Popup(event, elementClicked.id);
+					popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
+					break;
+				case "hint-extras":
+					var popupObj = new Popup(event, elementClicked.id);
+					popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
+					break;
+			}
+		}
+		/*__________ General metadata. __________*/
+		// No scripts needed, just HTML form fields.
+		/*__________ Tags. __________*/
+		let currentFieldsetId = "[[ No fieldset id defined!]]";
+		const TagObject = function (tagName, fieldsetName) {
+			if (fieldsetName !== currentFieldsetId) {
+				currentFieldsetId = fieldsetName;
+				// Build new fieldset. This assumes fieldsets are already grouped in buildTags.
+				let newFieldset = document.createElement("fieldset");
+				newFieldset.id = fieldsetName;
+				document.querySelector("#tags").appendChild(newFieldset);
+				let newLegend = document.createElement("legend");
+				newLegend.innerHTML = fieldsetName;
+				newFieldset.appendChild(newLegend);
+			}
+			// Build span to contain tag.
+			this.tagSpan = document.createElement("span");
+			document.querySelector(`#${currentFieldsetId}`).appendChild(this.tagSpan);
+			this.tagSpan.className = "tag-span";
+			// Create handle.
+			this.tagSpan.object = this;
+			// Build tag checkbox.
+			this.tagCheckbox = document.createElement("input");
+			this.tagSpan.appendChild(this.tagCheckbox);
+			this.tagCheckbox.type = "checkbox";
+			this.tagCheckbox.id = tagName;
+			// this.tagCheckbox.name = fieldsetName ; // Not sure this is correct.
+			// Build tag label.
+			this.tagLabel = document.createElement("label");
+			this.tagSpan.appendChild(this.tagLabel);
+			this.tagLabel.for = tagName;
+			this.tagLabel.innerHTML = tagName;
+			this.tagLabel.onclick = () => {
+				// "this.tagSpan" is the span.
+				if (!this.tagCheckbox.checked) {
+					this.tagSpan.classList.add("tag-active");
+					this.tagCheckbox.checked = true;
+				} else {
+					this.tagSpan.classList.remove("tag-active");
+					this.tagCheckbox.checked = false;
+				}
+			}
+		}
+		tagObjects = [];
+		currentReport = "[[No report defined!]]";
+		/* ________________ Select submission type. ________________ */
+		const chooseType = radioButton => {
+			let strategyOnlyElements = document.querySelectorAll(".strategy-only");
+			let resourceOnlyElements = document.querySelectorAll(".resource-only");
+			if (radioButton.value === "resource") {
+				resourceOnlyElements.forEach(element => element.style.display = "block");
+				strategyOnlyElements.forEach(element => element.style.display = "none");
+			} else if (radioButton.value === "strategy") {
+				resourceOnlyElements.forEach(element => element.style.display = "none");
+				strategyOnlyElements.forEach(element => element.style.display = "block");
+			} else {
+				console.warn(`${radioButton.value} is not a valid submission type!`);
+			}
+		}
+		/* ________________ Report. ________________ */
+		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end.
+		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
+		Report = function () {
+			let reportHTML = "";
+			// Metadata.
+			this.title = document.querySelector("#lwa-title").value;
+			this.summary = document.querySelector("#lwa-summary").value;
+			if (document.querySelector("#type-strategy").checked) {
+				this.type = "strategy";
+			} else {
+				this.type = "resource";
+			};
+			console.log("type", this.type)
+			this.submitterName = document.querySelector("#lwa-submitter-name").value;
+			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
+			this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
+			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
+			// Tags.
+			this.tags = [];
+			document.querySelectorAll("input[type='checkbox']").forEach(
+				checkbox => {
+					if (checkbox.checked) {
+						this.tags.push(checkbox.id);
+					};
+				}
+			);
+			this.tagsAsString = "";
+			// -1 to prevent trailing comma.
+			for (let tagCounter = 0; tagCounter < this.tags.length - 1; tagCounter++) {
+				this.tagsAsString += `${this.tags[tagCounter]}, `;
+			}
+			// Add last tag without comma.
+			this.tagsAsString += this.tags[this.tags.length - 1];
+			if (this.type === "resource") {
+				this.url = document.querySelector("#lwa-resource-url").value;
+				this.author = document.querySelector("#lwa-author").value;
+				resourceKeysInOrder.forEach(
+					key => reportHTML += `${this[key]}\t`
+				)
+			} else { // Submitting a strategy.
+				this.resourceId = document.querySelector("#lwa-resource-id").value;
+				strategyKeysInOrder.forEach(
+					key => reportHTML += `${this[key]}\t`
+				)
+			}
+			/*__________ Methods. __________*/
+			this.showReport = function () {
+				document.getElementById("report").innerHTML = reportHTML; // Or "return this" if you want multiple sections.
+				currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
+				copyToClipboard(reportHTML); // For Jon to add directly to Google Sheet.
+			}
+		}
+		createReport = function () {
+			var myReport = new Report();
+			myReport.showReport();
+			_myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1);
+		}
+		resetForm = function () { // UPGRADE: Need to customize this.
+			var allInputs = document.getElementsByTagName("input");
+			for (var inputCounter = 0; inputCounter < allInputs.length; inputCounter++) {
+				if (allInputs[inputCounter].type === "text") {
+					allInputs[inputCounter].value = "";
+				}
+				if (allInputs[inputCounter].type === "checkbox") {
+					allInputs[inputCounter].checked = false;
+				}
+				if (allInputs[inputCounter].type === "radio") {
+					allInputs[inputCounter].checked = false;
+				}
+			};
+			var allTextareas = document.getElementsByTagName("textarea");
+			for (var textareaCounter = 0; textareaCounter < allTextareas.length; textareaCounter++) {
+				allTextareas[textareaCounter].value = "";
+			};
+			// Clear data.
+			quizDataObjs = [];
+			tags = [];
+			// Clear report.
+			document.getElementById("report").innerHTML = "(No report yet)";
+		}
+		const submitReport = () => {
+			firebase.database().ref("submissions/").push(
+				{
+					submission: currentReport,
+				}
 			)
-		} else { // Submitting a strategy.
-			this.resourceId = document.querySelector("#lwa-resource-id").value;
-			strategyKeysInOrder.forEach(
-				key => reportHTML += `${this[key]}\t`
-			)
+				.then(
+					(data) => {
+						console.log("Success!");
+					}
+				).catch(
+					() => {
+						console.info(currentReport);
+						console.table(currentReport);
+						console.info(data);
+						console.table(data);
+						console.warn("There was a problem adding your submission")
+					}
+				)
 		}
-		/*__________ Methods. __________*/
-		this.showReport = function() {
-			document.getElementById( "report" ).innerHTML = reportHTML ; // Or "return this" if you want multiple sections.
-			currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
-			copyToClipboard( reportHTML ); // For Jon to add directly to Google Sheet.
-		}
-	}
-	createReport = function() {
-		var myReport = new Report() ;
-		myReport.showReport() ;
-		_myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1) ;
-	}
-	resetForm = function() { // UPGRADE: Need to customize this.
-		var allInputs = document.getElementsByTagName( "input" ) ;
-		for ( var inputCounter=0; inputCounter < allInputs.length; inputCounter++ ) {
-			if (  allInputs[ inputCounter ].type === "text"  ) {
-				allInputs[ inputCounter ].value = "" ;
-			}
-			if (  allInputs[ inputCounter ].type === "checkbox"  ) {
-				allInputs[ inputCounter ].checked = false ;
-			}
-			if (  allInputs[ inputCounter ].type === "radio"  ) {
-				allInputs[ inputCounter ].checked = false ;
-			}
-		} ;
-		var allTextareas = document.getElementsByTagName( "textarea" ) ;
-		for ( var textareaCounter=0; textareaCounter < allTextareas.length; textareaCounter++ ) {
-			allTextareas[ textareaCounter ].value = "" ;
-		} ;
-		// Clear data.
-		quizDataObjs = [ ] ;
-		tags = [ ] ;
-		// Clear report.
-		document.getElementById( "report" ).innerHTML = "(No report yet)" ;
-	}
-	const submitReport = () => {
-		firebase.database().ref( "submissions/").push(
-			{
-				submission: currentReport,
-		    }
-		)
-		.then(
-			(data) => {
-				console.log("Success!");
-			}
-		).catch(
-			console.warn("There was a problem adding your submission")
-		)
-	}
-	/* ________________ Act onload. ________________ */
-	window.addEventListener("DOMContentLoaded", buildTags);
-</script>
-<!-- ============================= -->
-<!-- = = = Firebase scripts. = = = -->
-<!-- ============================= -->
-<!-- Note: It's OK to expose this in client-side HTML. See https://stackoverflow.com/questions/37482366/is-it-safe-to-expose-firebase-apikey-to-the-public. -->
-<!-- This is a backwards-compatible approach that doesn't rely on the module format. -->
-<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
-<!-- Model: <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script> -->
-<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
-<script>
-	// Note addition of the value of `databaseURL` depending on the location of the database:
-	const firebaseConfig = {
-		apiKey: "AIzaSyChp7kQ4Ek-pmXdZf3MlfwDbmgrj_cP6j0",
-		authDomain: "learnwithai-submissions.firebaseapp.com",
-		projectId: "learnwithai-submissions",
-		storageBucket: "learnwithai-submissions.appspot.com",
-		messagingSenderId: "217852760536",
-		appId: "1:217852760536:web:ba08035e144212c3a2e2ad",
-		databaseURL: "https://learnwithai-submissions-default-rtdb.firebaseio.com/",
-	};
-	// Initialize Firebase
-	const app = firebase.initializeApp(firebaseConfig);
+		/* ________________ Act onload. ________________ */
+		window.addEventListener("DOMContentLoaded", buildTags);
+	</script>
+	<!-- ============================= -->
+	<!-- = = = Firebase scripts. = = = -->
+	<!-- ============================= -->
+	<!-- Note: It's OK to expose this in client-side HTML. See https://stackoverflow.com/questions/37482366/is-it-safe-to-expose-firebase-apikey-to-the-public. -->
+	<!-- This is a backwards-compatible approach that doesn't rely on the module format. -->
+	<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app-compat.js"></script>
+	<!-- Model: <script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore-compat.js"></script> -->
+	<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-database-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth-compat.js"></script>
+	<script>
+		// Note addition of the value of `databaseURL` depending on the location of the database:
+		const firebaseConfig = {
+			apiKey: "AIzaSyChp7kQ4Ek-pmXdZf3MlfwDbmgrj_cP6j0",
+			authDomain: "learnwithai-submissions.firebaseapp.com",
+			projectId: "learnwithai-submissions",
+			storageBucket: "learnwithai-submissions.appspot.com",
+			messagingSenderId: "217852760536",
+			appId: "1:217852760536:web:ba08035e144212c3a2e2ad",
+			databaseURL: "https://learnwithai-submissions-default-rtdb.firebaseio.com/",
+		};
+		// Initialize Firebase
+		const app = firebase.initializeApp(firebaseConfig);
 	// Initialize Realtime Database and get a reference to the service
 	// const firebase.database = firebase.getDatabase(app);
-</script>
-<script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
-	function debug (argument) {
-		// Use only if no debug.js found.
-		window.status = "Debug script not found."
-	}
-	function debugArray (argument) {
-		// Use only if no debug.js found.
-		window.status = "DebugArray script not found."
-	}
-	function debugObject (argument) {
-		// Use only if no debug.js found.
-		window.status = "DebugObject script not found."
-}
-</script>
-<script id="debug-external-script" type="text/javascript" language="JavaScript" src="../js/debug.js"></script>
-<script  id="debug-open-window">
-    try {
-        openDebugWindow( { openerWindow: this, debugIsOn: false, purgeOldReports: true }) ;
-    }
-    catch(error) {
-        window.status = "Debug script called but " + error ;
-    }
-</script>
+	</script>
+	<script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
+		function debug(argument) {
+			// Use only if no debug.js found.
+			window.status = "Debug script not found."
+		}
+		function debugArray(argument) {
+			// Use only if no debug.js found.
+			window.status = "DebugArray script not found."
+		}
+		function debugObject(argument) {
+			// Use only if no debug.js found.
+			window.status = "DebugObject script not found."
+		}
+	</script>
+	<script id="debug-external-script" type="text/javascript" language="JavaScript" src="../js/debug.js"></script>
+	<script id="debug-open-window">
+		try {
+			openDebugWindow({ openerWindow: this, debugIsOn: false, purgeOldReports: true });
+		}
+		catch (error) {
+			window.status = "Debug script called but " + error;
+		}
+	</script>
 </head>
+
 <body>
-<div class="watermark">
-	<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
-	<div id="logo">
-		Learning With AI: Add Resource
-	</div>
-	<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
-	<div class="caption" id="version">
-		Version 1.3
-	</div>
-	<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span class="warning"><strong>'</strong></span>) in any fields.</p>
-</div>
-<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
-<div id="lesson" class="column">
-	<h2>Basics</h2>
-	<label for='lwa-title'>Headline or title</label>
-	<input type='text' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-	<label for='lwa-summary'>Summary</label>
-	<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
-	<fieldset>
-		<legend>Select a type</legend>
-		<div class="grid-radio">
-			<label for="type-resource">Resource</label>
-			<input type="radio" id="type-resource" name="type" value="resource" checked onclick="chooseType(this)">
-			<label for="type-strategy">Strategy</label>
-			<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
+	<div class="watermark">
+		<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
+		<div id="logo">
+			Learning With AI: Add Resource
 		</div>
-	</fieldset>
-</div>
-<div class="arrow-container">
-	<div class="arrow-box-right">
+		<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
+		<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
+				class="warning"><strong>'</strong></span>) in any fields.</p>
 	</div>
-	<div class="arrow-right">
+	<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
+	<div id="lesson" class="column">
+		<h2>Basics</h2>
+		<label for='lwa-title'>Headline or title</label>
+		<input type='text' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
+		<label for='lwa-summary'>Summary</label>
+		<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
+		<fieldset>
+			<legend>Select a type</legend>
+			<div class="grid-radio">
+				<label for="type-resource">Resource</label>
+				<input type="radio" id="type-resource" name="type" value="resource" checked onclick="chooseType(this)">
+				<label for="type-strategy">Strategy</label>
+				<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
+			</div>
+		</fieldset>
 	</div>
-</div>
-<div id="submission-type" class="column">
-	<h2 class="resource-only">Resource</h2>
-	<h2 class="strategy-only">Strategy</h2>
-	<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint" id="hint-filename" onclick="showHint( this, event )">?</a></label>
-	<input class="resource-only" type='url' id='lwa-resource-url' placeholder='https://example.com/make_flashcards.html'></input>
-	<label class="resource-only" for='lwa-author'>Original author/byline</label>
-	<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
-	<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint" id="hint-filename" onclick="showHint( this, event )">?</a></label>
-	<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input><br />
-	<label for='lwa-submitter-name'>Submitter name (optional)</label>
-	<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
-	<label for='lwa-submitter-email'>Submitter email (optional)</label>
-	<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
-	<label for='lwa-submitter-website'>Submitter website (optional)</label>
-	<input type='url' id='lwa-submitter-website' placeholder='https://michelle.com'></input><br />
-</div>
-<div id="row-tags" class="row">
 	<div class="arrow-container">
 		<div class="arrow-box-right">
 		</div>
 		<div class="arrow-right">
 		</div>
 	</div>
-	<div id="tags">
+	<div id="submission-type" class="column">
+		<h2 class="resource-only">Resource</h2>
+		<h2 class="strategy-only">Strategy</h2>
+		<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint" id="hint-filename"
+				onclick="showHint( this, event )">?</a></label>
+		<input class="resource-only" type='url' id='lwa-resource-url'
+			placeholder='https://example.com/make_flashcards.html'></input>
+		<label class="resource-only" for='lwa-author'>Original author/byline</label>
+		<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
+		<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint" id="hint-filename"
+				onclick="showHint( this, event )">?</a></label>
+		<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input><br />
+		<label for='lwa-submitter-name'>Submitter name (optional)</label>
+		<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
+		<label for='lwa-submitter-email'>Submitter email (optional)</label>
+		<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
+		<label for='lwa-submitter-website'>Submitter website (optional)</label>
+		<input type='url' id='lwa-submitter-website' placeholder='https://michelle.com'></input><br />
 	</div>
-</div>
-<!-- <div class="arrow-container">
+	<div id="row-tags" class="row">
+		<div class="arrow-container">
+			<div class="arrow-box-right">
+			</div>
+			<div class="arrow-right">
+			</div>
+		</div>
+		<div id="tags">
+		</div>
+	</div>
+	<!-- <div class="arrow-container">
 	<div class="arrow-box-right">
 	</div>
 	<div class="arrow-right">
 	</div>
 </div> -->
-<div class="row">
-	<p><a onclick="createReport()">Review submission</a></p>
-</div>
-<p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as plain text.</p>
-<div id="report">
-	(No code generated yet)
-</div>
-<p><a onclick="submitReport()">Submit your suggestion</a></p>
+	<div class="row">
+		<p><a onclick="createReport()">Review submission</a></p>
+	</div>
+	<p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as plain
+		text.</p>
+	<div id="report">
+		(No code generated yet)
+	</div>
+	<!-- <form action="?" method="POST">
+		<div id="recaptcha-widget"></div>
+		<br>
+		<input type="submit" value="Submit" onclick="submitReport();">
+	</form> -->
+	<!-- Set rudimentary authentication requirements for posting. -->
+	<!-- <script sype=" text/javascript">
+		var onloadCallback = function () {
+			grecaptcha.render('recaptcha-widget', {
+				'sitekey': '6LdXgQwnAAAAAHKkcL3Qxz2xJp6OPlRkjZ2BiuUn'
+			});
+		};
+	</script>
+	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
+	</script> -->
+	<p><a onclick="submitReport()">Submit your suggestion</a></p>
+	<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
+	<!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcYjBMnAAAAACZNB0EzuLkgWW7ZFdJIM_s8Ap6W"></script>
+	
+	<p><button class="g-recaptcha" data-sitekey="6LdXgQwnAAAAAHKkcL3Qxz2xJp6OPlRkjZ2BiuUn"
+			data-callback="submitReport()">Submit</button></p> -->
 </body>
+
 </html>
