@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 1.4, with good interface but reCaptcha crap that doesn't work. -->
+<!-- Version 1.5, trying "show submit button" option instead of recaptcha. -->
 <html>
 
 <head>
@@ -567,6 +567,10 @@
 			color: blueViolet;
 		}
 
+		#submit-report-button {
+			display: none; // Revealed when user clicks appropriate button.
+		}
+
 		.quiz-key {
 			/* Labels for metadata in report. */
 			color: dimGray;
@@ -707,7 +711,9 @@
 			tagObjects.push(new TagObject("computer science", "technical"));
 		}
 	</script>
-	<script id="quiz-generator-script">
+	<script id="tag-generator-script-v1.1">
+		// This should be generic. Localization script follows this one.
+		isPostingOnline = false; // Can be overridden in localization script.
 		/*__________ Utilities. __________*/
 		const copyToClipboard = string => {
 			if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
@@ -851,35 +857,73 @@
 				}
 			);
 			this.tagsAsString = "";
-			// -1 to prevent trailing comma.
+			// Loop through all but the last to prevent trailing comma, hence the -1.
 			for (let tagCounter = 0; tagCounter < this.tags.length - 1; tagCounter++) {
-				this.tagsAsString += `${this.tags[tagCounter]}, `;
+				if (reportFormat === "hashtags") {
+					this.tagsAsString += `${this.tags[tagCounter]} `;
+				} else if (reportFormat === "spreadsheet") {
+					// Remove hash signs and add commas.
+					// Syntax is myString.substr( startPositionCountingFirstAs0, numberOfCharactersToInclude ).
+					// UNNECESSARY AFTER TAG SEGREGATION: this.tagsAsString += `${  removeHashtagSign( this.tags[tagCounter] )  }, ` ;
+					this.tagsAsString += `${this.tags[tagCounter]}, `;
+				}
 			}
-			// Add last tag without comma.
-			this.tagsAsString += this.tags[this.tags.length - 1];
+			// Add last tag without trailing comma.
+			if (reportFormat === "hashtags") {
+				this.tagsAsString += this.tags[this.tags.length - 1];
+			} else if (reportFormat === "spreadsheet") {
+				this.tagsAsString += this.tags[this.tags.length - 1];
+			}
 			if (this.type === "resource") {
 				this.url = document.querySelector("#lwa-resource-url").value;
 				this.author = document.querySelector("#lwa-author").value;
 				resourceKeysInOrder.forEach(
-					key => reportHTML += `${this[key]}\t`
+					key => {
+						if (reportFormat === "hashtags") {
+							reportHTML += `${this[key]}`;
+						} else if (reportFormat === "spreadsheet") {
+							reportHTML += `${this[key]}\t`;
+						}
+					}
 				)
+				if (reportFormat === "hashtags") {
+					// No id required.
+				} else if (reportFormat === "spreadsheet") {
+					this.lastName = this.author.replace(/^(.+?)\b(.*?)$/, "$1").toLowerCase();
+					this.randomHex = (parseInt(4294967295 * Math.random())).toString(16); // 4294967295 is highest 32-bit number.
+					this.resourceId = `${this.lastName}_${this.randomHex}`;
+					reportHTML += this.resourceId;
+				}
 			} else { // Submitting a strategy.
 				this.resourceId = document.querySelector("#lwa-resource-id").value;
 				strategyKeysInOrder.forEach(
-					key => reportHTML += `${this[key]}\t`
+					key => {
+						if (reportFormat === "hashtags") {
+							reportHTML += `${this[key]}`;
+						} else if (reportFormat === "spreadsheet") {
+							reportHTML += `${this[key]}\t`;
+						}
+					}
 				)
 			}
 			/*__________ Methods. __________*/
 			this.showReport = function () {
+				console.info("showReport called and reportHTML is ", reportHTML)
+
 				document.getElementById("report").innerHTML = reportHTML; // Or "return this" if you want multiple sections.
 				currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
 				copyToClipboard(reportHTML); // For Jon to add directly to Google Sheet.
 			}
 		}
 		createReport = function () {
+			console.info("createReport called")
 			var myReport = new Report();
+			console.table(myReport)
 			myReport.showReport();
 			_myReport_HTML = myReport.HTML; debug("_myReport_HTML", 1);
+			if (isPostingOnline) { // Set in localization script.
+				document.querySelector("#submit-report-button").style.display = "block";
+			}
 		}
 		resetForm = function () { // UPGRADE: Need to customize this.
 			var allInputs = document.getElementsByTagName("input");
@@ -904,6 +948,10 @@
 			// Clear report.
 			document.getElementById("report").innerHTML = "(No report yet)";
 		}
+	</script>
+	<script id="tag-generator-localization-script">
+		isPostingOnline = true; // Overrides default in generic tag generation script.
+		reportFormat = "spreadsheet";
 		const submitReport = () => {
 			firebase.database().ref("submissions/").push(
 				{
@@ -1053,27 +1101,7 @@
 	<div id="report">
 		(No code generated yet)
 	</div>
-	<!-- <form action="?" method="POST">
-		<div id="recaptcha-widget"></div>
-		<br>
-		<input type="submit" value="Submit" onclick="submitReport();">
-	</form> -->
-	<!-- Set rudimentary authentication requirements for posting. -->
-	<!-- <script sype=" text/javascript">
-		var onloadCallback = function () {
-			grecaptcha.render('recaptcha-widget', {
-				'sitekey': '6LdXgQwnAAAAAHKkcL3Qxz2xJp6OPlRkjZ2BiuUn'
-			});
-		};
-	</script>
-	<script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer>
-	</script> -->
-	<p><a onclick="submitReport()">Submit your suggestion</a></p>
-	<!-- <script src="https://www.google.com/recaptcha/api.js" async defer></script> -->
-	<!-- <script src="https://www.google.com/recaptcha/enterprise.js?render=6LcYjBMnAAAAACZNB0EzuLkgWW7ZFdJIM_s8Ap6W"></script>
-	
-	<p><button class="g-recaptcha" data-sitekey="6LdXgQwnAAAAAHKkcL3Qxz2xJp6OPlRkjZ2BiuUn"
-			data-callback="submitReport()">Submit</button></p> -->
+	<p><button id="submit-report-button" onclick="submitReport()">Submit your suggestion</button></p>
 </body>
 
 </html>
