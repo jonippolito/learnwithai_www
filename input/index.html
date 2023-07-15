@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 1.5, trying "show submit button" option instead of recaptcha. -->
+<!-- Version 1.6, imported best tag content from hashtag_generator.html and implemented show submit button. Posts correctly to Firebase. -->
 <html>
 
 <head>
@@ -640,75 +640,83 @@
 	</style>
 	<script id="build-tags-script">
 		const buildTags = () => {
-			//  general .
-			tagObjects.push(new TagObject("AI", "general"));
-			tagObjects.push(new TagObject("AI-human-collaboration", "general"));
-			tagObjects.push(new TagObject("education", "general"));
-			tagObjects.push(new TagObject("defect", "general"));
-			tagObjects.push(new TagObject("human-first", "general"));
-			tagObjects.push(new TagObject("identity", "general"));
-			tagObjects.push(new TagObject("list", "general"));
-			tagObjects.push(new TagObject("network", "general"));
-			tagObjects.push(new TagObject("software", "general"));
-			tagObjects.push(new TagObject("success", "general"));
-			tagObjects.push(new TagObject("tool", "general"));
-			tagObjects.push(new TagObject("work", "general"));
-			// creator - focused.
-			tagObjects.push(new TagObject("creator-focused", "creator-focused"));
-			tagObjects.push(new TagObject("editing", "creator-focused"));
-			tagObjects.push(new TagObject("howto", "creator-focused"));
-			tagObjects.push(new TagObject("presentation", "creator-focused"));
-			tagObjects.push(new TagObject("promotion", "creator-focused"));
-			tagObjects.push(new TagObject("prompt", "creator-focused"));
-			tagObjects.push(new TagObject("story", "creator-focused"));
-			// discipline - specific.
-			tagObjects.push(new TagObject("economics", "discipline-specific"));
-			tagObjects.push(new TagObject("governance", "discipline-specific"));
-			tagObjects.push(new TagObject("healthcare", "discipline-specific"));
-			tagObjects.push(new TagObject("history", "discipline-specific"));
-			tagObjects.push(new TagObject("journalism", "discipline-specific"));
-			tagObjects.push(new TagObject("language", "discipline-specific"));
-			tagObjects.push(new TagObject("law", "discipline-specific"));
-			tagObjects.push(new TagObject("literature", "discipline-specific"));
-			tagObjects.push(new TagObject("marketing", "discipline-specific"));
-			tagObjects.push(new TagObject("nursing", "discipline-specific"));
-			tagObjects.push(new TagObject("psychology", "discipline-specific"));
-			tagObjects.push(new TagObject("science", "discipline-specific"));
-			// educator - focused.
-			tagObjects.push(new TagObject("assessment", "educator-focused"));
-			tagObjects.push(new TagObject("assignment", "educator-focused"));
-			tagObjects.push(new TagObject("classroom", "educator-focused"));
-			tagObjects.push(new TagObject("detection", "educator-focused"));
-			tagObjects.push(new TagObject("educator-focused", "educator-focused"));
-			tagObjects.push(new TagObject("evaluation", "educator-focused"));
-			tagObjects.push(new TagObject("guidelines", "educator-focused"));
-			tagObjects.push(new TagObject("plagiarism", "educator-focused"));
-			tagObjects.push(new TagObject("syllabus", "educator-focused"));
-			// learner - focused.
-			tagObjects.push(new TagObject("learner-focused", "learner-focused"));
-			tagObjects.push(new TagObject("study", "learner-focused"));
-			// medium - specific.
-			tagObjects.push(new TagObject("animation", "medium-specific"));
-			tagObjects.push(new TagObject("design", "medium-specific"));
-			tagObjects.push(new TagObject("image", "medium-specific"));
-			tagObjects.push(new TagObject("speech", "medium-specific"));
-			tagObjects.push(new TagObject("text", "medium-specific"));
-			tagObjects.push(new TagObject("video", "medium-specific"));
-			//  * research.
-			tagObjects.push(new TagObject("bias", "research"));
-			tagObjects.push(new TagObject("community", "research"));
-			tagObjects.push(new TagObject("conference", "research"));
-			tagObjects.push(new TagObject("culture", "research"));
-			tagObjects.push(new TagObject("data", "research"));
-			tagObjects.push(new TagObject("disinformation", "research"));
-			tagObjects.push(new TagObject("ethics", "research"));
-			tagObjects.push(new TagObject("hype", "research"));
-			tagObjects.push(new TagObject("media coverage", "research"));
-			tagObjects.push(new TagObject("publication", "research"));
-			tagObjects.push(new TagObject("research", "research"));
-			//  * technical.
-			tagObjects.push(new TagObject("code", "technical"));
-			tagObjects.push(new TagObject("computer science", "technical"));
+			// General 
+			tagObjects.push(new TagObject("AI", "General"));
+			tagObjects.push(new TagObject("community", "General"));
+			tagObjects.push(new TagObject("guidelines", "General"));
+			tagObjects.push(new TagObject("list", "General"));
+			tagObjects.push(new TagObject("research", "General"));
+			tagObjects.push(new TagObject("resources", "General"));
+			// Technology 
+			tagObjects.push(new TagObject("data", "Technology"));
+			tagObjects.push(new TagObject("detection", "Technology"));
+			tagObjects.push(new TagObject("prompt", "Technology"));
+			tagObjects.push(new TagObject("tool", "Technology"));
+			// Discipline / context
+			tagObjects.push(new TagObject("animation", "Discipline"));
+			tagObjects.push(new TagObject("art", "Discipline"));
+			tagObjects.push(new TagObject("business", "Discipline"));
+			tagObjects.push(new TagObject("collections", "Discipline"));
+			tagObjects.push(new TagObject("computer science", "Discipline"));
+			tagObjects.push(new TagObject("design", "Discipline"));
+			tagObjects.push(new TagObject("disability", "Discipline"));
+			tagObjects.push(new TagObject("economics", "Discipline"));
+			tagObjects.push(new TagObject("education", "Discipline"));
+			tagObjects.push(new TagObject("governance", "Discipline"));
+			tagObjects.push(new TagObject("healthcare", "Discipline"));
+			tagObjects.push(new TagObject("journalism", "Discipline"));
+			tagObjects.push(new TagObject("law", "Discipline"));
+			tagObjects.push(new TagObject("linguistics", "Medium"));
+			tagObjects.push(new TagObject("literature", "Discipline"));
+			tagObjects.push(new TagObject("marketing", "Discipline"));
+			tagObjects.push(new TagObject("network", "Discipline"));
+			tagObjects.push(new TagObject("nursing", "Discipline"));
+			tagObjects.push(new TagObject("promotion", "Discipline"));
+			tagObjects.push(new TagObject("psychology", "Discipline"));
+			tagObjects.push(new TagObject("science", "Discipline"));
+			tagObjects.push(new TagObject("story", "Discipline"));
+			tagObjects.push(new TagObject("sustainability", "Discipline"));
+			tagObjects.push(new TagObject("work", "Discipline"));
+			tagObjects.push(new TagObject("writing", "Discipline"));
+			// Medium 
+			tagObjects.push(new TagObject("code", "Medium"));
+			tagObjects.push(new TagObject("image", "Medium"));
+			tagObjects.push(new TagObject("music", "Medium")); // -> audio for voice simulation.
+			tagObjects.push(new TagObject("presentation", "Medium"));
+			tagObjects.push(new TagObject("publication", "Medium"));
+			tagObjects.push(new TagObject("simulation", "Medium"));
+			tagObjects.push(new TagObject("software", "Medium"));
+			tagObjects.push(new TagObject("speech", "Medium"));
+			tagObjects.push(new TagObject("syllabus", "Medium"));
+			tagObjects.push(new TagObject("text", "Medium"));
+			tagObjects.push(new TagObject("video", "Medium"));
+			// Task 
+			tagObjects.push(new TagObject("assignment", "Task"));
+			tagObjects.push(new TagObject("classroom", "Task"));
+			tagObjects.push(new TagObject("communication", "Task"));
+			tagObjects.push(new TagObject("editing", "Task"));
+			tagObjects.push(new TagObject("evaluation", "Task"));
+			tagObjects.push(new TagObject("feedback", "Task"));
+			tagObjects.push(new TagObject("howto", "Task"));
+			tagObjects.push(new TagObject("study", "Task"));
+			tagObjects.push(new TagObject("teamwork", "Task"));
+			// Priority / focus
+			tagObjects.push(new TagObject("AI-human-collaboration", "Focus"));
+			tagObjects.push(new TagObject("creator-focused", "Focus"));
+			tagObjects.push(new TagObject("educator-focused", "Focus"));
+			tagObjects.push(new TagObject("human-first", "Focus"));
+			tagObjects.push(new TagObject("learner-focused", "Focus"));
+			// Ethics 
+			tagObjects.push(new TagObject("bias", "Ethics"));
+			tagObjects.push(new TagObject("defect", "Ethics"));
+			tagObjects.push(new TagObject("disinformation", "Ethics"));
+			tagObjects.push(new TagObject("ethics", "Ethics"));
+			tagObjects.push(new TagObject("exploitation", "Ethics"));
+			tagObjects.push(new TagObject("hype", "Ethics"));
+			tagObjects.push(new TagObject("identity", "Ethics"));
+			tagObjects.push(new TagObject("plagiarism", "Ethics"));
+			tagObjects.push(new TagObject("success", "Ethics"));
+			tagObjects.push(new TagObject("surveillance", "Ethics"));
 		}
 	</script>
 	<script id="tag-generator-script-v1.1">
@@ -1039,7 +1047,7 @@
 	<div id="lesson" class="column">
 		<h2>Basics</h2>
 		<label for='lwa-title'>Headline or title</label>
-		<input type='text' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
+		<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
 		<label for='lwa-summary'>Summary</label>
 		<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 		<fieldset>
