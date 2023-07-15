@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 3.5, add author, headline clamp. -->
+	<!-- Version 3.6, improve author, summary. -->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -661,17 +661,25 @@
 			overflow: hidden;
 		}
 
-		:is(.lexia, .lexia-selected) :is(.byline, .tags, .lexia-id) {
+		:is(.lexia, .lexia-selected) .byline {
+			text-align: right;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.tags, .lexia-id) {
+			/* CURRENTLY UNUSED */
 			display: none;
 		}
 
-		:is(.lexia, .lexia-selected) .summary {
+		:is(.lexia, .lexia-selected) :is(.summary, .byline) {
+			font-size: 1.2em;
 			color: var(--darkest);
 			opacity: 0;
 			transition: all var(--lexia-transition-duration) ease-in-out;
 		}
 
 		:is(.lexia, .lexia-selected) .summary {
+			/* UPGRADE: Left-align isn't working--justify-contents responsible? */
+			text-align: left;
 			/*  "max-width: 30ch" only works for one line.
 								Someday line-clamp will suffice. In the meantime,
 								all modern browsers accept the following kludge. */
@@ -687,7 +695,7 @@
 			cursor: pointer;
 		}
 
-		:is(.lexia, .lexia-selected):hover .summary {
+		:is(.lexia, .lexia-selected):hover :is(.summary, .byline) {
 			opacity: 1;
 		}
 
@@ -706,9 +714,9 @@
 			color: var(--lightest);
 		}
 
-		:is(.lexia, .lexia-selected):hover :is(h3.byline) {
+		/* :is(.lexia, .lexia-selected):hover :is(h3.byline) {
 			display: block;
-		}
+		} */
 
 		:is(.lexia, .lexia-selected) :is(h2, a):hover {
 			color: white;
