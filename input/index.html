@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 1.7, imported best tag content from hashtag_generator.html and implemented show submit button. Posts correctly to Firebase. -->
+<!-- Version 1.8, add dark mode toggle. -->
 <html>
 
 <head>
@@ -285,15 +285,33 @@
 	<style id="quiz-generator-style-v01.1">
 		/* Modified from v1.0 to adapt to Learning With AI needs. */
 		/*Has dead wood from choose adventure style.*/
-		:root {
-			--block-warm-medium: darkgray;
-			--block-warm-light: gainsboro;
-			--block-warm-lighter: whitesmoke;
-			--block-cool-light: powderblue;
-		}
 
 		body {
 			margin: 0 0 0 2%;
+			background-color: var(--body-background);
+		}
+
+		/* FAILS: @media (prefers-color-scheme: dark), */
+		.light-mode {
+			/* Not using :root so we can toggle these for dark mode. */
+			--body-background: black;
+			--body-background: white;
+			--block-warm-medium: darkgray;
+			--block-warm-light: hsl(180, 20%, 10%);
+			--block-warm-light: gainsboro;
+			--block-warm-lighter: hsl(180, 20%, 10%);
+			--block-warm-lighter: whitesmoke;
+			--block-cool-light: powderblue;
+			--heading-cool-medium: lightSlateGray;
+		}
+
+		.dark-mode {
+			--body-background: black;
+			--block-warm-medium: darkgray;
+			--block-warm-light: hsl(180, 20%, 10%);
+			--block-warm-lighter: hsl(180, 20%, 10%);
+			--block-cool-light: powderblue;
+			--heading-cool-medium: lightSlateGray;
 		}
 
 		#logo {
@@ -311,7 +329,7 @@
 
 		.column h2 {
 			text-align: center;
-			color: lightSlateGray !important;
+			color: var(--heading-cool-medium) !important;
 		}
 
 		h4 {
@@ -359,7 +377,7 @@
 			box-sizing: border-box;
 			font-size: .9em;
 			color: darkGray;
-			background-color: whiteSmoke;
+			background-color: var(--block-warm-lighter);
 		}
 
 		.column {
@@ -468,7 +486,7 @@
 
 		.post-text,
 		.pre-text {
-			color: lightSlateGray;
+			color: var(--heading-cool-medium);
 			font-size: .8em;
 		}
 
@@ -614,6 +632,10 @@
 			align-items: flex-start;
 		}
 
+		legend {
+			color: var(--heading-cool-medium);
+		}
+
 		#tags span {
 			/* white-space: nowrap; */
 			font-size: .8em;
@@ -666,7 +688,7 @@
 			tagObjects.push(new TagObject("healthcare", "Discipline"));
 			tagObjects.push(new TagObject("journalism", "Discipline"));
 			tagObjects.push(new TagObject("law", "Discipline"));
-			tagObjects.push(new TagObject("linguistics", "Medium"));
+			tagObjects.push(new TagObject("languages", "Discipline"));
 			tagObjects.push(new TagObject("literature", "Discipline"));
 			tagObjects.push(new TagObject("marketing", "Discipline"));
 			tagObjects.push(new TagObject("network", "Discipline"));
@@ -678,7 +700,7 @@
 			tagObjects.push(new TagObject("sustainability", "Discipline"));
 			tagObjects.push(new TagObject("work", "Discipline"));
 			tagObjects.push(new TagObject("writing", "Discipline"));
-			// Medium 
+			// Primary Medium 
 			tagObjects.push(new TagObject("code", "Medium"));
 			tagObjects.push(new TagObject("image", "Medium"));
 			tagObjects.push(new TagObject("music", "Medium")); // -> audio for voice simulation.
@@ -795,7 +817,12 @@
 			}
 			// Build span to contain tag.
 			this.tagSpan = document.createElement("span");
-			document.querySelector(`#${currentFieldsetId}`).appendChild(this.tagSpan);
+			try {
+				document.querySelector(`#${currentFieldsetId}`).appendChild(this.tagSpan);
+
+			} catch (e) {
+				console.warn(`tagName`, tagName)
+			}
 			this.tagSpan.className = "tag-span";
 			// Create handle.
 			this.tagSpan.object = this;
@@ -1008,6 +1035,43 @@
 	// Initialize Realtime Database and get a reference to the service
 	// const firebase.database = firebase.getDatabase(app);
 	</script>
+	<script id="theme-toggle-script-v1">
+		// UPGRADE: Fix this OS-level theming and add it where appropriate below:
+		// Check for dark mode preference at the OS level
+		// const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+		// If the user's OS setting is dark and matches our .dark-mode class...
+		// if (prefersDarkScheme.matches) {
+		// } else {
+		// }
+		window.addEventListener(
+			"DOMContentLoaded",
+			() => {
+				// Select the button
+				const themeToggleButton = document.querySelector("#theme");
+				// Get the user's theme preference from local storage, if it's available
+				const currentTheme = localStorage.getItem("theme");
+				// If the user's preference in localStorage is dark...
+				if (currentTheme === "dark") {
+					// ...let's toggle the .dark-theme class on the body
+					document.body.classList.toggle("dark-mode");
+					// Otherwise, if the user's preference in localStorage is light...
+				} else if (currentTheme === "light") {
+					// ...let's toggle the .light-theme class on the body
+					document.body.classList.toggle("light-mode");
+				} else {
+					// Default to theme determined by class in body tag.
+				}
+				toggleTheme = () => {
+					document.body.classList.toggle("light-mode");
+					document.body.classList.toggle("dark-mode");
+					var theme = document.body.classList.contains("light-mode") ? "light" : "dark";
+					var theme = document.body.classList.contains("dark-mode") ? "dark" : "light";
+					// Finally, let's save the current preference to localStorage to keep using it
+					localStorage.setItem("theme", theme);
+				};
+			}
+		)
+	</script>
 	<script id="debug-pre-script_v01.1" type="text/javascript" charset="utf-8">
 		function debug(argument) {
 			// Use only if no debug.js found.
@@ -1033,7 +1097,7 @@
 	</script>
 </head>
 
-<body>
+<body class="light-mode">
 	<div class="watermark">
 		<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
 		<div id="logo">
@@ -1043,6 +1107,7 @@
 		<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
 				class="warning"><strong>'</strong></span>) in any fields.</p>
 	</div>
+	<p id="theme"><a href="#" onclick="toggleTheme()">Toggle dark mode</a></p>
 	<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
 	<div id="lesson" class="column">
 		<h2>Basics</h2>
@@ -1097,10 +1162,10 @@
 	</div>
 	<!-- <div class="arrow-container">
 	<div class="arrow-box-right">
-	</div>
-	<div class="arrow-right">
-	</div>
-</div> -->
+		</div>
+		<div class="arrow-right">
+		</div>
+	</div> -->
 	<div class="row">
 		<p><a onclick="createReport()">Review submission</a></p>
 	</div>
