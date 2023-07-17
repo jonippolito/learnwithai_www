@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 3.6, improve author, summary. -->
+	<!-- Version 3.7, add guide research pathway. -->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -1895,10 +1895,14 @@ return;
 				<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Tell stories with AI</h4>
 				<p>Write fiction and illustrate it with AI-generated imagery.</p>
 			</button>
-			<button id="c" class="feature"
+			<button id="f" class="feature"
 				onclick="viewMode = 'strategies'; chooseScreen(['educator-focused', 'guidelines']);">
 				<h4><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Set AI guidelines</h4>
 				<p>Set a classroom or university policy for students and faculty.</p>
+			</button>
+			<button id="g" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['research']);">
+				<h4><i class="fa-solid fa-microscope" aria-hidden="true"></i> Analyze and publish research</h4>
+				<p>Summarize the literature, analyze data, and suggest future research.</p>
 			</button>
 			<!-- <button id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['AI-human-collaboration']);">
 						<h4><i class="fas fa-user-friends" aria-hidden="true"></i> Learn from peers</h4>
