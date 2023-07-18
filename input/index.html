@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 1.9, add search-as-you-type. -->
+<!-- Version 2.0, delete outline styles. -->
 <html>
 
 <head>
@@ -26,265 +26,12 @@
 			display: block;
 		}
 	</style>
-	<style id="outline-styles-v2.1">
-		/* Outline styles v2.1, revised to tweak margins, colors in watermark div.*/
-		/*__________ Layout hierarchy. __________*/
-		body {
-			font-family: verdana;
-			margin: 3em 3em;
-		}
-
-		strong {
-			color: purple;
-		}
-
-		em {
-			color: olive;
-		}
-
-		h1 {
-			font-variant: small-caps;
-			font-size: 1.5em;
-			color: rgb(100%, 75%, 25%);
-		}
-
-		h2 {
-			margin: 20px;
-			font-size: 1.2em;
-			color: rgb(90%, 70%, 22%);
-		}
-
-		h3 {
-			margin-left: 40px;
-			color: rgb(80%, 60%, 20%);
-		}
-
-		h4 {
-			font-weight: normal;
-			margin-left: 60px;
-			color: rgb(60%, 45%, 15%);
-		}
-
-		h5 {
-			font-weight: normal;
-			margin: .8em 0 .0 80px;
-			color: olive;
-			color: rgb(40%, 30%, 10%);
-		}
-
-		h6 {
-			font-size: .8em;
-			font-weight: normal;
-			margin: .8em 0 0 100px;
-			color: rgb(20%, 15%, 5%);
-		}
-
-		p,
-		blockquote {
-			font-size: .9em;
-			font-weight: normal;
-			margin: .8em 0 0 84px;
-			color: rgb(10%, 7%, 2%);
-		}
-
-		p {
-			margin: .8em 0 0 84px;
-		}
-
-		blockquote p {
-			margin: .8em 20px 0 80px;
-		}
-
-		ul,
-		ol {
-			font-size: .9em;
-			margin: .8em 0 0 60px;
-			padding-left: 40px;
-			/*For IE.*/
-			color: dimgray;
-		}
-
-		li {
-			margin-top: .5em;
-		}
-
-		pre {
-			/*		background-color: rgb( 100%, 100%, 20%) ;*/
-		}
-
-		/*__________ Links. __________*/
-		a {
-			font-weight: bold;
-			text-decoration: none;
-			color: tomato;
-		}
-
-		a:hover {
-			text-decoration: underline;
-		}
-
-		/*__________ Headings. __________*/
-		div.watermark {
-			width: 90%;
-			margin: 0 5%;
-			text-align: center;
-			padding: 1em;
-			color: rgb(80%, 75%, 65%);
-			/* Putty. */
-		}
-
-		div.watermark h1,
-		div.watermark h2,
-		div.watermark h3,
-		div.watermark h4 {
-			color: rgb(54%, 50%, 42%);
-			/* Dark putty (2/3 values) */
-			margin-top: 0;
-		}
-
-		/* Use logo for page title inside watermark. */
-		/* Version number can follow as plain text.*/
-		div#logo {
-			font-size: 1.8em;
-			margin: .5em 0;
-			font-weight: bold;
-		}
-
-		.caption {
-			font-size: .6em;
-			margin-top: -1em;
-		}
-
-		.folder {
-			color: rgb(20%, 60%, 40%);
-		}
-
-		/*__________ Inline emphasis. __________*/
-		.good,
-		.confirmation {
-			color: lightgreen;
-		}
-
-		.bad,
-		.warning {
-			color: red;
-		}
-
-		.confirmation,
-		.warning {
-			font-weight: bold;
-		}
-
-		tt {
-			color: steelblue;
-		}
-
-		/*__________ Block emphasis. __________*/
-		.callout {
-			/*Meant to apply to a div.*/
-			border: black solid 1px;
-			padding: .5em;
-			width: 80%
-		}
-
-		.code {
-			border: dimgray solid 1px;
-			background-color: white !important;
-			font-family: courier;
-			padding: .5em;
-			margin: .8em 0 0 84px;
-			font-size: .8em;
-		}
-
-		.code em {
-			font-style: normal;
-			color: purple;
-		}
-
-		/*__________ Table styles. __________*/
-		/*Use with this HTML:
-		<table border="1" cellspacing="0" cellpadding="2">
-			<tbody>
-				<tr class="labels">
-					<th>First label</th>
-					<th>Second label</th>
-				</tr>
-				<tr>
-					<td>Content</td>
-					<td>Content</td>
-				</tr>
-				...
-	*/
-		table,
-		tr,
-		td,
-		th {
-			border-color: #fff;
-			border-style: solid;
-			border-width: .2em;
-			padding: .4em;
-		}
-
-		tr {
-			background-color: powderblue;
-			background-color: palegoldenrod;
-		}
-
-		tr.labels {
-			background-color: black;
-			background-color: peru;
-			color: white
-		}
-	</style><!-- end outline-styles. -->
-	<style id="outline-styles-v1.0-blais">
-		/* Based on toggler-styles-v2.3-blais. */
-		body {
-			font-family: verdana;
-			/*	background-color: lightsteelblue ;*/
-		}
-
-		h1 {
-			color: midnightblue;
-		}
-
-		strong {
-			color: purple;
-		}
-
-		em {
-			color: mediumorchid;
-		}
-
-		strong em,
-		em strong {
-			background-color: rgb(100%, 90%, 100%);
-			color: fuchsia;
-		}
-
-		h2 {
-			color: darkblue;
-		}
-
-		h3 {
-			color: darkslateblue;
-		}
-
-		h4 {
-			color: steelblue;
-		}
-
-		h5 {
-			color: darkcyan;
-		}
-
-		.toggler,
-		.toggler-over {
-			color: slateblue;
-		}
-	</style>
 	<style id="quiz-generator-style-v01.1">
 		/* Modified from v1.0 to adapt to Learning With AI needs. */
 		/*Has dead wood from choose adventure style.*/
+		:root {
+			--screen-margin-inline: 20px;
+		}
 
 		body {
 			margin: 0 0 0 2%;
@@ -363,6 +110,11 @@
 			clear: both;
 			min-height: 30px;
 			border-top: silver dashed 4px;
+		}
+
+		.row-with-columns {
+			display: flex;
+			justify-content: space-between;
 		}
 
 		.column,
@@ -576,7 +328,7 @@
 			background-color: whiteSmoke;
 			border: silver solid 2px;
 			border-radius: 8px;
-			margin: 10px 5% 20px 10%;
+			margin: 10px var(--block-margin-inline) 20px var(--block-margin-inline);
 			color: royalBlue;
 		}
 
@@ -616,7 +368,8 @@
 			/* Makes room for hint. */
 		}
 
-		.search-box {
+		.search-box,
+		.folksonomy-box {
 			width: 20ch;
 			height: 1em;
 			padding: .5em;
@@ -1194,16 +947,23 @@
 		<label for='lwa-submitter-website'>Submitter website (optional)</label>
 		<input type='url' id='lwa-submitter-website' placeholder='https://michelle.com'></input><br />
 	</div>
+	<div id="row-utilities" class="row">
+		<h3>Click on keywords, or search for a keyword to narrow the options:</h3>
+		<div class="row-with-columns">
+			<div class="search-container">Filter for a keyword: <input type="text" class="search-box" name="search-box"
+					onkeyup="searchFilter(this.value)" />
+			</div>
+			<div class="folksonomy-container">Suggest your own keywords (comma-separated): <input type="text"
+					class="folksonomy-box" name="folksonomy-box" />
+			</div>
+		</div>
+	</div>
 	<div id="row-tags" class="row">
 		<div class="arrow-container">
 			<div class="arrow-box-right">
 			</div>
 			<div class="arrow-right">
 			</div>
-		</div>
-		<h3>Click on keywords, or search for a keyword to narrow the options:</h3>
-		<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-				onkeyup="searchFilter(this.value)" />
 		</div>
 	</div>
 	<div id="tags">
