@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.0, delete outline styles. -->
+<!-- Version 2.1, cleaner layout. -->
 <html>
 
 <head>
@@ -26,16 +26,92 @@
 			display: block;
 		}
 	</style>
+	<link rel="stylesheet" href="../css/fontawesome-free-6.3.0-web/css/all.css" />
 	<style id="quiz-generator-style-v01.1">
 		/* Modified from v1.0 to adapt to Learning With AI needs. */
 		/*Has dead wood from choose adventure style.*/
 		:root {
-			--screen-margin-inline: 20px;
+			--screen-margin-inline: 10%;
+			/* _________________ Global colors from home page._________________ */
+			--h-cooler: 220;
+			/* WAS 205. */
+			--h-medium: 210;
+			/* WAS 200. */
+			--h-warmer: 200;
+			/* WAS 190. */
+			--h-warmest: 160;
+			--h-rotate-from-sepia: 170deg;
+			/* Ice: a cool, dull blue. */
+			--pale-ice: azure;
+			--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
+			--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
+			--darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
+			/* Celeste: a more saturated, warmer blue. */
+			--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1);
+			--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
+			--deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
+			--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+			/* Jade: even more saturated and warmer. */
+			--pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
+			--medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
+			/* Lexia and other backgrounds. */
+			--lexia-lightest: azure;
+			--lexia-lighter: paleturquoise;
+			--lexia-darker: teal;
+			--dull-aqua: lightseagreen;
+			--darker-body: hsla(180, 25%, 25%);
+			/*	Gradients */
+			--gradientStopA: hsla(var(--h-warmer), 100%, 10%, 0.8);
+			--gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
+			--gradientStopC: hsla(var(--h-warmer), 70%, 35%, 0.8);
+			--gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
+			--gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
+			--gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
+			--gradient-lightest: azure;
+			--gradient-lightest: hsla(var(--h-warmer), 90%, 95%, 1);
+			--background-lightest: skyblue;
+			/*	Shadows. */
+			--cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
+			--screenshot-background: hsla(0, 0%, 0%, 0.5);
+			/*	Accents. */
+			--accent: aqua;
+			--highlight: lime;
+
+		}
+
+		/* Heading fonts. */
+		@font-face {
+			/* Unused? */
+			font-family: "sansation-light";
+			src: url("../fonts/Sansation-Light.ttf") format("truetype");
+		}
+
+		@font-face {
+			/* Unused? */
+			font-family: "sansation-regular";
+			src: url("../fonts/Sansation-Regular.ttf") format("truetype");
+		}
+
+		@font-face {
+			font-family: "sansation-bold";
+			src: url("../fonts/Sansation-Bold.ttf") format("truetype");
+		}
+
+		/* Font-awesome. */
+		i {
+			color: --medium-celeste;
+			/* SWATCH Dark ice. */
+			/* text-shadow: var(--medium-celeste) 0 0 0.1em; */
+			/* SWATCH Medium celeste.*/
+			font-size: 1.2em;
+			margin-right: .5em;
 		}
 
 		body {
-			margin: 0 0 0 2%;
 			background-color: var(--body-background);
+			font-family: verdana;
+			margin: 0;
+			padding: 0;
 		}
 
 		/* FAILS: @media (prefers-color-scheme: dark), */
@@ -60,22 +136,74 @@
 			--heading-cool-medium: lightSlateGray;
 		}
 
+		#watermark {
+			/* Adding a background gradient here instead of the body
+			prevents the gradient from repeating somewhere down the page. */
+			position: absolute;
+			width: 100%;
+			height: 2000px;
+			z-index: -1;
+			/*	Gradient: dark, medium, light. 0deg is bottom to top, then clockwise.
+					Percentages set where the new color starts, so 0deg 10% is mostly second color. */
+			background-image: linear-gradient(150deg, var(--gradientStopA), var(--gradient-lightest) 35%), linear-gradient(217deg, var(--gradientStopC), var(--gradient-lightest) 30%), linear-gradient(0deg, var(--gradientStopE), var(--gradient-lightest) 20%);
+			/* background-image: linear-gradient(150deg, var(--gradientStopA), var(--gradient-lightest) 65%); */
+			/* background-attachment: fixed; Necessary? */
+			background-color: var(--gradient-lightest);
+		}
+
+		main {
+			display: flex;
+			flex-direction: column;
+			margin-inline: var(--screen-margin-inline);
+			margin-block: 0;
+			padding: 0;
+			/* outline: yellow solid 3px; */
+			/* opacity: .3; */
+		}
+
+		/* Narrower content. */
+		#header {
+			width: 80vw;
+			margin-left: auto;
+			margin-right: auto;
+			position: relative;
+			padding-top: 20px;
+			height: 100px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 0 25px;
+		}
+
+		h2#rubric,
+		#header img {
+			text-shadow: black 0 0 0.2em;
+		}
+
+		#header img {
+			/* Same as #logo-simple. */
+			width: 3vw;
+		}
+
+
 		#logo {
 			color: powderBlue;
 		}
 
+		h1,
+		h2,
+		h3,
+		h4 {
+			font-family: "sansation-bold";
+		}
+
 		h2,
 		.watermark h2 {
-			color: steelBlue !important;
+			color: steelBlue;
 		}
 
 		.watermark h2 {
 			font-weight: normal;
-		}
-
-		.column h2 {
-			text-align: center;
-			color: var(--heading-cool-medium) !important;
 		}
 
 		h4 {
@@ -95,10 +223,6 @@
 			margin: 0 0 0 1em;
 		}
 
-		.column li {
-			list-style-type: none;
-			margin: -.5em -5em;
-		}
 
 		p#reset {
 			text-align: right;
@@ -106,50 +230,89 @@
 		}
 
 		.row {
-			position: relative;
-			clear: both;
-			min-height: 30px;
+			/* Can be overridden for certain cases. */
+			display: flex;
+			/* min-height: 30px; */
 			border-top: silver dashed 4px;
 		}
 
-		.row-with-columns {
+		.row-containing-columns,
+		.row-containing-rows {
 			display: flex;
 			justify-content: space-between;
+			align-items: center;
+			gap: 30px;
 		}
 
-		.column,
-		.quiz-container {
-			position: relative;
-			float: left;
+		.row-containing-rows {
+			flex-direction: column;
+		}
+
+		.row-centered {
+			justify-content: center;
+			align-items: center;
+		}
+
+		#cards-to-tags-transition {
+			/* Could use arrow variables. */
+			height: 50px;
+		}
+
+		.card {
+			flex: 1;
 			border: gainsboro solid 2px;
 			border-radius: 10px;
 			padding: .5%;
-			margin: 20px 0 20px 2%;
 			box-sizing: border-box;
 			font-size: .9em;
 			color: darkGray;
 			background-color: var(--block-warm-lighter);
 		}
 
-		.column {
-			width: 26%;
+		.card h2 {
+			text-align: center;
+			color: var(--heading-cool-medium);
 		}
 
+		.card li {
+			list-style-type: none;
+			margin: -.5em -5em;
+		}
+
+		/* DEPRECATED: ?
 		.quiz-container {
 			width: 28%;
 		}
+		*/
 
-		/* Slant */
+		/* Slants */
+		/* DEPRECATED: 
 		div.arrow-container {
 			position: relative;
 			float: left;
 			margin-left: 1%;
 		}
+		*/
+
+		.arrow-container {
+			display: flex;
+			align-items: center;
+			outline: yellow solid;
+			/* Dimensions from components. */
+			/* Based on arrow-right. */
+			height: 120px;
+			/* 12 + 30. */
+			width: 42px;
+		}
+
+		.arrow-container.arrow-down {
+			transform: rotate(90deg);
+		}
 
 		div.arrow-box-right {
 			position: relative;
 			float: left;
-			margin-top: 40px;
+			/* margin-top: 40px; */
 			width: 12px;
 			height: 120px;
 			background-color: powderBlue;
@@ -328,7 +491,7 @@
 			background-color: whiteSmoke;
 			border: silver solid 2px;
 			border-radius: 8px;
-			margin: 10px var(--block-margin-inline) 20px var(--block-margin-inline);
+			margin: 10px var(--screen-margin-inline) 20px var(--screen-margin-inline);
 			color: royalBlue;
 		}
 
@@ -370,9 +533,16 @@
 
 		.search-box,
 		.folksonomy-box {
-			width: 20ch;
 			height: 1em;
 			padding: .5em;
+		}
+
+		.search-box {
+			width: 20ch;
+		}
+
+		.folksonomy-box {
+			width: 40ch;
 		}
 
 		/* Tags */
@@ -388,6 +558,10 @@
 			flex-wrap: wrap;
 			justify-content: space-between;
 			align-items: flex-start;
+		}
+
+		fieldset.tall {
+			grid-row: span 2;
 		}
 
 		legend {
@@ -567,6 +741,8 @@
 		/*__________ General metadata. __________*/
 		// No scripts needed, just HTML form fields.
 		/*__________ Tags. __________*/
+		// UPGRADE: This could be determined dynamically by number of entries.
+		const tallFieldsetNames = ["Discipline"];
 		let currentFieldsetId = "[[ No fieldset id defined!]]";
 		const TagObject = function (tagName, fieldsetName) {
 			this.tagName = tagName; // For use outside of this constructor.
@@ -580,6 +756,9 @@
 				let newLegend = document.createElement("legend");
 				newLegend.innerHTML = fieldsetName;
 				newFieldset.appendChild(newLegend);
+				if (tallFieldsetNames.includes(fieldsetName)) {
+					newFieldset.style.gridRow = "span 2";
+				}
 			}
 			// Build span to contain tag.
 			this.tagSpan = document.createElement("span");
@@ -895,95 +1074,116 @@
 </head>
 
 <body class="light-mode">
-	<div class="watermark">
-		<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
-		<div id="logo">
-			Learning With AI: Add Resource
+	<div id="watermark">
+	</div>
+	<main>
+		<div id="header">
+			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
+			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" />
+			<h2 id="rubric">Learning With AI: Add Resource</h2>
+			<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
+			<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
+					class="warning"><strong>'</strong></span>) in any fields.</p>
 		</div>
-		<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
-		<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
-				class="warning"><strong>'</strong></span>) in any fields.</p>
-	</div>
-	<p id="theme"><a href="#" onclick="toggleTheme()">Toggle dark mode</a></p>
-	<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
-	<div id="lesson" class="column">
-		<h2>Basics</h2>
-		<label for='lwa-title'>Headline or title</label>
-		<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-		<label for='lwa-summary'>Summary</label>
-		<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
-		<fieldset>
-			<legend>Select a type</legend>
-			<div class="grid-radio">
-				<label for="type-resource">Resource</label>
-				<input type="radio" id="type-resource" name="type" value="resource" checked onclick="chooseType(this)">
-				<label for="type-strategy">Strategy</label>
-				<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
+		<p id="theme"><a href="#" onclick="toggleTheme()">Toggle dark mode</a></p>
+		<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
+		<div class="row row-containing-columns">
+			<div id="lesson" class="card">
+				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
+				<label for='lwa-title'>Headline or title</label>
+				<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
+				<label for='lwa-summary'>Summary</label>
+				<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
+				<fieldset>
+					<legend>Select a type</legend>
+					<div class="grid-radio">
+						<label for="type-resource">Resource</label>
+						<input type="radio" id="type-resource" name="type" value="resource" checked
+							onclick="chooseType(this)">
+						<label for="type-strategy">Strategy</label>
+						<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
+					</div>
+				</fieldset>
 			</div>
-		</fieldset>
-	</div>
-	<div class="arrow-container">
+			<div class="arrow-container">
+				<div class="arrow-box-right">
+				</div>
+				<div class="arrow-right">
+				</div>
+			</div>
+			<div id="submission-type" class="card">
+				<h2 class="resource-only"><i class="fa-solid fa-book" aria-hidden: "true"></i>Resource</h2>
+				<h2 class="strategy-only"><i class="fa-solid fa-square-pen" aria-hidden: "true"></i>Strategy</h2>
+				<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint"
+						id="hint-filename" onclick="showHint( this, event )">?</a></label>
+				<input class="resource-only" type='url' id='lwa-resource-url'
+					placeholder='https://example.com/make_flashcards.html'></input>
+				<label class="resource-only" for='lwa-author'>Original author/byline</label>
+				<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
+				<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint"
+						id="hint-filename" onclick="showHint( this, event )">?</a></label>
+				<input class="strategy-only" type='text' id='lwa-resource-id'
+					placeholder='mitchell_012d2e1b'></input><br />
+			</div>
+			<div class="arrow-container">
+				<div class="arrow-box-right">
+				</div>
+				<div class="arrow-right">
+				</div>
+			</div>
+			<div id="submission-type" class="card">
+				<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter (optional)</h2>
+				<label for='lwa-submitter-name'>Submitter name (optional)</label>
+				<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
+				<label for='lwa-submitter-email'>Submitter email (optional)</label>
+				<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
+				<label for='lwa-submitter-website'>Submitter website (optional)</label>
+				<input type='url' id='lwa-submitter-website'
+					placeholder='https://michelle.com/example.html'></input><br />
+			</div>
+		</div>
+		<div class="row row-centered" id="cards-to-tags-transition">
+			<div class="arrow-container arrow-down">
+				<div class="arrow-box-right">
+				</div>
+				<div class="arrow-right">
+				</div>
+			</div>
+		</div>
+		<div id="row-utilities" class="row">
+			<h2><i class="fa-solid fa-tags" aria-hidden: "true"></i>Keywords</h2>
+			<div class="row-containing-columns">
+				<div class="search-container">Filter to narrow selection: <input type="text" class="search-box"
+						name="search-box" onkeyup="searchFilter(this.value)" />
+				</div>
+				<div class="folksonomy-container">Suggest your own keywords for this item (comma-separated): <input
+						type="text" class="folksonomy-box" name="folksonomy-box" />
+				</div>
+			</div>
+		</div>
+		<div id="row-tags" class="row row-containing-rows">
+			<div id="tags">
+			</div>
+		</div>
+		<!-- <div class="arrow-container">
 		<div class="arrow-box-right">
-		</div>
-		<div class="arrow-right">
-		</div>
-	</div>
-	<div id="submission-type" class="column">
-		<h2 class="resource-only">Resource</h2>
-		<h2 class="strategy-only">Strategy</h2>
-		<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint" id="hint-filename"
-				onclick="showHint( this, event )">?</a></label>
-		<input class="resource-only" type='url' id='lwa-resource-url'
-			placeholder='https://example.com/make_flashcards.html'></input>
-		<label class="resource-only" for='lwa-author'>Original author/byline</label>
-		<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
-		<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint" id="hint-filename"
-				onclick="showHint( this, event )">?</a></label>
-		<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input><br />
-		<label for='lwa-submitter-name'>Submitter name (optional)</label>
-		<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
-		<label for='lwa-submitter-email'>Submitter email (optional)</label>
-		<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
-		<label for='lwa-submitter-website'>Submitter website (optional)</label>
-		<input type='url' id='lwa-submitter-website' placeholder='https://michelle.com'></input><br />
-	</div>
-	<div id="row-utilities" class="row">
-		<h3>Click on keywords, or search for a keyword to narrow the options:</h3>
-		<div class="row-with-columns">
-			<div class="search-container">Filter for a keyword: <input type="text" class="search-box" name="search-box"
-					onkeyup="searchFilter(this.value)" />
-			</div>
-			<div class="folksonomy-container">Suggest your own keywords (comma-separated): <input type="text"
-					class="folksonomy-box" name="folksonomy-box" />
-			</div>
-		</div>
-	</div>
-	<div id="row-tags" class="row">
-		<div class="arrow-container">
-			<div class="arrow-box-right">
 			</div>
 			<div class="arrow-right">
 			</div>
+		</div> -->
+		<div class="row">
+			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Review
+					submission</a></button>
 		</div>
-	</div>
-	<div id="tags">
-	</div>
-	</div>
-	<!-- <div class="arrow-container">
-	<div class="arrow-box-right">
+		<p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as
+			plain
+			text.</p>
+		<div id="report">
+			(No code generated yet)
 		</div>
-		<div class="arrow-right">
-		</div>
-	</div> -->
-	<div class="row">
-		<p><a onclick="createReport()">Review submission</a></p>
-	</div>
-	<p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as plain
-		text.</p>
-	<div id="report">
-		(No code generated yet)
-	</div>
-	<p><button id="submit-report-button" onclick="submitReport()">Submit your suggestion</button></p>
+		<p><button id="submit-report-button" onclick="submitReport()"><i class="fa-solid fa-file-export"
+					aria-hidden: "true"></i>Submit your suggestion</button></p>
+	</main>
 </body>
 
 </html>
