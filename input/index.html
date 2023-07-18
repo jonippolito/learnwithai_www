@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 1.8, add dark mode toggle. -->
+<!-- Version 1.9, add search-as-you-type. -->
 <html>
 
 <head>
@@ -292,14 +292,13 @@
 		}
 
 		/* FAILS: @media (prefers-color-scheme: dark), */
+		/* Including body here guarantees vars will be defined onload in Firefox. */
+		body,
 		.light-mode {
 			/* Not using :root so we can toggle these for dark mode. */
-			--body-background: black;
 			--body-background: white;
 			--block-warm-medium: darkgray;
-			--block-warm-light: hsl(180, 20%, 10%);
 			--block-warm-light: gainsboro;
-			--block-warm-lighter: hsl(180, 20%, 10%);
 			--block-warm-lighter: whitesmoke;
 			--block-cool-light: powderblue;
 			--heading-cool-medium: lightSlateGray;
@@ -617,6 +616,12 @@
 			/* Makes room for hint. */
 		}
 
+		.search-box {
+			width: 20ch;
+			height: 1em;
+			padding: .5em;
+		}
+
 		/* Tags */
 		#tags {
 			display: grid;
@@ -636,6 +641,7 @@
 			color: var(--heading-cool-medium);
 		}
 
+		/* UPGRADE: These are given a CSS class called "tag-span" that is not currently used. */
 		#tags span {
 			/* white-space: nowrap; */
 			font-size: .8em;
@@ -651,6 +657,11 @@
 			background-color: var(--block-cool-light);
 		}
 
+		/* Hidden is different from not-active. Used in search filter. */
+		#tags span.tag-hidden {
+			display: none;
+		}
+
 		#tags input {
 			width: auto;
 			margin-right: .2em;
@@ -660,7 +671,7 @@
 			margin-right: 1em;
 		}
 	</style>
-	<script id="build-tags-script">
+	<script id="build-tags-script-v1.1">
 		const buildTags = () => {
 			// General 
 			tagObjects.push(new TagObject("AI", "General"));
@@ -805,6 +816,8 @@
 		/*__________ Tags. __________*/
 		let currentFieldsetId = "[[ No fieldset id defined!]]";
 		const TagObject = function (tagName, fieldsetName) {
+			this.tagName = tagName; // For use outside of this constructor.
+			// Assign to fieldset.
 			if (fieldsetName !== currentFieldsetId) {
 				currentFieldsetId = fieldsetName;
 				// Build new fieldset. This assumes fieldsets are already grouped in buildTags.
@@ -826,19 +839,9 @@
 			this.tagSpan.className = "tag-span";
 			// Create handle.
 			this.tagSpan.object = this;
-			// Build tag checkbox.
-			this.tagCheckbox = document.createElement("input");
-			this.tagSpan.appendChild(this.tagCheckbox);
-			this.tagCheckbox.type = "checkbox";
-			this.tagCheckbox.id = tagName;
-			// this.tagCheckbox.name = fieldsetName ; // Not sure this is correct.
-			// Build tag label.
-			this.tagLabel = document.createElement("label");
-			this.tagSpan.appendChild(this.tagLabel);
-			this.tagLabel.for = tagName;
-			this.tagLabel.innerHTML = tagName;
-			this.tagLabel.onclick = () => {
+			this.tagSpan.onclick = (event) => {
 				// "this.tagSpan" is the span.
+
 				if (!this.tagCheckbox.checked) {
 					this.tagSpan.classList.add("tag-active");
 					this.tagCheckbox.checked = true;
@@ -847,9 +850,50 @@
 					this.tagCheckbox.checked = false;
 				}
 			}
+			// Build tag checkbox.
+			this.tagCheckbox = document.createElement("input");
+			this.tagSpan.appendChild(this.tagCheckbox);
+			this.tagCheckbox.type = "checkbox";
+			this.tagCheckbox.id = tagName;
+			this.tagCheckbox.onclick = (event) => {
+				// Prevent double-dipping in checkbox status via span onclick.
+				event.stopPropagation();
+				// "this.tagSpan" is the span.
+				// This is the reverse of span onclick behavior because the onclick appears
+				// to be called after the actual box is ticked.
+				if (!this.tagCheckbox.checked) {
+					this.tagSpan.classList.remove("tag-active");
+				} else {
+					this.tagSpan.classList.add("tag-active");
+				}
+			}
+			// this.tagCheckbox.name = fieldsetName ; // Not sure this is correct.
+			// Build tag label.
+			this.tagLabel = document.createElement("label");
+			this.tagSpan.appendChild(this.tagLabel);
+			this.tagLabel.for = tagName;
+			this.tagLabel.innerHTML = tagName;
+			// Add to manager so user can filter to narrow selection:
+			tagObjects.push(this);
 		}
 		tagObjects = [];
 		currentReport = "[[No report defined!]]";
+		const searchFilter = (searchStr) => {
+			// UPGRADE: This is currently UI specific, but that could be changed if useful.
+			// NOTE: This captures matches that aren't at the beginning of a string.
+			// objRegex.compile(searchStr, "i"); This method is DEPRECATED.
+			// Passing a template string lets you build the expression from dynamic input,
+			// but you have to escape backslashes.
+			var objRegex = new RegExp(`\\b${searchStr}`, "i");
+			// Find span (tag) matches.
+			for (var tagCounter = 0; tagCounter < tagObjects.length; tagCounter++) {
+				if (objRegex.test(tagObjects[tagCounter].tagName)) {
+					tagObjects[tagCounter].tagSpan.classList.remove("tag-hidden");
+				} else {
+					tagObjects[tagCounter].tagSpan.classList.add("tag-hidden");
+				}
+			}
+		}
 		/* ________________ Select submission type. ________________ */
 		const chooseType = radioButton => {
 			let strategyOnlyElements = document.querySelectorAll(".strategy-only");
@@ -1157,8 +1201,13 @@
 			<div class="arrow-right">
 			</div>
 		</div>
-		<div id="tags">
+		<h3>Click on keywords, or search for a keyword to narrow the options:</h3>
+		<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
+				onkeyup="searchFilter(this.value)" />
 		</div>
+	</div>
+	<div id="tags">
+	</div>
 	</div>
 	<!-- <div class="arrow-container">
 	<div class="arrow-box-right">
