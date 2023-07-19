@@ -112,6 +112,55 @@
 			margin-right: .5em;
 		}
 
+		/* Generic tags. */
+		h1,
+		h2,
+		h3,
+		h4 {
+			font-family: "sansation-bold";
+		}
+
+		h2,
+		.watermark h2 {
+			color: steelBlue;
+		}
+
+		.watermark h2 {
+			font-weight: normal;
+		}
+
+		h4 {
+			color: steelblue;
+			font-weight: bold;
+			font-size: 1.1em;
+			margin: .7em 0 .2em 0;
+		}
+
+		p {
+			margin-left: 0;
+			margin-bottom: .5em;
+			color: dimgray;
+		}
+
+		li {
+			margin: 0 0 0 1em;
+		}
+
+		button {
+			padding: .5em;
+			background-color: var(--deep-celeste);
+			color: white;
+			font-weight: bold;
+			font-size: 1.2em;
+			border-radius: 0.5em;
+			margin-top: 1em;
+			/* filter: drop-shadow(var(--block-shadow)); */
+		}
+
+		.warning {
+			color: orangered;
+		}
+
 		body {
 			background-color: var(--body-background);
 			font-family: verdana;
@@ -195,50 +244,6 @@
 			color: powderBlue;
 		}
 
-		h1,
-		h2,
-		h3,
-		h4 {
-			font-family: "sansation-bold";
-		}
-
-		h2,
-		.watermark h2 {
-			color: steelBlue;
-		}
-
-		.watermark h2 {
-			font-weight: normal;
-		}
-
-		h4 {
-			color: steelblue;
-			font-weight: bold;
-			font-size: 1.1em;
-			margin: .7em 0 .2em 0;
-		}
-
-		p {
-			margin-left: 0;
-			margin-bottom: .5em;
-			color: dimgray;
-		}
-
-		li {
-			margin: 0 0 0 1em;
-		}
-
-		button {
-			padding: .5em;
-			background-color: var(--deep-celeste);
-			color: white;
-			font-weight: bold;
-			font-size: 1.2em;
-			border-radius: 0.5em;
-			margin-top: 1em;
-			/* filter: drop-shadow(var(--block-shadow)); */
-		}
-
 		p#reset {
 			text-align: right;
 			margin: 0 40px 4px 0;
@@ -284,13 +289,14 @@
 			flex-direction: column;
 			justify-content: center;
 			align-items: center;
+			flex: 1;
 		}
 
 		.card {
 			flex: 1;
 			border: gainsboro solid 2px;
 			border-radius: 10px;
-			padding: .5%;
+			padding: 1em;
 			box-sizing: border-box;
 			font-size: .9em;
 			color: darkGray;
@@ -524,6 +530,11 @@
 			color: royalBlue;
 		}
 
+		#report em {
+			color: dimgray;
+		}
+
+		/* DEPRECATED? */
 		.report-comment {
 			color: blueViolet;
 		}
@@ -667,7 +678,6 @@
 			tagObjects.push(new TagObject("literature", "Discipline"));
 			tagObjects.push(new TagObject("marketing", "Discipline"));
 			tagObjects.push(new TagObject("network", "Discipline"));
-			tagObjects.push(new TagObject("nursing", "Discipline"));
 			tagObjects.push(new TagObject("promotion", "Discipline"));
 			tagObjects.push(new TagObject("psychology", "Discipline"));
 			tagObjects.push(new TagObject("science", "Discipline"));
@@ -881,16 +891,16 @@
 		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
 		addToLegibleReport = (label, value) => {
-			legibleReportHTML += `${key}: `;
-			if (this[key] === "") {
-				legibleReportHTML += `<span class="warning">NONE INDICATED</span>`;
+			legibleReportHTML += `<em>${label}</em>: `;
+			if (value === "") {
+				legibleReportHTML += `<span class="warning">NONE INDICATED</span><br />`;
 			} else {
-				legibleReportHTML += `${this[key]}<br />`;
+				legibleReportHTML += `${value}<br />`;
 			}
 		}
 		Report = function () {
 			let reportHTML = "";
-			let legibleReportHTML = "";
+			legibleReportHTML = ""; // Global for use in addToLegibleReport.
 			/*________________ Metadata. ________________*/
 			this.title = document.querySelector("#lwa-title").value;
 			this.summary = document.querySelector("#lwa-summary").value;
@@ -973,16 +983,23 @@
 			}
 			reportHTML += `${this.customTags}\t`;
 			// Not using addToLegibleReport function because it's OK if blank.
-			legibleReportHTML += `custom tags: ${this.customTags}<br />`;
+			legibleReportHTML += `<em>custom tags</em>: ${this.customTags}<br />`;
 			/*________________ Date stamp. ________________*/
 			// Submission date as unix seconds.
 			const now = new Date();
 			// Reformatted as 1/31/2023.
 			this.submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
 			reportHTML += `${this.submittedDate}\t`;
-			legibleReportHTML += `submitted: ${this.submittedDate}<br />`;
+			legibleReportHTML += `<em>submitted</em>: ${this.submittedDate}<br />`;
+			/*________________ Submitter details. ________________*/
+			reportHTML += `${this.submitterName}\t`;
+			reportHTML += `${this.submitterWebsite}\t`;
+			legibleReportHTML += `<em>submitter name</em>: ${this.submitterName}<br />`;
+			legibleReportHTML += `<em>submitter website</em>: ${this.submitterWebsite}<br />`;
+			legibleReportHTML += `<em>submitter email</em>: ${this.submitterEmail} (won't be publicly visible)<br />`;
+			submitterEmail = this.submitterEmail; // Global, just for Firebase.
 			/*________________ Report submission type. ________________*/
-			legibleReportHTML += `type: ${this.type}`;
+			legibleReportHTML += `<em>type</em>: ${this.type}`;
 			// Need this global for Firebase post.
 			submissionType = this.type;
 			/*__________ Methods. __________*/
@@ -1030,16 +1047,20 @@
 	<script id="tag-generator-localization-script">
 		isPostingOnline = true; // Overrides default in generic tag generation script.
 		reportFormat = "spreadsheet";
+		const postStatus = message => {
+			document.querySelector("#status").innerHTML = message;
+		}
 		const submitReport = () => {
 			firebase.database().ref("submissions/").push(
 				{
 					submissionType: submissionType,
 					submission: currentReport,
+					submitterEmail: submitterEmail
 				}
 			)
 				.then(
 					(data) => {
-						console.log("Success!");
+						postStatus("Success! Your submission is awaiting approval by the moderators.");
 					}
 				).catch(
 					() => {
@@ -1047,7 +1068,7 @@
 						console.table(currentReport);
 						console.info(data);
 						console.table(data);
-						alert("Sorry, there was a problem adding your submission. Please contact us or try again later.");
+						postStatus("Sorry, there was a problem adding your submission. Please contact us or try again later.");
 					}
 				)
 		}
@@ -1202,13 +1223,13 @@
 			<div class="special-card-container">
 				<div id="submission-type" class="card">
 					<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter (optional)</h2>
-					<label for='lwa-submitter-name'>Submitter name (optional)</label>
+					<label for='lwa-submitter-name'>Submitter name (added to Google Sheet)</label>
 					<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
-					<label for='lwa-submitter-email'>Submitter email (optional)</label>
-					<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
-					<label for='lwa-submitter-website'>Submitter website (optional)</label>
-					<input type='url' id='lwa-submitter-website'
-						placeholder='https://michelle.com/example.html'></input><br />
+					<label for='lwa-submitter-website'>Submitter website (added to Google Sheet)</label>
+					<input type='url' id='lwa-submitter-website' placeholder='https://example.com/'></input><br />
+					<label for='lwa-submitter-email'>Submitter email (not published)</label>
+					<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input>
+					<br />
 				</div>
 				<div class="arrow-container arrow-down">
 					<div class="arrow-box-right">
@@ -1243,12 +1264,13 @@
 			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Generate
 					record</a></button>
 		</div>
-		<p>Review your data for upload and then submit.</p>
+		<p>Review your data for upload, regenerate if necessary, and then submit.</p>
 		<div id="report">
 			(No record generated yet)
 		</div>
 		<p><button id="submit-report-button" onclick="submitReport()"><i class="fa-solid fa-file-export"
 					aria-hidden: "true"></i>Submit your suggestion</button></p>
+		<p id="status"></p>
 	</main>
 </body>
 
