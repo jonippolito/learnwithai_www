@@ -1,5 +1,6 @@
 <!doctype html>
-<!-- Version 2.1, cleaner layout. -->
+<!-- Version 2.2, date + custom tags. -->
+<!-- Still contains dead wood for making hashtags.  -->
 <html>
 
 <head>
@@ -27,7 +28,7 @@
 		}
 	</style>
 	<link rel="stylesheet" href="../css/fontawesome-free-6.3.0-web/css/all.css" />
-	<style id="quiz-generator-style-v01.1">
+	<style id="tagged-submission-generator-style-v01.1">
 		/* Modified from v1.0 to adapt to Learning With AI needs. */
 		/*Has dead wood from choose adventure style.*/
 		:root {
@@ -43,6 +44,8 @@
 			--h-rotate-from-sepia: 170deg;
 			/* Ice: a cool, dull blue. */
 			--pale-ice: azure;
+			/* Added in v01.1: */
+			--medium-ice: hsla(var(--h-medium), 30%, 40%, 1);
 			--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
 			--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
 			--darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
@@ -76,6 +79,8 @@
 			/*	Accents. */
 			--accent: aqua;
 			--highlight: lime;
+			/* Added in v1.1: */
+			--block-shadow: var(--medium-ice) .5px 1.5px 4px;
 
 		}
 
@@ -223,6 +228,16 @@
 			margin: 0 0 0 1em;
 		}
 
+		button {
+			padding: .5em;
+			background-color: var(--deep-celeste);
+			color: white;
+			font-weight: bold;
+			font-size: 1.2em;
+			border-radius: 0.5em;
+			margin-top: 1em;
+			/* filter: drop-shadow(var(--block-shadow)); */
+		}
 
 		p#reset {
 			text-align: right;
@@ -244,6 +259,17 @@
 			gap: 30px;
 		}
 
+		#tag-utilities {
+			display: grid;
+			align-items: start;
+			grid-template-columns: 1fr 2fr 3fr;
+		}
+
+		#tag-utilities h2 {
+			margin: 0;
+			padding: 0;
+		}
+
 		.row-containing-rows {
 			flex-direction: column;
 		}
@@ -253,9 +279,11 @@
 			align-items: center;
 		}
 
-		#cards-to-tags-transition {
-			/* Could use arrow variables. */
-			height: 50px;
+		.special-card-container {
+			display: flex;
+			flex-direction: column;
+			justify-content: center;
+			align-items: center;
 		}
 
 		.card {
@@ -297,12 +325,13 @@
 		.arrow-container {
 			display: flex;
 			align-items: center;
-			outline: yellow solid;
+			/* outline: yellow solid; */
 			/* Dimensions from components. */
 			/* Based on arrow-right. */
 			height: 120px;
 			/* 12 + 30. */
 			width: 42px;
+			filter: drop-shadow(var(--block-shadow));
 		}
 
 		.arrow-container.arrow-down {
@@ -531,6 +560,11 @@
 			/* Makes room for hint. */
 		}
 
+		#tag-utilities label {
+			display: block;
+			margin-bottom: .5em;
+		}
+
 		.search-box,
 		.folksonomy-box {
 			height: 1em;
@@ -541,7 +575,7 @@
 			width: 20ch;
 		}
 
-		.folksonomy-box {
+		#folksonomy-box {
 			width: 40ch;
 		}
 
@@ -610,8 +644,11 @@
 			// Technology 
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
+			tagObjects.push(new TagObject("free", "Technology"));
+			tagObjects.push(new TagObject("freemium", "Technology"));
 			tagObjects.push(new TagObject("prompt", "Technology"));
 			tagObjects.push(new TagObject("tool", "Technology"));
+			tagObjects.push(new TagObject("subscription", "Technology"));
 			// Discipline / context
 			tagObjects.push(new TagObject("animation", "Discipline"));
 			tagObjects.push(new TagObject("art", "Discipline"));
@@ -845,7 +882,8 @@
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
 		Report = function () {
 			let reportHTML = "";
-			// Metadata.
+			let legibleReportHTML = "";
+			/*________________ Metadata. ________________*/
 			this.title = document.querySelector("#lwa-title").value;
 			this.summary = document.querySelector("#lwa-summary").value;
 			if (document.querySelector("#type-strategy").checked) {
@@ -858,7 +896,7 @@
 			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
 			this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
 			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
-			// Tags.
+			/*________________ Default tags. ________________*/
 			this.tags = [];
 			document.querySelectorAll("input[type='checkbox']").forEach(
 				checkbox => {
@@ -885,6 +923,7 @@
 			} else if (reportFormat === "spreadsheet") {
 				this.tagsAsString += this.tags[this.tags.length - 1];
 			}
+			/*________________ Type-specific data. ________________*/
 			if (this.type === "resource") {
 				this.url = document.querySelector("#lwa-resource-url").value;
 				this.author = document.querySelector("#lwa-author").value;
@@ -894,6 +933,7 @@
 							reportHTML += `${this[key]}`;
 						} else if (reportFormat === "spreadsheet") {
 							reportHTML += `${this[key]}\t`;
+							legibleReportHTML += `${key}: ${this[key]}<br />`;
 						}
 					}
 				)
@@ -903,7 +943,7 @@
 					this.lastName = this.author.replace(/^(.+?)\b(.*?)$/, "$1").toLowerCase();
 					this.randomHex = (parseInt(4294967295 * Math.random())).toString(16); // 4294967295 is highest 32-bit number.
 					this.resourceId = `${this.lastName}_${this.randomHex}`;
-					reportHTML += this.resourceId;
+					reportHTML += `${this.resourceId}\t`;
 				}
 			} else { // Submitting a strategy.
 				this.resourceId = document.querySelector("#lwa-resource-id").value;
@@ -913,21 +953,35 @@
 							reportHTML += `${this[key]}`;
 						} else if (reportFormat === "spreadsheet") {
 							reportHTML += `${this[key]}\t`;
+							legibleReportHTML += `${key}: ${this[key]}<br />`;
 						}
 					}
 				)
 			}
+			/*________________ Custom tags. ________________*/
+			this.customTags = document.querySelector("#folksonomy-box").value;
+			if (this.customTags === "") {
+				this.customTags = "none";
+			}
+			reportHTML += `${this.customTags}\t`;
+			legibleReportHTML += `custom tags: ${this.customTags}<br />`;
+			/*________________ Date stamp. ________________*/
+			// Submission date as unix seconds.
+			const now = new Date();
+			// Reformatted as 1/31/2023.
+			this.submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
+			reportHTML += `${this.submittedDate}\t`;
+			legibleReportHTML += `submitted: ${this.submittedDate}<br />`;
 			/*__________ Methods. __________*/
 			this.showReport = function () {
-				console.info("showReport called and reportHTML is ", reportHTML)
-
-				document.getElementById("report").innerHTML = reportHTML; // Or "return this" if you want multiple sections.
+				console.log('%c legibleReportHTML', `color: deepskyblue; background: dimgray; border-radius: .6em;`, legibleReportHTML);
 				currentReport = reportHTML; // UPGRADE: This is a lazy global variable.
 				copyToClipboard(reportHTML); // For Jon to add directly to Google Sheet.
+				// Display legible version of what will get posted to database.
+				document.getElementById("report").innerHTML = legibleReportHTML; // Or "return this" if you want multiple sections.
 			}
 		}
 		createReport = function () {
-			console.info("createReport called")
 			var myReport = new Report();
 			console.table(myReport)
 			myReport.showReport();
@@ -1131,34 +1185,34 @@
 				<div class="arrow-right">
 				</div>
 			</div>
-			<div id="submission-type" class="card">
-				<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter (optional)</h2>
-				<label for='lwa-submitter-name'>Submitter name (optional)</label>
-				<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
-				<label for='lwa-submitter-email'>Submitter email (optional)</label>
-				<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
-				<label for='lwa-submitter-website'>Submitter website (optional)</label>
-				<input type='url' id='lwa-submitter-website'
-					placeholder='https://michelle.com/example.html'></input><br />
+			<div class="special-card-container">
+				<div id="submission-type" class="card">
+					<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter (optional)</h2>
+					<label for='lwa-submitter-name'>Submitter name (optional)</label>
+					<input type='text' id='lwa-submitter-name' placeholder='Michelle Rodriguez'></input><br />
+					<label for='lwa-submitter-email'>Submitter email (optional)</label>
+					<input type='email' id='lwa-submitter-email' placeholder='michelle@example.com'></input><br />
+					<label for='lwa-submitter-website'>Submitter website (optional)</label>
+					<input type='url' id='lwa-submitter-website'
+						placeholder='https://michelle.com/example.html'></input><br />
+				</div>
+				<div class="arrow-container arrow-down">
+					<div class="arrow-box-right">
+					</div>
+					<div class="arrow-right">
+					</div>
+				</div>
 			</div>
 		</div>
-		<div class="row row-centered" id="cards-to-tags-transition">
-			<div class="arrow-container arrow-down">
-				<div class="arrow-box-right">
-				</div>
-				<div class="arrow-right">
-				</div>
-			</div>
-		</div>
-		<div id="row-utilities" class="row">
+		<div id="tag-utilities" class="row row-containing-columns">
 			<h2><i class="fa-solid fa-tags" aria-hidden: "true"></i>Keywords</h2>
-			<div class="row-containing-columns">
-				<div class="search-container">Filter to narrow selection: <input type="text" class="search-box"
-						name="search-box" onkeyup="searchFilter(this.value)" />
-				</div>
-				<div class="folksonomy-container">Suggest your own keywords for this item (comma-separated): <input
-						type="text" class="folksonomy-box" name="folksonomy-box" />
-				</div>
+			<div class="search-container">
+				<label for="search-box">Filter to narrow selection: </label>
+				<input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" />
+			</div>
+			<div class="folksonomy-container">
+				<label for="folksonomy-box">Suggest your own keywords for this item (comma-separated):</label>
+				<input type="text" id="folksonomy-box" name="folksonomy-box" />
 			</div>
 		</div>
 		<div id="row-tags" class="row row-containing-rows">
@@ -1172,14 +1226,12 @@
 			</div>
 		</div> -->
 		<div class="row">
-			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Review
-					submission</a></button>
+			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Generate
+					record</a></button>
 		</div>
-		<p>Your tutorial and tags are encoded in the JSON below. Copy this code to a text or code editor and save as
-			plain
-			text.</p>
+		<p>Review your data for upload and then submit.</p>
 		<div id="report">
-			(No code generated yet)
+			(No record generated yet)
 		</div>
 		<p><button id="submit-report-button" onclick="submitReport()"><i class="fa-solid fa-file-export"
 					aria-hidden: "true"></i>Submit your suggestion</button></p>
