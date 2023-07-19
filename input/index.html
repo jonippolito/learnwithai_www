@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.2, date + custom tags. -->
+<!-- Version 2.3, submission type to Firebase. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -972,6 +972,10 @@
 			this.submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
 			reportHTML += `${this.submittedDate}\t`;
 			legibleReportHTML += `submitted: ${this.submittedDate}<br />`;
+			/*________________ Report submission type. ________________*/
+			legibleReportHTML += `type: ${this.type}`;
+			// Need this global for Firebase post.
+			submissionType = this.type;
 			/*__________ Methods. __________*/
 			this.showReport = function () {
 				console.log('%c legibleReportHTML', `color: deepskyblue; background: dimgray; border-radius: .6em;`, legibleReportHTML);
@@ -1020,6 +1024,7 @@
 		const submitReport = () => {
 			firebase.database().ref("submissions/").push(
 				{
+					submissionType: submissionType,
 					submission: currentReport,
 				}
 			)
