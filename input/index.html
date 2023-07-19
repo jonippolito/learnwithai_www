@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.3, submission type to Firebase. -->
+<!-- Version 2.4, warn for missing data. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -878,8 +878,16 @@
 			}
 		}
 		/* ________________ Report. ________________ */
-		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end.
+		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
+		addToLegibleReport = (label, value) => {
+			legibleReportHTML += `${key}: `;
+			if (this[key] === "") {
+				legibleReportHTML += `<span class="warning">NONE INDICATED</span>`;
+			} else {
+				legibleReportHTML += `${this[key]}<br />`;
+			}
+		}
 		Report = function () {
 			let reportHTML = "";
 			let legibleReportHTML = "";
@@ -933,7 +941,7 @@
 							reportHTML += `${this[key]}`;
 						} else if (reportFormat === "spreadsheet") {
 							reportHTML += `${this[key]}\t`;
-							legibleReportHTML += `${key}: ${this[key]}<br />`;
+							addToLegibleReport(key, this[key]);
 						}
 					}
 				)
@@ -953,7 +961,7 @@
 							reportHTML += `${this[key]}`;
 						} else if (reportFormat === "spreadsheet") {
 							reportHTML += `${this[key]}\t`;
-							legibleReportHTML += `${key}: ${this[key]}<br />`;
+							addToLegibleReport(key, this[key]);
 						}
 					}
 				)
@@ -964,6 +972,7 @@
 				this.customTags = "none";
 			}
 			reportHTML += `${this.customTags}\t`;
+			// Not using addToLegibleReport function because it's OK if blank.
 			legibleReportHTML += `custom tags: ${this.customTags}<br />`;
 			/*________________ Date stamp. ________________*/
 			// Submission date as unix seconds.
@@ -1038,7 +1047,7 @@
 						console.table(currentReport);
 						console.info(data);
 						console.table(data);
-						console.warn("There was a problem adding your submission")
+						alert("Sorry, there was a problem adding your submission. Please contact us or try again later.");
 					}
 				)
 		}
