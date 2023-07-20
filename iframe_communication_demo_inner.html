@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+	<head>
+		<style id="simple-styles-v1.0">
+			/* Simple styles v1.0, for use in class demos. */
+			body {
+				font-family: verdana;
+				background-color: lightyellow;
+				scroll-behavior: smooth; /* Fails :( */
+			}
+			p {
+				background-color: khaki;
+			}
+		</style>
+	</head>
+	<body>
+		<p>Oh hi, I'm text inside the iframe.</p>
+		<p>Please scroll to the bottom of this page and click "Back to the Top".</p>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+		<p>Repudiandae dicta hic, eligendi eveniet officiis recusandae at quae omnis ratione, sunt distinctio beatae modi tempora repellendus magnam autem dolor deleniti dolore.</p>
+		<p>Labore nemo eveniet alias doloremque in, soluta non facilis voluptatem ratione ipsa a?</p>
+		<p>Numquam illum ea explicabo totam sed, eligendi</p>
+		<p>fugit voluptatibus blanditiis voluptates quod unde culpa ad ex officiis! Ad, enim id.</p>
+		<p>Aut neque autem, eligendi dolore, repellendus voluptatibus iste ullam a cumque explicabo impedit corporis quam ex officia doloribus asperiores blanditiis.</p>
+		<p>Pariatur aperiam maxime assumenda quidem aut provident? Quisquam dignissimos illum, esse expedita nulla facilis doloribus assumenda modi? Rem</p>
+		<p>fugiat incidunt quia temporibus ex aspernatur.</p>
+		<p>Minus atque illum obcaecati iure, ipsam laborum.</p>
+		<p>Quia error dolorum iste porro totam!</p>
+		<p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+		<p>Repudiandae dicta hic, eligendi eveniet officiis recusandae at quae omnis ratione, sunt distinctio beatae modi tempora repellendus magnam autem dolor deleniti dolore.</p>
+		<p>Labore nemo eveniet alias doloremque in, soluta non facilis voluptatem ratione ipsa a?</p>
+		<p>Numquam illum ea explicabo totam sed, eligendi</p>
+		<p>fugit voluptatibus blanditiis voluptates quod unde culpa ad ex officiis! Ad, enim id.</p>
+		<p>Aut neque autem, eligendi dolore, repellendus voluptatibus iste ullam a cumque explicabo impedit corporis quam ex officia doloribus asperiores blanditiis.</p>
+		<p>Pariatur aperiam maxime assumenda quidem aut provident? Quisquam dignissimos illum, esse expedita nulla facilis doloribus assumenda modi? Rem</p>
+		<p>fugiat incidunt quia temporibus ex aspernatur.</p>
+		<p>Minus atque illum obcaecati iure, ipsam laborum.</p>
+		<p>Quia error dolorum iste porro totam!</p>
+		<button onclick="window.scrollTo(0,0);">Back to the Top (bad)</button>
+		<!-- You can use "*", but it's better to customize the target (the parent domain enclosing the iframe). -->
+		<!-- <button onclick='window.parent.postMessage("scroll to top", "https://umaine.edu/learnwithai");'>Back to the Top (good)</button> -->
+		<button onclick='window.parent.postMessage("scroll to top", "*");'>Back to the Top (good)</button>
+	</body>
+</html>

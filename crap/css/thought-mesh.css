@@ -1,0 +1,419 @@
+/****** ThoughtMesh stylesheet  ******
+
+Version 4.9, modified by Craig to add CSS support <pre> and <code>
+**************************************
+Palette:
+	dark limegreen rgb(10%,75%,65%) ;
+	light aquamarine rgb(68%,100%,92%) ;
+**************************************
+Your HTML should look like:
+	<body>
+		<div id="navigation">...
+			<div id="home-menu">...
+				<div id="introduction" tags="apples,oranges">...
+				...
+		<div id="lexias">...
+		<div id="content">...
+			<div id="content-introduction">...
+			...
+Supplement this stylesheet with a customized one to change colors, font, etc.
+**************************************/
+
+/* ________ Main Page Styles________ */
+body {
+    background-color:  white ; /* backgroundblue */
+}
+body, div {
+    font-family: Verdana, sans-serif ;
+    font-size: 14px;
+    color: dimgray ; /* body color */
+}
+a { /* Unused: , a:link, a:visited*/
+	color: black ;
+	text-decoration: none ;
+    font-weight: bold;
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+a img {
+    border: none ;
+}
+h2, h4, h5 {
+margin-top: 0em ;
+margin-bottom: .2em ;
+}
+h2, h4 {
+	opacity: .5 !important ;
+	filter:alpha(opacity=50) !important ;
+}
+dt {
+    margin-left: 20px ;
+    margin-top: 10px ;
+    letter-spacing: .25em ;
+}
+ul {
+    margin: .5em 0em .5em 0em ;
+}
+li {
+    margin: .5em 0em .5em -2em ;
+    _margin: .5em 0em .5em 2em ;
+}
+sup {
+    font-size: 8px ;
+}
+.warning {
+	color: orange ;
+}
+strong {
+	color: purple ;
+}
+#loading-shroud {
+	position: absolute ;
+	left: 0 ;
+	z-index: 1000 ;
+	text-align: center ;
+	padding: 30% 0 ;
+	font-size: 4em ;
+	width: 100% ;
+	height: 100% ;
+	color: dimgray ;
+	background-color: white ;
+	opacity: 0.5;
+	-moz-opacity: 0.5;
+	filter:alpha(opacity=50);
+	display: block ; /* Overwritten when loadMesh loads. */
+}
+/* pre, code, blockquote */
+pre {padding:0px 0px 0px 0px; margin-bottom:0px; }
+code {margin:0px 50px 0px 50px; padding:10px; background:#dddddd; display:block; overflow:auto;}
+blockquote {margin-bottom:0px;}
+/* ________ Navigation menu ________ */
+/* Currently all rollover styles are handled in calls to JS constructor */
+#navigation {
+    position: relative;
+    float: left ;
+    width: 23% ;
+    font-size: 18px ;
+    margin-bottom: 20px;
+    margin-top: 5px ;
+    _margin-top: 0px ;
+    margin-left: 20px ;
+    font-weight: normal ;
+    color: dimgray ;
+	text-decoration: none ;
+    z-index: 100 ;
+}
+	#home-menu {
+	    position: relative;
+	    font-size: 18px ;
+	    margin-top: 20px;
+	}
+/* All 8 menulink types */
+.menulink-bachelor-unselected,
+.menulink-bachelor-selected,
+.menulink-parent-collapsed-unselected,
+.menulink-parent-collapsed-selected,
+.menulink-parent-expanded-unselected,
+.menulink-parent-expanded-selected,
+.menulink-child-selected,
+.menulink-child-unselected {
+    margin-bottom: 2px ;
+    padding: 2px ;
+    border: white solid 1px ;
+}
+/* Bachelor and Parent menu links */
+.menulink-bachelor-unselected,
+.menulink-bachelor-selected,
+.menulink-parent-collapsed-unselected,
+.menulink-parent-collapsed-selected,
+.menulink-parent-expanded-unselected,
+.menulink-parent-expanded-selected {
+    border: white solid 1px ;
+    font-size: 16px ;
+}
+/* Unselected links */
+.menulink-bachelor-unselected,
+.menulink-parent-collapsed-unselected,
+.menulink-parent-expanded-unselected,
+.menulink-child-unselected {
+    /* font-weight: bold ; */
+}
+/* Selected links */
+.menulink-bachelor-selected,
+.menulink-parent-collapsed-selected,
+.menulink-parent-expanded-selected,
+.menulink-child-selected {
+    border: black solid 1px ;
+}
+/* Child menu links */
+    .menulink-child-unselected,
+    .menulink-child-selected {
+        margin-left: 20px ;
+    }
+/* ________ThoughtMesh tabs________ */
+	#tabs {
+		position: relative ;
+		background-color: white ;
+		z-index: 30 ;
+	}
+		.tab,
+		.tab-over {
+			position: relative ;
+			float: left ;
+			height: 20px ;
+			border: solid 2px rgb(10%,75%,65%) ; /*dark limegreen*/
+			border-bottom: solid 2px white ;
+			width: 23% ;
+			margin: 0 .5% ;
+			text-align: center ;
+			background-color: white ;
+			cursor:pointer; /* NEW added by Craig */
+		}
+		.tab-over {
+			color: rgb(10%,75%,65%) ; /*dark limegreen*/
+		}
+		#tab-here {
+			margin-left: 0 ;
+			z-index: 30 ;
+		}
+		#tab-trace {
+			margin-right: 0 ;
+		}
+
+/* ________ThoughtMesh lexia excerpts and tags________ */
+/* A div with id="content" should wrap all content divs. */
+/* The "lexias" div should precede it at the same level. */
+#lexias,
+#content {
+    position: relative ;
+    float: left ;
+    top: 5px ;
+    z-index: 10 ;
+}
+#lexias {
+    width: 65% ;
+	left: 5% ;
+}
+	#content {
+		left: 0 ;
+		width: 100% ;
+	}
+	#thoughtmesh-container {
+		background-color: rgb(68%,100%,92%) ; /*light aquamarine*/
+		border: solid 1px rgb(10%,75%,65%) ; /*dark limegreen*/
+	}
+		.thoughtmesh-header {
+			position: relative ;
+			width: 100% ;
+			padding: .5em 0 0 0 ;
+			height: 2.0em ;
+			font-weight: bold ;
+			border-bottom: none ;
+			text-align: center ;
+		}
+			.thoughtmesh-title,
+			.thoughtmesh-title-closed {
+				margin: 0 auto ;
+				position: relative ;
+				width: 11em ;
+				color: white ;
+				background-repeat: no-repeat ;
+				background-position: 134px ;
+				z-index: 2 ;
+			}
+			.thoughtmesh-title {
+				background-image: url(triangle_opened.png) ;
+			}
+			.thoughtmesh-title-closed {
+				background-image: url(triangle_closed.png) ;
+			}
+			.thoughtmesh-title-shadow {
+				position: relative ;
+				margin-top: -1.15em ; /*-10px*/
+				margin-left: .3em ; /*8px*/
+				color: rgb(50%,50%,50%) ; /*light dimgray*/
+				z-index: 1 ;
+			}
+			.thoughtmesh-help,
+			.thoughtmesh-help-shadow {
+				position: absolute ;
+				width: 8em ;
+				text-align: right ;
+				color: white ;
+				top: 4px ;
+				right: 8px ;
+				z-index: 2 ;
+			}
+			.thoughtmesh-help-shadow {
+				color: rgb(50%,50%,50%) ; /*light dimgray*/
+				top: .35em ;
+				right: .4em ;
+				z-index: 1 ;
+			}
+			#thoughtmesh-help-label,
+			#thoughtmesh-help-label-shadow {
+				display: none ;
+			}
+		#cloud-container {
+			position: relative ;
+			margin-top: 0em ; /*-1em*/
+			padding: 0 2.5% ;
+			/* width: 95% ; Compensates for padding*/
+			text-align: justify ;
+		}
+			#home-cloud {
+				font-size: .8em ;
+			}
+				.tag-box {
+					display: inline ; /*This is a div acting like a span to help IE.*/
+					white-space: nowrap ;
+				}
+					.cloud-tag,
+					.cloud-tag-hidden {
+						color: rgb(50%,50%,50%) ; /*light dimgray*/
+						display: inline ;
+						white-space: nowrap ;
+						text-align: left ;
+					}
+					.cloud-tag-hidden {
+						display: none ;
+					}
+					.cloud-tag-selected {
+						color: rgb(10%,75%,65%) ; /*dark limegreen*/
+					}
+					.cloud-tag-minus, {
+						display: none ;
+					}
+					.blank-link {
+						display: inline ; /*This is a div acting like a span to help IE.*/
+						visibility: hidden ;
+					}
+		#lexias-here,
+		#lexias-out,
+		#search-here,
+		#trace {
+			position: relative ;
+			z-index: 20 ;
+			padding: .5em ;
+			margin-bottom: 1em ;
+			top: -2px ;
+			display: block ;
+			/* max-height: 300px ; NEW: removed by Craig (see below) */
+			overflow: auto ;
+			background-color: white ;
+			border: solid 2px rgb(10%,75%,65%) ; /*dark limegreen*/
+		}
+		/* NEW: craig addition to support resized iframes for peer review (trace) */
+		#lexias-here,
+		#lexias-out,
+		#search-here {
+		  max-height: 300px;
+		}
+		#trace {
+		  /* don't force height ... let iframe "do the talking" */
+		}
+		/* end NEW */
+			#lexias-here a,
+			#lexias-out a,
+			#search-here a {
+				color: rgb(10%,75%,65%) ; /*dark limegreen*/
+				margin-right: .5em ;
+			}
+			#lexias-here h4,
+			#search-here h4 {
+				margin: .2em 0 0 0 ;
+			}
+			.lexia-excerpt {
+				margin: .5em .2em .2em 2em ;
+			}
+			.author-and-title {
+				font-weight: bold ;
+				margin: 1em 0 0 0 ;
+			}
+		#lexias-here {
+			text-align: left ;
+			display: block ;
+		}
+		/* Adjustments for submesh */
+		#lexias-out-warning,
+		#submesh-form-container {
+			position: relative ;
+			float: left ;
+			width: 40% ;
+		}
+		#lexias-out-warning {
+			width: 50% ;
+			margin-right: 1% ;
+			padding-right: 5% ;
+			border-right: solid 1px dimgray ;
+		}
+			#submesh-form-container div {
+				position: relative ;
+				text-align: left ;
+				margin-left: .5em ;
+				font-size: .9em ;
+			}
+				.submesh-home-link {
+					font-size: .8em ;
+				}
+
+/* ________Content________ */
+	#lexias-here,
+	#lexias-out,
+	#trace,
+	#loading-message {
+	    display: none ;
+	}
+	#loading-message {
+	    font-size: 50px ;
+	    display: block ;
+	}
+		#content>div {
+			display: none ;
+		}
+		#content>div img {
+			width: 40% ;
+			float: left ;
+			padding: 0 .5em .5em 0 ;
+		}
+		img.image-right {
+			float: right ;
+			padding: 0 0 .5em .5em ;
+		}
+		div.align_center {
+			margin-left:auto;
+			margin-right:auto;
+			width:70% !important;
+		}
+		img.align_center {
+			width:100%;
+		}
+		.caption {
+			font-size: .8em ;
+			margin-top: 1em ;
+		}
+		
+		/* Image caption */
+		
+		#content>div .img_caption {width:40%; padding:5px; background:#eeeeee;}
+		#content>div .img_caption img {margin-bottom:5px; width:100%;}
+		#content>div .align_left {float:left; margin-right:10px;}
+		#content>div .align_right {float:right; margin-left:10px;}		
+		
+	    .next-lexia,
+	 	.next-lexia-top {
+	        text-align: right ;
+	        font-size: 10px ;
+			margin-top: .5em ;
+	    }
+		.next-lexia-top {
+			margin-bottom: -.7em ;
+		}
+	        .next-lexia a,
+	 		.next-lexia-top a {
+	            font-weight: normal ;
+	            font-variant: small-caps ;
+	            font-size: 14px ;
+	        }
