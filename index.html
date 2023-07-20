@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 3.7, add guide research pathway. -->
+	<!-- Version 3.8, add resource submit dates. -->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -659,9 +659,10 @@
 			display: -webkit-box;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
+			/* No effect on clamp: transition: all var(--lexia-transition-duration) ease-in-out; */
 		}
 
-		:is(.lexia, .lexia-selected) .byline {
+		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
 			text-align: right;
 		}
 
@@ -670,11 +671,20 @@
 			display: none;
 		}
 
-		:is(.lexia, .lexia-selected) :is(.summary, .byline) {
-			font-size: 1.2em;
+		:is(.lexia, .lexia-selected) :is(.summary, .byline, .submitted-date) {
 			color: var(--darkest);
 			opacity: 0;
 			transition: all var(--lexia-transition-duration) ease-in-out;
+			/* outline: yellow solid; */
+		}
+
+		:is(.lexia, .lexia-selected) :is(.summary, .byline) {
+			font-size: 1.2em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.submitted-date) {
+			font-size: 1em;
+			margin-top: -1em;
 		}
 
 		:is(.lexia, .lexia-selected) .summary {
@@ -695,7 +705,7 @@
 			cursor: pointer;
 		}
 
-		:is(.lexia, .lexia-selected):hover :is(.summary, .byline) {
+		:is(.lexia, .lexia-selected):hover :is(.summary, .byline, .submitted-date) {
 			opacity: 1;
 		}
 
@@ -1487,9 +1497,9 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						}
 					}
 				};
-				console.log(`Before scroll, Y position is ${window.scrollY}`)
+				// console.log(`Before scroll, Y position is ${window.scrollY}`)
 				window.scrollTo(0, 0);
-				console.log(`After scroll, Y position is ${window.scrollY}`)
+				// console.log(`After scroll, Y position is ${window.scrollY}`)
 			} else if (viewMode === "events") {
 				// NECESSARY: reset screenContainerId?
 				// Swap rubric for banner.
@@ -1600,7 +1610,7 @@ return;
 				if (viewMode === "resources") {
 					window.open(argumentsObject.link, "_blank");
 				} else if (viewMode === "strategies") {
-					console.log(this.resourceIds)
+					// console.log(this.resourceIds)
 					if (this.resourceIds.length === 0) {
 						alert("No resource for this strategy");
 					} else {
@@ -1615,7 +1625,7 @@ return;
 						// Capture last id in the array. Note trailing parethesis.
 						let lastId = this.resourceIds[this.resourceIds.length - 1].trim();
 						regexAsString += `${lastId})`;
-						console.log(regexAsString)
+						// console.log(regexAsString)
 						searchFilter(regexAsString);
 					}
 				}
@@ -1642,6 +1652,11 @@ return;
 			this.lexiaDiv.appendChild(this.bylineH3);
 			this.bylineH3.className = "byline";
 			this.bylineH3.innerHTML = argumentsObject.byline;
+			// Build (submission) date. thoughtmesh.css adds transparency to H4s.
+			this.dateH3 = document.createElement("h3");
+			this.lexiaDiv.appendChild(this.dateH3);
+			this.dateH3.className = "submitted-date";
+			this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
 			// Build tags. CURRENTLY HIDDEN BUT USED IN SEARCH.
 			this.tagsDiv = document.createElement("div");
 			this.lexiaDiv.appendChild(this.tagsDiv);
@@ -1711,6 +1726,9 @@ return;
 						let tagsPair = row["c"][3] || { v: "" };
 						let summaryPair = row["c"][4] || { v: "" };
 						let idPair = row["c"][5] || { v: "" };
+						// Google Sheet object looks like { v: "Date(2023,1,15)", f: "2/15/2023" }.
+						let datePair = row["c"][7] || { f: "" };
+						// console.log('%c datePair', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, datePair);
 						let thisLexia = new Lexia({
 							byline: bylinePair["v"],
 							headline: sourcePair["v"],
@@ -1718,6 +1736,7 @@ return;
 							tags: tagsPair["v"],
 							summary: summaryPair["v"],
 							id: idPair["v"],
+							date: datePair["f"]
 						});
 					}
 				} else if (screenContainerId === "strategies-container") {
@@ -1793,7 +1812,7 @@ return;
 	</script>
 </head>
 
-<body id="learnwithai-body" onload="viewMode='about' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+<body id="learnwithai-body" onload="viewMode='resources' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 	<div id="watermark"></div>
 	<div id="header">
 		<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->

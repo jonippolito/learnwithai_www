@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.4, submitter to Firebase, warn for missing data. -->
+<!-- Version 2.5, better reset, tooltips. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -42,8 +42,12 @@
 			--h-warmest: 160;
 			--h-rotate-from-sepia: 170deg;
 			/* Ice: a cool, dull blue. */
-			--pale-ice: azure;
 			/* Added in v01.1: */
+			/* This changed from the home page: */
+			--palest-ice: azure;
+			--paler-ice: hsla(var(--h-medium), 100%, 90%, 1);
+			--pale-ice: hsla(var(--h-medium), 70%, 80%, 1);
+			;
 			--medium-ice: hsla(var(--h-medium), 30%, 40%, 1);
 			--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
 			--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
@@ -228,9 +232,14 @@
 			gap: 0 25px;
 		}
 
-		h2#rubric,
-		#header img {
-			text-shadow: black 0 0 0.2em;
+		#rubric {
+			color: aqua;
+		}
+
+		#header h2 {
+			color: var(--paler-ice);
+			text-shadow: black 0 0 0.1em,
+				black 0 0 0.3em;
 		}
 
 		#header img {
@@ -243,16 +252,23 @@
 			color: powderBlue;
 		}
 
-		p#reset {
-			text-align: right;
-			margin: 0 40px 4px 0;
-		}
-
 		.row {
 			/* Can be overridden for certain cases. */
 			display: flex;
 			/* min-height: 30px; */
-			border-top: silver dashed 4px;
+			/* border-top: silver dashed 4px; */
+		}
+
+		#global-options {
+			justify-content: flex-end;
+			margin-bottom: 20px;
+		}
+
+		button#theme,
+		button#reset {
+			width: 15ch;
+			font-size: .8em;
+			margin-left: 1em;
 		}
 
 		.row-containing-columns,
@@ -774,14 +790,14 @@
 		}
 		showHint = function (elementClicked, event) {
 			switch (elementClicked.id) {
-				case "hint-filename":
-					var popupObj = new Popup(event, elementClicked.id);
-					popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
-					break;
-				case "hint-extras":
-					var popupObj = new Popup(event, elementClicked.id);
-					popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
-					break;
+				// case "hint-filename":
+				// 	var popupObj = new Popup(event, elementClicked.id);
+				// 	popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
+				// 	break;
+				// case "hint-extras":
+				// 	var popupObj = new Popup(event, elementClicked.id);
+				// 	popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
+				// 	break;
 			}
 		}
 		/*__________ General metadata. __________*/
@@ -873,17 +889,17 @@
 			}
 		}
 		/* ________________ Select submission type. ________________ */
-		const chooseType = radioButton => {
+		const chooseType = radioButtonChoice => {
 			let strategyOnlyElements = document.querySelectorAll(".strategy-only");
 			let resourceOnlyElements = document.querySelectorAll(".resource-only");
-			if (radioButton.value === "resource") {
+			if (radioButtonChoice === "resource") {
 				resourceOnlyElements.forEach(element => element.style.display = "block");
 				strategyOnlyElements.forEach(element => element.style.display = "none");
-			} else if (radioButton.value === "strategy") {
+			} else if (radioButtonChoice === "strategy") {
 				resourceOnlyElements.forEach(element => element.style.display = "none");
 				strategyOnlyElements.forEach(element => element.style.display = "block");
 			} else {
-				console.warn(`${radioButton.value} is not a valid submission type!`);
+				console.warn(`${radioButtonChoice} is not a valid submission type!`);
 			}
 		}
 		/* ________________ Report. ________________ */
@@ -1027,6 +1043,7 @@
 				}
 				if (allInputs[inputCounter].type === "checkbox") {
 					allInputs[inputCounter].checked = false;
+					allInputs[inputCounter].classList.remove("tag-active");
 				}
 				if (allInputs[inputCounter].type === "radio") {
 					allInputs[inputCounter].checked = false;
@@ -1040,7 +1057,12 @@
 			quizDataObjs = [];
 			tags = [];
 			// Clear report.
-			document.getElementById("report").innerHTML = "(No report yet)";
+			document.querySelector("#report").innerHTML = "(No report yet)";
+			document.querySelector("#status").innerHTML = "";
+			document.querySelector("#submit-report-button").style.display = "none";
+			// Set defaults.
+			document.querySelector("#type-resource").checked = true;
+			chooseType("resource");
 		}
 	</script>
 	<script id="tag-generator-localization-script">
@@ -1168,13 +1190,15 @@
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
 			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" />
-			<h2 id="rubric">Learning With AI: Add Resource</h2>
-			<h2>Complete the form to submit a resource or strategy to the toolkit</h2>
-			<p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
-					class="warning"><strong>'</strong></span>) in any fields.</p>
+			<h1 id="rubric">Learning With AI</h1>
+			<h2>Submit a resource or strategy to the toolkit</h2>
+			<!-- <p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
+					class="warning"><strong>'</strong></span>) in any fields.</p> -->
 		</div>
-		<p id="theme"><a href="#" onclick="toggleTheme()">Toggle dark mode</a></p>
-		<p id="reset"><a href="#" onclick="resetForm()">Reset form</a></p>
+		<div class="row" id="global-options">
+			<button id="theme" onclick="toggleTheme()">Toggle dark mode</button>
+			<button id="reset" onclick="resetForm()">Reset form</button>
+		</div>
 		<div class="row row-containing-columns">
 			<div id="lesson" class="card">
 				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
@@ -1187,9 +1211,10 @@
 					<div class="grid-radio">
 						<label for="type-resource">Resource</label>
 						<input type="radio" id="type-resource" name="type" value="resource" checked
-							onclick="chooseType(this)">
+							onclick="chooseType(this.value)">
 						<label for="type-strategy">Strategy</label>
-						<input type="radio" id="type-strategy" name="type" value="strategy" onclick="chooseType(this)">
+						<input type="radio" id="type-strategy" name="type" value="strategy"
+							onclick="chooseType(this.value)">
 					</div>
 				</fieldset>
 			</div>
@@ -1202,8 +1227,7 @@
 			<div id="submission-type" class="card">
 				<h2 class="resource-only"><i class="fa-solid fa-book" aria-hidden: "true"></i>Resource</h2>
 				<h2 class="strategy-only"><i class="fa-solid fa-square-pen" aria-hidden: "true"></i>Strategy</h2>
-				<label class="resource-only" for='lwa-resource-url'>Resource URL <a href="#" class="hint"
-						id="hint-filename" onclick="showHint( this, event )">?</a></label>
+				<label class="resource-only" for='lwa-resource-url'>Resource URL</label>
 				<input class="resource-only" type='url' id='lwa-resource-url'
 					placeholder='https://example.com/make_flashcards.html'></input>
 				<label class="resource-only" for='lwa-author'>Original author/byline</label>
@@ -1253,12 +1277,6 @@
 			<div id="tags">
 			</div>
 		</div>
-		<!-- <div class="arrow-container">
-		<div class="arrow-box-right">
-			</div>
-			<div class="arrow-right">
-			</div>
-		</div> -->
 		<div class="row">
 			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Generate
 					record</a></button>
