@@ -1,11 +1,11 @@
 <!doctype html>
-<!-- Version 2.5, better reset, tooltips. -->
+<!-- Version 2.6, better reset. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="A project by Jon Ippolito">
+	<meta name="description" content="Contribute to the Learning With AI toolkit with this form">
 	<title>Learning With AI: Contribute a Resource</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -234,6 +234,18 @@
 
 		#rubric {
 			color: aqua;
+		}
+
+		:is(#logo-simple, #rubric):hover {
+			cursor: pointer;
+		}
+
+		#beta {
+			position: relative;
+			top: -1em;
+			left: -1em;
+			color: dimgray;
+			font-size: .8em;
 		}
 
 		#header h2 {
@@ -666,7 +678,6 @@
 			tagObjects.push(new TagObject("guidelines", "General"));
 			tagObjects.push(new TagObject("list", "General"));
 			tagObjects.push(new TagObject("research", "General"));
-			tagObjects.push(new TagObject("resources", "General"));
 			// Technology 
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
@@ -790,14 +801,10 @@
 		}
 		showHint = function (elementClicked, event) {
 			switch (elementClicked.id) {
-				// case "hint-filename":
-				// 	var popupObj = new Popup(event, elementClicked.id);
-				// 	popupObj.popupDiv.innerHTML += "This stem will be used for the video and badge filenames.<br /><br />It typically looks like <em>make_budget</em> or <em>prepare_web_project</em>."
-				// 	break;
-				// case "hint-extras":
-				// 	var popupObj = new Popup(event, elementClicked.id);
-				// 	popupObj.popupDiv.innerHTML += "Please check any ancillary material you can provide, then share the documents or references directly with your administrator."
-				// 	break;
+				case "hint-resource-id":
+					var popupObj = new Popup(event, elementClicked.id);
+					popupObj.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
+					break;
 			}
 		}
 		/*__________ General metadata. __________*/
@@ -1132,6 +1139,8 @@
 		window.addEventListener(
 			"DOMContentLoaded",
 			() => {
+				resetForm();
+				/*________________ Dark mode. ________________*/
 				// Select the button
 				const themeToggleButton = document.querySelector("#theme");
 				// Get the user's theme preference from local storage, if it's available
@@ -1189,9 +1198,11 @@
 	<main>
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
-			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" />
-			<h1 id="rubric">Learning With AI</h1>
+			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png"
+				onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">
+			<h1 id="rubric" onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">Learning With AI</h1>
 			<h2>Submit a resource or strategy to the toolkit</h2>
+			<div id="beta">BETA</div>
 			<!-- <p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
 					class="warning"><strong>'</strong></span>) in any fields.</p> -->
 		</div>
@@ -1233,7 +1244,7 @@
 				<label class="resource-only" for='lwa-author'>Original author/byline</label>
 				<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
 				<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint"
-						id="hint-filename" onclick="showHint( this, event )">?</a></label>
+						id="hint-resource-id" onclick="showHint( this, event )">?</a></label>
 				<input class="strategy-only" type='text' id='lwa-resource-id'
 					placeholder='mitchell_012d2e1b'></input><br />
 			</div>
