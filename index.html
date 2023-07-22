@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 4.0 overwrite japanese disaster. -->
+	<!-- Version 4.1 temporarily remove submitter from strategies. -->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -1656,7 +1656,16 @@ return;
 			this.dateH3 = document.createElement("h3");
 			this.lexiaDiv.appendChild(this.dateH3);
 			this.dateH3.className = "submitted-date";
-			this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
+			if (viewMode === "resources") {
+				this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
+			} else if (viewMode === "strategies") {
+				if (argumentsObject.submitter !== "") {
+
+					this.dateH3.innerHTML = `Submitted by ${argumentsObject.submitter}`;
+				} else {
+					// Leave blank.
+				}
+			}
 			// Build tags. CURRENTLY HIDDEN BUT USED IN SEARCH.
 			this.tagsDiv = document.createElement("div");
 			this.lexiaDiv.appendChild(this.tagsDiv);
@@ -1714,6 +1723,7 @@ return;
 			rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
 			rowsAsArray = JSON.parse(rowsAsString);
 			rowsAsArray.forEach((row) => {
+				// In the Sheet, the first column is 0, the second 1, etc.
 				if (screenContainerId === "resources-container") {
 					// UPGRADE: Feels kludgy.
 					if (row["c"][0]["v"] === "Byline/sort") {
@@ -1748,6 +1758,7 @@ return;
 						let descriptionPair = row["c"][1] || { v: "" };
 						let tagsPair = row["c"][2] || { v: "" };
 						let idPair = row["c"][3] || { v: "" };
+						let submitterPair = row["c"][6] || { v: "" };
 						// let deleteMe = row["c"][3] || { v: "" };
 						// let linkPair = row["c"][4] || { v: "" };
 						let thisLexia = new Lexia({
@@ -1757,6 +1768,7 @@ return;
 							resourceIdsAsString: idPair["v"],
 							byline: "",
 							link: "",
+							submitter: submitterPair["v"]
 						});
 					}
 				} else {
