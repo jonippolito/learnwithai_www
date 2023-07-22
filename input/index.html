@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.9: add status: pending. -->
+<!-- Version 3.0: clear tag search. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -277,10 +277,16 @@
 		}
 
 		button#theme,
-		button#reset {
-			width: 15ch;
+		button#reset,
+		button#clear-search {
+			/* width: 15ch; */
 			font-size: .8em;
 			margin-left: 1em;
+		}
+
+		/* Restore this after fixing dark mode: */
+		button#theme {
+			display: none;
 		}
 
 		.row-containing-columns,
@@ -603,13 +609,13 @@
 			margin-bottom: .5em;
 		}
 
-		.search-box,
-		.folksonomy-box {
+		#search-box,
+		#folksonomy-box {
 			height: 1em;
 			padding: .5em;
 		}
 
-		.search-box {
+		#search-box {
 			width: 20ch;
 		}
 
@@ -698,6 +704,7 @@
 			tagObjects.push(new TagObject("education", "Discipline"));
 			tagObjects.push(new TagObject("governance", "Discipline"));
 			tagObjects.push(new TagObject("healthcare", "Discipline"));
+			tagObjects.push(new TagObject("history", "Discipline"));
 			tagObjects.push(new TagObject("journalism", "Discipline"));
 			tagObjects.push(new TagObject("law", "Discipline"));
 			tagObjects.push(new TagObject("languages", "Discipline"));
@@ -882,7 +889,7 @@
 		const searchFilter = (searchStr) => {
 			// UPGRADE: This is currently UI specific, but that could be changed if useful.
 			// NOTE: This captures matches that aren't at the beginning of a string.
-			// objRegex.compile(searchStr, "i"); This method is DEPRECATED.
+			// objRegex.compile(searchStr, "i"): This method is DEPRECATED.
 			// Passing a template string lets you build the expression from dynamic input,
 			// but you have to escape backslashes.
 			var objRegex = new RegExp(`\\b${searchStr}`, "i");
@@ -895,6 +902,13 @@
 				}
 			}
 		}
+		const clearSearchFilter = () => {
+			for (var tagCounter = 0; tagCounter < tagObjects.length; tagCounter++) {
+				tagObjects[tagCounter].tagSpan.classList.remove("tag-hidden");
+			};
+			document.querySelector("#search-box").value = "";
+		}
+
 		/* ________________ Select submission type. ________________ */
 		const chooseType = radioButtonChoice => {
 			let strategyOnlyElements = document.querySelectorAll(".strategy-only");
@@ -1278,7 +1292,8 @@
 			<h2><i class="fa-solid fa-tags" aria-hidden: "true"></i>Keywords</h2>
 			<div class="search-container">
 				<label for="search-box">Filter to narrow selection: </label>
-				<input type="text" class="search-box" name="search-box" onkeyup="searchFilter(this.value)" />
+				<input type="text" id="search-box" name="search-box" onkeyup="searchFilter(this.value)" /><button
+					id="clear-search" onclick="clearSearchFilter()">clear</button>
 			</div>
 			<div class="folksonomy-container">
 				<label for="folksonomy-box">Suggest your own keywords for this item (comma-separated):</label>
