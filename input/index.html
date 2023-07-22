@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 2.7 overwrite japanese disaster. -->
+<!-- Version 2.8: clarify author, submitter fields. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -1017,7 +1017,7 @@
 			reportHTML += `${this.submitterName}\t`;
 			reportHTML += `${this.submitterWebsite}\t`;
 			legibleReportHTML += `<em>submitter name</em>: ${this.submitterName}<br />`;
-			legibleReportHTML += `<em>submitter website</em>: ${this.submitterWebsite}<br />`;
+			legibleReportHTML += `<em>submitter's own website</em>: ${this.submitterWebsite}<br />`;
 			legibleReportHTML += `<em>submitter email</em>: ${this.submitterEmail} (won't be publicly visible)<br />`;
 			submitterEmail = this.submitterEmail; // Global, just for Firebase.
 			/*________________ Report submission type. ________________*/
@@ -1241,7 +1241,7 @@
 				<label class="resource-only" for='lwa-resource-url'>Resource URL</label>
 				<input class="resource-only" type='url' id='lwa-resource-url'
 					placeholder='https://example.com/make_flashcards.html'></input>
-				<label class="resource-only" for='lwa-author'>Original author/byline</label>
+				<label class="resource-only" for='lwa-author'>Original author (eg lastname, firstname)</label>
 				<input class="resource-only" type='text' id='lwa-author' placeholder='Michelle Rodriguez'></input><br />
 				<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint"
 						id="hint-resource-id" onclick="showHint( this, event )">?</a></label>
