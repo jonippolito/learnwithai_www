@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 3.0: clear tag search. -->
+<!-- Version 3.1: reset URL field. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -1071,6 +1071,8 @@
 					allInputs[inputCounter].checked = false;
 				}
 			};
+			// Clear URL field. Not sure why this isn't covered under inputs above...
+			document.querySelector("#lwa-resource-url").value = "";
 			var allTextareas = document.getElementsByTagName("textarea");
 			for (var textareaCounter = 0; textareaCounter < allTextareas.length; textareaCounter++) {
 				allTextareas[textareaCounter].value = "";
@@ -1085,6 +1087,7 @@
 			// Set defaults.
 			document.querySelector("#type-resource").checked = true;
 			chooseType("resource");
+			document.querySelector("#lwa-title").focus();
 		}
 	</script>
 	<script id="tag-generator-localization-script">
