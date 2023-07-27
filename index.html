@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 4.1 temporarily remove submitter from strategies. -->
+	<!-- Version 4.2: clear search button. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -228,6 +228,17 @@
 			text-shadow: var(--highlight) 0 0 0.3em;
 			cursor: pointer;
 			background-color: var(--dark-ice);
+		}
+
+		button.utility-style {
+			padding: .5em;
+			background-color: var(--deep-celeste);
+			color: white;
+			font-weight: bold;
+			font-size: .8em;
+			border-radius: 0.5em;
+			margin-top: 1em;
+			margin-left: 1em;
 		}
 
 		/* Inline-style links. */
@@ -1423,6 +1434,13 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				}
 			}
 		}
+		const clearSearchFilter = () => {
+			for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
+				itemManager[itemCounter].style.display = "block";
+			}
+			document.querySelector(`#${viewMode}-search-box`).value = "";
+			document.querySelector(`#${viewMode}-search-box`).focus();
+		};
 		enableLexiaSelection = function () {
 			lexiaDivs = document.getElementsByClassName("lexia");
 			// Assumes inactive lexias are commented out,
@@ -1978,7 +1996,8 @@ return;
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
 			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					onkeyup="searchFilter(this.value)" /></div>
+					id="resources-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
+					onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
@@ -2001,7 +2020,8 @@ return;
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
 			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					onkeyup="searchFilter(this.value)" /></div>
+					id="strategies-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
+					onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
