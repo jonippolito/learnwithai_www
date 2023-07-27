@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 4.2: clear search button. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 4.3: call to action. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -802,6 +802,11 @@
 			/* object-fit: contain; */
 			width: 100%;
 			margin: 0;
+		}
+
+		#about-container p.call-to-action {
+			font-style: italic;
+			font-size: 1.5em;
 		}
 
 		#events-preview-more {
@@ -1865,6 +1870,10 @@ return;
 		<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" id="hero" />
 		<div id="explanation">
 			<div>
+				<p class="call-to-action">Want to jump right to material and activities you can use in class right now?
+					Filter for what
+					interests you in the <a href="#" onclick="chooseScreen('resources')">Resources</a> or <a href="#"
+						onclick="chooseScreen('strategies')">Strategies</a> sections.</p>
 				<p>
 					As the sudden rise of generative AI sends shock waves through society, no sector is feeling the
 					disruption as abruptly and pervasively as education. Large Language Models like ChatGPT threaten to
