@@ -5,7 +5,7 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 4.3: call to action. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 4.4: Add screencast. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -302,6 +302,8 @@
 			text-decoration: none;
 		}
 
+		/*__________ About, resources, strategies screens. __________*/
+
 		/* Wider content. */
 		#search-instructions,
 		#about-container,
@@ -475,8 +477,34 @@
 		#explanation {
 			display: grid;
 			gap: 1em;
-			grid-template-columns: 1fr 2fr;
+			/* grid-template-columns: 1fr 2fr; */
+			grid:
+				"call-to-action-text call-to-action-text call-to-action-screencast"
+				"explanation-text events-preview events-preview"
+				/ 2fr 1fr 2fr;
 		}
+
+		#call-to-action-text {
+			grid-area: call-to-action-text;
+		}
+
+		#call-to-action-screencast {
+			grid-area: call-to-action-screencast;
+		}
+
+		#call-to-action-screencast video {
+			width: 40vw;
+			transform: scale(.9);
+		}
+
+		#explanation-text {
+			grid-area: explanation-text;
+		}
+
+		#events-preview {
+			grid-area: events-preview;
+		}
+
 
 		#explanation .side-image {
 			max-width: 200px;
@@ -746,8 +774,7 @@
 			/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
 		}
 
-
-		/*__________ Events and FAQ. __________*/
+		/* ________________Events and FAQ screens.________________ */
 		#faq-container h1,
 		#events-container h1 {
 			color: var(--lexia-lighter);
@@ -910,33 +937,44 @@
 			}
 
 			#explanation {
-				grid-template-columns: 1fr;
+				grid-template:
+					"call-to-action-text"
+					"call-to-action-screencast"
+					"explanation-text"
+					"events-preview"
+				;
 			}
 
-			.events-preview-list {
-				grid-template-columns: 4fr 1fr;
-				/* gap: calc(2 * var(--padding-section)) 0; */
+			#call-to-action-screencast video {
+				width: 100%;
+				transform: scale(1);
 			}
+		}
 
-			#about-container .events-preview-list .side-image {
-				clip-path: none;
-				margin: 0;
-			}
+		.events-preview-list {
+			grid-template-columns: 4fr 1fr;
+			/* gap: calc(2 * var(--padding-section)) 0; */
+		}
 
-			.events-preview-list h2,
-			.events-preview-list p {
-				font-size: 2em;
-			}
+		#about-container .events-preview-list .side-image {
+			clip-path: none;
+			margin: 0;
+		}
 
-			/* #events-container {
+		.events-preview-list h2,
+		.events-preview-list p {
+			font-size: 2em;
+		}
+
+		/* #events-container {
 					height: 1000em;
 				} */
-			#events-list {
-				grid-template:
-					"inperson"
-					"webinar"
-					"past";
-			}
+		#events-list {
+			grid-template:
+				"inperson"
+				"webinar"
+				"past";
+		}
 		}
 	</style>
 	<script id="sniff-browsers-script-2018">
@@ -1465,6 +1503,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 	<script id="learnwithai-index-script">
 		const screens = ["about", "resources", "strategies", "events", "faq"];
+		// chooseScreen does not take the screen name, which is set with the viewMode global variable.
 		const chooseScreen = async (selectedTags) => {
 			screens.forEach((screen) => {
 				document.querySelector(`#${screen}-container`).style.display = "none";
@@ -1869,11 +1908,21 @@ return;
 	<div id="about-container">
 		<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" id="hero" />
 		<div id="explanation">
-			<div>
-				<p class="call-to-action">Want to jump right to material and activities you can use in class right now?
+			<div id="call-to-action-text">
+				<p class="call-to-action">Want to jump right to material and activities you can use in class right
+					now?
 					Filter for what
-					interests you in the <a href="#" onclick="chooseScreen('resources')">Resources</a> or <a href="#"
-						onclick="chooseScreen('strategies')">Strategies</a> sections.</p>
+					interests you in the <a href="#" onclick="viewMode = 'resources'; chooseScreen()">Resources</a> or
+					<a href="#" onclick="viewMode = 'strategies'; chooseScreen()">Strategies</a> sections.</p>
+			</div>
+			<div id="call-to-action-screencast">
+				<video controls muted autoplay loop>
+					<source src="media/learnwithai_demo.mp4" type="video/mp4">
+					<source src="media/learnwithai_demo.webm" type="video/webm">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+			<div id="explanation-text">
 				<p>
 					As the sudden rise of generative AI sends shock waves through society, no sector is feeling the
 					disruption as abruptly and pervasively as education. Large Language Models like ChatGPT threaten to
