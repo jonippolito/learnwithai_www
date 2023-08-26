@@ -5,7 +5,8 @@
 	<meta charset="utf-8" />
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
-	<!-- Version 4.4: Add screencast. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Version 4.5: Add submission teaser, viewport meta tag. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -499,12 +500,12 @@
 
 		#explanation-text {
 			grid-area: explanation-text;
+			margin-top: var(--padding-section);
 		}
 
 		#events-preview {
 			grid-area: events-preview;
 		}
-
 
 		#explanation .side-image {
 			max-width: 200px;
@@ -799,6 +800,7 @@
 			background-color: hsl(200, 100%, 100%, 0.2);
 		}
 
+		.call-to-action i,
 		#events-preview i,
 		#events-list i {
 			color: var(--dull-aqua);
@@ -923,7 +925,7 @@
 			display: none;
 		}
 
-		@media only screen and (max-device-width: 414px) {
+		@media only screen and (max-width: 414px) {
 			.mobile-browsing-warning {
 				display: block;
 			}
@@ -1909,11 +1911,17 @@ return;
 		<img src="media/learnwithai_graphic_banner_1080.png" alt="Nmd Citl Learning With Ai Ann 1080" id="hero" />
 		<div id="explanation">
 			<div id="call-to-action-text">
-				<p class="call-to-action">Want to jump right to material and activities you can use in class right
+				<p class="call-to-action"><i class="fa-solid fa-person-walking-arrow-right"></i> Want to jump right to
+					material and activities you can use in class right
 					now?
 					Filter for what
 					interests you in the <a href="#" onclick="viewMode = 'resources'; chooseScreen()">Resources</a> or
-					<a href="#" onclick="viewMode = 'strategies'; chooseScreen()">Strategies</a> sections.</p>
+					<a href="#" onclick="viewMode = 'strategies'; chooseScreen()">Strategies</a> sections.
+				</p>
+				<p class="call-to-action"><i class="fa-solid fa-bullhorn"></i> Have a website, video, or assignment to
+					contribute to this
+					collection? <a href="#" onclick="viewMode='faq'; chooseScreen()">Contact us</a> for a link to our
+					submission page, currently in beta.</p>
 			</div>
 			<div id="call-to-action-screencast">
 				<video controls muted autoplay loop>
@@ -1923,6 +1931,7 @@ return;
 				</video>
 			</div>
 			<div id="explanation-text">
+				<h3>Adapting to a changed classroom</h3>
 				<p>
 					As the sudden rise of generative AI sends shock waves through society, no sector is feeling the
 					disruption as abruptly and pervasively as education. Large Language Models like ChatGPT threaten to
@@ -1936,7 +1945,7 @@ return;
 					forms of pedagogy that can exploit them.</p>
 			</div>
 			<div id="events-preview">
-				<h3>Featured recordings</h3>
+				<h3>Featured videos</h3>
 				<div class="events-preview-list">
 					<div>
 						<h2>
