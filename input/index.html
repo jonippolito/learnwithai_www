@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 3.4: add grant, remove away on break notice. -->
+<!-- Version 3.5: add fabrication, reset url, email contributor fields I missed before. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -755,6 +755,7 @@
 			tagObjects.push(new TagObject("disinformation", "Ethics"));
 			tagObjects.push(new TagObject("ethics", "Ethics"));
 			tagObjects.push(new TagObject("exploitation", "Ethics"));
+			tagObjects.push(new TagObject("fabrication", "Ethics"));
 			tagObjects.push(new TagObject("hype", "Ethics"));
 			tagObjects.push(new TagObject("identity", "Ethics"));
 			tagObjects.push(new TagObject("plagiarism", "Ethics"));
@@ -1063,15 +1064,23 @@
 		resetForm = function () { // UPGRADE: Need to customize this.
 			var allInputs = document.getElementsByTagName("input");
 			for (var inputCounter = 0; inputCounter < allInputs.length; inputCounter++) {
-				if (allInputs[inputCounter].type === "text") {
-					allInputs[inputCounter].value = "";
-				}
-				if (allInputs[inputCounter].type === "checkbox") {
-					allInputs[inputCounter].checked = false;
-					allInputs[inputCounter].classList.remove("tag-active");
-				}
-				if (allInputs[inputCounter].type === "radio") {
-					allInputs[inputCounter].checked = false;
+				switch (allInputs[inputCounter].type) {
+					case "text":
+						allInputs[inputCounter].value = "";
+						break;
+					case "url":
+						allInputs[inputCounter].value = "";
+						break;
+					case "email":
+						allInputs[inputCounter].value = "";
+						break;
+					case "checkbox":
+						allInputs[inputCounter].checked = false;
+						allInputs[inputCounter].classList.remove("tag-active");
+						break;
+					case "radio":
+						allInputs[inputCounter].checked = false;
+						break;
 				}
 			};
 			// Clear URL field. Not sure why this isn't covered under inputs above...
@@ -1148,8 +1157,8 @@
 		};
 		// Initialize Firebase
 		const app = firebase.initializeApp(firebaseConfig);
-	// Initialize Realtime Database and get a reference to the service
-	// const firebase.database = firebase.getDatabase(app);
+		// Initialize Realtime Database and get a reference to the service
+		// const firebase.database = firebase.getDatabase(app);
 	</script>
 	<script id="theme-toggle-script-v1">
 		// UPGRADE: Fix this OS-level theming and add it where appropriate below:
