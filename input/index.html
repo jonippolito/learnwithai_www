@@ -1119,7 +1119,7 @@
 				.then(
 					(data) => {
 						let submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
-						let submittedTime = `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentDate.getSeconds()}`;
+						let submittedTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 						postStatus(`Success! Your submission is awaiting approval by the moderators (${submittedDate} ${submittedTime}).`);
 						// postStatus("Success! We'll review your submission as soon as we're back from a mid-August break.");
 					}
