@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 3.6: notify user of date/time submitted. -->
+<!-- Version 3.7: fix broken submission date, add citation tag. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -733,6 +733,7 @@
 			tagObjects.push(new TagObject("video", "Medium"));
 			// Task 
 			tagObjects.push(new TagObject("assignment", "Task"));
+			tagObjects.push(new TagObject("citation", "Task"));
 			tagObjects.push(new TagObject("classroom", "Task"));
 			tagObjects.push(new TagObject("communication", "Task"));
 			tagObjects.push(new TagObject("editing", "Task"));
@@ -740,6 +741,7 @@
 			tagObjects.push(new TagObject("feedback", "Task"));
 			tagObjects.push(new TagObject("grant", "Task"));
 			tagObjects.push(new TagObject("howto", "Task"));
+			tagObjects.push(new TagObject("remote learning", "Task"));
 			tagObjects.push(new TagObject("study", "Task"));
 			tagObjects.push(new TagObject("teamwork", "Task"));
 			// Priority / focus
@@ -1118,17 +1120,19 @@
 			)
 				.then(
 					(data) => {
+						let now = new Date();
 						let submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
 						let submittedTime = `${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 						postStatus(`Success! Your submission is awaiting approval by the moderators (${submittedDate} ${submittedTime}).`);
 						// postStatus("Success! We'll review your submission as soon as we're back from a mid-August break.");
 					}
 				).catch(
-					() => {
+					error => {
 						console.info(currentReport);
 						console.table(currentReport);
 						console.info(data);
 						console.table(data);
+						console.warn(error);
 						postStatus("Sorry, there was a problem adding your submission. Please contact us or try again later.");
 					}
 				)
