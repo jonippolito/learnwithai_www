@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 4.8: Begin event lexias, offload tag accessibility hack. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 4.9: Continue event lexias. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -76,7 +76,9 @@
 		:root {
 			/* Global dimensions. */
 			--margin-wide: 40px;
+			--padding-padlet: 1em;
 			--padding-section: 1em;
+			--event-min-height: 100px;
 			--lexia-transition-duration: 0.3s;
 			/* Global colors. Screen-specific values are below. */
 			--h-cooler: 220;
@@ -317,6 +319,7 @@
 		#search-instructions,
 		#about-container,
 		#strategies-container,
+		#resources-container,
 		#events-container {
 			margin: var(--margin-wide);
 		}
@@ -691,7 +694,7 @@
 			background-color: var(--darker);
 			border: var(--darker) solid 2px;
 			border-radius: 1em;
-			padding: 1em;
+			padding: var(--padding-padlet);
 			transition: all var(--lexia-transition-duration) ease-in-out;
 			/* box-shadow: var(--dull-aqua) 4px 6px 6px ; */
 		}
@@ -699,6 +702,30 @@
 		.rows .lexia,
 		.rows .lexia-selected {
 			min-height: auto;
+			display: grid;
+			grid-template:
+				"emblem		.		title				."
+				"emblem		.		summary				."
+				"emblem		.		presenters			."
+				"emblem		.		recording			."
+				/200px 2em 1fr 1em
+			;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
+			text-align: right;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.start-sort, .end-sort) {
+			display: none;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.event-emblem) {
+			grid-area: emblem;
+			min-height: var(--event-min-height);
+			background-color: var(--light);
+			border-radius: 1em;
+			padding: 1em;
 		}
 
 		/* TOO JANKY.
@@ -706,6 +733,7 @@
 								height: 500px ;
 							} */
 		:is(.lexia, .lexia-selected) :is(a, h2) {
+			grid-area: title;
 			background-color: transparent;
 			text-decoration: none;
 			color: var(--lightest);
@@ -721,8 +749,8 @@
 			/* No effect on clamp: transition: all var(--lexia-transition-duration) ease-in-out; */
 		}
 
-		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
-			text-align: right;
+		.rows :is(.lexia, .lexia-selected) :is(a, h2) {
+			text-align: left;
 		}
 
 		:is(.lexia, .lexia-selected) :is(.tags, .lexia-id) {
@@ -730,23 +758,23 @@
 			display: none;
 		}
 
-		:is(.lexia, .lexia-selected) :is(.summary, .byline, .submitted-date) {
+		:is(.lexia, .lexia-selected) :is(.summary, .byline, .submitted-date, .presenters, .recording) {
 			color: var(--darkest);
 			opacity: 0;
 			transition: all var(--lexia-transition-duration) ease-in-out;
 			/* outline: yellow solid; */
 		}
 
+		.rows :is(.summary, .byline, .submitted-date, .presenters, .recording) {
+			text-align: left;
+		}
+
 		:is(.lexia, .lexia-selected) :is(.summary, .byline) {
 			font-size: 1.2em;
 		}
 
-		:is(.lexia, .lexia-selected) :is(.submitted-date) {
-			font-size: 1em;
-			margin-top: -1em;
-		}
-
 		:is(.lexia, .lexia-selected) .summary {
+			grid-area: summary;
 			/* UPGRADE: Left-align isn't working--justify-contents responsible? */
 			text-align: left;
 			/*  "max-width: 30ch" only works for one line.
@@ -758,13 +786,36 @@
 			overflow: hidden;
 		}
 
+		:is(.lexia, .lexia-selected) :is(.byline) {
+			grid-area: byline;
+			font-size: 1.2em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.submitted-date) {
+			grid-area: submitted;
+			font-size: 1em;
+			margin-top: -1em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.presenters) {
+			grid-area: presenters;
+			font-size: 1.2em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.recording) {
+			grid-area: recording;
+			font-size: 1.2em;
+		}
+
+		/* ________________Lexia hover states.________________ */
+
 		:is(.lexia, .lexia-selected):hover {
 			background-color: var(--medium);
 			border: var(--darkest) solid 2px;
 			cursor: pointer;
 		}
 
-		:is(.lexia, .lexia-selected):hover :is(.summary, .byline, .submitted-date) {
+		:is(.lexia, .lexia-selected):hover :is(.summary, .byline, .submitted-date, .presenters, .recording) {
 			opacity: 1;
 		}
 
@@ -1621,6 +1672,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		lexiaObjects = [];
 		const Lexia = function (argumentsObject) {
 			// UPGRADE: Trap for nonexistent argumentsObject parameters.
+			// Be careful because these vary by viewMode.
 			// Note that screenContainerId is a global to facilitate multiple clouds on the same page.
 			// Build lexia.
 			if (viewMode === "resources" || viewMode === "events") {
@@ -1679,32 +1731,74 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			this.lexiaDiv.appendChild(this.summaryP);
 			this.summaryP.className = "summary";
 			this.summaryP.innerHTML = argumentsObject.summary;
-			// Build byline.
-			this.bylineH3 = document.createElement("h3");
-			this.lexiaDiv.appendChild(this.bylineH3);
-			this.bylineH3.className = "byline";
-			this.bylineH3.innerHTML = argumentsObject.byline;
-			// Build (submission) date. thoughtmesh.css adds transparency to H4s.
-			this.dateH3 = document.createElement("h3");
-			this.lexiaDiv.appendChild(this.dateH3);
-			this.dateH3.className = "submitted-date";
-			if (viewMode === "resources" || viewMode === "events") {
-				this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
-			} else if (viewMode === "strategies") {
-				if (argumentsObject.submitter !== "") {
-
-					this.dateH3.innerHTML = `Submitted by ${argumentsObject.submitter}`;
-				} else {
-					// Leave blank.
+			// Build date/s.
+			if (viewMode === "resourses" || viewMode === "strategies") {
+				// Build byline.
+				this.bylineH3 = document.createElement("h3");
+				this.lexiaDiv.appendChild(this.bylineH3);
+				this.bylineH3.className = "byline";
+				this.bylineH3.innerHTML = argumentsObject.byline;
+				// Build (submission) date. thoughtmesh.css adds transparency to H4s.
+				this.dateH3 = document.createElement("h3");
+				this.lexiaDiv.appendChild(this.dateH3);
+				this.dateH3.className = "submitted-date";
+				if (viewMode === "resources") {
+					this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
+				} else if (viewMode === "strategies") {
+					if (argumentsObject.submitter !== "") {
+						this.dateH3.innerHTML = `Submitted by ${argumentsObject.submitter}`;
+					} else {
+						// Leave blank.
+					}
+				};
+			} else if (viewMode === "events") {
+				// Build starting date in sortable format (hidden but used in sorting).
+				this.startSortP = document.createElement("p");
+				this.lexiaDiv.appendChild(this.startSortP);
+				this.startSortP.className = "start-sort";
+				this.startSortP.innerHTML = `Start sort: ${argumentsObject.startSort}`;
+				// Build ending date in sortable format (hidden but used in sorting)
+				this.endSortP = document.createElement("p");
+				this.lexiaDiv.appendChild(this.endSortP);
+				this.endSortP.className = "end-sort";
+				this.endSortP.innerHTML = argumentsObject.endSort;
+				// Build eventEmblem (calendar icon with essential info).
+				this.eventEmblemDiv = document.createElement("div");
+				this.lexiaDiv.appendChild(this.eventEmblemDiv);
+				this.eventEmblemDiv.className = "event-emblem";
+				// Build starting date in written format.
+				this.startWrittenH2 = document.createElement("h2");
+				this.eventEmblemDiv.appendChild(this.startWrittenH2);
+				this.startWrittenH2.className = "start-written";
+				this.startWrittenH2.innerHTML = `Start written: ${argumentsObject.startWritten}`;
+				// Build endWritten.
+				if (argumentsObject.endWritten !== argumentsObject.startWritten) {
+					this.startWrittenH2.innerHTML += ` to ${argumentsObject.endWritten}`;
 				}
-			}
+				// Build location.
+				this.locationDiv = document.createElement("div");
+				this.eventEmblemDiv.appendChild(this.locationDiv);
+				this.locationDiv.className = "location";
+				this.locationDiv.innerHTML = argumentsObject.location;
+				// Build presenters.
+				this.presentersDiv = document.createElement("div");
+				this.lexiaDiv.appendChild(this.presentersDiv);
+				this.presentersDiv.className = "presenters";
+				this.presentersDiv.innerHTML = argumentsObject.presenters;
+				// Build recording.
+				this.recordingDiv = document.createElement("div");
+				this.lexiaDiv.appendChild(this.recordingDiv);
+				this.recordingDiv.className = "recording";
+				this.recordingDiv.innerHTML = argumentsObject.recording;
+
+			};
 			// Build tags. CURRENTLY HIDDEN BUT USED IN SEARCH.
 			this.tagsDiv = document.createElement("div");
 			this.lexiaDiv.appendChild(this.tagsDiv);
 			this.tagsDiv.className = "tags";
 			this.tagsDiv.innerHTML = argumentsObject.tags;
 			// Build lexia id (may be hidden but still can be filtered via search box).
-			// This could be a single id (for resource lexias) or an array (for strategy lexias).
+			// This could be a single id (for resource or event lexias) or an array (for strategy or presenter lexias).
 			this.idP = document.createElement("p");
 			this.lexiaDiv.appendChild(this.idP);
 			this.idP.className = "lexia-id";
@@ -1712,7 +1806,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.idP.innerHTML = this.id;
 			} else if (viewMode === "strategies") {
 				this.idP.innerHTML = this.resourceIds;
-			}
+			};
 		};
 		const fetchSheet = async (sheetId) => {
 			// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
@@ -1809,24 +1903,37 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						// Skip header row.
 					} else {
 						// Will fail if cell empty.
-						let bylinePair = row["c"][0] || { v: "" };
-						let sourcePair = row["c"][1] || { v: "" };
-						let linkPair = row["c"][2] || { v: "" };
-						let tagsPair = row["c"][3] || { v: "" };
-						let summaryPair = row["c"][4] || { v: "" };
-						let idPair = row["c"][5] || { v: "" };
+						let eventPair = row["c"][0] || { v: "" };
 						// Google Sheet object looks like { v: "Date(2023,1,15)", f: "2/15/2023" }.
-						let datePair = row["c"][7] || { f: "" };
+						let startPairSort = row["c"][1] || { v: "" };
+						let startPairWritten = row["c"][1] || { f: "" };
+						let endPairSort = row["c"][2] || { v: "" };
+						let endPairWritten = row["c"][2] || { f: "" };
+						let linkPair = row["c"][3] || { v: "" };
+						let summaryPair = row["c"][4] || { v: "" };
+						let locationPair = row["c"][5] || { v: "" };
+						let tagsPair = row["c"][6] || { v: "" };
 						// console.log('%c datePair', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, datePair);
+						let presentersPair = row["c"][7] || { f: "" };
+						let recordingPair = row["c"][8] || { f: "" };
+						let submitterPair = row["c"][9] || { f: "" };
+						let idPair = row["c"][10] || { f: "" };
 						let thisLexia = new Lexia({
-							byline: bylinePair["v"],
-							headline: sourcePair["v"],
+							byline: presentersPair["v"],
+							headline: eventPair["v"],
 							link: linkPair["v"],
 							tags: tagsPair["v"],
 							summary: summaryPair["v"],
 							id: idPair["v"],
-							date: datePair["f"]
-						});
+							startSort: startPairSort["v"],
+							startWritten: startPairWritten["f"],
+							endSort: endPairSort["v"],
+							endWritten: endPairWritten["f"],
+							location: locationPair["v"],
+							presenters: presentersPair["v"],
+							recording: recordingPair["v"],
+							submitter: submitterPair["v"]
+						})
 					}
 				} else {
 					console.warn("buildLexias called for an unrecognized screen");
