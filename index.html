@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 4.9: Continue event lexias. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 5.0: Refine event lexias, add presenters. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -75,6 +75,7 @@
 		/* ________________ Design parameters. ________________ */
 		:root {
 			/* Global dimensions. */
+			--container-width: 1000px;
 			--margin-wide: 40px;
 			--padding-padlet: 1em;
 			--padding-section: 1em;
@@ -343,8 +344,9 @@
 		#header,
 		#about-container,
 		#faq-container,
+		#events-container,
 		.footer {
-			width: 80vw;
+			max-width: var(--container-width);
 			margin-left: auto;
 			margin-right: auto;
 		}
@@ -454,14 +456,13 @@
 		#events-container p,
 		#faq {
 			position: relative;
-			/* clear: both; */
-			font-family: Verdana;
-			font-size: 1.2rem;
-			/* margin: 0; */
-			/* padding: 1% ; */
 			color: var(--darker-ice);
-			/* SWATCH Medium ice. */
-			/*			border: red solid 2px ; */
+		}
+
+		#about-container h3,
+		#about-container p,
+		#faq {
+			font-size: 1.2rem;
 		}
 
 		#about-container .detail p {
@@ -704,11 +705,10 @@
 			min-height: auto;
 			display: grid;
 			grid-template:
-				"emblem		.		title				."
-				"emblem		.		summary				."
-				"emblem		.		presenters			."
-				"emblem		.		recording			."
-				/200px 2em 1fr 1em
+				"emblem		.		title				title				."
+				"emblem		.		summary				summary				."
+				"emblem		.		presenters			recording			."
+				/200px 2em 3fr 1fr 1em
 			;
 		}
 
@@ -722,10 +722,41 @@
 
 		:is(.lexia, .lexia-selected) :is(.event-emblem) {
 			grid-area: emblem;
+			display: grid;
+			grid-template:
+				"start		start"
+				"location	status"
+			;
 			min-height: var(--event-min-height);
 			background-color: var(--light);
 			border-radius: 1em;
 			padding: 1em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.start-written) {
+			grid-area: start;
+		}
+
+		.status-past {
+			color: firebrick;
+		}
+
+		.status-upcoming {
+			color: seagreen;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.location) {
+			grid-area: location;
+			font-size: 1em;
+			text-align: left;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.location) i {
+			color: var(--lightest);
+		}
+
+		:is(.lexia, .lexia-selected) :is(.presenters) {
+			grid-area: presenters;
 		}
 
 		/* TOO JANKY.
@@ -786,6 +817,10 @@
 			overflow: hidden;
 		}
 
+		.rows :is(.lexia, .lexia-selected) .summary {
+			font-size: 1em;
+		}
+
 		:is(.lexia, .lexia-selected) :is(.byline) {
 			grid-area: byline;
 			font-size: 1.2em;
@@ -804,7 +839,19 @@
 
 		:is(.lexia, .lexia-selected) :is(.recording) {
 			grid-area: recording;
-			font-size: 1.2em;
+			display: grid;
+			text-align: center;
+			outline: yellow dotted;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a) {
+			width: max-content;
+			font-size: 1.6em;
+			color: var(--light);
+		}
+
+		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a):hover {
+			color: var(--lightest);
 		}
 
 		/* ________________Lexia hover states.________________ */
@@ -1687,6 +1734,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			lexiaObjects.push(this);
 			// NOTE: for accessibility, I changed this from div to button but the variable names still say "div".
 			this.lexiaDiv = document.createElement("button");
+			// Create handler to retrieve metadata like sort date from div.
+			this.lexiaDiv.object = this;
 			// Appending the lexia div here is more efficient than where Lexia is called.
 			document.querySelector(`#${screenContainerId} .lexia-container`).appendChild(this.lexiaDiv);
 			this.lexiaDiv.className = "lexia";
@@ -1752,16 +1801,9 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					}
 				};
 			} else if (viewMode === "events") {
-				// Build starting date in sortable format (hidden but used in sorting).
-				this.startSortP = document.createElement("p");
-				this.lexiaDiv.appendChild(this.startSortP);
-				this.startSortP.className = "start-sort";
-				this.startSortP.innerHTML = `Start sort: ${argumentsObject.startSort}`;
-				// Build ending date in sortable format (hidden but used in sorting)
-				this.endSortP = document.createElement("p");
-				this.lexiaDiv.appendChild(this.endSortP);
-				this.endSortP.className = "end-sort";
-				this.endSortP.innerHTML = argumentsObject.endSort;
+				// Build starting and ending date in sortable format (hidden but used in sorting).
+				this.startSort = argumentsObject.startSort;
+				this.endSort = argumentsObject.endSort;
 				// Build eventEmblem (calendar icon with essential info).
 				this.eventEmblemDiv = document.createElement("div");
 				this.lexiaDiv.appendChild(this.eventEmblemDiv);
@@ -1770,7 +1812,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.startWrittenH2 = document.createElement("h2");
 				this.eventEmblemDiv.appendChild(this.startWrittenH2);
 				this.startWrittenH2.className = "start-written";
-				this.startWrittenH2.innerHTML = `Start written: ${argumentsObject.startWritten}`;
+				this.startWrittenH2.innerHTML = argumentsObject.startWritten;
 				// Build endWritten.
 				if (argumentsObject.endWritten !== argumentsObject.startWritten) {
 					this.startWrittenH2.innerHTML += ` to ${argumentsObject.endWritten}`;
@@ -1779,18 +1821,48 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.locationDiv = document.createElement("div");
 				this.eventEmblemDiv.appendChild(this.locationDiv);
 				this.locationDiv.className = "location";
-				this.locationDiv.innerHTML = argumentsObject.location;
+				let locationIconHTML = "";
+				if (argumentsObject.location.includes("Online")) {
+					locationIconHTML += `<i class="fa-solid fa-globe"></i>`;
+				} else if (argumentsObject.location !== "Online") {
+					locationIconHTML += `<i class="fa-solid fa-building-columns"></i>`;
+				}
+				this.locationDiv.innerHTML = `${locationIconHTML} ${argumentsObject.location}`;
+				// Build status div.
+				this.statusDiv = document.createElement("div");
+				this.eventEmblemDiv.appendChild(this.statusDiv);
+				// Calculate status (upcoming or past).
+				// Coming from Google, endSort looks like "Date(2023,7,31)". Trim up to year.
+				let almostADate = this.endSort.substr(5,)
+				// Trim last parenthesis.
+				almostADate = almostADate.substr(0, almostADate.length - 1);
+				let [yyyy, mm, dd] = almostADate.split(",");
+				let endDateInJS = new Date(yyyy, mm - 1, dd);
+				// console.log('%c endDateInJS', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, endDateInJS);
+				let todayInJS = new Date();
+				// console.log('%c todayInJS', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, todayInJS);
+				let isPast = (endDateInJS < todayInJS);
+				if (isPast) {
+					this.statusDiv.innerHTML = "Past";
+					this.statusDiv.className = "status-past"; // Past or Upcoming.
+				} else {
+					this.statusDiv.innerHTML = "Upcoming";
+					this.statusDiv.className = "status-upcoming"; // Past or Upcoming.
+				}
 				// Build presenters.
 				this.presentersDiv = document.createElement("div");
 				this.lexiaDiv.appendChild(this.presentersDiv);
 				this.presentersDiv.className = "presenters";
 				this.presentersDiv.innerHTML = argumentsObject.presenters;
-				// Build recording.
+				// Build recording div.
 				this.recordingDiv = document.createElement("div");
 				this.lexiaDiv.appendChild(this.recordingDiv);
 				this.recordingDiv.className = "recording";
-				this.recordingDiv.innerHTML = argumentsObject.recording;
-
+				// Build recording link.
+				this.recordingLink = document.createElement("a");
+				this.recordingDiv.appendChild(this.recordingLink);
+				this.recordingLink.href = argumentsObject.recording;
+				this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i>`;
 			};
 			// Build tags. CURRENTLY HIDDEN BUT USED IN SEARCH.
 			this.tagsDiv = document.createElement("div");
