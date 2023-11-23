@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 5.0: Refine event lexias, add presenters. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 5.1: Add speakers. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -180,6 +180,17 @@
 			--darkest: hsl(var(--h) 100% 10%);
 		}
 
+		#speakers-container {
+			--h: 175;
+			--lightest: hsl(var(--h) 90% 94%);
+			--lighter: hsl(var(--h) 60% 88%);
+			--light: hsl(var(--h) 60% 70%);
+			--medium: hsl(var(--h) 100% 50%);
+			/* --medium: white ; */
+			--darker: hsl(var(--h) 100% 20%);
+			--darkest: hsl(var(--h) 100% 10%);
+		}
+
 		/* ________________ Universal tags. ________________ */
 		*,
 		:before,
@@ -321,7 +332,8 @@
 		#about-container,
 		#strategies-container,
 		#resources-container,
-		#events-container {
+		#events-container,
+		#speakers-container {
 			margin: var(--margin-wide);
 		}
 
@@ -686,8 +698,7 @@
 			grid-template-columns: 1fr;
 		}
 
-		.lexia,
-		.lexia-selected {
+		:is(.lexia, .lexia-selected) {
 			display: flex;
 			flex-direction: column;
 			justify-content: flex-start;
@@ -700,16 +711,32 @@
 			/* box-shadow: var(--dull-aqua) 4px 6px 6px ; */
 		}
 
-		.rows .lexia,
-		.rows .lexia-selected {
+		.rows :is(.lexia, .lexia-selected) {
 			min-height: auto;
 			display: grid;
 			grid-template:
-				"emblem		.		title				title				."
-				"emblem		.		summary				summary				."
-				"emblem		.		presenters			recording			."
+				"event-emblem		.		title				title				."
+				"event-emblem		.		summary				summary				."
+				"event-emblem		.		presenters			recording			."
 				/200px 2em 3fr 1fr 1em
 			;
+		}
+
+		.rolodex :is(.lexia, .lexia-selected) {
+			height: 10px;
+			display: grid;
+			grid-template:
+				"rolodex-emblem		.			title				title				." 10%
+				"rolodex-emblem		.			summary				summary				." 40%
+				"tags				tags		tags				tags				." 50%
+				/100px 1em 3fr 1fr 1em
+			;
+			outline: yellow solid;
+		}
+
+		.rolodex is(.lexia, .lexia-selected)>* {
+			text-align: left;
+			outline: red dotted;
 		}
 
 		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
@@ -720,8 +747,16 @@
 			display: none;
 		}
 
+		:is(.lexia, .lexia-selected) :is(.rolodex-emblem) {
+			grid-area: rolodex-emblem;
+			background-image: url("media/person_icon.jpg");
+			background-size: cover;
+			width: 100px;
+			height: 100px;
+		}
+
 		:is(.lexia, .lexia-selected) :is(.event-emblem) {
-			grid-area: emblem;
+			grid-area: event-emblem;
 			display: grid;
 			grid-template:
 				"start		start"
@@ -785,8 +820,18 @@
 		}
 
 		:is(.lexia, .lexia-selected) :is(.tags, .lexia-id) {
-			/* CURRENTLY UNUSED */
 			display: none;
+		}
+
+		.rolodex :is(.lexia, .lexia-selected) :is(.tags),
+		.rolodex :is(.lexia, .lexia-selected) :is(.tags):hover {
+			grid-area: tags;
+			color: var(--medium);
+			text-align: left;
+			font-size: .9em;
+			display: block;
+			opacity 1;
+			/* Shouldn't be necessary */
 		}
 
 		:is(.lexia, .lexia-selected) :is(.summary, .byline, .submitted-date, .presenters, .recording) {
@@ -821,6 +866,18 @@
 			font-size: 1em;
 		}
 
+		.rolodex :is(.lexia, .lexia-selected) .summary {
+			display: block;
+			opacity: 1;
+			color: var(--light);
+			outline: purple dashed;
+			font-size: .8em;
+			-webkit-line-clamp: 4;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
 		:is(.lexia, .lexia-selected) :is(.byline) {
 			grid-area: byline;
 			font-size: 1.2em;
@@ -850,10 +907,6 @@
 			color: var(--light);
 		}
 
-		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a):hover {
-			color: var(--lightest);
-		}
-
 		/* ________________Lexia hover states.________________ */
 
 		:is(.lexia, .lexia-selected):hover {
@@ -861,6 +914,11 @@
 			border: var(--darkest) solid 2px;
 			cursor: pointer;
 		}
+
+		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a):hover {
+			color: var(--lightest);
+		}
+
 
 		:is(.lexia, .lexia-selected):hover :is(.summary, .byline, .submitted-date, .presenters, .recording) {
 			opacity: 1;
@@ -877,7 +935,7 @@
 		}
 
 		:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
-			/* TAGS UNUSED? */
+			/* Used in speaker lexias. */
 			color: var(--lightest);
 		}
 
@@ -1617,7 +1675,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		};
 	</script>
 	<script id="learnwithai-index-script">
-		const screens = ["about", "resources", "strategies", "events", "faq"];
+		const screens = ["about", "resources", "strategies", "events", "speakers", "faq"];
 		// chooseScreen does not take the screen name, which is set with the viewMode global variable.
 		const chooseScreen = async (selectedTags) => {
 			screens.forEach((screen) => {
@@ -1699,6 +1757,28 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						}
 					}
 				}
+			} else if (viewMode === "speakers") {
+				clearLexias();
+				screenContainerId = "speakers-container";
+				// Swap rubric for banner.
+				document.querySelector("#rubric").style.display = "block";
+				document.querySelector("#logo-simple").style.display = "block";
+				// Build lexias for this screen.
+				await buildLexias("1qO5axIRAcWHem-oHUZ6p576ccLglF2HlUxqyd8iswwQ");
+				if (typeof selectedTags !== "undefined") {
+					respondToTag({
+						tagArg: selectedTags[0],
+						linkType: "replace",
+					});
+					if (selectedTags.length > 1) {
+						for (let tagCounter = 1; tagCounter < selectedTags.length; tagCounter++) {
+							respondToTag({
+								tagArg: selectedTags[tagCounter],
+								linkType: "plus",
+							});
+						}
+					}
+				}
 			} else if (viewMode === "faq") {
 				// NECESSARY: reset screenContainerId?
 				// Swap rubric for banner.
@@ -1714,7 +1794,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			window.parent.postMessage("scroll to top", "https://umaine.edu/learnwithai");
 		};
 	</script>
-	<script id="lexias-from-google-sheet-script-v01.2">
+	<script id="lexias-from-google-sheet-script-for-lwa">
 		// Modified to allow multiple lexia containers in the same document.
 		lexiaObjects = [];
 		const Lexia = function (argumentsObject) {
@@ -1730,6 +1810,11 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				// Their spreadsheet cell contains a string of resource ids separated by commas.
 				// Convert this into an array of related resource lexias.
 				this.resourceIds = argumentsObject.resourceIdsAsString.split(",");
+			} else if (viewMode === "speakers") {
+				// Speaker lexias have no id.
+				// Their spreadsheet cell contains a string of speaker ids separated by commas.
+				// Convert this into an array of related event lexias.
+				this.eventIds = argumentsObject.eventIdsAsString.split(",");
 			}
 			lexiaObjects.push(this);
 			// NOTE: for accessibility, I changed this from div to button but the variable names still say "div".
@@ -1761,6 +1846,25 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						// console.log(regexAsString)
 						searchFilter(regexAsString);
 					}
+				} else if (viewMode === "speakers") {
+					// console.log(this.eventIds)
+					if (this.eventIds.length === 0) {
+						alert("No event for this speaker");
+					} else {
+						viewMode = "events";
+						await chooseScreen();
+						let regexAsString = `(`;
+						// -1 because we don't want to add a pipe to the last id.
+						for (let idCounter = 0; idCounter < this.eventIds.length - 1; idCounter++) {
+							let trimmedId = this.eventIds[idCounter].trim(); // Omit white space around commas.
+							regexAsString += `${trimmedId}|`;
+						}
+						// Capture last id in the array. Note trailing parethesis.
+						let lastId = this.eventIds[this.eventIds.length - 1].trim();
+						regexAsString += `${lastId})`;
+						// console.log(regexAsString)
+						searchFilter(regexAsString);
+					}
 				}
 			};
 			// Build headline.
@@ -1781,7 +1885,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			this.summaryP.className = "summary";
 			this.summaryP.innerHTML = argumentsObject.summary;
 			// Build date/s.
-			if (viewMode === "resourses" || viewMode === "strategies") {
+			if (viewMode === "resourses" || viewMode === "strategies" || viewMode === "speakers") {
 				// Build byline.
 				this.bylineH3 = document.createElement("h3");
 				this.lexiaDiv.appendChild(this.bylineH3);
@@ -1793,7 +1897,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.dateH3.className = "submitted-date";
 				if (viewMode === "resources") {
 					this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
-				} else if (viewMode === "strategies") {
+				} else if (viewMode === "strategies" || viewMode === "strategies") {
 					if (argumentsObject.submitter !== "") {
 						this.dateH3.innerHTML = `Submitted by ${argumentsObject.submitter}`;
 					} else {
@@ -1864,7 +1968,14 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.recordingLink.href = argumentsObject.recording;
 				this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i>`;
 			};
-			// Build tags. CURRENTLY HIDDEN BUT USED IN SEARCH.
+			// Add speaker stuff not shared with other view modes above.
+			if (viewMode === "speakers") {
+				// Build speakerEmblem.
+				this.speakerEmblemDiv = document.createElement("div");
+				this.lexiaDiv.appendChild(this.speakerEmblemDiv);
+				this.speakerEmblemDiv.className = "rolodex-emblem";
+			}
+			// Build tags. Hidden for all but speakers, but used in search and filters.
 			this.tagsDiv = document.createElement("div");
 			this.lexiaDiv.appendChild(this.tagsDiv);
 			this.tagsDiv.className = "tags";
@@ -1878,8 +1989,10 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.idP.innerHTML = this.id;
 			} else if (viewMode === "strategies") {
 				this.idP.innerHTML = this.resourceIds;
+			} else if (viewMode === "speakers") {
+				this.idP.innerHTML = this.eventIds;
 			};
-		};
+		}
 		const fetchSheet = async (sheetId) => {
 			// To return a JSON-like object from a Google Sheet, call https://docs.google.com/sheets/d/{sheetId}/gviz/tq
 			// Google Sheet URL for AI + education is https://docs.google.com/sheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit#gid=0
@@ -2007,6 +2120,26 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 							submitter: submitterPair["v"]
 						})
 					}
+				} else if (screenContainerId === "speakers-container") {
+					if (row["c"][0]["v"] === "Speaker") {
+						// Skip header row.
+					} else {
+						// Will fail if cell empty.
+						let speakerPair = row["c"][0] || { v: "" };
+						let descriptionPair = row["c"][1] || { v: "" };
+						let tagsPair = row["c"][2] || { v: "" };
+						let idPair = row["c"][3] || { v: "" };
+						let submitterPair = row["c"][6] || { v: "" };
+						let thisLexia = new Lexia({
+							headline: speakerPair["v"],
+							tags: tagsPair["v"],
+							summary: descriptionPair["v"],
+							eventIdsAsString: idPair["v"],
+							byline: "",
+							link: "",
+							submitter: submitterPair["v"]
+						});
+					}
 				} else {
 					console.warn("buildLexias called for an unrecognized screen");
 				}
@@ -2060,7 +2193,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 </head>
 
-<body id="learnwithai-body" onload="viewMode='events' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+<body id="learnwithai-body" onload="viewMode='speakers' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 	<div id="watermark"></div>
 	<div id="header">
 		<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
@@ -2075,6 +2208,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		<button onclick="viewMode='strategies'; chooseScreen();" id="browse-strategies">Strategies<button>
 				<span aria-hidden="true">|</span>
 				<button onclick="viewMode='events'; chooseScreen();" id="browse-events">Events</button>
+				<span aria-hidden="true">|</span>
+				<button onclick="viewMode='speakers'; chooseScreen();" id="browse-speakers">Speakers</button>
 				<span aria-hidden="true">|</span>
 				<button onclick="viewMode='faq'; chooseScreen();" id="browse-faq">FAQ</button>
 	</nav>
@@ -2337,6 +2472,30 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		<h3 class="lexia-instructions desktop">Hover to learn more or click to visit an outside link:</h3>
 		<div class="lexia-container rows"></div>
 	</div><!-- End events-container. -->
+	<div id="speakers-container">
+		<h3>
+			The speakers have presented in public talks on AI and education, sourced
+			from <a target="_blank"
+				href="https://docs.google.com/spreadsheets/d/1qO5axIRAcWHem-oHUZ6p576ccLglF2HlUxqyd8iswwQ/edit?usp=sharing">this
+				Google Sheet</a>.
+			<span class="safe-mail-wrapper">
+				If you'd like to suggest additional speakers to feature here, please contact us via
+				<span class="activemail">ude.eniam@otiloppij</span>.
+			</span>
+		</h3>
+		<h3 class="mobile-browsing-warning">For a better browsing experience, please visit this site on a non-mobile
+			browser.</h3>
+		<div class="search-instructions desktop">
+			<h3>Use the search box or choose tags below to filter the results:</h3>
+			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
+					id="speakers-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
+					onclick="clearSearchFilter()">clear</button></div>
+		</div>
+		<div class="home-cloud desktop"></div>
+		<div class="alert-box desktop">No matching content for that tag combination</div>
+		<h3 class="lexia-instructions desktop">Hover to learn more or click to see an associated event:</h3>
+		<div class="lexia-container rolodex"></div>
+	</div><!-- End speakers-container. -->
 	<div id="faq-container">
 		<div id="faq-questions">
 			<h1>Frequently Asked Questions</h1>
