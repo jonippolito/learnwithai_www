@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 5.2: Refine speaker, event styles. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 5.3: Sort events. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -1682,6 +1682,34 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		};
 	</script>
 	<script id="learnwithai-index-script">
+		/*________________ Utilities. ________________*/
+		const getPrintableDateFromRow = (row) => {
+			// Transform month format from 9 to 09 to fix sorting.
+			let initialDate = row["c"][1]["v"];
+			// initialDate looks like Date(2023,10,1).
+			let leftTrimmedDate = initialDate.substr(5,);
+			// console.log('%c leftTrimmedDate', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, leftTrimmedDate);
+			let rightTrimmedDate = leftTrimmedDate.substr(0, leftTrimmedDate.length - 1);
+			// console.log('%c rightTrimmedDate', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, rightTrimmedDate);
+			let dateArray = rightTrimmedDate.split(",");
+			if (dateArray[1].length === 1) {
+				dateArray[1] = `0${dateArray[1]}`;
+			}
+			if (dateArray[2].length === 1) {
+				dateArray[2] = `0${dateArray[2]}`;
+			}
+			return `${dateArray[0]}-${dateArray[1]}-${dateArray[2]}`;
+		}
+		const isEarlier = (eventA, eventB) => {
+			if (getPrintableDateFromRow(eventA) < getPrintableDateFromRow(eventB)) {
+				return -1;
+			}
+			if (getPrintableDateFromRow(eventA) > getPrintableDateFromRow(eventB)) {
+				return 1;
+			}
+			return 0; // Same date.
+		}
+		/*________________ Lexia manipulation. ________________*/
 		const screens = ["about", "resources", "strategies", "events", "speakers", "faq"];
 		// chooseScreen does not take the screen name, which is set with the viewMode global variable.
 		const chooseScreen = async (selectedTags) => {
@@ -2040,6 +2068,11 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			let endOfRows = sheetObject.search(/,"parsedNumHeaders"/);
 			rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
 			rowsAsArray = JSON.parse(rowsAsString);
+			if (screenContainerId === "events-container") {
+				console.log('%c rowsAsArray', `color: deepskyblue; background:dimgray ; padding: 0 .5em; border-radius: .6em ;`, rowsAsArray);
+				rowsAsArray.sort(isEarlier);
+				rowsAsArray.forEach(row => console.log(getPrintableDateFromRow(row)))
+			}
 			rowsAsArray.forEach((row) => {
 				// In the Sheet, the first column is 0, the second 1, etc.
 				if (screenContainerId === "resources-container") {
@@ -2200,7 +2233,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 </head>
 
-<body id="learnwithai-body" onload="viewMode='speakers' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+<body id="learnwithai-body" onload="viewMode='events' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 	<div id="watermark"></div>
 	<div id="header">
 		<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
