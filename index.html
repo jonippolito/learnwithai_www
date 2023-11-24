@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 5.1: Add speakers. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 5.2: Refine speaker, event styles. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -274,6 +274,7 @@
 		#strategies-container h3 a,
 		#resources-container h3 a,
 		#events-container h3 a,
+		#speakers-container h3 a,
 		#faq-container a,
 		.footer a {
 			color: var(--darker-ice);
@@ -290,6 +291,7 @@
 		#strategies-container h3 a:hover,
 		#resources-container h3 a:hover,
 		#events-container h3 a:hover,
+		#speakers-container h3 a:hover,
 		.footer a:hover {
 			background-size: 100% 88%;
 		}
@@ -347,7 +349,8 @@
 
 		#strategies-container h3,
 		#resources-container h3,
-		#events-container h3 {
+		#events-container h3,
+		#speakers-container h3 {
 			font-weight: normal;
 			color: var(--darker-ice);
 		}
@@ -698,6 +701,10 @@
 			grid-template-columns: 1fr;
 		}
 
+		.lexia-container.rolodex {
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+		}
+
 		:is(.lexia, .lexia-selected) {
 			display: flex;
 			flex-direction: column;
@@ -723,20 +730,23 @@
 		}
 
 		.rolodex :is(.lexia, .lexia-selected) {
-			height: 10px;
+			min-height: 200px;
 			display: grid;
 			grid-template:
-				"rolodex-emblem		.			title				title				." 10%
-				"rolodex-emblem		.			summary				summary				." 40%
-				"tags				tags		tags				tags				." 50%
+				"rolodex-emblem		.			title				title				." 15%
+				"rolodex-emblem		.			summary				summary				." 50%
+				"tags				tags		tags				tags				." 35%
 				/100px 1em 3fr 1fr 1em
 			;
-			outline: yellow solid;
+		}
+
+		.rolodex>*>* {
+			/* outline: yellow solid; */
 		}
 
 		.rolodex is(.lexia, .lexia-selected)>* {
 			text-align: left;
-			outline: red dotted;
+			/* outline: red dotted; */
 		}
 
 		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
@@ -823,15 +833,14 @@
 			display: none;
 		}
 
-		.rolodex :is(.lexia, .lexia-selected) :is(.tags),
-		.rolodex :is(.lexia, .lexia-selected) :is(.tags):hover {
+		.rolodex :is(.lexia, .lexia-selected) :is(.tags) {
 			grid-area: tags;
-			color: var(--medium);
+			color: var(--darkest);
 			text-align: left;
 			font-size: .9em;
 			display: block;
-			opacity 1;
-			/* Shouldn't be necessary */
+			opacity: 0;
+			transition: all var(--lexia-transition-duration) ease-in-out;
 		}
 
 		:is(.lexia, .lexia-selected) :is(.summary, .byline, .submitted-date, .presenters, .recording) {
@@ -867,15 +876,11 @@
 		}
 
 		.rolodex :is(.lexia, .lexia-selected) .summary {
-			display: block;
 			opacity: 1;
-			color: var(--light);
-			outline: purple dashed;
-			font-size: .8em;
+			color: var(--lighter);
+			font-size: .9em;
 			-webkit-line-clamp: 4;
-			display: -webkit-box;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
+			height: 5em;
 		}
 
 		:is(.lexia, .lexia-selected) :is(.byline) {
@@ -934,11 +939,6 @@
 			overflow: hidden;
 		}
 
-		:is(.lexia, .lexia-selected):hover :is(h3, .tags) {
-			/* Used in speaker lexias. */
-			color: var(--lightest);
-		}
-
 		/* :is(.lexia, .lexia-selected):hover :is(h3.byline) {
 			display: block;
 		} */
@@ -948,6 +948,11 @@
 			/* cursor: pointer; */
 			text-decoration: none;
 			/* text-shadow: var(--darkest) 0.1em 0.1em 0.1em; */
+		}
+
+		.rolodex :is(.lexia, .lexia-selected):hover :is(.summary, .tags) {
+			color: var(--darker);
+			opacity: 1;
 		}
 
 		/* ________________Events and FAQ screens.________________ */
@@ -1235,7 +1240,9 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		}
 	</script>
 	<link rel="stylesheet" href="css/fontawesome-free-6.3.0-web/css/all.css" />
-	<script id="multiple-tagged-lexia-script-v01.0">
+	<script id="multiple-tagged-lexia-script-v01.0b">
+		// This version replaces display: table-row or block with grid.
+		// UPGRADE: Make this an adjustable parameter rather than a hard-coded option.
 		// This is supposed to enable different tag clouds for different screens of the same HTML document.
 		// Based on tagged-lexia-script-v02.0, modified to pass harvestData parameter to identify tags in lexias and simplify with ES6 syntax.
 		// Cheap replacement for ExpandingMenu.js and ThoughtMesh.js, but still requires thought-mesh.css.
@@ -1604,12 +1611,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		}
 		function showContent(ele) {
 			// This function is customized for different UIs.
-			ele.style.display = "table-row";
+			ele.style.display = "grid";
 		}
 		function showAllContent() {
 			// Consolidate with showContent?
 			for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
-				itemManager[itemCounter].style.display = "table-row";
+				itemManager[itemCounter].style.display = "grid";
 			}
 			alertUser("ok");
 		}
@@ -1644,7 +1651,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			// Find div (lexia) matches.
 			for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
 				if (objRegex.test(itemManager.dataFromItem[itemCounter])) {
-					itemManager[itemCounter].style.display = "block";
+					itemManager[itemCounter].style.display = "grid";
 				} else {
 					itemManager[itemCounter].style.display = "none";
 				}
@@ -1652,7 +1659,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		}
 		const clearSearchFilter = () => {
 			for (var itemCounter = 0; itemCounter < itemManager.length; itemCounter++) {
-				itemManager[itemCounter].style.display = "block";
+				itemManager[itemCounter].style.display = "grid";
 			}
 			document.querySelector(`#${viewMode}-search-box`).value = "";
 			document.querySelector(`#${viewMode}-search-box`).focus();
