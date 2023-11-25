@@ -292,7 +292,6 @@
 		#resources-container h3 a:hover,
 		#events-container h3 a:hover,
 		#speakers-container h3 a:hover,
-		#faq-container a:hover,
 		.footer a:hover {
 			background-size: 100% 88%;
 		}
@@ -397,7 +396,6 @@
 
 		/*	Footer ensures bottom lexias have room to open.*/
 		.footer {
-			clear: both;
 			display: flex;
 			align-items: flex-start;
 			justify-content: center;
@@ -511,9 +509,9 @@
 			display: grid;
 			gap: 1em;
 			/* grid-template-columns: 1fr 2fr; */
-			grid: "call-to-action-text call-to-action-text call-to-action-screencast call-to-action-screencast"
-				"explanation-text explanation-text explanation-text events-preview"
-				/ 1fr 1fr 1fr 2fr;
+			grid: "call-to-action-text call-to-action-text call-to-action-screencast"
+				"explanation-text events-preview events-preview"
+				/ 2fr 1fr 2fr;
 		}
 
 		#call-to-action-text {
@@ -525,8 +523,8 @@
 		}
 
 		#call-to-action-screencast video {
-			width: 100%;
-			/* transform: scale(.9); */
+			width: 40vw;
+			transform: scale(.9);
 		}
 
 		#explanation-text {
@@ -742,9 +740,9 @@
 			min-height: 200px;
 			display: grid;
 			grid-template:
-				"rolodex-emblem		.			title				title				."
-				"rolodex-emblem		.			summary				summary				."
-				"tags				tags		tags				tags				."
+				"rolodex-emblem		.			title				title				." 15%
+				"rolodex-emblem		.			summary				summary				." 50%
+				"tags				tags		tags				tags				." 35%
 				/100px 1em 3fr 1fr 1em
 			;
 		}
@@ -2306,14 +2304,10 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					material and activities you can use in class right
 					now?
 					Filter for what
-					interests you in the <a href="#" onclick="viewMode = 'resources'; chooseScreen()">Resources</a> or
-					<a href="#" onclick="viewMode = 'strategies'; chooseScreen()">Strategies</a> sections.
+					interests you in the <a href="#" onclick="viewMode = 'resources'; chooseScreen()">Resources</a>,
+					<a href="#" onclick="viewMode = 'strategies'; chooseScreen()">Strategies</a>, or <a href="#"
+						onclick="viewMode = 'events'; chooseScreen()">Events</a> sections.
 				</p>
-				<p class="call-to-action"><i class="fa-solid fa-person-chalkboard"></i> Looking for an upcoming event or
-					presenter
-					on the topic of AI and education? Check out upcoming <a href="#"
-						onclick="viewMode='events'; chooseScreen()">events</a> and related <a href="#"
-						onclick="viewMode='speakers'; chooseScreen()">speakers</a>.</p>
 				<p class="call-to-action"><i class="fa-solid fa-bullhorn"></i> Have an online resource, assignment, or
 					event to
 					contribute to this
@@ -2336,8 +2330,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					Diffusion, and Midjourney offer a way to create images that's completely outside
 					the workflow of most illustrators and designers, whether trained in analog or digital media.
 				</p>
-				<p>Rather than try to ban this technology from classrooms outright, the Learning With AI project asks if
-					this moment offers an opportunity to introduce students to the
+				<p>Rather than try to ban this technology from classrooms outright, the Learning With AI initiative from
+					the University of Maine asks if this moment offers an opportunity to introduce students to the
 					ethical and economic questions wreaked by these new tools, as well as to experiment with progressive
 					forms of pedagogy that can exploit them.</p>
 			</div>
@@ -2398,8 +2392,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023"
 						class="side-image" />
 				</div>
-				<p id="events-preview-more"><button class="block-style" onclick="viewMode='events'; chooseScreen()">More
-						events</button></p>
+				<p id="events-preview-more"><button class="block-style"
+						onclick="viewMode='events'; chooseScreen()">Learn more</button></p>
 			</div>
 		</div>
 		<!-- End "explanation" div. -->
@@ -2472,7 +2466,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				<img src="media/23orono_learnwithai_mar_20_01_xvga.jpg" alt="Learning With AI event March 2023"
 					class="side-image" />
 				<em>Learning With AI</em>
-				was originally launched by the
+				is organized by the
 				<a target="_blank" href="https://umaine.edu/newmedia">New Media program</a>
 				and
 				<a target="_blank" href="https://umaine.edu/citl/">Center for Innovation and Teaching and Learning</a>,
@@ -2481,13 +2475,18 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				any
 				educator or student wondering how to accommodate this disruption.
 			</p>
-			<p>Other partners in the initiative include related units at the University of Maine and the <a
-					href="https://groups.google.com/g/ai-in-education">AI in Education</a>
-				Google Group organized by <a href="https://www.danielstanford.com/">Daniel Stanford</a>. <a href="#"
-					onclick="viewMode='faq'; chooseScreen();">More on
-					our partners</a>.</p>
+			<p>Other partners in the initiative include the <a target="_blank" href="https://umaine.edu/edhd/">College
+					of
+					Education and Human Development</a>, <a target="_blank" href="https://ece.umaine.edu/">Department of
+					Electrical and Computer Engineering</a>, <a target="_blank" href="http://umaine.edu/history">Digital
+					and
+					Spatial History Lab</a>, and <a target="_blank" href="https://ai.umaine.edu">UMaine AI</a>.</p>
+			<p>The organizers host free public and private events to raise awareness of generative AI's impact on
+				education
+				and brainstorm solutions to its challenges. Links to recordings with interactive menu can be found <a
+					href="#" onclick="viewMode='events'; chooseScreen()">here</a>.</p>
 		</div>
-	</div><!-- End about-container. -->
+	</div>
 	<div id="resources-container">
 		<h3>
 			The resources below include articles, videos, and other background for generative AI in education, sourced
@@ -2640,10 +2639,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			<p>
 				Learning With AI was convened by UMaine's <a target="_blank" href="https://umaine.edu/newmedia">New
 					Media major</a> and <a target="_blank" href="https://umaine.edu/citl">Center for Innovation in
-					Teaching and Learning</a>. Other partners in the initiative include the <a
-					href="https://groups.google.com/g/ai-in-education">AI in Education</a>
-				Google Group organized by <a href="https://www.danielstanford.com/">Daniel Stanford</a> and UMaine's the
-				College of Education and
+					Teaching and Learning</a>. Other partners in the initiative include the College of Education and
 				Human Development, Department of Electrical and Computer Engineering, Digital and Spatial History Lab,
 				and UMaine AI. Learn
 				more in the official <a target="_blank"
