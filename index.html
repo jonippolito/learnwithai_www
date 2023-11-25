@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 5.3: Sort events. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version 5.4: Refine event lexias. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -686,9 +686,16 @@
 			display: none;
 		}
 
-		h3.lexia-instructions {
+		.lexia-instructions h3 {
 			position: relative;
+			float: left;
 			margin: 1em 0;
+		}
+
+		.lexia-instructions button {
+			position: relative;
+			float: right;
+			margin-left: 1em;
 		}
 
 		.lexia-container {
@@ -724,8 +731,8 @@
 			grid-template:
 				"event-emblem		.		title				title				."
 				"event-emblem		.		summary				summary				."
-				"event-emblem		.		presenters			recording			."
-				/200px 2em 3fr 1fr 1em
+				"event-emblem		.		presenters			recording			recording"
+				/200px 2em 5fr 2fr 1em
 			;
 		}
 
@@ -740,13 +747,8 @@
 			;
 		}
 
-		.rolodex>*>* {
-			/* outline: yellow solid; */
-		}
-
 		.rolodex is(.lexia, .lexia-selected)>* {
 			text-align: left;
-			/* outline: red dotted; */
 		}
 
 		:is(.lexia, .lexia-selected) :is(.byline, .submitted-date) {
@@ -771,7 +773,10 @@
 			grid-template:
 				"start		start"
 				"location	status"
+				/7em 4.5em
 			;
+			justify-content: space-between;
+			align-items: center;
 			min-height: var(--event-min-height);
 			background-color: var(--light);
 			border-radius: 1em;
@@ -782,12 +787,33 @@
 			grid-area: start;
 		}
 
-		.status-past {
-			color: firebrick;
+		.location,
+		.status {
+			font-size: .8em;
+			padding: .3em;
+			border-radius: 0.3em;
+			height: 2em;
 		}
 
-		.status-upcoming {
+		.status {
+			/* align-self: center; */
+			/* justify-self: end; */
+			grid-area: status;
+			text-align: center;
+		}
+
+		.past {
+			color: firebrick;
+			background-color: hsl(60 70% 80% /.8);
+			border-radius: 0.3em;
+			/* For buttons */
+		}
+
+		.upcoming {
 			color: seagreen;
+			background-color: hsl(120 70% 80% /.8);
+			border-radius: 0.3em;
+			/* For buttons */
 		}
 
 		:is(.lexia, .lexia-selected) :is(.location) {
@@ -802,6 +828,14 @@
 
 		:is(.lexia, .lexia-selected) :is(.presenters) {
 			grid-area: presenters;
+			font-size: 1.1em;
+		}
+
+		:is(.lexia, .lexia-selected) :is(.presenters) :is(img) {
+			width: 2rem;
+			aspect-ratio: 1/1;
+			float: left;
+			margin: 0 1em 0 .5em;
 		}
 
 		/* TOO JANKY.
@@ -894,26 +928,20 @@
 			margin-top: -1em;
 		}
 
-		:is(.lexia, .lexia-selected) :is(.presenters) {
-			grid-area: presenters;
-			font-size: 1.2em;
-		}
-
 		:is(.lexia, .lexia-selected) :is(.recording) {
 			grid-area: recording;
-			display: grid;
-			text-align: center;
-			/* outline: yellow dotted; */
+			font-size: .7em;
+			color: var(--darker);
 		}
 
-		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a) {
+		:is(.lexia, .lexia-selected) :is(.recording) :is(i) {
 			width: max-content;
-			font-size: 1.6em;
+			font-size: 2rem;
 			color: var(--light);
+			vertical-align: middle;
 		}
 
 		/* ________________Lexia hover states.________________ */
-
 		:is(.lexia, .lexia-selected):hover {
 			background-color: var(--medium);
 			border: var(--darkest) solid 2px;
@@ -923,7 +951,6 @@
 		:is(.lexia, .lexia-selected) :is(.recording) :is(i, a):hover {
 			color: var(--lightest);
 		}
-
 
 		:is(.lexia, .lexia-selected):hover :is(.summary, .byline, .submitted-date, .presenters, .recording) {
 			opacity: 1;
@@ -939,9 +966,10 @@
 			overflow: hidden;
 		}
 
-		/* :is(.lexia, .lexia-selected):hover :is(h3.byline) {
-			display: block;
-		} */
+		.rows :is(.lexia, .lexia-selected):hover :is(h2, a) {
+			text-shadow: var(--darkest-ice) 0 0 0.2em, var(--darkest-ice) 0 0 0.1em;
+			text-shadow: var(--darkest-ice) 0 0 0.2em;
+		}
 
 		:is(.lexia, .lexia-selected) :is(h2, a):hover {
 			color: white;
@@ -1032,10 +1060,6 @@
 		#events-inperson {
 			/* Over. */
 			grid-area: inperson;
-		}
-
-		#events-recorded {
-			grid-area: recorded;
 		}
 
 		#events-webinar {
@@ -1683,7 +1707,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 	<script id="learnwithai-index-script">
 		/*________________ Utilities. ________________*/
-		const getPrintableDateFromRow = (row) => {
+		const getSortableDateFromRow = (row) => {
 			// Transform month format from 9 to 09 to fix sorting.
 			let initialDate = row["c"][1]["v"];
 			// initialDate looks like Date(2023,10,1).
@@ -1701,13 +1725,28 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			return `${dateArray[0]}-${dateArray[1]}-${dateArray[2]}`;
 		}
 		const isEarlier = (eventA, eventB) => {
-			if (getPrintableDateFromRow(eventA) < getPrintableDateFromRow(eventB)) {
+			if (getSortableDateFromRow(eventA) < getSortableDateFromRow(eventB)) {
 				return -1;
 			}
-			if (getPrintableDateFromRow(eventA) > getPrintableDateFromRow(eventB)) {
+			if (getSortableDateFromRow(eventA) > getSortableDateFromRow(eventB)) {
 				return 1;
 			}
 			return 0; // Same date.
+		}
+		const showOnlyUpcoming = (wantOnlyUpcoming) => {
+			if (wantOnlyUpcoming) {
+				hideContent();
+				itemManager.forEach(
+					item => {
+						if (item.upcoming) {
+							showContent(item);
+						}
+					}
+				)
+			}
+			else {
+				showAllContent();
+			}
 		}
 		/*________________ Lexia manipulation. ________________*/
 		const screens = ["about", "resources", "strategies", "events", "speakers", "faq"];
@@ -1943,6 +1982,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				// Build starting and ending date in sortable format (hidden but used in sorting).
 				this.startSort = argumentsObject.startSort;
 				this.endSort = argumentsObject.endSort;
+				// this.sortableDate = getSortableDateFromRow(this); // UNUSED.
 				// Build eventEmblem (calendar icon with essential info).
 				this.eventEmblemDiv = document.createElement("div");
 				this.lexiaDiv.appendChild(this.eventEmblemDiv);
@@ -1970,6 +2010,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				// Build status div.
 				this.statusDiv = document.createElement("div");
 				this.eventEmblemDiv.appendChild(this.statusDiv);
+				this.statusDiv.className = "status";
 				// Calculate status (upcoming or past).
 				// Coming from Google, endSort looks like "Date(2023,7,31)". Trim up to year.
 				let almostADate = this.endSort.substr(5,)
@@ -1977,31 +2018,33 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				almostADate = almostADate.substr(0, almostADate.length - 1);
 				let [yyyy, mm, dd] = almostADate.split(",");
 				let endDateInJS = new Date(yyyy, mm - 1, dd);
-				// console.log('%c endDateInJS', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, endDateInJS);
 				let todayInJS = new Date();
-				// console.log('%c todayInJS', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, todayInJS);
 				let isPast = (endDateInJS < todayInJS);
 				if (isPast) {
+					this.lexiaDiv.upcoming = false;
 					this.statusDiv.innerHTML = "Past";
-					this.statusDiv.className = "status-past"; // Past or Upcoming.
+					this.statusDiv.classList.add("past"); // Past or Upcoming.
 				} else {
+					this.lexiaDiv.upcoming = true;
 					this.statusDiv.innerHTML = "Upcoming";
-					this.statusDiv.className = "status-upcoming"; // Past or Upcoming.
+					this.statusDiv.classList.add("upcoming"); // Past or Upcoming.
 				}
 				// Build presenters.
 				this.presentersDiv = document.createElement("div");
 				this.lexiaDiv.appendChild(this.presentersDiv);
 				this.presentersDiv.className = "presenters";
-				this.presentersDiv.innerHTML = argumentsObject.presenters;
-				// Build recording div.
-				this.recordingDiv = document.createElement("div");
-				this.lexiaDiv.appendChild(this.recordingDiv);
-				this.recordingDiv.className = "recording";
-				// Build recording link.
-				this.recordingLink = document.createElement("a");
-				this.recordingDiv.appendChild(this.recordingLink);
-				this.recordingLink.href = argumentsObject.recording;
-				this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i>`;
+				this.presentersDiv.innerHTML = `<img src="media/person_icon.jpg") class="events-person-icon" />${argumentsObject.presenters}`;
+				// Build recording div if it exists.
+				if (argumentsObject.recording) { // Deliberately using null comparison to stop "".
+					this.recordingDiv = document.createElement("div");
+					this.lexiaDiv.appendChild(this.recordingDiv);
+					this.recordingDiv.className = "recording";
+					// Build recording link.
+					this.recordingLink = document.createElement("a");
+					this.recordingDiv.appendChild(this.recordingLink);
+					this.recordingLink.href = argumentsObject.recording;
+					this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i> Recording available`;
+				}
 			};
 			// Add speaker stuff not shared with other view modes above.
 			if (viewMode === "speakers") {
@@ -2069,9 +2112,9 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			rowsAsString = sheetObject.substring(startOfRows, endOfRows); // .substring takes beginning and ending character positions.
 			rowsAsArray = JSON.parse(rowsAsString);
 			if (screenContainerId === "events-container") {
-				console.log('%c rowsAsArray', `color: deepskyblue; background:dimgray ; padding: 0 .5em; border-radius: .6em ;`, rowsAsArray);
+				// console.log('%c rowsAsArray', `color: deepskyblue; background:dimgray ; padding: 0 .5em; border-radius: .6em ;`, rowsAsArray);
 				rowsAsArray.sort(isEarlier);
-				rowsAsArray.forEach(row => console.log(getPrintableDateFromRow(row)))
+				// rowsAsArray.forEach(row => console.log(getSortableDateFromRow(row)))
 			}
 			rowsAsArray.forEach((row) => {
 				// In the Sheet, the first column is 0, the second 1, etc.
@@ -2233,7 +2276,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 </head>
 
-<body id="learnwithai-body" onload="viewMode='events' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+<body id="learnwithai-body" onload="viewMode='about' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
 	<div id="watermark"></div>
 	<div id="header">
 		<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
@@ -2509,7 +2552,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
-		<h3 class="lexia-instructions desktop">Hover to learn more or click to visit an outside link:</h3>
+		<h3 class="lexia-instructions desktop">
+			Hover to learn more or click to visit an outside link
+			<button class="upcoming" onclick="showOnlyUpcoming(true)">Show only upcoming</button>
+			<button class="past" onclick="showOnlyUpcoming(false)">Show all dates</button>
+		</h3>
+
 		<div class="lexia-container rows"></div>
 	</div><!-- End events-container. -->
 	<div id="speakers-container">
