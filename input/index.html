@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 3.8: add libraries tag. -->
+<!-- Version 3.9: add event, speaker options. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -32,6 +32,7 @@
 		/*Has dead wood from choose adventure style.*/
 		:root {
 			--screen-margin-inline: 10%;
+			--row-margin-block: 20px;
 			/* _________________ Global colors from home page._________________ */
 			--h-cooler: 220;
 			/* WAS 205. */
@@ -107,7 +108,7 @@
 
 		/* Font-awesome. */
 		i {
-			color: --medium-celeste;
+			/* color: var(--medium-celeste); */
 			/* SWATCH Dark ice. */
 			/* text-shadow: var(--medium-celeste) 0 0 0.1em; */
 			/* SWATCH Medium celeste.*/
@@ -214,6 +215,7 @@
 			margin-inline: var(--screen-margin-inline);
 			margin-block: 0;
 			padding: 0;
+			gap: var(--row-margin-block);
 			/* outline: yellow solid 3px; */
 			/* opacity: .3; */
 		}
@@ -223,6 +225,7 @@
 			width: 80vw;
 			margin-left: auto;
 			margin-right: auto;
+			margin-bottom: calc(-2 * var(--row-margin-block));
 			position: relative;
 			padding-top: 20px;
 			height: 100px;
@@ -573,7 +576,8 @@
 		}
 
 		#submit-report-button {
-			display: none; // Revealed when user clicks appropriate button.
+			display: none;
+			/* Revealed when user clicks appropriate button. */
 		}
 
 		.quiz-key {
@@ -598,7 +602,7 @@
 			display: none;
 		}
 
-		/* Adjust labels. */
+		/*_________________ Adjust labels. _________________*/
 		#submission-type input {
 			margin-top: .7em;
 			/* Makes room for hint. */
@@ -609,6 +613,13 @@
 			margin-bottom: .5em;
 		}
 
+		.input-row {
+			display: flex;
+			justify-content: space-between;
+			gap: 1em;
+		}
+
+		/*_________________ Search. _________________*/
 		#search-box,
 		#folksonomy-box {
 			height: 1em;
@@ -623,7 +634,7 @@
 			width: 40ch;
 		}
 
-		/* Tags */
+		/*________________ Tags ________________*/
 		#tags {
 			display: grid;
 			/* Stage 3a: grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) ); Leave space for empty columns. Most common choice 👍 */
@@ -915,24 +926,24 @@
 			document.querySelector("#search-box").value = "";
 			document.querySelector("#search-box").focus();
 		}
-
 		/* ________________ Select submission type. ________________ */
 		const chooseType = radioButtonChoice => {
-			let strategyOnlyElements = document.querySelectorAll(".strategy-only");
-			let resourceOnlyElements = document.querySelectorAll(".resource-only");
-			if (radioButtonChoice === "resource") {
-				resourceOnlyElements.forEach(element => element.style.display = "block");
-				strategyOnlyElements.forEach(element => element.style.display = "none");
-			} else if (radioButtonChoice === "strategy") {
-				resourceOnlyElements.forEach(element => element.style.display = "none");
-				strategyOnlyElements.forEach(element => element.style.display = "block");
-			} else {
+			let allChoiceElements = document.querySelectorAll(".resource-only, .strategy-only, .speaker-only, .event-only");
+			allChoiceElements.forEach(
+				element => element.style.display = "none"
+			);
+			let selectedChoiceElements = document.querySelectorAll(`.${radioButtonChoice}-only`)
+			// console.log('%c selectedChoiceElements', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, selectedChoiceElements);
+			try {
+				selectedChoiceElements.forEach(element => element.style.display = "block");
+			} catch (e) {
 				console.warn(`${radioButtonChoice} is not a valid submission type!`);
-			}
+			};
 		}
 		/* ________________ Report. ________________ */
 		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
+		eventKeysInOrder = ["title", "startWritten", "endWritten", "eventUrl", "summary", "location", "tagsAsString", "presenter", "recording"];
 		addToLegibleReport = (label, value) => {
 			legibleReportHTML += `<em>${label}</em>: `;
 			if (value === "") {
@@ -944,15 +955,19 @@
 		Report = function () {
 			let reportHTML = "";
 			legibleReportHTML = ""; // Global for use in addToLegibleReport.
-			/*________________ Metadata. ________________*/
+			/*________________ Common metadata. ________________*/
 			this.title = document.querySelector("#lwa-title").value;
 			this.summary = document.querySelector("#lwa-summary").value;
 			if (document.querySelector("#type-strategy").checked) {
 				this.type = "strategy";
-			} else {
+			} else if (document.querySelector("#type-resource").checked) {
 				this.type = "resource";
+			} else if (document.querySelector("#type-event").checked) {
+				this.type = "event";
+			} else if (document.querySelector("#type-speaker").checked) {
+				this.type = "speaker";
 			};
-			console.log("type", this.type)
+			console.log('%c this.type', `color: white; background:dimgray ; border-radius: .6em ;`, this.type);
 			this.submitterName = document.querySelector("#lwa-submitter-name").value;
 			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
 			this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
@@ -1006,9 +1021,39 @@
 					this.resourceId = `${this.lastName}_${this.randomHex}`;
 					reportHTML += `${this.resourceId}\t`;
 				}
-			} else { // Submitting a strategy.
+			} else if (this.type === "strategy") { // Submitting a strategy.
 				this.resourceId = document.querySelector("#lwa-resource-id").value;
 				strategyKeysInOrder.forEach(
+					key => {
+						if (reportFormat === "hashtags") {
+							reportHTML += `${this[key]}`;
+						} else if (reportFormat === "spreadsheet") {
+							reportHTML += `${this[key]}\t`;
+							addToLegibleReport(key, this[key]);
+						}
+					}
+				)
+			} else if (this.type === "event") { // Submitting a strategy.
+				// [this.title = document.querySelector(this.#lwa-title = document.querySelector("#lwa-#lwa-title").value;
+				this.startWritten = document.querySelector("#lwa-start-written").value;
+				this.endWritten = document.querySelector("#lwa-end-written").value;
+				this.eventUrl = document.querySelector("#lwa-event-url").value;
+				this.summary = document.querySelector("#lwa-summary").value;
+				this.location = document.querySelector("#lwa-location").value;
+				this.presenter = document.querySelector("#lwa-presenter").value;
+				this.recording = document.querySelector("#lwa-recording").value;
+				eventKeysInOrder.forEach(
+					key => {
+						if (reportFormat === "hashtags") {
+							reportHTML += `${this[key]}`;
+						} else if (reportFormat === "spreadsheet") {
+							reportHTML += `${this[key]}\t`;
+							addToLegibleReport(key, this[key]);
+						}
+					}
+				)
+			} else if (this.type === "speaker") { // Submitting a strategy.
+				speakerKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
 							reportHTML += `${this[key]}`;
@@ -1100,7 +1145,7 @@
 			document.querySelector("#submit-report-button").style.display = "none";
 			// Set defaults.
 			document.querySelector("#type-resource").checked = true;
-			chooseType("resource");
+			chooseType("event");
 			document.querySelector("#lwa-title").focus();
 		}
 	</script>
@@ -1239,7 +1284,7 @@
 			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png"
 				onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">
 			<h1 id="rubric" onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">Learning With AI</h1>
-			<h2>Submit a resource or strategy to the toolkit</h2>
+			<h2>Submit a suggestion for the toolkit</h2>
 			<div id="beta">BETA</div>
 			<!-- <p><span class="warning">Warning</span>: In this version you cannot use single apostrophes (<span
 					class="warning"><strong>'</strong></span>) in any fields.</p> -->
@@ -1264,6 +1309,11 @@
 						<label for="type-strategy">Strategy</label>
 						<input type="radio" id="type-strategy" name="type" value="strategy"
 							onclick="chooseType(this.value)">
+						<label for="type-resource">Event</label>
+						<input type="radio" id="type-event" name="type" value="event" onclick="chooseType(this.value)">
+						<label for="type-speaker">Speaker</label>
+						<input type="radio" id="type-speaker" name="type" value="speaker"
+							onclick="chooseType(this.value)">
 					</div>
 				</fieldset>
 			</div>
@@ -1274,17 +1324,44 @@
 				</div>
 			</div>
 			<div id="submission-type" class="card">
+				<!-- Type name. -->
 				<h2 class="resource-only"><i class="fa-solid fa-book" aria-hidden: "true"></i>Resource</h2>
+				<h2 class="event-only"><i class="fa-solid fa-calendar-days"></i>Event</h2>
 				<h2 class="strategy-only"><i class="fa-solid fa-square-pen" aria-hidden: "true"></i>Strategy</h2>
+				<h2 class="speaker-only"><i class="fa-solid fa-person-chalkboard"></i>Speaker</h2>
+				<!-- URL. -->
 				<label class="resource-only" for='lwa-resource-url'>Resource URL</label>
 				<input class="resource-only" type='url' id='lwa-resource-url'
 					placeholder='https://kimrodriguez.com/flashcards.html'></input>
+				<label class="event-only" for='lwa-event-url'>Event URL</label>
+				<input class="event-only" type='url' id='lwa-event-url'
+					placeholder='https://university.edu/conference.html'></input>
+				<!-- Person. -->
 				<label class="resource-only" for='lwa-author'>Original author/byline</label>
-				<input class="resource-only" type='text' id='lwa-author' placeholder='Rodriguez, Kim'></input><br />
-				<label class="strategy-only" for='lwa-resource-id'>Resource id <a href="#" class="hint"
+				<input class="resource-only" type='text' id='lwa-author' placeholder='Rodriguez, Kim'></input>
+				<label class="event-only" for='lwa-presenter'>Presenter(s)</label>
+				<input class="event-only" type='text' id='lwa-presenter'
+					placeholder='Ada Lovelace, Alan Turing'></input>
+				<!-- Associated id. -->
+				<label class="strategy-only" for='lwa-resource-id'>Resource id(s) <a href="#" class="hint"
 						id="hint-resource-id" onclick="showHint( this, event )">?</a></label>
-				<input class="strategy-only" type='text' id='lwa-resource-id'
-					placeholder='mitchell_012d2e1b'></input><br />
+				<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input>
+				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id"
+						onclick="showHint( this, event )">?</a></label>
+				<input class="speaker-only" type='text' id='lwa-event-id' placeholder='conference_012d2e1b'></input>
+				<!-- Type-specific fields. -->
+				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy)</label>
+				<div class="input-row">
+					<input class="event-only" type='text' id='lwa-start-written' placeholder='24 Nov 2025'></input>
+					<p class="event-only">to</p>
+					<!-- <label class="event-only" for='lwa-end-written'>End date (dd Mmm yyyy)</label> -->
+					<input class="event-only" type='text' id='lwa-end-written' placeholder='25 Nov 2025'></input>
+				</div>
+				<label class="event-only" for='lwa-location'>City or Online</label>
+				<input class="event-only" type='text' id='lwa-location' placeholder='Barcelona'></input>
+				<label class="event-only" for='lwa-recording'>Recording URL (blank if none)</label>
+				<input class="event-only" type='text' id='lwa-recording'
+					placeholder='https://youtube.com/webinar'></input>
 			</div>
 			<div class="arrow-container">
 				<div class="arrow-box-right">
