@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 3.9: add event, speaker options. -->
+<!-- Version 4.0: refine event, speaker options. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -157,7 +157,6 @@
 			font-weight: bold;
 			font-size: 1.2em;
 			border-radius: 0.5em;
-			margin-top: 1em;
 			/* filter: drop-shadow(var(--block-shadow)); */
 		}
 
@@ -304,6 +303,8 @@
 			display: grid;
 			align-items: start;
 			grid-template-columns: 1fr 2fr 3fr;
+			border-top: dimgray solid 1px;
+			padding-top: 1em;
 		}
 
 		#tag-utilities h2 {
@@ -511,7 +512,7 @@
 			border: cadetBlue solid 4px;
 			opacity: .95;
 			width: 160px;
-			height: 180px;
+			/* height: 180px; */
 			overflow: auto;
 			padding: 1em;
 			background-color: azure;
@@ -686,6 +687,22 @@
 		#tags label {
 			margin-right: 1em;
 		}
+
+		/* ________________ Mobile accommodations. ________________ */
+		/* Avoid setting visible versions of these styles to "block" because they may be flex etc. in context. */
+		.mobile-browsing-warning {
+			display: none;
+		}
+
+		@media only screen and (max-width: 414px) {
+			.mobile-browsing-warning {
+				display: block;
+			}
+
+			/* .desktop {
+				display: none;
+			} */
+		}
 	</style>
 	<script id="build-tags-script-v1.1">
 		const buildTags = () => {
@@ -823,11 +840,15 @@
 			popupObjs.getPopupObjById[ elementClickedId ] = this ;
 			*/
 		}
-		showHint = function (elementClicked, event) {
+		const showHint = (elementClicked, event) => {
 			switch (elementClicked.id) {
 				case "hint-resource-id":
 					var popupObj = new Popup(event, elementClicked.id);
 					popupObj.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
+					break;
+				case "hint-event-id":
+					var popupObj = new Popup(event, elementClicked.id);
+					popupObj.popupDiv.innerHTML += "If this speaker has presented at an event, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-events'>event sheet</a>. You can separate multiple ids with commas."
 					break;
 			}
 		}
@@ -944,6 +965,7 @@
 		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
 		eventKeysInOrder = ["title", "startWritten", "endWritten", "eventUrl", "summary", "location", "tagsAsString", "presenter", "recording"];
+		speakerKeysInOrder = ["title", "summary", "tagsAsString", "eventId"];
 		addToLegibleReport = (label, value) => {
 			legibleReportHTML += `<em>${label}</em>: `;
 			if (value === "") {
@@ -1145,7 +1167,7 @@
 			document.querySelector("#submit-report-button").style.display = "none";
 			// Set defaults.
 			document.querySelector("#type-resource").checked = true;
-			chooseType("event");
+			chooseType("resource");
 			document.querySelector("#lwa-title").focus();
 		}
 	</script>
@@ -1278,6 +1300,9 @@
 <body class="light-mode">
 	<div id="watermark">
 	</div>
+	<h3 class="mobile-browsing-warning">This page is optimized for a larger screen. We recommend you visit on
+		a non-mobile
+		browser.</h3>
 	<main>
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
@@ -1296,9 +1321,9 @@
 		<div class="row row-containing-columns">
 			<div id="lesson" class="card">
 				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
-				<label for='lwa-title'>Headline or title</label>
+				<label for='lwa-title'>Title or speaker</label>
 				<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-				<label for='lwa-summary'>Summary</label>
+				<label for='lwa-summary'>Summary or affiliation</label>
 				<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 				<fieldset>
 					<legend>Select a type</legend>
@@ -1349,7 +1374,7 @@
 				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id"
 						onclick="showHint( this, event )">?</a></label>
 				<input class="speaker-only" type='text' id='lwa-event-id' placeholder='conference_012d2e1b'></input>
-				<!-- Type-specific fields. -->
+				<!-- Event-specific fields. -->
 				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy)</label>
 				<div class="input-row">
 					<input class="event-only" type='text' id='lwa-start-written' placeholder='24 Nov 2025'></input>
