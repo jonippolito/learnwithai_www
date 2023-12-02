@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.4: continue add tag tooltips. -->
+<!-- Version input 4.5: filter finds synonyms. -->
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -1058,10 +1058,15 @@
 			// objRegex.compile(searchStr, "i"): This method is DEPRECATED.
 			// Passing a template string lets you build the expression from dynamic input,
 			// but you have to escape backslashes.
-			var objRegex = new RegExp(`\\b${searchStr} `, "i");
+			var objRegex = new RegExp(`\\b${searchStr}`, "i");
 			// Find span (tag) matches.
+			console.log('%c objRegex.test("community")', `color: yellow; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, objRegex.test("community"));
 			for (var tagCounter = 0; tagCounter < tagObjects.length; tagCounter++) {
-				if (objRegex.test(tagObjects[tagCounter].tagName)) {
+				let foundInTagName = objRegex.test(tagObjects[tagCounter].tagName);
+				let foundInSynonyms = objRegex.test(tagObjects[tagCounter].synonyms);
+				if (foundInTagName) console.log('%c foundInTagName', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, foundInTagName);
+				if (foundInSynonyms) console.log('%c foundInSynonyms', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, foundInSynonyms);
+				if (foundInTagName || foundInSynonyms) {
 					tagObjects[tagCounter].tagSpan.classList.remove("tag-hidden");
 				} else {
 					tagObjects[tagCounter].tagSpan.classList.add("tag-hidden");
