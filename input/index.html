@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 4.0: refine event, speaker options. -->
+<!-- Version 4.1: add tag tooltips/specializations. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -791,6 +791,31 @@
 			tagObjects.push(new TagObject("success", "Ethics"));
 			tagObjects.push(new TagObject("sustainability", "Ethics"));
 			tagObjects.push(new TagObject("surveillance", "Ethics"));
+			// Location (events only).
+			// console.log('%c submissionType in buildTags', `color: deepskyblue; background: dimgray ; border-radius: .6em ;`, submissionType);
+			if (submissionType === "event") {
+				tagObjects.push(new TagObject("North America", "Location"));
+				tagObjects.push(new TagObject("South America", "Location"));
+				tagObjects.push(new TagObject("Europe", "Location"));
+				tagObjects.push(new TagObject("Africa", "Location"));
+				tagObjects.push(new TagObject("Asia", "Location"));
+				tagObjects.push(new TagObject("Oceania", "Location"));
+			}
+		}
+		const removeTags = () => {
+			tagObjects.forEach(
+				tagObject => {
+					// This removes the tag from the DOM.
+					// Apparently JS's own garbage collection will delete the memory too.
+					tagObject.tagSpan.remove();
+				}
+			)
+			fieldsets.forEach(
+				fieldset => {
+					// This node list contains HTML elements, not JS objects.
+					fieldset.remove();
+				}
+			)
 		}
 	</script>
 	<script id="tag-generator-script-v1.1">
@@ -856,6 +881,7 @@
 		// No scripts needed, just HTML form fields.
 		/*__________ Tags. __________*/
 		// UPGRADE: This could be determined dynamically by number of entries.
+		const fieldsets = []; // This is an array of fieldset tags, constructed below.
 		const tallFieldsetNames = ["Discipline"];
 		let currentFieldsetId = "[[ No fieldset id defined!]]";
 		const TagObject = function (tagName, fieldsetName) {
@@ -873,6 +899,7 @@
 				if (tallFieldsetNames.includes(fieldsetName)) {
 					newFieldset.style.gridRow = "span 2";
 				}
+				fieldsets.push(newFieldset);
 			}
 			// Build span to contain tag.
 			this.tagSpan = document.createElement("span");
@@ -948,18 +975,22 @@
 			document.querySelector("#search-box").focus();
 		}
 		/* ________________ Select submission type. ________________ */
-		const chooseType = radioButtonChoice => {
+		const chooseType = () => {
+			// Metadata at top.
 			let allChoiceElements = document.querySelectorAll(".resource-only, .strategy-only, .speaker-only, .event-only");
 			allChoiceElements.forEach(
 				element => element.style.display = "none"
 			);
-			let selectedChoiceElements = document.querySelectorAll(`.${radioButtonChoice}-only`)
+			let selectedChoiceElements = document.querySelectorAll(`.${submissionType}-only`)
 			// console.log('%c selectedChoiceElements', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, selectedChoiceElements);
 			try {
 				selectedChoiceElements.forEach(element => element.style.display = "block");
 			} catch (e) {
-				console.warn(`${radioButtonChoice} is not a valid submission type!`);
+				console.warn(`${submissionType} is not a valid submission type!`);
 			};
+			// Tags at bottom, rebuilt each time to enable type-specific options.
+			removeTags();
+			buildTags();
 		}
 		/* ________________ Report. ________________ */
 		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
@@ -1167,7 +1198,7 @@
 			document.querySelector("#submit-report-button").style.display = "none";
 			// Set defaults.
 			document.querySelector("#type-resource").checked = true;
-			chooseType("resource");
+			chooseType(); // "resource" by default setting of submissionType global variable.
 			document.querySelector("#lwa-title").focus();
 		}
 	</script>
@@ -1206,7 +1237,13 @@
 				)
 		}
 		/* ________________ Act onload. ________________ */
-		window.addEventListener("DOMContentLoaded", buildTags);
+		window.addEventListener(
+			"DOMContentLoaded",
+			() => {
+				submissionType = "resource";
+				buildTags();
+			}
+		);
 	</script>
 	<!-- ============================= -->
 	<!-- = = = Firebase scripts. = = = -->
@@ -1244,6 +1281,7 @@
 		window.addEventListener(
 			"DOMContentLoaded",
 			() => {
+				submissionType = "resource";
 				resetForm();
 				/*________________ Dark mode. ________________*/
 				// Select the button
@@ -1330,15 +1368,16 @@
 					<div class="grid-radio">
 						<label for="type-resource">Resource</label>
 						<input type="radio" id="type-resource" name="type" value="resource" checked
-							onclick="chooseType(this.value)">
+							onclick="submissionType = this.value; chooseType()">
 						<label for="type-strategy">Strategy</label>
 						<input type="radio" id="type-strategy" name="type" value="strategy"
-							onclick="chooseType(this.value)">
+							onclick="submissionType = this.value; chooseType()">
 						<label for="type-resource">Event</label>
-						<input type="radio" id="type-event" name="type" value="event" onclick="chooseType(this.value)">
+						<input type="radio" id="type-event" name="type" value="event"
+							onclick="submissionType = this.value; chooseType()">
 						<label for="type-speaker">Speaker</label>
 						<input type="radio" id="type-speaker" name="type" value="speaker"
-							onclick="chooseType(this.value)">
+							onclick="submissionType = this.value; chooseType()">
 					</div>
 				</fieldset>
 			</div>
