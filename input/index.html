@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.2: start add tag tooltips. -->
+<!-- Version input 4.3: continue add tag tooltips. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -37,7 +37,7 @@
 			--tooltip-duration-ms: 1000ms;
 			--tooltip-transition-ms: 200ms;
 			/* No units because used in JavaScript: */
-			--popup-separation-x: 10;
+			--popup-separation-x: 100;
 			--popup-separation-y: -5;
 			--popup-opacity: .8;
 			/* _________________ Global colors from home page._________________ */
@@ -517,7 +517,6 @@
 		.popup {
 			position: absolute;
 			border: cadetBlue solid 4px;
-			opacity: var(--popup-opacity);
 			width: 160px;
 			/* height: 180px; */
 			overflow: auto;
@@ -548,17 +547,21 @@
 		}
 
 		.popup-visible {
-			opacity: 1;
+			opacity: var(--popup-opacity);
 		}
 
 		.tooltip {
 			/* popupSeparationX, Y are set in JS. */
-			position: absolute;
+			/* position: absolute; */
 			padding: .2em;
 			width: 10em;
 			/* animation-name: tooltip-animation;
 			animation-duration: var(--tooltip-duration-ms);
 			animation-iteration-count: 1; */
+		}
+
+		.synonyms {
+			font-style: italic;
 		}
 
 		/* .tooltip::before {
@@ -813,7 +816,7 @@
 			tagObjects.push(new TagObject("classroom", "Task"));
 			tagObjects.push(new TagObject("communication", "Task"));
 			tagObjects.push(new TagObject("editing", "Task"));
-			tagObjects.push(new TagObject("evaluation", "Task", "grade", "grading"));
+			tagObjects.push(new TagObject("evaluation", "Task", "grade, grading"));
 			tagObjects.push(new TagObject("feedback", "Task"));
 			tagObjects.push(new TagObject("grant", "Task"));
 			tagObjects.push(new TagObject("howto", "Task"));
@@ -855,6 +858,9 @@
 					// This removes the tag from the DOM.
 					// Apparently JS's own garbage collection will delete the memory too.
 					tagObject.tagSpan.remove();
+					if (tagObject.tagSpan.popupDiv) {
+						tagObject.tagSpan.popupDiv.remove();
+					}
 				}
 			)
 			fieldsets.forEach(
@@ -873,7 +879,7 @@
 		let tooltipDurationsMs = parseInt(rootElement.getPropertyValue("--tooltip-duration-ms"));
 		let popupSeparationX = parseInt(rootElement.getPropertyValue("--popup-separation-x"));
 		let popupSeparationY = parseInt(rootElement.getPropertyValue("--popup-separation-y"));
-		let tooltipIsVisible = false;
+		let tooltipIsVisible = false; // UPGRADE: Now unused.
 		let currentTagTarget = null;
 		/*__________ Utilities. __________*/
 		const copyToClipboard = string => {
@@ -905,13 +911,17 @@
 			// I'm ignoring that contingency for now.
 			this.popupDiv.style.left = triggerElement.offsetLeft + popupSeparationX + "px";
 			this.popupDiv.style.top = triggerElement.offsetTop + popupSeparationY + "px";
-			this.popupDiv.onclick = function () {
+			this.popupDiv.onclick = function () { // DANGER?
 				this.parentNode.removeChild(this);
 			}
 			if (popupType === "tooltip") { // Tag tooltip.
 				console.log('%c tooltip created', `color: white; background: steelblue ; border-radius: .6em ;`)
-				this.popupDiv.innerHTML = `${triggerElement.querySelector("label").innerText} includes:<br />`;
-				this.popupDiv.innerHTML += triggerElement.object.synonyms;
+				this.popupDiv.innerHTML = `${triggerElement.querySelector("label").innerText}</em> covers `;
+				// Build synonyms.
+				this.synonymsSpan = document.createElement("span");
+				this.popupDiv.appendChild(this.synonymsSpan);
+				this.synonymsSpan.className = "synonyms";
+				this.synonymsSpan.innerHTML = `${triggerElement.object.synonyms}`;
 				this.popupDiv.classList.add("tooltip");
 			} else if (popupType === "hint") {
 				// Add the X for show--you can really click anywhere on the popup to close it.
@@ -1011,30 +1021,20 @@
 					"mouseover",
 					(event) => {
 						let tagSpan = event.currentTarget;
-						if (tagSpan !== currentTagTarget) {
-							// Show new tooltip right away if user rolled over another tag.
-							// tooltipIsVisible = false;
-						}
-						if (!tooltipIsVisible) {
-							tooltipIsVisible = true;
-							currentTagTarget = tagSpan;
-							let popupDiv = tagSpan.popupDiv;
-							popupDiv.classList.add("popup-visible");
-							// Multiply by 2 if you want to prevent accidental re-display.
-							setTimeout(
-								() => {
-									tooltipIsVisible = false;
-									currentTagTarget = null;
-									popupDiv.classList.remove("popup-visible");
-								},
-								tooltipDurationsMs
-							)
-						}
+						let popupDiv = tagSpan.popupDiv;
+						popupDiv.classList.add("popup-visible");
 					}
-				)
+				);
+				this.tagSpan.addEventListener(
+					"mouseout",
+					(event) => {
+						let tagSpan = event.currentTarget;
+						let popupDiv = tagSpan.popupDiv;
+						popupDiv.classList.remove("popup-visible");
+					}
+				);
 			}
-			// Add to manager so user can filter to narrow selection:
-			tagObjects.push(this);
+			// This is added to the tagObjects manager elsewhere, so user can filter to narrow selection.
 		};
 		tagObjects = [];
 		currentReport = "[[No report defined!]]";
@@ -1068,7 +1068,7 @@
 			allChoiceElements.forEach(
 				element => element.style.display = "none"
 			);
-			let selectedChoiceElements = document.querySelectorAll(`.${submissionType} -only`)
+			let selectedChoiceElements = document.querySelectorAll(`.${submissionType}-only`)
 			try {
 				selectedChoiceElements.forEach(element => element.style.display = "block");
 			} catch (e) {
@@ -1226,8 +1226,7 @@
 			submitterEmail = this.submitterEmail; // Global, just for Firebase.
 			/*________________ Report submission type. ________________*/
 			legibleReportHTML += `<em>type</em>: ${this.type}`;
-			// Need this global for Firebase post.
-			submissionType = this.type;
+			// REDUNDANT? Need this global for Firebase post: submissionType = this.type;
 			/*__________ Methods. __________*/
 			this.showReport = function () {
 				console.log('%c legibleReportHTML', `color: deepskyblue; background: dimgray; border-radius: .6em;`, legibleReportHTML);
@@ -1283,7 +1282,8 @@
 			document.querySelector("#submit-report-button").style.display = "none";
 			// Set defaults.
 			document.querySelector("#type-resource").checked = true;
-			chooseType(); // "resource" by default setting of submissionType global variable.
+			submissionType = "resource";  // Set this global variable to "resource" by default.
+			chooseType();
 			document.querySelector("#lwa-title").focus();
 		}
 	</script>
@@ -1325,8 +1325,7 @@
 		window.addEventListener(
 			"DOMContentLoaded",
 			() => {
-				submissionType = "resource";
-				buildTags();
+				resetForm();
 			}
 		);
 	</script>
@@ -1366,8 +1365,7 @@
 		window.addEventListener(
 			"DOMContentLoaded",
 			() => {
-				submissionType = "resource";
-				resetForm();
+				// Only for onload actions related to light/dark themes.
 				/*________________ Dark mode. ________________*/
 				// Select the button
 				const themeToggleButton = document.querySelector("#theme");
