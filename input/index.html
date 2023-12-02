@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version 4.1: add tag tooltips/specializations. -->
+<!-- Version input 4.2: start add tag tooltips. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -33,6 +33,13 @@
 		:root {
 			--screen-margin-inline: 10%;
 			--row-margin-block: 20px;
+			/* JS uses this to determine tooltipDurationsMs. */
+			--tooltip-duration-ms: 1000ms;
+			--tooltip-transition-ms: 200ms;
+			/* No units because used in JavaScript: */
+			--popup-separation-x: 10;
+			--popup-separation-y: -5;
+			--popup-opacity: .8;
 			/* _________________ Global colors from home page._________________ */
 			--h-cooler: 220;
 			/* WAS 205. */
@@ -510,7 +517,7 @@
 		.popup {
 			position: absolute;
 			border: cadetBlue solid 4px;
-			opacity: .95;
+			opacity: var(--popup-opacity);
 			width: 160px;
 			/* height: 180px; */
 			overflow: auto;
@@ -521,6 +528,8 @@
 			-moz-border-radius: 10px;
 			border-radius: 10px;
 			font-size: .9em;
+			opacity: 0;
+			transition: opacity var(--tooltip-transition-ms) ease-in;
 		}
 
 		.popup-close {
@@ -537,6 +546,41 @@
 			color: tomato;
 			cursor: pointer;
 		}
+
+		.popup-visible {
+			opacity: 1;
+		}
+
+		.tooltip {
+			/* popupSeparationX, Y are set in JS. */
+			position: absolute;
+			padding: .2em;
+			width: 10em;
+			/* animation-name: tooltip-animation;
+			animation-duration: var(--tooltip-duration-ms);
+			animation-iteration-count: 1; */
+		}
+
+		/* .tooltip::before {
+			content: "Synonyms: ";
+			color: dimgray;
+			font-size: .8em;
+		} */
+
+		/* @keyframes tooltip-animation {
+			0% {
+				opacity: 0%;
+			}
+
+			20%,
+			80% {
+				opacity: var(--popup-opacity);
+			}
+
+			100% {
+				opacity: 0%;
+			}
+		} */
 
 		/* Form placeholders */
 		::-webkit-input-placeholder {
@@ -670,6 +714,10 @@
 			margin: .2em .3em 0 0;
 		}
 
+		#tags :is(span, span > *):hover {
+			cursor: pointer;
+		}
+
 		#tags span.tag-active {
 			background-color: var(--block-cool-light);
 		}
@@ -765,11 +813,11 @@
 			tagObjects.push(new TagObject("classroom", "Task"));
 			tagObjects.push(new TagObject("communication", "Task"));
 			tagObjects.push(new TagObject("editing", "Task"));
-			tagObjects.push(new TagObject("evaluation", "Task"));
+			tagObjects.push(new TagObject("evaluation", "Task", "grade", "grading"));
 			tagObjects.push(new TagObject("feedback", "Task"));
 			tagObjects.push(new TagObject("grant", "Task"));
 			tagObjects.push(new TagObject("howto", "Task"));
-			tagObjects.push(new TagObject("remote learning", "Task"));
+			tagObjects.push(new TagObject("remote learning", "Task", "webinar"));
 			tagObjects.push(new TagObject("study", "Task"));
 			tagObjects.push(new TagObject("teamwork", "Task"));
 			// Priority / focus
@@ -792,7 +840,6 @@
 			tagObjects.push(new TagObject("sustainability", "Ethics"));
 			tagObjects.push(new TagObject("surveillance", "Ethics"));
 			// Location (events only).
-			// console.log('%c submissionType in buildTags', `color: deepskyblue; background: dimgray ; border-radius: .6em ;`, submissionType);
 			if (submissionType === "event") {
 				tagObjects.push(new TagObject("North America", "Location"));
 				tagObjects.push(new TagObject("South America", "Location"));
@@ -821,6 +868,13 @@
 	<script id="tag-generator-script-v1.1">
 		// This should be generic. Localization script follows this one.
 		isPostingOnline = false; // Can be overridden in localization script.
+		/*__________ Globals. __________*/
+		let rootElement = getComputedStyle(document.querySelector(":root"))
+		let tooltipDurationsMs = parseInt(rootElement.getPropertyValue("--tooltip-duration-ms"));
+		let popupSeparationX = parseInt(rootElement.getPropertyValue("--popup-separation-x"));
+		let popupSeparationY = parseInt(rootElement.getPropertyValue("--popup-separation-y"));
+		let tooltipIsVisible = false;
+		let currentTagTarget = null;
 		/*__________ Utilities. __________*/
 		const copyToClipboard = string => {
 			if (navigator && navigator.clipboard && navigator.clipboard.writeText) {
@@ -839,7 +893,8 @@
 		}
 		popupObjs = [];
 		popupObjs.getPopupObjById = {};
-		Popup = function (event, elementClickedId) {
+		Popup = function (popupType, triggerElement) {
+			// An object constructor, not a factory.
 			this.popupDiv = document.createElement("div");
 			document.body.appendChild(this.popupDiv);
 			this.popupDiv.className = "popup";
@@ -848,33 +903,31 @@
 			// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
 			// Only danger is if user re-sizes the screen to reveal the ? button.
 			// I'm ignoring that contingency for now.
-			this.popupDiv.style.left = event.clientX - 20 + "px";
-			this.popupDiv.style.top = event.clientY - 20 + "px";
+			this.popupDiv.style.left = triggerElement.offsetLeft + popupSeparationX + "px";
+			this.popupDiv.style.top = triggerElement.offsetTop + popupSeparationY + "px";
 			this.popupDiv.onclick = function () {
 				this.parentNode.removeChild(this);
 			}
-			// Add the X for show--you can really click anywhere on the popup to close it.
-			this.closeDiv = document.createElement("div");
-			this.popupDiv.appendChild(this.closeDiv);
-			this.closeDiv.className = "popup-close";
-			this.closeDiv.innerHTML = "X";
-			/* UPGRADE: This may be overkill, so you don't need elementClickedId in the function arguments.
-			this.isOpen = true ;
-			popupObjs.push( this ) ;
-			this.elementClickedId = elementClickedId || "[No elementClickedId defined!]" ;
-			popupObjs.getPopupObjById[ elementClickedId ] = this ;
-			*/
-		}
-		const showHint = (elementClicked, event) => {
-			switch (elementClicked.id) {
-				case "hint-resource-id":
-					var popupObj = new Popup(event, elementClicked.id);
-					popupObj.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
-					break;
-				case "hint-event-id":
-					var popupObj = new Popup(event, elementClicked.id);
-					popupObj.popupDiv.innerHTML += "If this speaker has presented at an event, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-events'>event sheet</a>. You can separate multiple ids with commas."
-					break;
+			if (popupType === "tooltip") { // Tag tooltip.
+				console.log('%c tooltip created', `color: white; background: steelblue ; border-radius: .6em ;`)
+				this.popupDiv.innerHTML = `${triggerElement.querySelector("label").innerText} includes:<br />`;
+				this.popupDiv.innerHTML += triggerElement.object.synonyms;
+				this.popupDiv.classList.add("tooltip");
+			} else if (popupType === "hint") {
+				// Add the X for show--you can really click anywhere on the popup to close it.
+				this.closeDiv = document.createElement("div");
+				this.popupDiv.appendChild(this.closeDiv);
+				this.closeDiv.className = "popup-close";
+				this.closeDiv.innerHTML = "X";
+				// Add specialized content.
+				switch (triggerElement.id) {
+					case "hint-resource-id":
+						this.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
+						break;
+					case "hint-event-id":
+						this.popupDiv.innerHTML += "If this speaker has presented at an event, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-events'>event sheet</a>. You can separate multiple ids with commas."
+						break;
+				}
 			}
 		}
 		/*__________ General metadata. __________*/
@@ -884,7 +937,9 @@
 		const fieldsets = []; // This is an array of fieldset tags, constructed below.
 		const tallFieldsetNames = ["Discipline"];
 		let currentFieldsetId = "[[ No fieldset id defined!]]";
-		const TagObject = function (tagName, fieldsetName) {
+		const TagObject = function (tagName, fieldsetName, synonyms) {
+			// synonyms are optional.
+			this.synonyms = (typeof synonyms !== "undefined") ? synonyms : "[[none]]";
 			this.tagName = tagName; // For use outside of this constructor.
 			// Assign to fieldset.
 			if (fieldsetName !== currentFieldsetId) {
@@ -904,7 +959,7 @@
 			// Build span to contain tag.
 			this.tagSpan = document.createElement("span");
 			try {
-				document.querySelector(`#${currentFieldsetId}`).appendChild(this.tagSpan);
+				document.querySelector(`#${currentFieldsetId} `).appendChild(this.tagSpan);
 
 			} catch (e) {
 				console.warn(`tagName`, tagName)
@@ -946,9 +1001,41 @@
 			this.tagSpan.appendChild(this.tagLabel);
 			this.tagLabel.for = tagName;
 			this.tagLabel.innerHTML = tagName;
+			// Add tooltip.
+			if (this.synonyms === "[[none]]") {
+				// Don't show tooltip.
+			} else {
+				this.tooltipObject = new Popup("tooltip", this.tagSpan);
+				this.tagSpan.popupDiv = this.tooltipObject.popupDiv;
+				this.tagSpan.addEventListener(
+					"mouseover",
+					(event) => {
+						let tagSpan = event.currentTarget;
+						if (tagSpan !== currentTagTarget) {
+							// Show new tooltip right away if user rolled over another tag.
+							// tooltipIsVisible = false;
+						}
+						if (!tooltipIsVisible) {
+							tooltipIsVisible = true;
+							currentTagTarget = tagSpan;
+							let popupDiv = tagSpan.popupDiv;
+							popupDiv.classList.add("popup-visible");
+							// Multiply by 2 if you want to prevent accidental re-display.
+							setTimeout(
+								() => {
+									tooltipIsVisible = false;
+									currentTagTarget = null;
+									popupDiv.classList.remove("popup-visible");
+								},
+								tooltipDurationsMs
+							)
+						}
+					}
+				)
+			}
 			// Add to manager so user can filter to narrow selection:
 			tagObjects.push(this);
-		}
+		};
 		tagObjects = [];
 		currentReport = "[[No report defined!]]";
 		const searchFilter = (searchStr) => {
@@ -957,7 +1044,7 @@
 			// objRegex.compile(searchStr, "i"): This method is DEPRECATED.
 			// Passing a template string lets you build the expression from dynamic input,
 			// but you have to escape backslashes.
-			var objRegex = new RegExp(`\\b${searchStr}`, "i");
+			var objRegex = new RegExp(`\\b${searchStr} `, "i");
 			// Find span (tag) matches.
 			for (var tagCounter = 0; tagCounter < tagObjects.length; tagCounter++) {
 				if (objRegex.test(tagObjects[tagCounter].tagName)) {
@@ -981,8 +1068,7 @@
 			allChoiceElements.forEach(
 				element => element.style.display = "none"
 			);
-			let selectedChoiceElements = document.querySelectorAll(`.${submissionType}-only`)
-			// console.log('%c selectedChoiceElements', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, selectedChoiceElements);
+			let selectedChoiceElements = document.querySelectorAll(`.${submissionType} -only`)
 			try {
 				selectedChoiceElements.forEach(element => element.style.display = "block");
 			} catch (e) {
@@ -998,11 +1084,11 @@
 		eventKeysInOrder = ["title", "startWritten", "endWritten", "eventUrl", "summary", "location", "tagsAsString", "presenter", "recording"];
 		speakerKeysInOrder = ["title", "summary", "tagsAsString", "eventId"];
 		addToLegibleReport = (label, value) => {
-			legibleReportHTML += `<em>${label}</em>: `;
+			legibleReportHTML += `< em > ${label}</em >: `;
 			if (value === "") {
-				legibleReportHTML += `<span class="warning">NONE INDICATED</span><br />`;
+				legibleReportHTML += `< span class="warning" > NONE INDICATED</span > <br />`;
 			} else {
-				legibleReportHTML += `${value}<br />`;
+				legibleReportHTML += `${value} <br />`;
 			}
 		}
 		Report = function () {
@@ -1020,7 +1106,6 @@
 			} else if (document.querySelector("#type-speaker").checked) {
 				this.type = "speaker";
 			};
-			console.log('%c this.type', `color: white; background:dimgray ; border-radius: .6em ;`, this.type);
 			this.submitterName = document.querySelector("#lwa-submitter-name").value;
 			this.submitterEmail = document.querySelector("#lwa-submitter-email").value;
 			this.submitterWebsite = document.querySelector("#lwa-submitter-website").value;
@@ -1042,7 +1127,7 @@
 				} else if (reportFormat === "spreadsheet") {
 					// Remove hash signs and add commas.
 					// Syntax is myString.substr( startPositionCountingFirstAs0, numberOfCharactersToInclude ).
-					// UNNECESSARY AFTER TAG SEGREGATION: this.tagsAsString += `${  removeHashtagSign( this.tags[tagCounter] )  }, ` ;
+					// UNNECESSARY AFTER TAG SEGREGATION: this.tagsAsString += `${ removeHashtagSign(this.tags[tagCounter]) }, ` ;
 					this.tagsAsString += `${this.tags[tagCounter]}, `;
 				}
 			}
@@ -1059,9 +1144,9 @@
 				resourceKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
-							reportHTML += `${this[key]}`;
+							reportHTML += `${this[key]} `;
 						} else if (reportFormat === "spreadsheet") {
-							reportHTML += `${this[key]}\t`;
+							reportHTML += `${this[key]} \t`;
 							addToLegibleReport(key, this[key]);
 						}
 					}
@@ -1071,17 +1156,17 @@
 				} else if (reportFormat === "spreadsheet") {
 					this.lastName = this.author.replace(/^(.+?)\b(.*?)$/, "$1").toLowerCase();
 					this.randomHex = (parseInt(4294967295 * Math.random())).toString(16); // 4294967295 is highest 32-bit number.
-					this.resourceId = `${this.lastName}_${this.randomHex}`;
-					reportHTML += `${this.resourceId}\t`;
+					this.resourceId = `${this.lastName}_${this.randomHex} `;
+					reportHTML += `${this.resourceId} \t`;
 				}
 			} else if (this.type === "strategy") { // Submitting a strategy.
 				this.resourceId = document.querySelector("#lwa-resource-id").value;
 				strategyKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
-							reportHTML += `${this[key]}`;
+							reportHTML += `${this[key]} `;
 						} else if (reportFormat === "spreadsheet") {
-							reportHTML += `${this[key]}\t`;
+							reportHTML += `${this[key]} \t`;
 							addToLegibleReport(key, this[key]);
 						}
 					}
@@ -1098,9 +1183,9 @@
 				eventKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
-							reportHTML += `${this[key]}`;
+							reportHTML += `${this[key]} `;
 						} else if (reportFormat === "spreadsheet") {
-							reportHTML += `${this[key]}\t`;
+							reportHTML += `${this[key]} \t`;
 							addToLegibleReport(key, this[key]);
 						}
 					}
@@ -1109,9 +1194,9 @@
 				speakerKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
-							reportHTML += `${this[key]}`;
+							reportHTML += `${this[key]} `;
 						} else if (reportFormat === "spreadsheet") {
-							reportHTML += `${this[key]}\t`;
+							reportHTML += `${this[key]} \t`;
 							addToLegibleReport(key, this[key]);
 						}
 					}
@@ -1122,21 +1207,21 @@
 			if (this.customTags === "") {
 				this.customTags = "none";
 			}
-			reportHTML += `${this.customTags}\t`;
+			reportHTML += `${this.customTags} \t`;
 			// Not using addToLegibleReport function because it's OK if blank.
-			legibleReportHTML += `<em>custom tags</em>: ${this.customTags}<br />`;
+			legibleReportHTML += `< em > custom tags</em >: ${this.customTags} <br />`;
 			/*________________ Date stamp. ________________*/
 			// Submission date as unix seconds.
 			const now = new Date();
 			// Reformatted as 1/31/2023.
-			this.submittedDate = `${now.getMonth() + 1}/${now.getDate()}/${now.getFullYear()}`;
-			reportHTML += `${this.submittedDate}\t`;
-			legibleReportHTML += `<em>submitted</em>: ${this.submittedDate}<br />`;
+			this.submittedDate = `${now.getMonth() + 1} /${now.getDate()}/${now.getFullYear()} `;
+			reportHTML += `${this.submittedDate} \t`;
+			legibleReportHTML += `< em > submitted</em >: ${this.submittedDate} <br />`;
 			/*________________ Submitter details. ________________*/
-			reportHTML += `${this.submitterName}\t`;
-			reportHTML += `${this.submitterWebsite}\t`;
-			legibleReportHTML += `<em>submitter name</em>: ${this.submitterName}<br />`;
-			legibleReportHTML += `<em>submitter's own website</em>: ${this.submitterWebsite}<br />`;
+			reportHTML += `${this.submitterName} \t`;
+			reportHTML += `${this.submitterWebsite} \t`;
+			legibleReportHTML += `< em > submitter name</em >: ${this.submitterName} <br />`;
+			legibleReportHTML += `< em > submitter's own website</em>: ${this.submitterWebsite}<br />`;
 			legibleReportHTML += `<em>submitter email</em>: ${this.submitterEmail} (won't be publicly visible)<br />`;
 			submitterEmail = this.submitterEmail; // Global, just for Firebase.
 			/*________________ Report submission type. ________________*/
@@ -1408,10 +1493,10 @@
 					placeholder='Ada Lovelace, Alan Turing'></input>
 				<!-- Associated id. -->
 				<label class="strategy-only" for='lwa-resource-id'>Resource id(s) <a href="#" class="hint"
-						id="hint-resource-id" onclick="showHint( this, event )">?</a></label>
+						id="hint-resource-id" onclick="new Popup( 'hint', this )">?</a></label>
 				<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input>
 				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id"
-						onclick="showHint( this, event )">?</a></label>
+						onclick="new Popup( 'hint', this )">?</a></label>
 				<input class="speaker-only" type='text' id='lwa-event-id' placeholder='conference_012d2e1b'></input>
 				<!-- Event-specific fields. -->
 				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy)</label>
