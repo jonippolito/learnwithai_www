@@ -1,5 +1,7 @@
 <!doctype html>
-<!-- Version input 4.3: continue add tag tooltips. -->
+<!-- Version input 4.4: continue add tag tooltips. -->
+<!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
+<!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
 <html>
 
@@ -527,7 +529,6 @@
 			-moz-border-radius: 10px;
 			border-radius: 10px;
 			font-size: .9em;
-			opacity: 0;
 			transition: opacity var(--tooltip-transition-ms) ease-in;
 		}
 
@@ -548,6 +549,10 @@
 
 		.popup-visible {
 			opacity: var(--popup-opacity);
+		}
+
+		.popup-hidden {
+			opacity: 0;
 		}
 
 		.tooltip {
@@ -901,21 +906,22 @@
 		popupObjs.getPopupObjById = {};
 		Popup = function (popupType, triggerElement) {
 			// An object constructor, not a factory.
+			// Tag tooltips are pre-built and the opacity changes.
+			// "?" tooltips are generated and destroyed each time.
 			this.popupDiv = document.createElement("div");
 			document.body.appendChild(this.popupDiv);
 			this.popupDiv.className = "popup";
 			this.popupDiv.obj = this;
+			// UPGRADE: Check if this still applies:
 			// I'm moving the popup up and to the left 20px to cover the ? button.
 			// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
 			// Only danger is if user re-sizes the screen to reveal the ? button.
 			// I'm ignoring that contingency for now.
 			this.popupDiv.style.left = triggerElement.offsetLeft + popupSeparationX + "px";
 			this.popupDiv.style.top = triggerElement.offsetTop + popupSeparationY + "px";
-			this.popupDiv.onclick = function () { // DANGER?
-				this.parentNode.removeChild(this);
-			}
 			if (popupType === "tooltip") { // Tag tooltip.
-				console.log('%c tooltip created', `color: white; background: steelblue ; border-radius: .6em ;`)
+				// Add default state. Tooltips are hidden, while hints are created and destroyed on the fly.
+				this.popupDiv.classList.add("popup-hidden");
 				this.popupDiv.innerHTML = `${triggerElement.querySelector("label").innerText}</em> covers `;
 				// Build synonyms.
 				this.synonymsSpan = document.createElement("span");
@@ -924,18 +930,22 @@
 				this.synonymsSpan.innerHTML = `${triggerElement.object.synonyms}`;
 				this.popupDiv.classList.add("tooltip");
 			} else if (popupType === "hint") {
+				// Enable closing.
 				// Add the X for show--you can really click anywhere on the popup to close it.
 				this.closeDiv = document.createElement("div");
 				this.popupDiv.appendChild(this.closeDiv);
 				this.closeDiv.className = "popup-close";
 				this.closeDiv.innerHTML = "X";
+				this.popupDiv.onclick = function () { // Doesn't apply to tag tooltips.
+					this.parentNode.removeChild(this);
+				}
 				// Add specialized content.
 				switch (triggerElement.id) {
 					case "hint-resource-id":
-						this.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
+						this.popupDiv.innerHTML += "If an explanation or other resource exists for this strategy, copy its id from the Learning With AI <a target='_blank' href='https://tinyurl.com/learnwithai-resources'>resource sheet</a>. You can separate multiple ids with commas."
 						break;
 					case "hint-event-id":
-						this.popupDiv.innerHTML += "If this speaker has presented at an event, copy its id from the Learning With AI <a href='https://tinyurl.com/learnwithai-events'>event sheet</a>. You can separate multiple ids with commas."
+						this.popupDiv.innerHTML += "If this speaker has presented at an event, copy its id from the Learning With AI <a target='_blank' href='https://tinyurl.com/learnwithai-events'>event sheet</a>. You can separate multiple ids with commas."
 						break;
 				}
 			}
@@ -1016,12 +1026,15 @@
 				// Don't show tooltip.
 			} else {
 				this.tooltipObject = new Popup("tooltip", this.tagSpan);
+				// Keep hover behavior here instead of Popup constructor so you can refer to the target tag span.
+				// Seems to play better with hints if there are two different hidden/visible classes.
 				this.tagSpan.popupDiv = this.tooltipObject.popupDiv;
 				this.tagSpan.addEventListener(
 					"mouseover",
 					(event) => {
 						let tagSpan = event.currentTarget;
 						let popupDiv = tagSpan.popupDiv;
+						popupDiv.classList.remove("popup-hidden");
 						popupDiv.classList.add("popup-visible");
 					}
 				);
@@ -1031,6 +1044,7 @@
 						let tagSpan = event.currentTarget;
 						let popupDiv = tagSpan.popupDiv;
 						popupDiv.classList.remove("popup-visible");
+						popupDiv.classList.add("popup-hidden");
 					}
 				);
 			}
