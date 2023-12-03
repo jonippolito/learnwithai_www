@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.5: filter finds synonyms. -->
+<!-- Version input 4.6: fix tooltip positions. -->
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -38,9 +38,13 @@
 			/* JS uses this to determine tooltipDurationsMs. */
 			--tooltip-duration-ms: 1000ms;
 			--tooltip-transition-ms: 200ms;
+			/* Doesn't apply to popups. */
+			--tooltip-delay-in-ms: 500ms;
+			--tooltip-delay-out-ms: 0ms;
 			/* No units because used in JavaScript: */
-			--popup-separation-x: 100;
-			--popup-separation-y: -5;
+			--popup-separation-x: 40;
+			--popup-separation-y: 10;
+			--hint-separation-extra: 40;
 			--popup-opacity: .8;
 			/* _________________ Global colors from home page._________________ */
 			--h-cooler: 220;
@@ -384,6 +388,8 @@
 			/* 12 + 30. */
 			width: 42px;
 			filter: drop-shadow(var(--block-shadow));
+			/* Position under potential popups. */
+			z-index: -1;
 		}
 
 		.arrow-container.arrow-down {
@@ -549,10 +555,14 @@
 
 		.popup-visible {
 			opacity: var(--popup-opacity);
+			transition-delay: var(--tooltip-delay-in-ms);
+			/* Putting this here enables having different in and out delays. */
 		}
 
 		.popup-hidden {
 			opacity: 0;
+			pointer-events: none;
+			transition-delay: var(--tooltip-delay-out-ms);
 		}
 
 		.tooltip {
@@ -765,96 +775,95 @@
 			// General 
 			tagObjects.push(new TagObject("AI", "General"));
 			tagObjects.push(new TagObject("community", "General"));
-			tagObjects.push(new TagObject("guidelines", "General"));
-			tagObjects.push(new TagObject("list", "General"));
-			tagObjects.push(new TagObject("research", "General"));
+			tagObjects.push(new TagObject("guidelines", "General", "policy"));
+			tagObjects.push(new TagObject("list", "General", "compilation"));
+			tagObjects.push(new TagObject("research", "General", "experiment"));
 			// Technology 
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
-			tagObjects.push(new TagObject("free", "Technology"));
-			tagObjects.push(new TagObject("freemium", "Technology"));
+			tagObjects.push(new TagObject("free", "Technology", "open source"));
+			tagObjects.push(new TagObject("freemium", "Technology", "paid tier"));
 			tagObjects.push(new TagObject("prompt", "Technology"));
-			tagObjects.push(new TagObject("tool", "Technology"));
-			tagObjects.push(new TagObject("subscription", "Technology"));
+			tagObjects.push(new TagObject("tool", "Technology", "service, technology"));
+			tagObjects.push(new TagObject("subscription", "Technology", "paid"));
 			// Discipline / context
-			tagObjects.push(new TagObject("animation", "Discipline"));
+			tagObjects.push(new TagObject("animation", "Discipline", "rotoscoping, motion graphics"));
 			tagObjects.push(new TagObject("art", "Discipline"));
-			tagObjects.push(new TagObject("business", "Discipline"));
-			tagObjects.push(new TagObject("collections", "Discipline"));
-			tagObjects.push(new TagObject("computer science", "Discipline"));
-			tagObjects.push(new TagObject("design", "Discipline"));
+			tagObjects.push(new TagObject("business", "Discipline", "company, finance"));
+			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives"));
+			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science"));
+			tagObjects.push(new TagObject("design", "Discipline", "graphic design, UX design, UI design"));
 			tagObjects.push(new TagObject("disability", "Discipline"));
-			tagObjects.push(new TagObject("economics", "Discipline"));
-			tagObjects.push(new TagObject("education", "Discipline"));
-			tagObjects.push(new TagObject("games", "Discipline"));
-			tagObjects.push(new TagObject("governance", "Discipline"));
-			tagObjects.push(new TagObject("healthcare", "Discipline"));
+			tagObjects.push(new TagObject("economics", "Discipline", "economy"));
+			tagObjects.push(new TagObject("education", "Discipline", "higher education, school, universities"));
+			tagObjects.push(new TagObject("games", "Discipline", "gaming, computer games, video games"));
+			tagObjects.push(new TagObject("governance", "Discipline", "government, regulation"));
+			tagObjects.push(new TagObject("healthcare", "Discipline", "medicine, doctor, nurse, drug, pharmacology, mental health, social work"));
 			tagObjects.push(new TagObject("history", "Discipline"));
-			tagObjects.push(new TagObject("journalism", "Discipline"));
+			tagObjects.push(new TagObject("journalism", "Discipline", "news"));
 			tagObjects.push(new TagObject("law", "Discipline"));
 			tagObjects.push(new TagObject("languages", "Discipline"));
 			tagObjects.push(new TagObject("libraries", "Discipline"));
-			tagObjects.push(new TagObject("literature", "Discipline"));
-			tagObjects.push(new TagObject("marketing", "Discipline"));
-			tagObjects.push(new TagObject("network", "Discipline"));
-			tagObjects.push(new TagObject("psychology", "Discipline"));
-			tagObjects.push(new TagObject("science", "Discipline"));
-			tagObjects.push(new TagObject("story", "Discipline"));
-			tagObjects.push(new TagObject("work", "Discipline"));
-			tagObjects.push(new TagObject("writing", "Discipline"));
+			tagObjects.push(new TagObject("literature", "Discipline", "fiction"));
+			tagObjects.push(new TagObject("marketing", "Discipline", "promotion, adversiting, publicity"));
+			tagObjects.push(new TagObject("network", "Discipline", "Internet, social media"));
+			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience"));
+			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy"));
+			tagObjects.push(new TagObject("story", "Discipline", "narrative"));
+			tagObjects.push(new TagObject("work", "Discipline", "jobs, labor"));
+			tagObjects.push(new TagObject("writing", "Discipline", "essays, papers, composition, English"));
 			// Primary Medium 
-			tagObjects.push(new TagObject("3d", "Medium"));
-			tagObjects.push(new TagObject("code", "Medium"));
-			tagObjects.push(new TagObject("image", "Medium"));
-			tagObjects.push(new TagObject("music", "Medium")); // -> audio for voice simulation.
-			tagObjects.push(new TagObject("presentation", "Medium"));
-			tagObjects.push(new TagObject("publication", "Medium"));
+			tagObjects.push(new TagObject("3d", "Medium", "VR, AR, virtual reality, augmented reality, XR, fabrication, environment"));
+			tagObjects.push(new TagObject("code", "Medium", "software"));
+			tagObjects.push(new TagObject("image", "Medium", "visual, picture"));
+			tagObjects.push(new TagObject("music", "Medium", "audio, sound")); // -> audio for voice simulation.
+			tagObjects.push(new TagObject("presentation", "Medium", "slides, talk"));
+			tagObjects.push(new TagObject("publication", "Medium", "book, article"));
 			tagObjects.push(new TagObject("simulation", "Medium"));
-			tagObjects.push(new TagObject("software", "Medium"));
-			tagObjects.push(new TagObject("speech", "Medium"));
-			tagObjects.push(new TagObject("syllabus", "Medium"));
-			tagObjects.push(new TagObject("text", "Medium"));
-			tagObjects.push(new TagObject("video", "Medium"));
+			tagObjects.push(new TagObject("speech", "Medium", "talk"));
+			tagObjects.push(new TagObject("syllabus", "Medium", "curriculum"));
+			tagObjects.push(new TagObject("text", "Medium", "words, prose"));
+			tagObjects.push(new TagObject("video", "Medium", "movie, film"));
 			// Task 
-			tagObjects.push(new TagObject("assignment", "Task"));
-			tagObjects.push(new TagObject("citation", "Task"));
-			tagObjects.push(new TagObject("classroom", "Task"));
-			tagObjects.push(new TagObject("communication", "Task"));
-			tagObjects.push(new TagObject("editing", "Task"));
+			tagObjects.push(new TagObject("assignment", "Task", "homework"));
+			tagObjects.push(new TagObject("citation", "Task", "bibliography"));
+			tagObjects.push(new TagObject("classroom", "Task", "campus"));
+			tagObjects.push(new TagObject("communication", "Task", "email, conversation, discussion"));
+			tagObjects.push(new TagObject("editing", "Task", "compositing, effects, manipulation"));
 			tagObjects.push(new TagObject("evaluation", "Task", "grade, grading"));
-			tagObjects.push(new TagObject("feedback", "Task"));
-			tagObjects.push(new TagObject("grant", "Task"));
-			tagObjects.push(new TagObject("howto", "Task"));
-			tagObjects.push(new TagObject("remote learning", "Task", "webinar"));
-			tagObjects.push(new TagObject("study", "Task"));
-			tagObjects.push(new TagObject("teamwork", "Task"));
+			tagObjects.push(new TagObject("feedback", "Task", "commentary, critique, criticism"));
+			tagObjects.push(new TagObject("grant", "Task", "funding, sponsorship"));
+			tagObjects.push(new TagObject("howto", "Task", "explainer, demo"));
+			tagObjects.push(new TagObject("remote learning", "Task", "webinar, online learning"));
+			tagObjects.push(new TagObject("study", "Task", "learning"));
+			tagObjects.push(new TagObject("teamwork", "Task", "group"));
 			// Priority / focus
 			tagObjects.push(new TagObject("AI-human-collaboration", "Focus"));
-			tagObjects.push(new TagObject("creator-focused", "Focus"));
-			tagObjects.push(new TagObject("educator-focused", "Focus"));
+			tagObjects.push(new TagObject("creator-focused", "Focus", "artist, designer, programmer, musician, filmmaker"));
+			tagObjects.push(new TagObject("educator-focused", "Focus", "professor, teacher, instructor"));
 			tagObjects.push(new TagObject("human-first", "Focus"));
-			tagObjects.push(new TagObject("learner-focused", "Focus"));
+			tagObjects.push(new TagObject("learner-focused", "Focus", "student"));
 			// Ethics 
-			tagObjects.push(new TagObject("bias", "Ethics"));
-			tagObjects.push(new TagObject("defect", "Ethics"));
-			tagObjects.push(new TagObject("disinformation", "Ethics"));
-			tagObjects.push(new TagObject("ethics", "Ethics"));
-			tagObjects.push(new TagObject("exploitation", "Ethics"));
-			tagObjects.push(new TagObject("fabrication", "Ethics"));
-			tagObjects.push(new TagObject("hype", "Ethics"));
-			tagObjects.push(new TagObject("identity", "Ethics"));
-			tagObjects.push(new TagObject("plagiarism", "Ethics"));
-			tagObjects.push(new TagObject("success", "Ethics"));
-			tagObjects.push(new TagObject("sustainability", "Ethics"));
-			tagObjects.push(new TagObject("surveillance", "Ethics"));
+			tagObjects.push(new TagObject("bias", "Ethics", "discrimination, fairness"));
+			tagObjects.push(new TagObject("defect", "Ethics", "problem, challenge, failure"));
+			tagObjects.push(new TagObject("disinformation", "Ethics", "misinformation, propaganda"));
+			tagObjects.push(new TagObject("ethics", "Ethics", "morality"));
+			tagObjects.push(new TagObject("exploitation", "Ethics", "abuse, misuse"));
+			tagObjects.push(new TagObject("fabrication", "Ethics", "hallucination, confabulation, lies, falsehood"));
+			tagObjects.push(new TagObject("hype", "Ethics", "exaggeration"));
+			tagObjects.push(new TagObject("identity", "Ethics", "diversity, inclusion, equity, DEI"));
+			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating"));
+			tagObjects.push(new TagObject("success", "Ethics", "favorable outcome"));
+			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
+			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
 			// Location (events only).
 			if (submissionType === "event") {
-				tagObjects.push(new TagObject("North America", "Location"));
-				tagObjects.push(new TagObject("South America", "Location"));
-				tagObjects.push(new TagObject("Europe", "Location"));
-				tagObjects.push(new TagObject("Africa", "Location"));
-				tagObjects.push(new TagObject("Asia", "Location"));
-				tagObjects.push(new TagObject("Oceania", "Location"));
+				tagObjects.push(new TagObject("North America", "Location", "Canada, US, America, United States, Mexico"));
+				tagObjects.push(new TagObject("South America", "Location", "Brazil, Argentina"));
+				tagObjects.push(new TagObject("Europe", "Location", "England, Britain, UK, Spain, France, Germany, Italy, Russia"));
+				tagObjects.push(new TagObject("Africa", "Location", "Egypt, Morocco, Nigeria, South Africa"));
+				tagObjects.push(new TagObject("Asia", "Location", "Middle East, Israel, Russia, India, China"));
+				tagObjects.push(new TagObject("Oceania", "Location", "Australia, New Zealand"));
 			}
 		}
 		const removeTags = () => {
@@ -884,6 +893,7 @@
 		let tooltipDurationsMs = parseInt(rootElement.getPropertyValue("--tooltip-duration-ms"));
 		let popupSeparationX = parseInt(rootElement.getPropertyValue("--popup-separation-x"));
 		let popupSeparationY = parseInt(rootElement.getPropertyValue("--popup-separation-y"));
+		let hintSeparationExtra = parseInt(rootElement.getPropertyValue("--hint-separation-extra"));
 		let tooltipIsVisible = false; // UPGRADE: Now unused.
 		let currentTagTarget = null;
 		/*__________ Utilities. __________*/
@@ -909,7 +919,8 @@
 			// Tag tooltips are pre-built and the opacity changes.
 			// "?" tooltips are generated and destroyed each time.
 			this.popupDiv = document.createElement("div");
-			document.body.appendChild(this.popupDiv);
+			console.log('%c triggerElement.parentNode', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, triggerElement.parentNode);
+			triggerElement.parentNode.appendChild(this.popupDiv); // Was document.body.
 			this.popupDiv.className = "popup";
 			this.popupDiv.obj = this;
 			// UPGRADE: Check if this still applies:
@@ -917,19 +928,20 @@
 			// Because otherwise you need to do annoying stuff to trap when the user clicks that button again.
 			// Only danger is if user re-sizes the screen to reveal the ? button.
 			// I'm ignoring that contingency for now.
-			this.popupDiv.style.left = triggerElement.offsetLeft + popupSeparationX + "px";
-			this.popupDiv.style.top = triggerElement.offsetTop + popupSeparationY + "px";
 			if (popupType === "tooltip") { // Tag tooltip.
 				// Add default state. Tooltips are hidden, while hints are created and destroyed on the fly.
 				this.popupDiv.classList.add("popup-hidden");
 				this.popupDiv.innerHTML = `${triggerElement.querySelector("label").innerText}</em> covers `;
 				// Build synonyms.
-				this.synonymsSpan = document.createElement("span");
-				this.popupDiv.appendChild(this.synonymsSpan);
-				this.synonymsSpan.className = "synonyms";
-				this.synonymsSpan.innerHTML = `${triggerElement.object.synonyms}`;
+				this.synonymsEm = document.createElement("em");
+				this.popupDiv.appendChild(this.synonymsEm);
+				this.synonymsEm.className = "synonyms";
+				this.synonymsEm.innerHTML = `${triggerElement.object.synonyms}`;
 				this.popupDiv.classList.add("tooltip");
 			} else if (popupType === "hint") {
+				// Position it a bit further away than tooltips.
+				// Not working for some reason: this.popupDiv.style.transform = `translateX(300px)`;
+				this.popupDiv.style.transform = `translateY(${hintSeparationExtra}px)`;
 				// Enable closing.
 				// Add the X for show--you can really click anywhere on the popup to close it.
 				this.closeDiv = document.createElement("div");
@@ -1034,6 +1046,9 @@
 					(event) => {
 						let tagSpan = event.currentTarget;
 						let popupDiv = tagSpan.popupDiv;
+						// Styles not set in JS can be set but not accessed.
+						popupDiv.style.left = event.clientX + popupSeparationX + "px";
+						popupDiv.style.top = event.clientY + popupSeparationY + "px";
 						popupDiv.classList.remove("popup-hidden");
 						popupDiv.classList.add("popup-visible");
 					}
