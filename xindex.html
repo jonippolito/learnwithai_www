@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version 5.5: Add event, speaker custom tags. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version index 5.6: realign event, speaker fields to db. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -2184,11 +2184,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						let locationPair = row["c"][5] || { v: "" };
 						let tagsPair = row["c"][6] || { v: "" };
 						// console.log('%c datePair', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, datePair);
-						let customTagsPair = row["c"][7] || { f: "" };
-						let presentersPair = row["c"][8] || { f: "" };
-						let recordingPair = row["c"][9] || { f: "" };
-						let submitterPair = row["c"][10] || { f: "" };
-						let idPair = row["c"][11] || { f: "" };
+						let presentersPair = row["c"][7] || { f: "" };
+						let recordingPair = row["c"][8] || { f: "" };
+						let idPair = row["c"][9] || { f: "" };
+						// let customTagsPair = row["c"][10] || { f: "" }; Not shown in public output.
+						let submittedDate = row["c"][11] || { f: "" };
+						let submitterPair = row["c"][12] || { f: "" };
 						let thisLexia = new Lexia({
 							byline: presentersPair["v"],
 							headline: eventPair["v"],
@@ -2214,9 +2215,9 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 						let speakerPair = row["c"][0] || { v: "" };
 						let descriptionPair = row["c"][1] || { v: "" };
 						let tagsPair = row["c"][2] || { v: "" };
-						let customTagsPair = row["c"][3] || { v: "" };
-						let idPair = row["c"][4] || { v: "" };
-						let submitterPair = row["c"][7] || { v: "" };
+						let idPair = row["c"][3] || { v: "" };
+						let customTagsPair = row["c"][4] || { v: "" };
+						let submitterPair = row["c"][6] || { v: "" };
 						let thisLexia = new Lexia({
 							headline: speakerPair["v"],
 							tags: tagsPair["v"],

@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.6: fix tooltip positions. -->
+<!-- Version input 4.7: test reports. -->
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -237,7 +237,8 @@
 			width: 80vw;
 			margin-left: auto;
 			margin-right: auto;
-			margin-bottom: calc(-2 * var(--row-margin-block));
+			/* The ~20px addition makes room for the reset button. */
+			margin-bottom: calc(-2 * var(--row-margin-block) + 22px);
 			position: relative;
 			padding-top: 20px;
 			height: 100px;
@@ -781,7 +782,7 @@
 			// Technology 
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
-			tagObjects.push(new TagObject("free", "Technology", "open source"));
+			tagObjects.push(new TagObject("free", "Technology", "open source, open access"));
 			tagObjects.push(new TagObject("freemium", "Technology", "paid tier"));
 			tagObjects.push(new TagObject("prompt", "Technology"));
 			tagObjects.push(new TagObject("tool", "Technology", "service, technology"));
@@ -797,7 +798,7 @@
 			tagObjects.push(new TagObject("economics", "Discipline", "economy"));
 			tagObjects.push(new TagObject("education", "Discipline", "higher education, school, universities"));
 			tagObjects.push(new TagObject("games", "Discipline", "gaming, computer games, video games"));
-			tagObjects.push(new TagObject("governance", "Discipline", "government, regulation"));
+			tagObjects.push(new TagObject("governance", "Discipline", "government, regulation, justice"));
 			tagObjects.push(new TagObject("healthcare", "Discipline", "medicine, doctor, nurse, drug, pharmacology, mental health, social work"));
 			tagObjects.push(new TagObject("history", "Discipline"));
 			tagObjects.push(new TagObject("journalism", "Discipline", "news"));
@@ -807,6 +808,7 @@
 			tagObjects.push(new TagObject("literature", "Discipline", "fiction"));
 			tagObjects.push(new TagObject("marketing", "Discipline", "promotion, adversiting, publicity"));
 			tagObjects.push(new TagObject("network", "Discipline", "Internet, social media"));
+			tagObjects.push(new TagObject("politics", "Discipline", "political science, American studies"));
 			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience"));
 			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy"));
 			tagObjects.push(new TagObject("story", "Discipline", "narrative"));
@@ -858,13 +860,14 @@
 			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
 			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
 			// Location (events only).
-			if (submissionType === "event") {
+			if (submissionType === "event" || submissionType === "speaker") {
 				tagObjects.push(new TagObject("Online", "Location", "webinar, Zoom, Google Meet, YouTube"));
 				tagObjects.push(new TagObject("North America", "Location", "Canada, US, America, United States, Mexico"));
-				tagObjects.push(new TagObject("South America", "Location", "Brazil, Argentina"));
-				tagObjects.push(new TagObject("Europe", "Location", "England, Britain, UK, Spain, France, Germany, Italy, Russia"));
-				tagObjects.push(new TagObject("Africa", "Location", "Egypt, Morocco, Nigeria, South Africa"));
-				tagObjects.push(new TagObject("Asia", "Location", "Middle East, Israel, Russia, India, China"));
+				tagObjects.push(new TagObject("South America", "Location", "Brazil, Argentina, Colombia, Chile, Venezuela"));
+				tagObjects.push(new TagObject("Europe", "Location", "EU, England, Britain, UK, Spain, France, Germany, Italy, Russia"));
+				tagObjects.push(new TagObject("Middle East", "Location", "Egypt, Israel, Palestine, Saudi Arabia"));
+				tagObjects.push(new TagObject("Africa", "Location", "Algeria, Kenya,  Morocco, Nigeria, South Africa"));
+				tagObjects.push(new TagObject("Asia", "Location", "Russia, India, China"));
 				tagObjects.push(new TagObject("Oceania", "Location", "Australia, New Zealand"));
 			}
 		}
@@ -1049,7 +1052,7 @@
 						let tagSpan = event.currentTarget;
 						let popupDiv = tagSpan.popupDiv;
 						// Styles not set in JS can be set but not accessed.
-						console.log('%c event.clientY', `color: orange; background: black ; border-radius: .6em ; padding: 0 .5em;`, event.clientY);
+						// console.log('%c event.clientY', `color: orange; background: black ; border-radius: .6em ; padding: 0 .5em;`, event.clientY);
 						popupDiv.style.left = event.clientX + popupSeparationX + "px";
 						popupDiv.style.top = event.clientY + popupSeparationY + "px";
 						popupDiv.classList.remove("popup-hidden");
@@ -1082,8 +1085,6 @@
 			for (var tagCounter = 0; tagCounter < tagObjects.length; tagCounter++) {
 				let foundInTagName = objRegex.test(tagObjects[tagCounter].tagName);
 				let foundInSynonyms = objRegex.test(tagObjects[tagCounter].synonyms);
-				if (foundInTagName) console.log('%c foundInTagName', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, foundInTagName);
-				if (foundInSynonyms) console.log('%c foundInSynonyms', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, foundInSynonyms);
 				if (foundInTagName || foundInSynonyms) {
 					tagObjects[tagCounter].tagSpan.classList.remove("tag-hidden");
 				} else {
@@ -1116,6 +1117,7 @@
 			buildTags();
 		}
 		/* ________________ Report. ________________ */
+		// After these fields, the Report constructor generates an id and adds Custom tags, Date posted, Submitter, and Submitter website.
 		resourceKeysInOrder = ["author", "title", "url", "tagsAsString", "summary"]; // UPGRADE: add "id" at end and elimate tack-on at bottom?.
 		strategyKeysInOrder = ["title", "summary", "tagsAsString", "resourceId"];
 		eventKeysInOrder = ["title", "startWritten", "endWritten", "eventUrl", "summary", "location", "tagsAsString", "presenter", "recording"];
@@ -1227,7 +1229,16 @@
 						}
 					}
 				)
+				if (reportFormat === "hashtags") {
+					// No id required.
+				} else if (reportFormat === "spreadsheet") {
+					this.firstTitleWord = this.title.replace(/^(.+?)\b(.*?)$/, "$1").toLowerCase();
+					this.randomHex = (parseInt(4294967295 * Math.random())).toString(16); // 4294967295 is highest 32-bit number.
+					this.eventId = `${this.firstTitleWord}_${this.randomHex} `;
+					reportHTML += `${this.eventId} \t`;
+				}
 			} else if (this.type === "speaker") { // Submitting a strategy.
+				this.eventId = document.querySelector("#lwa-event-id").value;
 				speakerKeysInOrder.forEach(
 					key => {
 						if (reportFormat === "hashtags") {
