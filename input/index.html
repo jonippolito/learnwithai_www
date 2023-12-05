@@ -782,7 +782,7 @@
 			// Technology 
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
-			tagObjects.push(new TagObject("free", "Technology", "open source, open access"));
+			tagObjects.push(new TagObject("free", "Technology", "open source, open access, sharing"));
 			tagObjects.push(new TagObject("freemium", "Technology", "paid tier"));
 			tagObjects.push(new TagObject("prompt", "Technology"));
 			tagObjects.push(new TagObject("tool", "Technology", "service, technology"));
@@ -791,7 +791,7 @@
 			tagObjects.push(new TagObject("animation", "Discipline", "rotoscoping, motion graphics"));
 			tagObjects.push(new TagObject("art", "Discipline"));
 			tagObjects.push(new TagObject("business", "Discipline", "company, finance"));
-			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives"));
+			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives, preservation"));
 			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science"));
 			tagObjects.push(new TagObject("design", "Discipline", "graphic design, UX design, UI design"));
 			tagObjects.push(new TagObject("disability", "Discipline"));
@@ -826,9 +826,10 @@
 			tagObjects.push(new TagObject("speech", "Medium", "talk"));
 			tagObjects.push(new TagObject("syllabus", "Medium", "curriculum"));
 			tagObjects.push(new TagObject("text", "Medium", "words, prose"));
-			tagObjects.push(new TagObject("video", "Medium", "movie, film"));
+			tagObjects.push(new TagObject("movie", "Medium", "video, film, cinema"));
 			// Task 
 			tagObjects.push(new TagObject("assignment", "Task", "homework"));
+			tagObjects.push(new TagObject("brainstorming", "Task", "ideation"));
 			tagObjects.push(new TagObject("citation", "Task", "bibliography"));
 			tagObjects.push(new TagObject("classroom", "Task", "campus"));
 			tagObjects.push(new TagObject("communication", "Task", "email, conversation, discussion"));
@@ -854,7 +855,7 @@
 			tagObjects.push(new TagObject("exploitation", "Ethics", "abuse, misuse"));
 			tagObjects.push(new TagObject("fabrication", "Ethics", "hallucination, confabulation, lies, falsehood"));
 			tagObjects.push(new TagObject("hype", "Ethics", "exaggeration"));
-			tagObjects.push(new TagObject("identity", "Ethics", "diversity, inclusion, equity, DEI"));
+			tagObjects.push(new TagObject("identity", "Ethics", "diversity, inclusion, equity, DEI, gender, ethnicity, race, neurodiversity"));
 			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating"));
 			tagObjects.push(new TagObject("success", "Ethics", "favorable outcome"));
 			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
@@ -1552,7 +1553,7 @@
 					<!-- <label class="event-only" for='lwa-end-written'>End date (dd Mmm yyyy)</label> -->
 					<input class="event-only" type='text' id='lwa-end-written' placeholder='25 Nov 2025'></input>
 				</div>
-				<label class="event-only" for='lwa-location'>City or Online</label>
+				<label class="event-only" for='lwa-location'>City or Online (only)</label>
 				<input class="event-only" type='text' id='lwa-location' placeholder='Barcelona'></input>
 				<label class="event-only" for='lwa-recording'>Recording URL (blank if none)</label>
 				<input class="event-only" type='text' id='lwa-recording'

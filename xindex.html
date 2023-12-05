@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version index 5.6: realign event, speaker fields to db. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version index 5.7: all lexia are now grid. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -715,9 +715,10 @@
 		}
 
 		:is(.lexia, .lexia-selected) {
+			/* MUST BE UNIFORMLY GRID FOR HIDING AND SHOWING TO WORK
 			display: flex;
 			flex-direction: column;
-			justify-content: flex-start;
+			justify-content: flex-start; */
 			min-height: 260px;
 			background-color: var(--darker);
 			border: var(--darker) solid 2px;
@@ -725,6 +726,18 @@
 			padding: var(--padding-padlet);
 			transition: all var(--lexia-transition-duration) ease-in-out;
 			/* box-shadow: var(--dull-aqua) 4px 6px 6px ; */
+		}
+
+		.catalog :is(.lexia, .lexia-selected) {
+			min-height: auto;
+			display: grid;
+			grid-template:
+				"title			title			title"
+				"summary	summary			summary"
+				".			.				byline"
+				".			.				submitted"
+				/1fr 4fr 1fr
+			;
 		}
 
 		.rows :is(.lexia, .lexia-selected) {
@@ -1960,27 +1973,31 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			this.lexiaDiv.appendChild(this.summaryP);
 			this.summaryP.className = "summary";
 			this.summaryP.innerHTML = argumentsObject.summary;
-			// Build date/s.
-			if (viewMode === "resourses" || viewMode === "strategies" || viewMode === "speakers") {
-				// Build byline.
+			if (viewMode === "resources" || viewMode === "strategies") {
+				// Build byline. Byline is replaced by presenters for events.
 				this.bylineH3 = document.createElement("h3");
 				this.lexiaDiv.appendChild(this.bylineH3);
 				this.bylineH3.className = "byline";
 				this.bylineH3.innerHTML = argumentsObject.byline;
-				// Build (submission) date. thoughtmesh.css adds transparency to H4s.
+			};
+			if (viewMode === "resources" || viewMode === "strategies") {
+				// Build submission info. thoughtmesh.css adds transparency to H4s.
 				this.dateH3 = document.createElement("h3");
 				this.lexiaDiv.appendChild(this.dateH3);
 				this.dateH3.className = "submitted-date";
 				if (viewMode === "resources") {
+					// Resources get a date.
 					this.dateH3.innerHTML = `Submitted ${argumentsObject.date}`;
-				} else if (viewMode === "strategies" || viewMode === "strategies") {
+				} else if (viewMode === "strategies") {
+					// Strategies have an optional submitter field.
 					if (argumentsObject.submitter !== "") {
 						this.dateH3.innerHTML = `Submitted by ${argumentsObject.submitter}`;
 					} else {
 						// Leave blank.
 					}
 				};
-			} else if (viewMode === "events") {
+			};
+			if (viewMode === "events") {
 				// Build starting and ending date in sortable format (hidden but used in sorting).
 				this.startSort = argumentsObject.startSort;
 				this.endSort = argumentsObject.endSort;
@@ -2511,7 +2528,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
 		<h3 class="lexia-instructions desktop">Hover to learn more or click to visit an outside link:</h3>
-		<div class="lexia-container"></div>
+		<div class="lexia-container catalog"></div>
 	</div><!-- End resources-container. -->
 	<div id="strategies-container">
 		<h3>
@@ -2535,7 +2552,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
 		<h3 class="lexia-instructions desktop">Hover to learn more or click to see an associated resource:</h3>
-		<div class="lexia-container"></div>
+		<div class="lexia-container catalog"></div>
 	</div><!-- End strategies-container. -->
 	<div id="events-container">
 		<h3>

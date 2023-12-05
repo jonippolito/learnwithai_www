@@ -6,7 +6,7 @@
 	<meta name="description"
 		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version index 5.7: all lexia are now grid. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version index 5.8: corrected past/upcoming date order. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -1192,7 +1192,6 @@
 				"webinar"
 				"past";
 		}
-		}
 	</style>
 	<script id="sniff-browsers-script-2018">
 		/*________________________ Check browser compatibility.________________________*/
@@ -1973,8 +1972,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			this.lexiaDiv.appendChild(this.summaryP);
 			this.summaryP.className = "summary";
 			this.summaryP.innerHTML = argumentsObject.summary;
-			if (viewMode === "resources" || viewMode === "strategies" || viewMode === "events") {
-				// Build byline.
+			if (viewMode === "resources" || viewMode === "strategies") {
+				// Build byline. Byline is replaced by presenters for events.
 				this.bylineH3 = document.createElement("h3");
 				this.lexiaDiv.appendChild(this.bylineH3);
 				this.bylineH3.className = "byline";
@@ -2031,14 +2030,17 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.eventEmblemDiv.appendChild(this.statusDiv);
 				this.statusDiv.className = "status";
 				// Calculate status (upcoming or past).
-				// Coming from Google, endSort looks like "Date(2023,7,31)". Trim up to year.
+				// Coming from Google, endSort looks like "Date(2023,7,31)". Months start with 1.
+				// Trim up to year.
 				let almostADate = this.endSort.substr(5,)
 				// Trim last parenthesis.
 				almostADate = almostADate.substr(0, almostADate.length - 1);
+				// console.log('%c almostADate', `color: deepskyblue; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, almostADate);
 				let [yyyy, mm, dd] = almostADate.split(",");
-				let endDateInJS = new Date(yyyy, mm - 1, dd);
+				let endDateInJS = new Date(yyyy, mm, dd);
 				let todayInJS = new Date();
 				let isPast = (endDateInJS < todayInJS);
+				// console.log('%c isPast', `color: yellow; background: dimgray ; border-radius: .6em ; padding: 0 .5em;`, isPast);
 				if (isPast) {
 					this.lexiaDiv.upcoming = false;
 					this.statusDiv.innerHTML = "Past";
@@ -2352,7 +2354,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				<p>
 					As the sudden rise of generative AI sends shock waves through society, no sector is feeling the
 					disruption as abruptly and pervasively as education. Large Language Models like ChatGPT threaten to
-					make the term paper obsolete, while diffusion-based text-to-image generators like DALLE-2, Stable
+					make the term paper obsolete, while diffusion-based text-to-image generators like DALL-E, Stable
 					Diffusion, and Midjourney offer a way to create images that's completely outside
 					the workflow of most illustrators and designers, whether trained in analog or digital media.
 				</p>
