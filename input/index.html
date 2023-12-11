@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.7: test reports. -->
+<!-- Version input 4.9: fix mobile warning, add DEI. -->
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -7,6 +7,7 @@
 
 <head>
 	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="Contribute to the Learning With AI toolkit with this form">
 	<title>Learning With AI: Contribute a Resource</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
@@ -626,7 +627,7 @@
 			background-color: whiteSmoke;
 			border: silver solid 2px;
 			border-radius: 8px;
-			margin: 10px var(--screen-margin-inline) 20px var(--screen-margin-inline);
+			margin: 10px var(--screen-margin-inline) 0px var(--screen-margin-inline);
 			color: royalBlue;
 		}
 
@@ -764,6 +765,8 @@
 		@media only screen and (max-width: 414px) {
 			.mobile-browsing-warning {
 				display: block;
+				padding: 1em;
+				text-shadow: var(--lexia-lightest) 0 0 .17em;
 			}
 
 			/* .desktop {
@@ -853,23 +856,27 @@
 			tagObjects.push(new TagObject("disinformation", "Ethics", "misinformation, propaganda"));
 			tagObjects.push(new TagObject("ethics", "Ethics", "morality"));
 			tagObjects.push(new TagObject("exploitation", "Ethics", "abuse, misuse"));
-			tagObjects.push(new TagObject("fabrication", "Ethics", "hallucination, confabulation, lies, falsehood"));
+			tagObjects.push(new TagObject("fabrication", "Ethics", "hallucination, confabulation, lies, falsehood, reliability, trust"));
 			tagObjects.push(new TagObject("hype", "Ethics", "exaggeration"));
-			tagObjects.push(new TagObject("identity", "Ethics", "diversity, inclusion, equity, DEI, gender, ethnicity, race, neurodiversity"));
+			tagObjects.push(new TagObject("DEI", "Ethics", "diversity, inclusion, equity"));
+			tagObjects.push(new TagObject("identity", "Ethics", "gender, ethnicity, race, neurodiversity"));
+			tagObjects.push(new TagObject("justice", "Ethics", "fairness"));
 			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating"));
 			tagObjects.push(new TagObject("success", "Ethics", "favorable outcome"));
 			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
 			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
 			// Location (events only).
 			if (submissionType === "event" || submissionType === "speaker") {
-				tagObjects.push(new TagObject("Online", "Location", "webinar, Zoom, Google Meet, YouTube"));
-				tagObjects.push(new TagObject("North America", "Location", "Canada, US, America, United States, Mexico"));
-				tagObjects.push(new TagObject("South America", "Location", "Brazil, Argentina, Colombia, Chile, Venezuela"));
-				tagObjects.push(new TagObject("Europe", "Location", "EU, England, Britain, UK, Spain, France, Germany, Italy, Russia"));
-				tagObjects.push(new TagObject("Middle East", "Location", "Egypt, Israel, Palestine, Saudi Arabia"));
 				tagObjects.push(new TagObject("Africa", "Location", "Algeria, Kenya,  Morocco, Nigeria, South Africa"));
 				tagObjects.push(new TagObject("Asia", "Location", "Russia, India, China"));
+				tagObjects.push(new TagObject("Europe", "Location", "EU, England, Britain, UK, Spain, France, Germany, Italy, Russia"));
+				tagObjects.push(new TagObject("Middle East", "Location", "Egypt, Israel, Palestine, Saudi Arabia"));
+				tagObjects.push(new TagObject("North America", "Location", "Canada, US, America, United States, Mexico"));
 				tagObjects.push(new TagObject("Oceania", "Location", "Australia, New Zealand"));
+				tagObjects.push(new TagObject("South America", "Location", "Brazil, Argentina, Colombia, Chile, Venezuela"));
+			}
+			if (submissionType === "event") {
+				tagObjects.push(new TagObject("Online", "Location", "webinar, Zoom, Google Meet, YouTube"));
 			}
 		}
 		const removeTags = () => {
@@ -1600,11 +1607,11 @@
 			<div id="tags">
 			</div>
 		</div>
+		<p>Review your data for upload, regenerate if necessary, and then a submit button will appear.</p>
 		<div class="row">
-			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Generate
-					record</a></button>
+			<button><i class="fa-solid fa-magnifying-glass" aria-hidden: "true"></i><a onclick="createReport()">Preview
+					data before submitting</a></button>
 		</div>
-		<p>Review your data for upload, regenerate if necessary, and then submit.</p>
 		<div id="report">
 			(No record generated yet)
 		</div>
