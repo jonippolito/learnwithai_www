@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>10,000 Lines</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+
+        function drawLine() {
+            const x = Math.floor(Math.random() * canvas.width);
+            const y = Math.floor(Math.random() * canvas.height);
+            const isHorizontal = Math.random() > 0.5;
+
+            ctx.beginPath();
+            if (isHorizontal) {
+                // Ensure the line does not exceed canvas bounds
+                if (x + 10 <= canvas.width) {
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x + 10, y);
+                } else {
+                    ctx.moveTo(x - 10, y);
+                    ctx.lineTo(x, y);
+                }
+            } else {
+                // Ensure the line does not exceed canvas bounds
+                if (y + 10 <= canvas.height) {
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(x, y + 10);
+                } else {
+                    ctx.moveTo(x, y - 10);
+                    ctx.lineTo(x, y);
+                }
+            }
+            ctx.stroke();
+        }
+
+        for (let i = 0; i < 10000; i++) {
+            drawLine();
+        }
+    </script>
+</body>
+</html>

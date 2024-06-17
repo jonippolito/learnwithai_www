@@ -1,0 +1,49 @@
+To modify the original code to allow lines at any angle, you can use a combination of trigonometry and randomness. Instead of deciding only between horizontal and vertical lines, we'll randomly generate an angle for each line and use that angle to calculate the line's end point based on its length. This approach enables lines to extend in any direction.
+
+Here's how you can update the JavaScript code:
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>10,000 Lines at Any Angle</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const length = 10; // Length of each line
+
+        function drawLine() {
+            const x = Math.floor(Math.random() * canvas.width);
+            const y = Math.floor(Math.random() * canvas.height);
+            const angle = Math.random() * 2 * Math.PI; // Random angle in radians
+
+            const endX = x + length * Math.cos(angle);
+            const endY = y + length * Math.sin(angle);
+
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(endX, endY);
+            ctx.stroke();
+        }
+
+        for (let i = 0; i < 10000; i++) {
+            drawLine();
+        }
+    </script>
+</body>
+</html>
+```
+
+This updated script introduces a significant change in how the line's direction is determined. By generating a random angle (`angle`) for each line, we use `Math.cos(angle)` and `Math.sin(angle)` to calculate the horizontal (`x`) and vertical (`y`) components of the line's length. This method allows the line to extend in any direction from its starting point.
+
+To use this updated code, follow the same steps as before:
+1. Copy the updated HTML and JavaScript code into a new `.html` file.
+2. Open the file in a web browser to see the canvas populated with 10,000 lines, each extending in a random direction.

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1,000 Non-Touching Lines at Any Angle</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const lines = []; // Store lines to check for potential overlaps
+        const length = 10; // Length of each line
+        const maxAttempts = 10000; // Max attempts to place a line without touching
+
+        function lineIntersects(line) {
+            // Naive check for intersection with all other lines
+            for (let i = 0; i < lines.length; i++) {
+                // Implement your intersection logic here
+                // For simplicity, we'll just check if start or end points are too close to each other
+                const dx1 = line[0] - lines[i][0];
+                const dy1 = line[1] - lines[i][1];
+                const dx2 = line[2] - lines[i][2];
+                const dy2 = line[3] - lines[i][3];
+                if (Math.sqrt(dx1 * dx1 + dy1 * dy1) < length || Math.sqrt(dx2 * dx2 + dy2 * dy2) < length) {
+                    return true; // Lines are too close to each other
+                }
+            }
+            return false;
+        }
+
+        function drawLine() {
+            let attempts = 0;
+            while (attempts < maxAttempts) {
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
+                const angle = Math.random() * 2 * Math.PI; // Random angle in radians
+
+                const endX = x + length * Math.cos(angle);
+                const endY = y + length * Math.sin(angle);
+
+                const newLine = [x, y, endX, endY];
+                if (!lineIntersects(newLine)) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                    lines.push(newLine);
+                    break;
+                }
+                attempts++;
+            }
+        }
+
+        for (let i = 0; i < 1000; i++) {
+            drawLine();
+        }
+    </script>
+</body>
+</html>

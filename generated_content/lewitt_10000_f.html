@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1,000 Non-Touching Lines at 100 Pixels</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const lines = []; // Store lines to check for potential overlaps
+        const length = 100; // Length of each line
+        const maxAttempts = 50000; // Increased max attempts to 50,000 for each line
+
+        function lineIntersects(newLine) {
+            // Check for intersection with all other lines
+            for (let line of lines) {
+                // Simplified overlap check by comparing distances
+                const dx1 = newLine[0] - line[0];
+                const dy1 = newLine[1] - line[1];
+                const dx2 = newLine[2] - line[2];
+                const dy2 = newLine[3] - line[3];
+                if (Math.sqrt(dx1 * dx1 + dy1 * dy1) < length || Math.sqrt(dx2 * dx2 + dy2 * dy2) < length) {
+                    return true; // Lines are too close
+                }
+            }
+            return false; // No intersection found
+        }
+
+        let drawnLines = 0;
+        while (drawnLines < 1000) {
+            let attempts = 0;
+            let lineDrawn = false;
+            while (attempts < maxAttempts && !lineDrawn) {
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
+                const angle = Math.random() * 2 * Math.PI; // Random angle in radians
+
+                const endX = x + length * Math.cos(angle);
+                const endY = y + length * Math.sin(angle);
+
+                const newLine = [x, y, endX, endY];
+                if (!lineIntersects(newLine)) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                    lines.push(newLine);
+                    lineDrawn = true;
+                    drawnLines++;
+                }
+                attempts++;
+            }
+            if (attempts >= maxAttempts) {
+                console.log("Max attempts reached, unable to place more lines without overlap.");
+                break;
+            }
+        }
+
+        console.log(`Total number of lines successfully drawn: ${drawnLines}`);
+    </script>
+</body>
+</html>

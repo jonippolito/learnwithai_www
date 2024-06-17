@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Human vs AI Performance Chart</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .bar { fill: steelblue; }
+        .bar-human { fill: #ffcc00; }
+        .chart-title { text-align: center; }
+        .axis-label { font-family: sans-serif; font-size: 10px; }
+    </style>
+</head>
+<body>
+    <div id="chart"></div>
+    <script>
+	const qualities = ['Nuance', 'Personalization', 'Adaptability', 'Speed', 'Efficiency'];
+	const humanScores = [8, 7, 5, 3, 2];
+	const aiScores = [2, 3, 5, 7, 8];
+	const margin = {top: 20, right: 20, bottom: 30, left: 40};
+	const width = 960 - margin.left - margin.right;
+	const height = 500 - margin.top - margin.bottom;
+
+	const x0 = d3.scaleBand()
+	    .rangeRound([0, width])
+	    .paddingInner(0.1);
+
+	const x1 = d3.scaleBand()
+	    .padding(0.05);
+
+	const y = d3.scaleLinear()
+	    .rangeRound([height, 0]);
+
+	const xAxis = d3.axisBottom(x0)
+	    .tickSize(0);
+
+	const yAxis = d3.axisLeft(y);
+
+	const svg = d3.select("#chart").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	    .append("g")
+	    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+	x0.domain(qualities);
+	x1.domain(['Human', 'AI']).rangeRound([0, x0.bandwidth()]);
+	y.domain([0, d3.max([...humanScores, ...aiScores])]).nice();
+
+	svg.append("g")
+	    .selectAll("g")
+	    .data(qualities)
+	    .enter().append("g")
+	        .attr("transform", d => `translate(${x0(d)},0)`)
+	    .selectAll("rect")
+	    .data(d => [{score: humanScores[qualities.indexOf(d)], type: 'Human'}, {score: aiScores[qualities.indexOf(d)], type: 'AI'}])
+	    .enter().append("rect")
+	        .attr("x", d => x1(d.type))
+	        .attr("y", d => y(d.score))
+	        .attr("width", x1.bandwidth())
+	        .attr("height", d => height - y(d.score))
+	        .attr("class", d => d.type === 'Human' ? 'bar-human' : 'bar');
+
+	svg.append("g")
+	    .attr("class", "axis axis--x")
+	    .attr("transform", `translate(0,${height})`)
+	    .call(xAxis);
+
+	svg.append("g")
+	    .attr("class", "axis axis--y")
+	    .call(yAxis)
+	    .append("text")
+	    .attr("transform", "rotate(-90)")
+	    .attr("y", 6)
+	    .attr("dy", "0.71em")
+	    .attr("text-anchor", "end")
+	    .text("Frequency");
+	
+	</script>
+</body>
+</html>

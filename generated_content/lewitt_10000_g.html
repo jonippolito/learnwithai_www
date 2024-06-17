@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>1,000 Non-Touching Lines at 100 Pixels</title>
+    <style>
+        body { display: flex; justify-content: center; align-items: center; height: 100vh; }
+        canvas { border: 1px solid #000; }
+    </style>
+</head>
+<body>
+    <canvas id="myCanvas" width="1920" height="1080"></canvas>
+
+    <script>
+        const canvas = document.getElementById('myCanvas');
+        const ctx = canvas.getContext('2d');
+        const lines = []; // Store lines to check for potential overlaps
+        const length = 100; // Length of each line
+        const maxAttempts = 50000; // Max attempts for each line to avoid overlaps
+
+        function lineIntersectsLine(line1, line2) {
+            // Calculate the direction of the lines
+            const uA = ((line2[2] - line2[0]) * (line1[1] - line2[1]) - (line2[3] - line2[1]) * (line1[0] - line2[0])) / ((line2[3] - line2[1]) * (line1[2] - line1[0]) - (line2[2] - line2[0]) * (line1[3] - line1[1]));
+            const uB = ((line1[2] - line1[0]) * (line1[1] - line2[1]) - (line1[3] - line1[1]) * (line1[0] - line2[0])) / ((line2[3] - line2[1]) * (line1[2] - line1[0]) - (line2[2] - line2[0]) * (line1[3] - line1[1]));
+
+            // If uA and uB are between 0-1, lines are intersecting
+            if (uA >= 0 && uA <= 1 && uB >= 0 && uB <= 1) {
+                return true;
+            }
+            return false;
+        }
+
+        function lineIntersectsAny(newLine) {
+            for (let line of lines) {
+                if (lineIntersectsLine(newLine, line)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        let drawnLines = 0;
+        while (drawnLines < 1000) {
+            let attempts = 0;
+            let lineDrawn = false;
+            while (attempts < maxAttempts && !lineDrawn) {
+                const x = Math.floor(Math.random() * canvas.width);
+                const y = Math.floor(Math.random() * canvas.height);
+                const angle = Math.random() * 2 * Math.PI; // Random angle in radians
+
+                const endX = x + length * Math.cos(angle);
+                const endY = y + length * Math.sin(angle);
+
+                const newLine = [x, y, endX, endY];
+                if (!lineIntersectsAny(newLine)) {
+                    ctx.beginPath();
+                    ctx.moveTo(x, y);
+                    ctx.lineTo(endX, endY);
+                    ctx.stroke();
+                    lines.push(newLine);
+                    lineDrawn = true;
+                    drawnLines++;
+                }
+                attempts++;
+            }
+        }
+
+        console.log(`Total number of lines successfully drawn: ${drawnLines}`);
+    </script>
+</body>
+</html>
