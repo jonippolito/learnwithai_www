@@ -33,9 +33,17 @@
 	<style id="tagged-submission-generator-style-v01.1">
 		/* Modified from v1.0 to adapt to Learning With AI needs. */
 		/*Has dead wood from choose adventure style.*/
+		/* Resets */
+		* {
+			box-sizing: border-box;
+		}
+
 		:root {
 			--screen-margin-inline: 10%;
 			--row-margin-block: 20px;
+			--card-spacing-internal: 1em;
+			--card-children-width: 98%;
+			--input-height: 2em;
 			/* JS uses this to determine tooltipDurationsMs. */
 			--tooltip-duration-ms: 1000ms;
 			--tooltip-transition-ms: 200ms;
@@ -228,8 +236,6 @@
 			margin-inline: var(--screen-margin-inline);
 			margin-block: 0 padding: 0;
 			gap: var(--row-margin-block);
-			/* outline: yellow solid 3px; */
-			/* opacity: .3; */
 		}
 
 		/* Narrower content. */
@@ -364,25 +370,9 @@
 			margin: -.5em -5em;
 		}
 
-		/* DEPRECATED: ?
-		.quiz-container {
-			width: 28%;
-		}
-		*/
-
-		/* Slants */
-		/* DEPRECATED: 
-		div.arrow-container {
-			position: relative;
-			float: left;
-			margin-left: 1%;
-		}
-		*/
-
 		.arrow-container {
 			display: flex;
 			align-items: center;
-			/* outline: yellow solid; */
 			/* Dimensions from components. */
 			/* Based on arrow-right. */
 			height: 120px;
@@ -440,6 +430,12 @@
 			font-size: 1em;
 		}
 
+		:not(.tag-span, .grid-radio)>label {
+			/* A "not" parent requires targeting direct descendents. */
+			display: block;
+			margin-bottom: 1em;
+		}
+
 		/* label::after {
 			    content: ":" ;
 				font-size: 1em ;
@@ -447,13 +443,17 @@
 		/*	Or can write input[type="text"]*/
 		input,
 		textarea {
-			width: 90%;
+			width: var(--card-children-width);
 			border-radius: .4em;
 			padding: 2%;
-			margin: 0 0 1em 0;
+			margin: 0 0 var(--card-spacing-internal) 0;
 			border: solid 1px silver;
 			transition: box-shadow 1.5s ease-in;
 			/*		box-shadow: 0 0 5px 1px transparent ; */
+		}
+
+		:not(.tag-span)>input[type !=radio] {
+			height: var(--input-height);
 		}
 
 		input:focus,
@@ -667,6 +667,11 @@
 		}
 
 		/*_________________ Adjust labels. _________________*/
+		fieldset#record-type {
+			margin-bottom: var(--card-spacing-internal);
+			width: var(--card-children-width);
+		}
+
 		#submission-type input {
 			margin-top: .7em;
 			/* Makes room for hint. */
@@ -686,7 +691,7 @@
 		/*_________________ Search. _________________*/
 		#search-box,
 		#folksonomy-box {
-			height: 1em;
+			height: var(--input-height);
 			padding: .5em;
 		}
 
@@ -1500,7 +1505,7 @@
 		<div class="row row-containing-columns">
 			<div id="lesson" class="card">
 				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
-				<fieldset>
+				<fieldset id="record-type">
 					<legend>Select a type</legend>
 					<div class="grid-radio">
 						<label for="type-resource">Resource</label>
