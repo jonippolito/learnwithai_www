@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 4.9: fix mobile warning, add DEI. -->
+<!-- Version input 5.1: type to the top, plus more hidden metadata.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -226,8 +226,7 @@
 			display: flex;
 			flex-direction: column;
 			margin-inline: var(--screen-margin-inline);
-			margin-block: 0;
-			padding: 0;
+			margin-block: 0 padding: 0;
 			gap: var(--row-margin-block);
 			/* outline: yellow solid 3px; */
 			/* opacity: .3; */
@@ -799,9 +798,9 @@
 			tagObjects.push(new TagObject("design", "Discipline", "graphic design, UX design, UI design"));
 			tagObjects.push(new TagObject("disability", "Discipline"));
 			tagObjects.push(new TagObject("economics", "Discipline", "economy"));
-			tagObjects.push(new TagObject("education", "Discipline", "higher education, school, universities"));
+			tagObjects.push(new TagObject("education", "Discipline", "higher education, school, universities, academia"));
 			tagObjects.push(new TagObject("games", "Discipline", "gaming, computer games, video games"));
-			tagObjects.push(new TagObject("governance", "Discipline", "government, regulation, justice"));
+			tagObjects.push(new TagObject("governance", "Discipline", "government, regulation, justice, elections, democracy"));
 			tagObjects.push(new TagObject("healthcare", "Discipline", "medicine, doctor, nurse, drug, pharmacology, mental health, social work"));
 			tagObjects.push(new TagObject("history", "Discipline"));
 			tagObjects.push(new TagObject("journalism", "Discipline", "news"));
@@ -819,9 +818,9 @@
 			tagObjects.push(new TagObject("writing", "Discipline", "essays, papers, composition, English"));
 			// Primary Medium 
 			tagObjects.push(new TagObject("3d", "Medium", "VR, AR, virtual reality, augmented reality, XR, fabrication, environment"));
+			tagObjects.push(new TagObject("audio", "Medium", "music, sound")); // -> audio for voice simulation.
 			tagObjects.push(new TagObject("code", "Medium", "software"));
 			tagObjects.push(new TagObject("image", "Medium", "visual, picture"));
-			tagObjects.push(new TagObject("music", "Medium", "audio, sound")); // -> audio for voice simulation.
 			tagObjects.push(new TagObject("performance", "Medium", "theater, drama, dance"));
 			tagObjects.push(new TagObject("presentation", "Medium", "slides, talk"));
 			tagObjects.push(new TagObject("publication", "Medium", "book, article"));
@@ -831,16 +830,18 @@
 			tagObjects.push(new TagObject("text", "Medium", "words, prose"));
 			tagObjects.push(new TagObject("movie", "Medium", "video, film, cinema"));
 			// Task 
+			tagObjects.push(new TagObject("administration", "Task", "management, leadership, office work, staff"));
 			tagObjects.push(new TagObject("assignment", "Task", "homework"));
 			tagObjects.push(new TagObject("brainstorming", "Task", "ideation"));
-			tagObjects.push(new TagObject("citation", "Task", "bibliography"));
+			tagObjects.push(new TagObject("citation", "Task", "bibliography, source"));
 			tagObjects.push(new TagObject("classroom", "Task", "campus"));
 			tagObjects.push(new TagObject("communication", "Task", "email, conversation, discussion"));
 			tagObjects.push(new TagObject("editing", "Task", "compositing, effects, manipulation"));
-			tagObjects.push(new TagObject("evaluation", "Task", "grade, grading"));
+			tagObjects.push(new TagObject("evaluation", "Task", "grade, grading, assessment"));
 			tagObjects.push(new TagObject("feedback", "Task", "commentary, critique, criticism"));
 			tagObjects.push(new TagObject("grant", "Task", "funding, sponsorship"));
 			tagObjects.push(new TagObject("howto", "Task", "explainer, demo"));
+			tagObjects.push(new TagObject("literacy", "Task", "understanding, basics"));
 			tagObjects.push(new TagObject("remote learning", "Task", "online learning"));
 			tagObjects.push(new TagObject("study", "Task", "learning"));
 			tagObjects.push(new TagObject("teamwork", "Task", "group"));
@@ -851,19 +852,21 @@
 			tagObjects.push(new TagObject("human-first", "Focus"));
 			tagObjects.push(new TagObject("learner-focused", "Focus", "student"));
 			// Ethics 
+			tagObjects.push(new TagObject("access", "Ethics", "accessibility"));
 			tagObjects.push(new TagObject("bias", "Ethics", "discrimination, fairness"));
 			tagObjects.push(new TagObject("defect", "Ethics", "problem, challenge, failure"));
 			tagObjects.push(new TagObject("disinformation", "Ethics", "misinformation, propaganda"));
 			tagObjects.push(new TagObject("ethics", "Ethics", "morality"));
-			tagObjects.push(new TagObject("exploitation", "Ethics", "abuse, misuse"));
+			tagObjects.push(new TagObject("exploitation", "Ethics", "abuse, misuse, copyright"));
 			tagObjects.push(new TagObject("fabrication", "Ethics", "hallucination, confabulation, lies, falsehood, reliability, trust"));
 			tagObjects.push(new TagObject("hype", "Ethics", "exaggeration"));
 			tagObjects.push(new TagObject("DEI", "Ethics", "diversity, inclusion, equity"));
 			tagObjects.push(new TagObject("identity", "Ethics", "gender, ethnicity, race, neurodiversity"));
-			tagObjects.push(new TagObject("justice", "Ethics", "fairness"));
-			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating"));
+			tagObjects.push(new TagObject("justice", "Ethics", "fairness, digital divide"));
+			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating, copyright"));
 			tagObjects.push(new TagObject("success", "Ethics", "favorable outcome"));
 			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
+			tagObjects.push(new TagObject("security", "Ethics", "privacy, cybersecurity, malware, hacking"));
 			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
 			// Location (events only).
 			if (submissionType === "event" || submissionType === "speaker") {
@@ -1483,8 +1486,7 @@
 	<main>
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
-			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png"
-				onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">
+			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">
 			<h1 id="rubric" onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">Learning With AI</h1>
 			<h2>Submit a suggestion for the toolkit</h2>
 			<div id="beta">BETA</div>
@@ -1498,27 +1500,23 @@
 		<div class="row row-containing-columns">
 			<div id="lesson" class="card">
 				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
-				<label for='lwa-title'>Title or speaker</label>
-				<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-				<label for='lwa-summary'>Summary or affiliation</label>
-				<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 				<fieldset>
 					<legend>Select a type</legend>
 					<div class="grid-radio">
 						<label for="type-resource">Resource</label>
-						<input type="radio" id="type-resource" name="type" value="resource" checked
-							onclick="submissionType = this.value; chooseType()">
+						<input type="radio" id="type-resource" name="type" value="resource" checked onclick="submissionType = this.value; chooseType()">
 						<label for="type-strategy">Strategy</label>
-						<input type="radio" id="type-strategy" name="type" value="strategy"
-							onclick="submissionType = this.value; chooseType()">
+						<input type="radio" id="type-strategy" name="type" value="strategy" onclick="submissionType = this.value; chooseType()">
 						<label for="type-resource">Event</label>
-						<input type="radio" id="type-event" name="type" value="event"
-							onclick="submissionType = this.value; chooseType()">
+						<input type="radio" id="type-event" name="type" value="event" onclick="submissionType = this.value; chooseType()">
 						<label for="type-speaker">Speaker</label>
-						<input type="radio" id="type-speaker" name="type" value="speaker"
-							onclick="submissionType = this.value; chooseType()">
+						<input type="radio" id="type-speaker" name="type" value="speaker" onclick="submissionType = this.value; chooseType()">
 					</div>
 				</fieldset>
+				<label for='lwa-title'>Title or speaker</label>
+				<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
+				<label for='lwa-summary'>Summary or affiliation</label>
+				<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 			</div>
 			<div class="arrow-container">
 				<div class="arrow-box-right">
@@ -1534,23 +1532,18 @@
 				<h2 class="speaker-only"><i class="fa-solid fa-person-chalkboard"></i>Speaker</h2>
 				<!-- URL. -->
 				<label class="resource-only" for='lwa-resource-url'>Resource URL</label>
-				<input class="resource-only" type='url' id='lwa-resource-url'
-					placeholder='https://kimrodriguez.com/flashcards.html'></input>
+				<input class="resource-only" type='url' id='lwa-resource-url' placeholder='https://kimrodriguez.com/flashcards.html'></input>
 				<label class="event-only" for='lwa-event-url'>Event URL</label>
-				<input class="event-only" type='url' id='lwa-event-url'
-					placeholder='https://university.edu/conference.html'></input>
+				<input class="event-only" type='url' id='lwa-event-url' placeholder='https://university.edu/conference.html'></input>
 				<!-- Person. -->
 				<label class="resource-only" for='lwa-author'>Original author/byline</label>
 				<input class="resource-only" type='text' id='lwa-author' placeholder='Rodriguez, Kim'></input>
 				<label class="event-only" for='lwa-presenter'>Presenter(s)</label>
-				<input class="event-only" type='text' id='lwa-presenter'
-					placeholder='Ada Lovelace, Alan Turing'></input>
+				<input class="event-only" type='text' id='lwa-presenter' placeholder='Ada Lovelace, Alan Turing'></input>
 				<!-- Associated id. -->
-				<label class="strategy-only" for='lwa-resource-id'>Resource id(s) <a href="#" class="hint"
-						id="hint-resource-id" onclick="new Popup( 'hint', this )">?</a></label>
+				<label class="strategy-only" for='lwa-resource-id'>Resource id(s) <a href="#" class="hint" id="hint-resource-id" onclick="new Popup( 'hint', this )">?</a></label>
 				<input class="strategy-only" type='text' id='lwa-resource-id' placeholder='mitchell_012d2e1b'></input>
-				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id"
-						onclick="new Popup( 'hint', this )">?</a></label>
+				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id" onclick="new Popup( 'hint', this )">?</a></label>
 				<input class="speaker-only" type='text' id='lwa-event-id' placeholder='conference_012d2e1b'></input>
 				<!-- Event-specific fields. -->
 				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy)</label>
@@ -1563,8 +1556,7 @@
 				<label class="event-only" for='lwa-location'>City or Online (only)</label>
 				<input class="event-only" type='text' id='lwa-location' placeholder='Barcelona'></input>
 				<label class="event-only" for='lwa-recording'>Recording URL (blank if none)</label>
-				<input class="event-only" type='text' id='lwa-recording'
-					placeholder='https://youtube.com/webinar'></input>
+				<input class="event-only" type='text' id='lwa-recording' placeholder='https://youtube.com/webinar'></input>
 			</div>
 			<div class="arrow-container">
 				<div class="arrow-box-right">
@@ -1595,8 +1587,7 @@
 			<h2><i class="fa-solid fa-tags" aria-hidden: "true"></i>Keywords</h2>
 			<div class="search-container">
 				<label for="search-box">Filter to narrow selection: </label>
-				<input type="text" id="search-box" name="search-box" onkeyup="searchFilter(this.value)" /><button
-					id="clear-search" onclick="clearSearchFilter()">clear</button>
+				<input type="text" id="search-box" name="search-box" onkeyup="searchFilter(this.value)" /><button id="clear-search" onclick="clearSearchFilter()">clear</button>
 			</div>
 			<div class="folksonomy-container">
 				<label for="folksonomy-box">Suggest your own keywords for this item (comma-separated):</label>
@@ -1615,8 +1606,7 @@
 		<div id="report">
 			(No record generated yet)
 		</div>
-		<p><button id="submit-report-button" onclick="submitReport()"><i class="fa-solid fa-file-export"
-					aria-hidden: "true"></i>Submit your suggestion</button></p>
+		<p><button id="submit-report-button" onclick="submitReport()"><i class="fa-solid fa-file-export" aria-hidden: "true"></i>Submit your suggestion</button></p>
 		<p id="status"></p>
 	</main>
 </body>
