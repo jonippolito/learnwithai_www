@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 5.1: type to the top, plus more hidden metadata.
+<!-- Version input 5.2: improve tooltips. UPGRADE: Eliminate "popup" dead wood.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -523,7 +523,8 @@
 			border-radius: .8em;
 		}
 
-		.popup {
+		.popup,
+		.toast {
 			position: absolute;
 			border: cadetBlue solid 4px;
 			width: 160px;
@@ -536,7 +537,43 @@
 			-moz-border-radius: 10px;
 			border-radius: 10px;
 			font-size: .9em;
-			transition: opacity var(--tooltip-transition-ms) ease-in;
+			transition-property: display opacity;
+			transition-duration: var(--tooltip-transition-ms);
+			transition-behavior: allow-discrete;
+			/* animation: fadeIn var(--tooltip-transition-ms) ease-in; */
+			/* Final state of the exit animation. */
+			opacity: 0;
+		}
+
+		.toast:popover-open {
+			display: block;
+			opacity: .8;
+			transform: scaleX(1);
+
+			@starting-style {
+				opacity: 0;
+			}
+		}
+
+		@starting-style {
+			.toast:popover-open {
+				opacity: 0;
+				transform: scaleX(0);
+			}
+		}
+
+		.toast em {
+			font-weight: bold;
+		}
+
+		/* @keyframes toastFade {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: .8;
+			} */
 		}
 
 		.popup-close {
@@ -778,6 +815,63 @@
 			} */
 		}
 	</style>
+	<style id="popover-styles">
+		:popover-open {
+			position: absolute;
+			inset: unset;
+			right: 5px;
+			bottom: 5px;
+		}
+	</style>
+	<script id="popover-script">
+		const toastDurationInMS = 2000;
+		function makeToast(textContent) {
+			// Hide any previous popovers. There should be only one, but go through the array to be safe?
+			document.querySelectorAll(".lastToast").forEach(
+				popoverArticle => removePopover(popoverArticle)
+			)
+			// Create an element and make it into a popover
+			const popover = document.createElement("article");
+			popover.popover = "manual";
+			popover.classList.add("toast");
+			popover.classList.add("lastToast");
+			// Give the toast its text content, and add it to the DOM
+			popover.innerHTML = textContent; // WAS popover.textContent = textContent;
+			document.body.appendChild(popover);
+			// Show the popover
+			popover.showPopover();
+			// Remove the toast again after 4 seconds
+			setTimeout(() => {
+				removePopover(popover);
+			}, toastDurationInMS);
+			// When a new toast appears, run the movetoastsUp() function
+			// popover.addEventListener("toggle", (event) => {
+			// 	if (event.newState === "open") {
+			// 		moveToastsUp();
+			// 	}
+			// });
+		}
+		const removePopover = popoverArticle => {
+			popoverArticle.hidePopover();
+			popoverArticle.remove();
+		}
+		// DEPRECATED: 
+		// function moveToastsUp() {
+		// 	const toasts = document.querySelectorAll(".toast");
+		// 	toasts.forEach((toast) => {
+		// 		// If the toast is the one that has just appeared, we don't want it to move up.
+		// 		if (toast.classList.contains("newest")) {
+		// 			toast.style.bottom = `5px`;
+		// 			toast.classList.remove("newest");
+		// 		} else {
+		// 			// Move up all the other toasts by 50px to make way for the new one
+		// 			const prevValue = toast.style.bottom.replace("px", "");
+		// 			const newValue = parseInt(prevValue) + 50;
+		// 			toast.style.bottom = `${newValue}px`;
+		// 		}
+		// 	});
+		// }
+	</script>
 	<script id="build-tags-script-v1.1">
 		const buildTags = () => {
 			// General 
@@ -1058,32 +1152,37 @@
 			if (this.synonyms === "[[none]]") {
 				// Don't show tooltip.
 			} else {
-				this.tooltipObject = new Popup("tooltip", this.tagSpan);
+				// "this" is the TagObject.
+				this.popoverHTML = `<em>${this.tagName}</em> covers ${this.synonyms}`;
+				// this.tooltipObject = new Popup("tooltip", this.tagSpan); // DEPRECATED. UPGRADE: Remove this functionality.
 				// Keep hover behavior here instead of Popup constructor so you can refer to the target tag span.
 				// Seems to play better with hints if there are two different hidden/visible classes.
-				this.tagSpan.popupDiv = this.tooltipObject.popupDiv;
+				// this.tagSpan.popupDiv = this.tooltipObject.popupDiv; // DEPRECATED.
 				this.tagSpan.addEventListener(
 					"mouseover",
 					(event) => {
 						let tagSpan = event.currentTarget;
-						let popupDiv = tagSpan.popupDiv;
-						// Styles not set in JS can be set but not accessed.
-						// console.log('%c event.clientY', `color: orange; background: black ; border-radius: .6em ; padding: 0 .5em;`, event.clientY);
-						popupDiv.style.left = event.clientX + popupSeparationX + "px";
-						popupDiv.style.top = event.clientY + popupSeparationY + "px";
-						popupDiv.classList.remove("popup-hidden");
-						popupDiv.classList.add("popup-visible");
+						// console.log(`In Popup, tagSpan is ${tagSpan}`);
+						// console.log(`In Popup, tagSpan.object.popoverHTML is ${tagSpan.object.popoverHTML}`);
+						makeToast(tagSpan.object.popoverHTML);
+						// let popupDiv = tagSpan.popupDiv;
+						// // Styles not set in JS can be set but not accessed.
+						// // console.log('%c event.clientY', `color: orange; background: black ; border-radius: .6em ; padding: 0 .5em;`, event.clientY);
+						// popupDiv.style.left = event.clientX + popupSeparationX + "px";
+						// popupDiv.style.top = event.clientY + popupSeparationY + "px";
+						// popupDiv.classList.remove("popup-hidden");
+						// popupDiv.classList.add("popup-visible");
 					}
 				);
-				this.tagSpan.addEventListener(
-					"mouseout",
-					(event) => {
-						let tagSpan = event.currentTarget;
-						let popupDiv = tagSpan.popupDiv;
-						popupDiv.classList.remove("popup-visible");
-						popupDiv.classList.add("popup-hidden");
-					}
-				);
+				// this.tagSpan.addEventListener(
+				// 	"mouseout",
+				// 	(event) => {
+				// 		let tagSpan = event.currentTarget;
+				// 		let popupDiv = tagSpan.popupDiv;
+				// 		popupDiv.classList.remove("popup-visible");
+				// 		popupDiv.classList.add("popup-hidden");
+				// 	}
+				// );
 			}
 			// This is added to the tagObjects manager elsewhere, so user can filter to narrow selection.
 		};
@@ -1489,6 +1588,7 @@
 		a non-mobile
 		browser.</h3>
 	<main>
+		<button onclick="makeToast('success')">Toast</button>
 		<div id="header">
 			<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
 			<img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" onclick="window.open('https://umaine.edu/learnwithai/', '_blank')">
