@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 5.3: More interface customization based on type. UPGRADE: Eliminate "popup" dead wood.
+<!-- Version input 5.4: Same date option, hint fix, cleaner layout. UPGRADE: Eliminate "popup" dead wood.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -365,6 +365,10 @@
 			color: var(--heading-cool-medium);
 		}
 
+		.card .subheading {
+			font-weight: normal;
+		}
+
 		.card li {
 			list-style-type: none;
 			margin: -.5em -5em;
@@ -430,10 +434,10 @@
 			font-size: 1em;
 		}
 
-		:not(.tag-span, .grid-radio)>label {
+		:not(.tag-span, .grid-radio, #date-utilities)>label {
 			/* A "not" parent requires targeting direct descendents. */
 			display: block;
-			margin-bottom: 1em;
+			margin-bottom: 0;
 		}
 
 		/* label::after {
@@ -441,7 +445,7 @@
 				font-size: 1em ;
 			} */
 		/*	Or can write input[type="text"]*/
-		input,
+		:not(#date-utilities, .grid-radio)>input,
 		textarea {
 			width: var(--card-children-width);
 			border-radius: .4em;
@@ -452,8 +456,13 @@
 			/*		box-shadow: 0 0 5px 1px transparent ; */
 		}
 
-		:not(.tag-span)>input[type !=radio] {
+		:not(.tag-span)>:not[type=radio] {
 			height: var(--input-height);
+		}
+
+		#date-utilities {
+			text-align: right;
+			margin-top: -1em;
 		}
 
 		input:focus,
@@ -543,6 +552,10 @@
 			/* animation: fadeIn var(--tooltip-transition-ms) ease-in; */
 			/* Final state of the exit animation. */
 			opacity: 0;
+		}
+
+		.popup {
+			width: 300px;
 		}
 
 		.toast:popover-open {
@@ -709,7 +722,7 @@
 			width: var(--card-children-width);
 		}
 
-		#submission-type input {
+		:is(#basics, #submission-type, #submitter) :is(input, textarea) {
 			margin-top: .7em;
 			/* Makes room for hint. */
 		}
@@ -910,7 +923,7 @@
 			tagObjects.push(new TagObject("marketing", "Discipline", "promotion, adversiting, publicity"));
 			tagObjects.push(new TagObject("network", "Discipline", "Internet, social media"));
 			tagObjects.push(new TagObject("politics", "Discipline", "political science, American studies"));
-			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience"));
+			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience, emotion, fear, hope"));
 			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy"));
 			tagObjects.push(new TagObject("story", "Discipline", "narrative"));
 			tagObjects.push(new TagObject("work", "Discipline", "jobs, labor"));
@@ -941,6 +954,7 @@
 			tagObjects.push(new TagObject("grant", "Task", "funding, sponsorship"));
 			tagObjects.push(new TagObject("howto", "Task", "explainer, demo"));
 			tagObjects.push(new TagObject("literacy", "Task", "understanding, basics"));
+			tagObjects.push(new TagObject("play", "Task", "fun"));
 			tagObjects.push(new TagObject("remote learning", "Task", "online learning"));
 			tagObjects.push(new TagObject("study", "Task", "learning"));
 			tagObjects.push(new TagObject("teamwork", "Task", "group"));
@@ -1027,6 +1041,17 @@
 			};
 			return tabHTML;
 		}
+		let eventIsSameDate = false;
+		const toggleSameDate = () => {
+			// If first time called, change false to true.
+			eventIsSameDate = !eventIsSameDate;
+			if (eventIsSameDate) {
+				document.querySelector("#lwa-end-written").value = document.querySelector("#lwa-start-written").value;
+			} else {
+				document.querySelector("#lwa-end-written").value = "";
+				document.querySelector("#same-date").checked = false;
+			}
+		}
 		popupObjs = [];
 		popupObjs.getPopupObjById = {};
 		Popup = function (popupType, triggerElement) {
@@ -1053,6 +1078,9 @@
 				this.synonymsEm.innerHTML = `${triggerElement.object.synonyms}`;
 				this.popupDiv.classList.add("tooltip");
 			} else if (popupType === "hint") {
+				this.popupDiv.classList.add("popup-visible");
+				console.log(`In Popup, this.popupDiv is ${this.popupDiv}`);
+				console.log(`In Popup, triggerElement.parentNode. is ${triggerElement.parentNode}`);
 				triggerElement.parentNode.appendChild(this.popupDiv); // Enables positioning near reference field.
 				// Position it a bit further away than tooltips.
 				// Not working for some reason: this.popupDiv.style.transform = `translateX(300px)`;
@@ -1243,7 +1271,7 @@
 					summaryPlaceholder = "Ask ChatGPT to generate study cards for terms to remember"
 					break;
 				case "event":
-					titlePlaceholder = "Panel discussion on AI and healthcare";
+					titlePlaceholder = "AI in Healthcare: A Symposium";
 					summaryPlaceholder = "This symposium brings together AI researchers and physicians to discuss..."
 					break;
 				case "speaker":
@@ -1625,7 +1653,7 @@
 			<button id="reset" onclick="resetForm()">Reset form</button>
 		</div>
 		<div class="row row-containing-columns">
-			<div id="lesson" class="card">
+			<div id="basics" class="card">
 				<h2><i class="fa-solid fa-file-circle-plus" aria-hidden="true"></i>Basics</h2>
 				<fieldset id="record-type">
 					<legend>Select a type</legend>
@@ -1675,13 +1703,14 @@
 				<label class="speaker-only" for='lwa-event-id'>Event id(s) <a href="#" class="hint" id="hint-event-id" onclick="new Popup( 'hint', this )">?</a></label>
 				<input class="speaker-only" type='text' id='lwa-event-id' placeholder='conference_012d2e1b'></input>
 				<!-- Event-specific fields. -->
-				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy)</label>
+				<label class="event-only" for='lwa-start-written'>Start and end date (dd mmm yyyy) </label>
 				<div class="input-row">
 					<input class="event-only" type='text' id='lwa-start-written' placeholder='24 Nov 2025'></input>
 					<p class="event-only">to</p>
 					<!-- <label class="event-only" for='lwa-end-written'>End date (dd Mmm yyyy)</label> -->
 					<input class="event-only" type='text' id='lwa-end-written' placeholder='25 Nov 2025'></input>
 				</div>
+				<div id="date-utilities" class="input-row event-only"><label for="same-date">Same day?</label><input type="radio" id="same-date" onclick="toggleSameDate()" /></div>
 				<label class="event-only" for='lwa-location'>City or Online (only)</label>
 				<input class="event-only" type='text' id='lwa-location' placeholder='Barcelona'></input>
 				<label class="event-only" for='lwa-recording'>Recording URL (blank if none)</label>
@@ -1694,8 +1723,8 @@
 				</div>
 			</div>
 			<div class="special-card-container">
-				<div id="submission-type" class="card">
-					<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter (optional)</h2>
+				<div id="submitter" class="card">
+					<h2><i class="fa-solid fa-user" aria-hidden: "true"></i>Submitter <span class="subheading">(optional)</span></h2>
 					<label for='lwa-submitter-name'>Submitter name (added to Google Sheet)</label>
 					<input type='text' id='lwa-submitter-name' placeholder='Pat Johnson'></input><br />
 					<label for='lwa-submitter-website'>Submitter website (added to Google Sheet)</label>
