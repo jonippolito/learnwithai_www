@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 5.2: improve tooltips. UPGRADE: Eliminate "popup" dead wood.
+<!-- Version input 5.3: More interface customization based on type. UPGRADE: Eliminate "popup" dead wood.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -1230,6 +1230,29 @@
 			// Tags at bottom, rebuilt each time to enable type-specific options.
 			removeTags();
 			buildTags();
+			// Special customizations.
+			let titlePlaceholder;
+			let summaryPlaceholder;
+			switch (submissionType) {
+				case "resource":
+					titlePlaceholder = "How to make flashcards with ChatGPT";
+					summaryPlaceholder = "This article explains how to..."
+					break;
+				case "strategy":
+					titlePlaceholder = "Ask AI to make flashcards";
+					summaryPlaceholder = "Ask ChatGPT to generate study cards for terms to remember"
+					break;
+				case "event":
+					titlePlaceholder = "Panel discussion on AI and healthcare";
+					summaryPlaceholder = "This symposium brings together AI researchers and physicians to discuss..."
+					break;
+				case "speaker":
+					titlePlaceholder = "Kim Rodriguez";
+					summaryPlaceholder = "Northwest Virginia University"
+					break;
+			}
+			document.querySelector("#lwa-title").placeholder = titlePlaceholder;
+			document.querySelector("#lwa-summary").placeholder = summaryPlaceholder;
 		}
 		/* ________________ Report. ________________ */
 		// After these fields, the Report constructor generates an id and adds Custom tags, Date posted, Submitter, and Submitter website.
@@ -1607,19 +1630,21 @@
 				<fieldset id="record-type">
 					<legend>Select a type</legend>
 					<div class="grid-radio">
-						<label for="type-resource">Resource</label>
+						<label for="type-resource"><i class="fa-solid fa-book" aria-hidden: "true"></i>Resource</label>
 						<input type="radio" id="type-resource" name="type" value="resource" checked onclick="submissionType = this.value; chooseType()">
-						<label for="type-strategy">Strategy</label>
+						<label for="type-strategy"><i class="fa-solid fa-square-pen" aria-hidden: "true"></i>Strategy</label>
 						<input type="radio" id="type-strategy" name="type" value="strategy" onclick="submissionType = this.value; chooseType()">
-						<label for="type-resource">Event</label>
+						<label for="type-resource"><i class="fa-solid fa-calendar-days"></i>Event</label>
 						<input type="radio" id="type-event" name="type" value="event" onclick="submissionType = this.value; chooseType()">
-						<label for="type-speaker">Speaker</label>
+						<label for="type-speaker"><i class="fa-solid fa-person-chalkboard" aria-hidden: "true"></i>Speaker</label>
 						<input type="radio" id="type-speaker" name="type" value="speaker" onclick="submissionType = this.value; chooseType()">
 					</div>
 				</fieldset>
-				<label for='lwa-title'>Title or speaker</label>
+				<label for='lwa-title' class="resource-only strategy-only event-only">Title</label>
+				<label for='lwa-title' class="speaker-only">Speaker</label>
 				<input type='memo' id='lwa-title' placeholder='How to make flashcards with ChatGPT'></input><br />
-				<label for='lwa-summary'>Summary or affiliation</label>
+				<label for='lwa-summary' class="resource-only strategy-only event-only">Summary</label>
+				<label for='lwa-summary' class="speaker-only">Affiliation</label>
 				<textarea class="memo" id='lwa-summary' placeholder='This article explains how to ...'></textarea><br />
 			</div>
 			<div class="arrow-container">
@@ -1631,9 +1656,9 @@
 			<div id="submission-type" class="card">
 				<!-- Type name. -->
 				<h2 class="resource-only"><i class="fa-solid fa-book" aria-hidden: "true"></i>Resource</h2>
-				<h2 class="event-only"><i class="fa-solid fa-calendar-days"></i>Event</h2>
 				<h2 class="strategy-only"><i class="fa-solid fa-square-pen" aria-hidden: "true"></i>Strategy</h2>
-				<h2 class="speaker-only"><i class="fa-solid fa-person-chalkboard"></i>Speaker</h2>
+				<h2 class="event-only"><i class="fa-solid fa-calendar-days" aria-hidden: "true"></i>Event</h2>
+				<h2 class="speaker-only"><i class="fa-solid fa-person-chalkboard" aria-hidden: "true"></i>Speaker</h2>
 				<!-- URL. -->
 				<label class="resource-only" for='lwa-resource-url'>Resource URL</label>
 				<input class="resource-only" type='url' id='lwa-resource-url' placeholder='https://kimrodriguez.com/flashcards.html'></input>
@@ -1690,7 +1715,7 @@
 		<div id="tag-utilities" class="row row-containing-columns">
 			<h2><i class="fa-solid fa-tags" aria-hidden: "true"></i>Keywords</h2>
 			<div class="search-container">
-				<label for="search-box">Filter to narrow selection: </label>
+				<label for="search-box">Start typing to narrow selection: </label>
 				<input type="text" id="search-box" name="search-box" onkeyup="searchFilter(this.value)" /><button id="clear-search" onclick="clearSearchFilter()">clear</button>
 			</div>
 			<div class="folksonomy-container">
