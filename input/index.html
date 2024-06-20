@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 5.4: Same date option, hint fix, cleaner layout. UPGRADE: Eliminate "popup" dead wood.
+<!-- Version input 5.5: Refine same date option, "Level" tags. UPGRADE: Eliminate "popup" dead wood.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -930,7 +930,7 @@
 			tagObjects.push(new TagObject("writing", "Discipline", "essays, papers, composition, English"));
 			// Primary Medium 
 			tagObjects.push(new TagObject("3d", "Medium", "VR, AR, virtual reality, augmented reality, XR, fabrication, environment"));
-			tagObjects.push(new TagObject("audio", "Medium", "music, sound")); // -> audio for voice simulation.
+			tagObjects.push(new TagObject("audio", "Medium", "music, sound, podcasting")); // -> audio for voice simulation.
 			tagObjects.push(new TagObject("code", "Medium", "software"));
 			tagObjects.push(new TagObject("image", "Medium", "visual, picture"));
 			tagObjects.push(new TagObject("performance", "Medium", "theater, drama, dance"));
@@ -981,6 +981,10 @@
 			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
 			tagObjects.push(new TagObject("security", "Ethics", "privacy, cybersecurity, malware, hacking"));
 			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
+			// Level.
+			tagObjects.push(new TagObject("K-12", "Level", "primary, secondary, kindergarten"));
+			tagObjects.push(new TagObject("undergraduate", "Level", "postsecondary, college, Associates"));
+			tagObjects.push(new TagObject("graduate", "Level", "Phd, Masters"));
 			// Location (events only).
 			if (submissionType === "event" || submissionType === "speaker") {
 				tagObjects.push(new TagObject("Africa", "Location", "Algeria, Kenya,  Morocco, Nigeria, South Africa"));
@@ -1710,7 +1714,7 @@
 					<!-- <label class="event-only" for='lwa-end-written'>End date (dd Mmm yyyy)</label> -->
 					<input class="event-only" type='text' id='lwa-end-written' placeholder='25 Nov 2025'></input>
 				</div>
-				<div id="date-utilities" class="input-row event-only"><label for="same-date">Same day?</label><input type="radio" id="same-date" onclick="toggleSameDate()" /></div>
+				<div id="date-utilities" class="input-row event-only"><label for="same-date">Same day?</label><input type="checkbox" id="same-date" onclick="toggleSameDate()" /></div>
 				<label class="event-only" for='lwa-location'>City or Online (only)</label>
 				<input class="event-only" type='text' id='lwa-location' placeholder='Barcelona'></input>
 				<label class="event-only" for='lwa-recording'>Recording URL (blank if none)</label>
