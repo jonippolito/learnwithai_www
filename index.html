@@ -3,10 +3,9 @@
 
 <head>
 	<meta charset="utf-8" />
-	<meta name="description"
-		content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
+	<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Version index 5.8: corrected past/upcoming date order. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- Version index 5.9: defaults to upcoming events only. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<title>Learn With AI | a toolkit for learners and educators</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
@@ -27,8 +26,7 @@
 			display: block;
 		}
 	</style>
-	<link rel="stylesheet" href="css/thought-mesh.css" type="text/css" media="screen" title="no title"
-		charset="utf-8" />
+	<link rel="stylesheet" href="css/thought-mesh.css" type="text/css" media="screen" title="no title" charset="utf-8" />
 	<style id="outline-expandable-styles-v02.0" type="text/css" media="screen">
 		/* Modified by Jon to replace h3s with buttons for accessibility. */
 		.heading-expanded,
@@ -688,7 +686,7 @@
 			display: none;
 		}
 
-		.lexia-instructions h3 {
+		/* .lexia-instructions h3 {
 			position: relative;
 			float: left;
 			margin: 1em 0;
@@ -698,6 +696,23 @@
 			position: relative;
 			float: right;
 			margin-left: 1em;
+		} */
+
+		.lexia-instructions {
+			display: flex;
+			justify-content: space-between;
+		}
+
+		#showing-all-dates,
+		#showing-only-upcoming,
+		#showing-speaker-dates {
+			font-size: .8em;
+		}
+
+		#showing-all-dates,
+		#showing-speaker-dates {
+			display: none;
+			/* Initial default. */
 		}
 
 		.lexia-container {
@@ -1747,7 +1762,23 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			}
 			return 0; // Same date.
 		}
-		const showOnlyUpcoming = (wantOnlyUpcoming) => {
+		const switchDateFilterNotice = (datesWanted) => {
+			if (datesWanted === "all") {
+				document.querySelector("#showing-all-dates").style.display = "block";
+				document.querySelector("#showing-only-upcoming").style.display = "none";
+				document.querySelector("#showing-speaker-dates").style.display = "none";
+			} else if (datesWanted === "upcoming") {
+				document.querySelector("#showing-all-dates").style.display = "none";
+				document.querySelector("#showing-only-upcoming").style.display = "block";
+				document.querySelector("#showing-speaker-dates").style.display = "none";
+			} else if (datesWanted === "speaker") {
+				document.querySelector("#showing-all-dates").style.display = "none";
+				document.querySelector("#showing-only-upcoming").style.display = "none";
+				document.querySelector("#showing-speaker-dates").style.display = "block";
+
+			}
+		}
+		const showOnlyUpcoming = (wantOnlyUpcoming) => { // Can only be called after content is loaded.
 			if (wantOnlyUpcoming) {
 				hideContent();
 				itemManager.forEach(
@@ -1756,10 +1787,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 							showContent(item);
 						}
 					}
-				)
+				);
+				switchDateFilterNotice("upcoming")
 			}
 			else {
 				showAllContent();
+				switchDateFilterNotice("all")
 			}
 		}
 		/*________________ Lexia manipulation. ________________*/
@@ -1844,6 +1877,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 							});
 						}
 					}
+				}
+				else {
+					// If no tags are selected, then by default show only upcoming events.
+					// UPGRADE: Check if there are more than a few, to avoid embarrassment due to scarcity.
+					// You have to do this after the await.
+					showOnlyUpcoming(true)
 				}
 			} else if (viewMode === "speakers") {
 				clearLexias();
@@ -1941,6 +1980,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					} else {
 						viewMode = "events";
 						await chooseScreen();
+						switchDateFilterNotice("speaker");
 						let regexAsString = `(`;
 						// -1 because we don't want to add a pipe to the last id.
 						for (let idCounter = 0; idCounter < this.eventIds.length - 1; idCounter++) {
@@ -2300,7 +2340,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	</script>
 </head>
 
-<body id="learnwithai-body" onload="viewMode='about' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen()">
+<body id="learnwithai-body" onload="viewMode='about' ; makeOutlineExpandable() ; turnOnMail() ; chooseScreen(); ">
 	<div id="watermark"></div>
 	<div id="header">
 		<!-- <a id="crest" href="http://umaine.edu"><img src="media/ume_crest_logo_gray_tra.png" alt="Ume Crest Gray" /></a> -->
@@ -2333,9 +2373,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				</p>
 				<p class="call-to-action"><i class="fa-solid fa-person-chalkboard"></i> Looking for an upcoming event or
 					presenter
-					on the topic of AI and education? Check out upcoming <a href="#"
-						onclick="viewMode='events'; chooseScreen()">events</a> and related <a href="#"
-						onclick="viewMode='speakers'; chooseScreen()">speakers</a>.</p>
+					on the topic of AI and education? Check out upcoming <a href="#" onclick="viewMode='events'; chooseScreen()">events</a> and related <a href="#" onclick="viewMode='speakers'; chooseScreen()">speakers</a>.</p>
 				<p class="call-to-action"><i class="fa-solid fa-bullhorn"></i> Have an online resource, assignment, or
 					event to
 					contribute to this
@@ -2371,54 +2409,44 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 							Q&A on AI-Generated Media
 						</h2>
 						<p>1 November 2023</p>
-						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank"
-								href="https://nmdprojects.net/teleconferences/nmd_webinar_harness_ai_2023.html">View
+						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_harness_ai_2023.html">View
 								interactive recording</a></p>
 					</div>
-					<img src="media/23zoom_ai_media_salvaggio_qa_ill.png" alt="Learning With AI event November 2023"
-						class="side-image" />
+					<img src="media/23zoom_ai_media_salvaggio_qa_ill.png" alt="Learning With AI event November 2023" class="side-image" />
 					<div>
 						<h2>
 							Harnessing AI in Education: When Is It Appropriate?
 						</h2>
 						<p>31 August 2023</p>
-						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank"
-								href="https://nmdprojects.net/teleconferences/nmd_webinar_harness_ai_2023.html">View
+						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_harness_ai_2023.html">View
 								interactive recording</a></p>
 					</div>
-					<img src="media/caesar_dying_breath_webinar.png" alt="Learning With AI event August 2023"
-						class="side-image" />
+					<img src="media/caesar_dying_breath_webinar.png" alt="Learning With AI event August 2023" class="side-image" />
 					<div>
 						<h2>
 							Making Images with AI
 						</h2>
 						<p>26 April 2023</p>
-						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank"
-								href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_images_2023.html">View
+						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_images_2023.html">View
 								interactive recording</a></p>
 					</div>
-					<img src="media/boothroyd_aaron_robot_mona_lisa_sd_13.jpg" alt="Learning With AI event March 2023"
-						class="side-image" />
+					<img src="media/boothroyd_aaron_robot_mona_lisa_sd_13.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					<div style="">
 						<h2>The Generative Workplace</h2>
 						<p>20 April 2023</p>
-						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank"
-								href="https://nmdprojects.net/teleconferences/nmd_webinar_generative_workplace_2023.html">View
+						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_generative_workplace_2023.html">View
 								interactive recording</a></p>
 					</div>
-					<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023"
-						class="side-image" />
+					<img src="media/23orono_learnwithai_mar_20_05_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 					<div>
 						<h2>
 							AI in the classroom
 						</h2>
 						<p>4 April 2023</p>
-						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank"
-								href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View
+						<p><i class="fa-brands fa-youtube" aria-hidden="true"></i> <a target="_blank" href="https://nmdprojects.net/teleconferences/nmd_webinar_ai_in_classroom_2023.html">View
 								interactive recording</a></p>
 					</div>
-					<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023"
-						class="side-image" />
+					<img src="media/23orono_learnwithai_mar_20_02_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 				</div>
 				<p id="events-preview-more"><button class="block-style" onclick="viewMode='events'; chooseScreen()">More
 						events</button></p>
@@ -2443,18 +2471,15 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				<h4><i class="fa-solid fa-square-pen" aria-hidden="true"></i> Write with AI</h4>
 				<p>Craft prompts to generate new text or get feedback on your own.</p>
 			</button>
-			<button id="d" class="feature"
-				onclick="viewMode = 'strategies'; chooseScreen(['image', 'creator-focused']);">
+			<button id="d" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['image', 'creator-focused']);">
 				<h4><i class="fa-solid fa-paintbrush" aria-hidden="true"></i> Make images with AI</h4>
 				<p>Create digital pictures with text-to-image generators.</p>
 			</button>
-			<button id="c" class="feature"
-				onclick="viewMode = 'strategies'; chooseScreen(['creator-focused', 'story']);">
+			<button id="c" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['creator-focused', 'story']);">
 				<h4><i class="fa-solid fa-book-open-reader" aria-hidden="true"></i> Tell stories with AI</h4>
 				<p>Write fiction and illustrate it with AI-generated imagery.</p>
 			</button>
-			<button id="f" class="feature"
-				onclick="viewMode = 'strategies'; chooseScreen(['educator-focused', 'guidelines']);">
+			<button id="f" class="feature" onclick="viewMode = 'strategies'; chooseScreen(['educator-focused', 'guidelines']);">
 				<h4><i class="fa-solid fa-building-columns" aria-hidden="true"></i> Set AI guidelines</h4>
 				<p>Set a classroom or university policy for students and faculty.</p>
 			</button>
@@ -2476,23 +2501,17 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					</button> -->
 		</div>
 		<p>
-			Learning With AI has been featured in <a target="_blank"
-				href="https://www.foxbangor.com/news/local/ai-is-shifting-education/article_e29c04dc-c10d-11ed-b28e-1b776dd187ec.html">ABC-TV</a>,
-			<a target="_blank"
-				href="https://wgme.com/news/i-team/ai-sparks-plagiarism-concerns-among-maine-educators-headline-written-by-chatgpt-schools-teachers-university-of-maine-system-openai-artificial-intelligence">WGME-TV</a>,
-			<a target="_blank"
-				href="https://www.newscentermaine.com/article/tech/maine-educators-look-to-embrace-ai-software-chatgpt-in-the-classroom-education/97-b04e9381-62a1-4669-94eb-108c2fbb8da9">News
-				Center Maine</a>, and <a target="_blank"
-				href="https://metanews.com/rise-of-ai-powered-cheating-challenges-and-solutions-for-educators/">Meta
+			Learning With AI has been featured in <a target="_blank" href="https://www.foxbangor.com/news/local/ai-is-shifting-education/article_e29c04dc-c10d-11ed-b28e-1b776dd187ec.html">ABC-TV</a>,
+			<a target="_blank" href="https://wgme.com/news/i-team/ai-sparks-plagiarism-concerns-among-maine-educators-headline-written-by-chatgpt-schools-teachers-university-of-maine-system-openai-artificial-intelligence">WGME-TV</a>,
+			<a target="_blank" href="https://www.newscentermaine.com/article/tech/maine-educators-look-to-embrace-ai-software-chatgpt-in-the-classroom-education/97-b04e9381-62a1-4669-94eb-108c2fbb8da9">News
+				Center Maine</a>, and <a target="_blank" href="https://metanews.com/rise-of-ai-powered-cheating-challenges-and-solutions-for-educators/">Meta
 				News</a>. Learn more in the official
-			<a target="_blank"
-				href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press
+			<a target="_blank" href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press
 				release</a>.
 		</p>
 		<div class="detail">
 			<p>
-				<img src="media/23orono_learnwithai_mar_20_01_xvga.jpg" alt="Learning With AI event March 2023"
-					class="side-image" />
+				<img src="media/23orono_learnwithai_mar_20_01_xvga.jpg" alt="Learning With AI event March 2023" class="side-image" />
 				<em>Learning With AI</em>
 				was originally launched by the
 				<a target="_blank" href="https://umaine.edu/newmedia">New Media program</a>
@@ -2503,18 +2522,15 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				any
 				educator or student wondering how to accommodate this disruption.
 			</p>
-			<p>Other partners in the initiative include related units at the University of Maine and the <a
-					href="https://groups.google.com/g/ai-in-education">AI in Education</a>
-				Google Group organized by <a href="https://www.danielstanford.com/">Daniel Stanford</a>. <a href="#"
-					onclick="viewMode='faq'; chooseScreen();">More on
+			<p>Other partners in the initiative include related units at the University of Maine and the <a href="https://groups.google.com/g/ai-in-education">AI in Education</a>
+				Google Group organized by <a href="https://www.danielstanford.com/">Daniel Stanford</a>. <a href="#" onclick="viewMode='faq'; chooseScreen();">More on
 					our partners</a>.</p>
 		</div>
 	</div><!-- End about-container. -->
 	<div id="resources-container">
 		<h3>
 			The resources below include articles, videos, and other background for generative AI in education, sourced
-			from <a target="_blank"
-				href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this
+			from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1epC9YjkmkNc21o7MjFbw9uJlg9eFe3pwPfNDWtPhOCw/edit?usp=sharing">this
 				Google Sheet</a>.
 			<span class="safe-mail-wrapper">If you'd like to suggest additional resources to feature here, please
 				contact us via <span class="activemail">ude.eniam@otiloppij</span>.</span>
@@ -2523,9 +2539,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			browser.</h3>
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
-			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					id="resources-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
-					onclick="clearSearchFilter()">clear</button></div>
+			<div class="search-container">Search: <input type="text" class="search-box" name="search-box" id="resources-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style" onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
@@ -2535,8 +2549,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	<div id="strategies-container">
 		<h3>
 			The strategies below suggest techniques for discouraging or adapting generative AI to the classroom, sourced
-			from <a target="_blank"
-				href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this
+			from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1MCN-JLcwjfqzKccl0n5YIbZ6YKxswCNKqVenXBRLjhk/edit?usp=sharing">this
 				Google Sheet</a>.
 			<span class="safe-mail-wrapper">
 				If you'd like to suggest additional strategies to feature here, please contact us via
@@ -2547,9 +2560,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			browser.</h3>
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
-			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					id="strategies-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
-					onclick="clearSearchFilter()">clear</button></div>
+			<div class="search-container">Search: <input type="text" class="search-box" name="search-box" id="strategies-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style" onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
@@ -2559,8 +2570,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	<div id="events-container">
 		<h3>
 			The events below include past, future, and recorded presentations about generative AI in education, sourced
-			from <a target="_blank"
-				href="https://docs.google.com/spreadsheets/d/11tFKZRvFyB5CF5mpSvpy7ieTtUrFErfE_JQclk7JKCk/edit#gid=0">this
+			from <a target="_blank" href="https://docs.google.com/spreadsheets/d/11tFKZRvFyB5CF5mpSvpy7ieTtUrFErfE_JQclk7JKCk/edit#gid=0">this
 				Google Sheet</a>.
 			<span class="safe-mail-wrapper">If you'd like to suggest additional events to list, please
 				contact us via <span class="activemail">ude.eniam@otiloppij</span>.</span>
@@ -2569,16 +2579,24 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			browser.</h3>
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
-			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					id="resources-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
-					onclick="clearSearchFilter()">clear</button></div>
+			<div class="search-container">Search: <input type="text" class="search-box" name="search-box" id="resources-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style" onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
 		<h3 class="lexia-instructions desktop">
 			Hover to learn more or click to visit an outside link
-			<button class="upcoming" onclick="showOnlyUpcoming(true)">Show only upcoming</button>
-			<button class="past" onclick="showOnlyUpcoming(false)">Show all dates</button>
+			<div id="showing-only-upcoming">
+				Showing only upcoming events
+				<button class="past" onclick="showOnlyUpcoming(false)">Show all dates</button>
+			</div>
+			<div id="showing-all-dates">
+				Showing all events
+				<button class="upcoming" onclick="showOnlyUpcoming(true)">Show only upcoming</button>
+			</div>
+			<div id="showing-speaker-dates">
+				Showing only events with this speaker
+				<button class="upcoming" onclick="showOnlyUpcoming(false)">Show all events</button> <button class="upcoming" onclick="showOnlyUpcoming(true)">Show only upcoming</button>
+			</div>
 		</h3>
 
 		<div class="lexia-container rows"></div>
@@ -2586,8 +2604,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 	<div id="speakers-container">
 		<h3>
 			The speakers have presented in public talks on AI and education, sourced
-			from <a target="_blank"
-				href="https://docs.google.com/spreadsheets/d/1qO5axIRAcWHem-oHUZ6p576ccLglF2HlUxqyd8iswwQ/edit?usp=sharing">this
+			from <a target="_blank" href="https://docs.google.com/spreadsheets/d/1qO5axIRAcWHem-oHUZ6p576ccLglF2HlUxqyd8iswwQ/edit?usp=sharing">this
 				Google Sheet</a>.
 			<span class="safe-mail-wrapper">
 				If you'd like to suggest additional speakers to feature here, please contact us via
@@ -2598,9 +2615,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			browser.</h3>
 		<div class="search-instructions desktop">
 			<h3>Use the search box or choose tags below to filter the results:</h3>
-			<div class="search-container">Search: <input type="text" class="search-box" name="search-box"
-					id="speakers-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style"
-					onclick="clearSearchFilter()">clear</button></div>
+			<div class="search-container">Search: <input type="text" class="search-box" name="search-box" id="speakers-search-box" onkeyup="searchFilter(this.value)" /><button class="utility-style" onclick="clearSearchFilter()">clear</button></div>
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
@@ -2662,14 +2677,12 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			<p>
 				Learning With AI was convened by UMaine's <a target="_blank" href="https://umaine.edu/newmedia">New
 					Media major</a> and <a target="_blank" href="https://umaine.edu/citl">Center for Innovation in
-					Teaching and Learning</a>. Other partners in the initiative include the <a
-					href="https://groups.google.com/g/ai-in-education">AI in Education</a>
+					Teaching and Learning</a>. Other partners in the initiative include the <a href="https://groups.google.com/g/ai-in-education">AI in Education</a>
 				Google Group organized by <a href="https://www.danielstanford.com/">Daniel Stanford</a> and UMaine's the
 				College of Education and
 				Human Development, Department of Electrical and Computer Engineering, Digital and Spatial History Lab,
 				and UMaine AI. Learn
-				more in the official <a target="_blank"
-					href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press
+				more in the official <a target="_blank" href="https://umaine.edu/news/blog/2023/03/17/learning-with-ai-a-new-online-resource/">press
 					release</a>.
 			</p>
 			<button>Wait, I want to learn/teach AI as a discipline!</button>
@@ -2702,8 +2715,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			</p>
 		</div>
 		<div class="nmd-logo-phrase">
-			<a target="_blank" href="http://newmedia.umaine.edu/"><img src="media/nmd_title_blue_tra_xvga.png"
-					alt="Nmd Title Blue Tra Xvga" /></a>
+			<a target="_blank" href="http://newmedia.umaine.edu/"><img src="media/nmd_title_blue_tra_xvga.png" alt="Nmd Title Blue Tra Xvga" /></a>
 		</div>
 	</div>
 </body>
