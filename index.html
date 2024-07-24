@@ -1586,7 +1586,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					break;
 				case "id": // Filter for specific lexias by their ids (unusual case).
 					searchFilter(tagArg);
-					return;
+					break;
 			}
 			// Hide content.
 			hideContent();
@@ -1649,6 +1649,10 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					thoughtMesh.tagObjs[tagCounter].blankLink.style.display = "inline";
 				}
 			}
+			// Prevent user from accidentally showing all events when a tag has been clicked.
+			if (viewMode === "events") {
+				showEventInstructions(false);
+			}
 		}
 		function hideContent() {
 			// This function is customized for different UIs.
@@ -1672,23 +1676,32 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				itemManager[itemCounter].style.display = "grid";
 			}
 			alertUser("ok");
+			if (viewMode === "events") {
+				switchDateFilterNotice("all");
+			}
 		}
 		function alertUser(status) {
 			switch (status) {
 				case "ok":
 					document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "";
+					showEventInstructions(true);
+					// switchDateFilterNotice("all");
 					break;
 				case "no match":
 					document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "No content matches that combination. Unselect a tag.";
+					showEventInstructions(false);
 					break;
 				case "pick one":
+					// Guessing you would only see this after clicking on a tag combo.
+					// In that case, it's best to show all, and not worry about upcoming versus past events.
 					document.querySelector(`#${screenContainerId} .alert-box`).innerHTML = "Pick a tag to see related content or <a onclick='showAllContent()'>show all</a>.";
+					showEventInstructions(false);
 					break;
 			}
 		}
 		/*__________ Search option __________*/
 		function searchFilter(searchStr) {
-			// UPGRADE: This is currently UI specific, but that could be changed if useful.
+			// UPGRADE: This is currently UI sØswitpecific, but that could be changed if useful.
 			var objRegex = new RegExp(searchStr, "i");
 			objRegex.compile(searchStr, "i");
 			/********** Find table matches. **********
@@ -1762,6 +1775,14 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 			}
 			return 0; // Same date.
 		}
+		const showEventInstructions = wantInstructionsDisplayed => {
+			// Hide instructions only when no tag matches.
+			if (wantInstructionsDisplayed) {
+				document.querySelector("#events-instructions").style.display = "flex";
+			} else {
+				document.querySelector("#events-instructions").style.display = "none";
+			}
+		}
 		const switchDateFilterNotice = (datesWanted) => {
 			if (datesWanted === "all") {
 				document.querySelector("#showing-all-dates").style.display = "block";
@@ -1775,10 +1796,10 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				document.querySelector("#showing-all-dates").style.display = "none";
 				document.querySelector("#showing-only-upcoming").style.display = "none";
 				document.querySelector("#showing-speaker-dates").style.display = "block";
-
 			}
 		}
 		const showOnlyUpcoming = (wantOnlyUpcoming) => { // Can only be called after content is loaded.
+			document.querySelector("#events-instructions").style.display = "flex";
 			if (wantOnlyUpcoming) {
 				hideContent();
 				itemManager.forEach(
@@ -2583,7 +2604,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		</div>
 		<div class="home-cloud desktop"></div>
 		<div class="alert-box desktop">No matching content for that tag combination</div>
-		<h3 class="lexia-instructions desktop">
+		<h3 id="events-instructions" class="lexia-instructions desktop">
 			Hover to learn more or click to visit an outside link
 			<div id="showing-only-upcoming">
 				Showing only upcoming events
