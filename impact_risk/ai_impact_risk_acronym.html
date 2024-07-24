@@ -1,0 +1,1770 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A project from UMaine New Media">
+	<title>IMPACT RISK | acronym for AI downsides</title>
+	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
+	<!--[if IE]>
+<script src="ht resourcestp://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+	<style id="set-html5-blocks">
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		section {
+			display: block;
+		}
+	</style>
+	<style id="outline-styles-v2.2">
+		/* Outline styles v2.2, revised to add alternating row colors for tables.*/
+		/*__________ Layout hierarchy. __________*/
+		body {
+			font-family: verdana;
+			margin: 3em 3em;
+		}
+
+		strong {
+			color: purple;
+		}
+
+		em {
+			color: olive;
+		}
+
+		h1 {
+			font-variant: small-caps;
+			font-size: 1.5em;
+			color: rgb(100%, 75%, 25%);
+		}
+
+		h2 {
+			margin: 20px;
+			font-size: 1.2em;
+			color: rgb(90%, 70%, 22%);
+		}
+
+		h3 {
+			margin-left: 40px;
+			color: rgb(80%, 60%, 20%);
+		}
+
+		h4 {
+			font-weight: normal;
+			margin-left: 60px;
+			color: rgb(60%, 45%, 15%);
+		}
+
+		h5 {
+			font-weight: normal;
+			margin: .8em 0 .0 80px;
+			color: olive;
+			color: rgb(40%, 30%, 10%);
+		}
+
+		h6 {
+			font-size: .8em;
+			font-weight: normal;
+			margin: .8em 0 0 100px;
+			color: rgb(20%, 15%, 5%);
+		}
+
+		p,
+		blockquote {
+			font-size: .9em;
+			font-weight: normal;
+			margin: .8em 0 0 84px;
+			color: rgb(10%, 7%, 2%);
+		}
+
+		p {
+			margin: .8em 0 0 84px;
+		}
+
+		blockquote p {
+			margin: .8em 20px 0 80px;
+		}
+
+		ul,
+		ol {
+			font-size: .9em;
+			margin: .8em 0 0 60px;
+			padding-left: 40px;
+			/*For IE.*/
+			color: dimgray;
+		}
+
+		li {
+			margin-top: .5em;
+		}
+
+		pre {
+			/*		background-color: rgb( 100%, 100%, 20%);*/
+		}
+
+		/*__________ Links. __________*/
+		a {
+			font-weight: bold;
+			text-decoration: none;
+			color: tomato;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		/*__________ Headings. __________*/
+		div.watermark {
+			width: 90%;
+			margin: 0 5%;
+			text-align: center;
+			padding: 1em;
+			color: rgb(80%, 75%, 65%);
+			/* Putty. */
+		}
+
+		div.watermark h1,
+		div.watermark h2,
+		div.watermark h3,
+		div.watermark h4 {
+			color: rgb(54%, 50%, 42%);
+			/* Dark putty (2/3 values) */
+			margin-top: 0;
+		}
+
+		/* Use logo for page title inside watermark. */
+		/* Version number can follow as plain text.*/
+		div#logo {
+			font-size: 1.8em;
+			margin: .5em 0;
+			font-weight: bold;
+		}
+
+		.caption {
+			font-size: .6em;
+			margin-top: -1em;
+		}
+
+		.folder {
+			color: rgb(20%, 60%, 40%);
+		}
+
+		/*__________ Inline emphasis. __________*/
+		.good,
+		.confirmation {
+			color: lightgreen;
+		}
+
+		.bad,
+		.warning {
+			color: red;
+		}
+
+		.confirmation,
+		.warning {
+			font-weight: bold;
+		}
+
+		tt {
+			color: steelblue;
+		}
+
+		/*__________ Block emphasis. __________*/
+		.callout {
+			/*Meant to apply to a div.*/
+			border: black solid 1px;
+			padding: .5em;
+			width: 80%
+		}
+
+		.code {
+			border: dimgray solid 1px;
+			background-color: white !important;
+			font-family: courier;
+			padding: .5em;
+			margin: .8em 0 0 84px;
+			font-size: .8em;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+		}
+
+		.code em {
+			font-style: normal;
+			color: purple;
+		}
+
+		/*__________ Table styles. __________*/
+		/*Use with this HTML:
+		<table border="1" cellspacing="0" cellpadding="2">
+			<tbody>
+				<tr>
+					<th>First label</th>
+					<th>Second label</th>
+				</tr>
+				<tr>
+					<td>Content</td>
+					<td>Content</td>
+				</tr>
+				...
+	*/
+		table,
+		tr,
+		td,
+		th {
+			border-width: .2em;
+			padding: .4em;
+		}
+
+		/*	DEPRECATED: 
+		tr.labels {
+		background-color: black; 
+		background-color: peru; 
+		color: white
+	} */
+		table {
+			border-left: black solid 1px;
+			border-bottom: black solid 1px;
+		}
+
+		tr:nth-child(odd) {
+			background-color: beige;
+		}
+
+		tr:nth-child(even) {
+			background-color: paleGoldenRod;
+		}
+
+		th {
+			text-align: left;
+			background-color: black;
+			color: white;
+		}
+
+		td {
+			/* min-width: 40px ;*/
+			border-right: black solid 1px;
+		}
+	</style><!-- end outline-styles. -->
+	<style id="outline-styles-print-v1.2" type="text/css" media="print">
+		/*	Modified by Jon to adjust logo, p margins to work with Jon's outline-styles-v2.2.*/
+		body {
+			margin: 0 !important;
+		}
+
+		h1 {
+			font-variant: small-caps;
+			font-size: 12pt;
+			color: rgb(100%, 75%, 25%);
+		}
+
+		h2 {
+			margin: 20px;
+			margin: 2pt 0 2pt 0 !important;
+			font-size: 10pt;
+			color: rgb(90%, 70%, 22%);
+		}
+
+		h3 {
+			font-size: 9pt;
+			margin-left: 40px;
+			margin: 0 !important;
+			color: rgb(80%, 60%, 20%);
+		}
+
+		h4 {
+			font-size: 8pt;
+			font-weight: normal;
+			margin-left: 60px;
+			margin: 0 !important;
+			color: rgb(60%, 45%, 15%);
+		}
+
+		h5 {
+			font-weight: normal;
+			font-size: 7pt;
+			margin: .8em 0 .0 80px;
+			margin: 0 !important;
+			color: olive;
+			color: rgb(40%, 30%, 10%);
+		}
+
+		h6 {
+			font-size: 6pt;
+			font-weight: normal;
+			margin: .8em 0 0 100px;
+			margin: 0 !important;
+			color: rgb(20%, 15%, 5%);
+		}
+
+		p,
+		blockquote {
+			font-size: 9pt !important;
+			font-weight: normal;
+			margin: .8em 0 6pt 20pt !important;
+			color: rgb(10%, 7%, 2%);
+		}
+
+		ul,
+		ol {
+			font-size: 5pt;
+			margin: .8em 0 0 60px;
+			margin: 0 !important;
+		}
+
+		li {
+			font-size: 7pt !important;
+			margin-top: .5em;
+			margin-top: 0 !important;
+		}
+
+		#logo {
+			font-size: 1.4em;
+		}
+
+		.caption {
+			margin-top: 0;
+		}
+
+		.do-not-print {
+			display: none;
+		}
+	</style><!-- end outline-styles-print. -->
+	<style id="digital-curation-localization-v03.0" type="text/css" media="screen">
+		/*__________ Globals __________*/
+		* {
+			margin: 0;
+			padding: 0;
+		}
+
+		body {
+			background-color: white;
+			margin: 10px 20px 40px 20px;
+			font-family: century gothic, verdana;
+		}
+
+		a {
+			color: darkcyan;
+			border-bottom: dotted 1px;
+			font-weight: normal;
+			background-color: azure;
+		}
+
+		a:hover {
+			text-decoration: none;
+			border-bottom: solid 1px;
+			/*		text-shadow: black 1px 1px 0;*/
+		}
+
+		p {
+			margin: 0 0 1em 0;
+			page-break-after: avoid;
+			color: rgb(0%, 0%, 20%);
+			/* Space blue */
+			font-size: .85em;
+		}
+
+		h1,
+		h2,
+		h3,
+		h4,
+		h5 {
+			margin-bottom: .8em;
+			margin-top: 1em;
+		}
+
+		h5 {
+			color: steelBlue;
+			text-align: left;
+			margin-left: 0;
+		}
+
+		h1 {
+			font-weight: normal;
+			font-size: 2em;
+			text-shadow: royalblue 1px -1px 3px;
+			margin: 1em 0 0 0;
+		}
+
+		h3 {
+			margin: 1.2em 0 .5em 0;
+		}
+
+		h4 {
+			margin: .5em 0;
+			font-weight: bold;
+			font-size: .9em;
+		}
+
+		em {
+			font-weight: bold;
+		}
+
+		img {
+			border: none;
+		}
+
+		ul,
+		ol,
+		li {
+			margin: .4em 0;
+			color: darkslategray;
+			font-size: .9em;
+		}
+
+		ul {
+			margin-bottom: 1em;
+		}
+
+		/*__________ Banner __________*/
+		div.watermark {
+			width: 90% !important;
+			margin: 0 5% 14px !important;
+			text-align: center;
+			padding: 0;
+			color: darkseagreen;
+			position: relative;
+			text-align: center;
+			min-width: 400px;
+			height: 100px !important;
+			/*	IE seems to require important */
+			z-index: -1;
+		}
+
+		#logo {
+			position: relative;
+			margin: 0 auto !important;
+			width: 400px;
+			text-align: left;
+			z-index: 10;
+		}
+
+		#logo img {
+			width: 100%;
+		}
+
+		.creditline {
+			margin: .4em 0 0 0;
+		}
+
+		#sign {
+			position: absolute;
+			width: 20%;
+			padding: .5em;
+			font-size: 1.3em;
+			font-style: italic;
+			color: darkseagreen;
+		}
+
+		#sign-2 {
+			position: absolute;
+			right: 30px;
+		}
+
+		#sign-2 img {
+			width: 200px;
+		}
+
+		#sign a,
+		#sign-2 a {
+			text-decoration: none;
+			border: none;
+			background: none;
+		}
+
+		/*__________ Navigation __________*/
+		#navigation-column {
+			position: relative;
+			float: left;
+			width: 20% !important;
+			margin-right: 0;
+			text-align: center;
+		}
+
+		#navigation-menu {
+			color: teal;
+			border: paleturquoise solid 2px;
+			/* Muted Semolina2. */
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+			border-radius: 10px;
+			padding: .5em;
+			text-align: left;
+			font-size: 1.1em;
+			margin-bottom: 6px;
+		}
+
+		.menulink-bachelor-unselected:hover,
+		.menulink-bachelor-selected:hover,
+		.menulink-parent-collapsed-unselected:hover,
+		.menulink-parent-collapsed-selected:hover,
+		.menulink-parent-expanded-unselected:hover,
+		.menulink-parent-expanded-selected:hover,
+		.menulink-child-unselected:hover,
+		.menulink-child-selected:hover {
+			background-color: azure;
+		}
+
+		.menulink-bachelor-selected,
+		.menulink-bachelor-unselected {
+			margin-bottom: .5em;
+		}
+
+		.menulink-bachelor-selected {
+			color: turquoise;
+			font-weight: bold;
+		}
+
+		#explanation,
+		#screencasts {
+			position: relative;
+			margin-top: 1em;
+			color: darkslategray;
+			font-size: .9em;
+			text-align: left;
+		}
+
+		#screencasts h2 {
+			position: absolute;
+			left: 12px;
+			/*			text-shadow: black .2em .2em .2em;*/
+			font-size: 1.4em;
+		}
+
+		#screencasts img {
+			opacity: .4;
+			filter: alpha(opacity=40);
+		}
+
+		#screencasts p:hover,
+		#screencasts h2:hover {
+			cursor: pointer;
+		}
+
+		#screencasts img:hover {
+			opacity: 1;
+			filter: alpha(opacity=100);
+			/* h2:hover img is failing, not sure why. */
+		}
+
+		/*__________ Content __________*/
+		#content {
+			position: relative;
+			float: right;
+			width: 78%;
+		}
+
+		#content>div {
+			/* Something weird here--put at end. */
+			display: none;
+			width: 100%;
+			font-size: 1.3em;
+		}
+
+		.toc {
+			padding: .5em;
+			background-color: red;
+		}
+
+		.toc p {
+			margin: .2em 1em;
+		}
+
+		.jump-toc {
+			font-size: .5em;
+			margin-left: 3em;
+			font-weight: normal;
+		}
+
+		.button-list {
+			list-style: none;
+		}
+
+		.button-list li {
+			clear: both;
+		}
+
+		div.image-cluster {
+			float: right;
+			margin-right: 100px;
+			/*		margin-top: 20px ;*/
+		}
+
+		div.image-cluster img {
+			height: 100px;
+			margin-left: 10px;
+		}
+
+		div.logos {
+			position: relative;
+			text-align: center;
+			margin-top: 20px;
+		}
+
+		div.logos img {
+			height: 40px;
+			margin: 0 10px;
+			border: none;
+		}
+
+		div.logos a,
+		img {
+			border: none;
+		}
+
+		.sidebar {
+			position: relative;
+			float: right;
+			width: 330px;
+			border: paleturquoise dotted 2px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			padding: 1em;
+			margin: 0 1em;
+			background-color: azure;
+			text-align: right;
+			z-index: 10;
+		}
+
+		.sidebar-box {
+			width: 320px;
+			/* IE requires specifying for faculty images. */
+			clear: both;
+		}
+
+		.sidebar a {
+			font-weight: normal;
+			font-size: 1.4em;
+		}
+
+		#promotion-box {
+			text-align: left;
+		}
+
+		#promotion-box h3 {
+			margin-top: 0;
+			font-size: 1em;
+		}
+
+		#promotion-box a {
+			font-size: .9em;
+		}
+
+		#faculty-box img {
+			float: left;
+			margin: 0 6px 6px 0;
+		}
+
+		#icon-box {
+			text-align: left;
+			width: 180px;
+			color: steelBlue;
+			margin-bottom: 1em;
+		}
+
+		#icon-box p {
+			color: darkSeaGreen;
+			font-size: 1.4em;
+			margin: 0;
+			font-family: HelveticaNeue-Light, "Helvetica Neue Light", "Helvetica Neue", helvetica, arial;
+		}
+
+		#icon-box .delimiter {
+			font-size: 1em;
+			margin: .2em 4em;
+			color: mediumAquamarine;
+		}
+
+		#icon-box h4 {
+			margin: 0 0 1.3em 0;
+		}
+
+		#content-courses h3 i {
+			font-size: 1.2em;
+		}
+
+		.warning {
+			text-shadow: yellow 0px 0px 10px;
+		}
+
+		/*__________ News feed. __________*/
+		#feed {
+			position: relative;
+			/* Don't use overflow--it makes Safari redraw obsessively.
+			   Instead set z-index of sidebar to sit in front of feed. */
+		}
+
+		.news-item {
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			border-radius: 4px;
+			/*				background-color: azure ;*/
+			padding: .5em .5em .3em .5em;
+			margin-bottom: .5em;
+			/* Gradient. */
+			background: lightCyan;
+			/* Old browsers */
+			background: -moz-linear-gradient(left, lightCyan 0%, azure 100%);
+			/* FF3.6+ */
+			background: -webkit-gradient(linear, left top, right top, color-stop(0%, lightCyan), color-stop(100%, azure));
+			/* Chrome,Safari4+ */
+			background: -webkit-linear-gradient(left, lightCyan 0%, azure 100%);
+			/* Chrome10+,Safari5.1+ */
+			background: -o-linear-gradient(left, lightCyan 0%, azure 100%);
+			/* Opera 11.10+ */
+			background: -ms-linear-gradient(left, lightCyan 0%, azure 100%);
+			/* IE10+ */
+			background: linear-gradient(to right, lightCyan 0%, azure 100%);
+			/* W3C */
+			filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='lightCyan', endColorstr='azure', GradientType=1);
+			/* IE6-9 */
+		}
+
+		.news-item-headline {
+			color: steelBlue;
+			font-size: .75em;
+		}
+
+		.news-item-story p {
+			color: color: rgb(0%, 0%, 20%);
+			/* Space blue */
+			font-size: .65em;
+			font-weight: normal !important;
+		}
+
+		/*__________ Twitter feed. __________*/
+		/* You cannot style CSS within an iframe from the outside :( */
+	</style>
+	<link rel="stylesheet" href="../font-awesome/css/font-awesome.css">
+	<style id="icon-style">
+		.icon-facetime-video {
+			color: ;
+		}
+
+		li {
+			list-style-type: circle;
+			color: lightSkyBlue;
+		}
+
+		i {
+			margin-right: .3em;
+			font-size: 1.3em !important;
+		}
+
+		.icon-certificate {
+			color: gold;
+			text-shadow: orangeRed 0px 0px 4px;
+		}
+
+		.icon-facetime-video {
+			d color: mediumTurquoise;
+			text-shadow: darkSlateGray 1px 1px 1px;
+		}
+
+		.icon-book {
+			color: darkGoldenrod;
+		}
+
+		.icon-pencil {
+			color: goldenrod;
+		}
+
+		.icon-info-sign {
+			color: oliveDrab;
+		}
+
+		.icon-volume-up {
+			color: deepSkyBlue;
+		}
+	</style>
+	<style id="hybrid-localization-style-v01.1">
+		/*This is duct tape between the NMW and DIG styles. */
+		/* V. 1.1 adds counter for assignments. */
+		body {
+			background-color: azure;
+			counter-reset: assignment;
+		}
+
+		.icon-pencil::after {
+			counter-increment: assignment;
+			content: "#" counter(assignment);
+			padding-left: .3em;
+			font-size: .8em;
+		}
+
+		div.watermark {
+			height: 170px !important;
+		}
+
+		div.watermark img {
+			height: 100px;
+			/* Unlike CSS box-shadow, filter: drop-shadow works on transparent PNGs. */
+			filter: drop-shadow(0 0 6px hsla(200, 50%, 50%, 1));
+			/* NMD blue medium. */
+		}
+
+		div.watermark h2 {
+			margin-top: 1em;
+			color: steelblue;
+			font-size: 1.8em;
+		}
+
+		.expandable>ul>h5 {
+			font-size: 1.2em;
+			margin-bottom: -.5em;
+		}
+
+		h2 {
+			color: steelblue;
+			color: mediumturquoise;
+			color: hsla(200, 50%, 70%, 1);
+			/* NMD blue light. */
+			font-size: 1.4em;
+		}
+
+		h3 {
+			color: cadetblue;
+			font-size: 1.2em;
+			margin-left: 3em;
+		}
+
+		p {
+			margin-left: 5em;
+		}
+
+		ul {
+			margin-left: 3em;
+		}
+
+		li {
+			color: lightseagreen;
+			font-size: 1.2em;
+			list-style-type: none;
+		}
+
+		li p,
+		li h5 {
+			margin-left: 2em;
+			margin-top: .5em;
+		}
+
+		li li {
+			list-style-type: circle !important;
+			font-size: .9em !important;
+		}
+
+		.tweet {
+			margin-left: 30px;
+			background-color: white;
+			padding: 6px;
+			border: cadetblue solid 1px;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			border-radius: 3px;
+		}
+
+		.emoji {
+			font-size: 1.5em;
+		}
+	</style>
+	<style id="outline-expandable-styles-v01.1" type="text/css" media="screen">
+		/* Modified by Jon to play nice with outline-styles-v1.6 */
+		.heading-expanded:hover,
+		.heading-collapsed:hover {
+			cursor: pointer;
+			color: aqua;
+		}
+
+		.heading-collapsed:before {
+			content: "+ ";
+		}
+
+		.heading-expanded:before {
+			content: "- ";
+		}
+
+		.expandable {
+			display: none;
+			border-left: teal solid 1px;
+			background-color: mintcream;
+			padding: .2em 1em .4em 1em;
+			margin-left: 46px;
+			margin-top: -8px;
+		}
+
+		.expandable p {
+			margin-left: 0;
+		}
+	</style>
+	<script id="make-outline-expandable_v01.0" type="text/javascript" charset="utf-8">
+		// Run when DOM is loaded.
+		// window.onload = makeOutlineExpandable ; UNUSED FOR THIS PAGE.
+		function makeOutlineExpandable() {
+			// Gather all headings at a certain level.
+			h3s = document.getElementsByTagName("h3"); // Global, because used in a later function.
+			// Go through each heading.
+			for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+				// Add a starting div tag just after the heading.
+				var expandableDiv = document.createElement("div");
+				expandableDiv.className = "expandable";
+				// There is no insertAfter method, so use this to replace it.
+				h3s[h3Counter].parentNode.insertBefore(expandableDiv, h3s[h3Counter].nextSibling);
+				// Can't just look for next h3, because the last one could be at the end.
+				// Or you could run into a higher-level heading before the next h3.
+				var h3FollowingElements = []; // An array of elements?
+				var lastFollowerEle = expandableDiv.nextSibling; // Just a candidate at this point.
+				while (lastFollowerEle && lastFollowerEle.nodeName != "H3" && lastFollowerEle.nodeName != "H2" && lastFollowerEle.nodeName != "H1") {
+					// Gather all elements up to the next heading (at that level or higher).
+					h3FollowingElements.push(lastFollowerEle);
+					lastFollowerEle = lastFollowerEle.nextSibling;
+				};
+				// Now that you know the last following element, remove the content between headings.
+				for (var eleCounter = h3FollowingElements.length - 1; eleCounter >= 0; eleCounter--) {
+					h3FollowingElements[eleCounter].parentNode.removeChild(h3FollowingElements[eleCounter]);
+				};
+				// Re-insert it as a child of the div.
+				for (var eleCounter = 0; eleCounter < h3FollowingElements.length; eleCounter++) {
+					expandableDiv.appendChild(h3FollowingElements[eleCounter]);
+				};
+				// You have now wrapped the expandable content in a div with class "expandable."
+			}
+			// If you click on an h3, it toggles following div.
+			for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+				h3s[h3Counter].className = "heading-collapsed";
+				h3s[h3Counter].onclick = function () {
+					toggleContent(this);
+				};
+			}
+		};
+		function toggleContent(h3Ele) {
+			var expandingContentDiv = h3Ele.nextSibling; // May have to check this is a div.
+			if (expandingContentDiv.style.display == "block") { // Putting this option first prevents misfiring based on no display defined yet.
+				expandingContentDiv.style.display = "none";
+				h3Ele.className = "heading-collapsed";
+			}
+			else {
+				expandingContentDiv.style.display = "block";
+				h3Ele.className = "heading-expanded";
+			}
+		}
+	</script>
+	<style id="design-values-localization-style-v1.3">
+		body {
+			margin-inline: 10vw;
+		}
+
+		.expandable {
+			margin-top: .5em;
+		}
+
+		[class*="grid"] {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(8em, 1fr));
+			gap: 2em;
+			margin-left: 3em;
+		}
+
+		[class*="grid"]>div {
+			background-color: paleturquoise;
+			padding: .5em;
+		}
+
+		[class*="grid"] h3 {
+			margin: 0;
+		}
+
+		.flanking-row {
+			grid-template-columns: 1fr 1fr;
+			grid-template-rows: 30em;
+		}
+
+		.grid-glossary {
+			grid-template-columns: 2fr 6fr;
+			width: 70vw;
+			/*			grid-template-rows: 30em ;*/
+		}
+
+		.flex-terms {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 1em;
+		}
+
+		.flex-terms>div {
+			background-color: white;
+			color: darkslategray;
+			padding: .5em;
+			/*			min-width: 15em ;*/
+			border-radius: .5em;
+		}
+
+		.grid-glossary>div {
+			background-color: azure;
+		}
+
+		.flanking-row img {
+			/*			object-fit: contain ;*/
+			height: 100%;
+		}
+
+		.emoji {
+			font-size: 2em;
+		}
+
+		p {
+			color: darkslategray;
+			font-size: 1em;
+		}
+
+		h1 {
+			color: paleturquoise;
+			text-shadow: teal .02em .04em .01em;
+		}
+
+		h4 {
+			color: cadetblue;
+			margin-left: 2em;
+		}
+
+		/*		li::marker {
+			/* Warning: grid treats pseudo-elements as genuine children. *
+			content: "\25B7"; /* White right-pointing triangle. *
+			content: "\25C6" ; /* Black diamond. */
+		content: "\25B6";
+
+		/* Black right-pointing triangle. *
+			color: cyan ;
+			font-size: .8em ;
+		}
+*/
+		ul {
+			margin-left: 4em;
+		}
+
+		ul li {
+			list-style-type: disc !important;
+		}
+
+		ol {
+			margin-left: 4em;
+		}
+
+		ol>li {
+			list-style-type: decimal !important;
+			color: teal;
+			margin-bottom: 1em;
+		}
+
+		/*		ol > li::marker {
+			content: "" ;
+		}
+*/
+		.slack::before {
+			content: "\02A33";
+			/* You must used unescaped Unicode rather than HTML entities, which would be sdotb. */
+			font-weight: bold;
+			font-size: 1.8em;
+			margin-right: .2em;
+			color: purple;
+		}
+	</style>
+	<style id="super-local-style">
+		.flex-terms div {
+			box-shadow: teal .3em .3em .5em;
+		}
+
+		.flex-terms a {
+			border: none;
+			background-color: transparent;
+		}
+
+		strong {
+			/* color: steelblue; */
+			/* background-color: white; */
+			color: darkslategray;
+			/* font-weight: normal; */
+		}
+
+		h4 {
+			font-size: 1.1em;
+		}
+	</style>
+	<style id="outline-expandable-styles-v01.1" type="text/css" media="screen">
+		/* Modified by Jon to play nice with outline-styles-v1.6 */
+		.heading-expanded:hover,
+		.heading-collapsed:hover {
+			cursor: pointer;
+			color: aqua;
+		}
+
+		.heading-collapsed:before {
+			content: "+ ";
+		}
+
+		.heading-expanded:before {
+			content: "- ";
+		}
+
+		.expandable {
+			display: none;
+			border-left: teal solid 1px;
+			background-color: mintcream;
+			padding: .2em 1em .4em 1em;
+			margin-left: 46px;
+			margin-top: -8px;
+		}
+
+		.expandable p {
+			margin-left: 0;
+		}
+	</style>
+	<style id="learnwithai-design-style">
+		/* Based on tutorials-index-style and padlet-style. */
+		/* ________________ Design parameters. ________________ */
+		:root {
+			/* Global dimensions. */
+			--container-width: 1000px;
+			--margin-wide: 40px;
+			--padding-padlet: 1em;
+			--padding-section: 1em;
+			--event-min-height: 100px;
+			--lexia-transition-duration: 0.3s;
+			/* Global colors. Screen-specific values are below. */
+			--h-cooler: 220;
+			/* WAS 205. */
+			--h-medium: 210;
+			/* WAS 200. */
+			--h-warmer: 200;
+			/* WAS 190. */
+			--h-warmest: 160;
+			--h-rotate-from-sepia: 170deg;
+			/* Ice: a cool, dull blue. */
+			--pale-ice: azure;
+			--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
+			--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
+			--darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
+			/* Celeste: a more saturated, warmer blue. */
+			--pale-celeste: hsla(var(--h-medium), 90%, 80%, 1);
+			--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
+			--deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
+			--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+			/* Jade: even more saturated and warmer. */
+			--pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
+			--medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
+			/* Lexia and other backgrounds. */
+			--lexia-lightest: azure;
+			--lexia-lighter: paleturquoise;
+			--lexia-darker: teal;
+			--dull-aqua: lightseagreen;
+			--darker-body: hsla(180, 25%, 25%);
+			/*	Gradients */
+			--gradientStopA: hsla(var(--h-warmer), 100%, 10%, 0.8);
+			--gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
+			--gradientStopC: hsla(var(--h-warmer), 70%, 35%, 0.8);
+			--gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
+			--gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
+			--gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
+			--gradient-lightest: azure;
+			--gradient-lightest: hsla(var(--h-warmer), 90%, 95%, 1);
+			--background-lightest: skyblue;
+			/*	Shadows. */
+			--cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
+			--screenshot-background: hsla(0, 0%, 0%, 0.5);
+			/*	Accents. */
+			--accent: aqua;
+			--highlight: lime;
+		}
+
+		/* Heading font is set in browse-options, button. */
+		@font-face {
+			/* Unused? */
+			font-family: "sansation-light";
+			src: url("../fonts/Sansation-Light.ttf") format("truetype");
+		}
+
+		@font-face {
+			/* Unused? */
+			font-family: "sansation-regular";
+			src: url("../fonts/Sansation-Regular.ttf") format("truetype");
+		}
+
+		@font-face {
+			font-family: "sansation-bold";
+			src: url("../fonts/Sansation-Bold.ttf") format("truetype");
+		}
+
+		/* Padlets */
+		#resources-container {
+			--h: 207;
+			--lightest: hsl(var(--h) 90% 94%);
+			--lighter: hsl(var(--h) 60% 88%);
+			--light: hsl(var(--h) 60% 70%);
+			--medium: hsl(var(--h) 100% 50%);
+			--darker: hsl(var(--h) 60% 60%);
+			--darkest: hsl(var(--h) 100% 10%);
+		}
+
+		#strategies-container {
+			--h: 190;
+			--lightest: hsl(var(--h) 90% 94%);
+			--lighter: hsl(var(--h) 60% 88%);
+			--light: hsl(var(--h) 60% 70%);
+			--medium: hsl(var(--h) 100% 50%);
+			/* --medium: white ; */
+			--darker: hsl(var(--h) 100% 20%);
+			--darkest: hsl(var(--h) 100% 10%);
+		}
+
+		#events-container {
+			--h: 180;
+			--s: .3;
+			--l: 2.5;
+			--lightest: hsl(var(--h) 90% 94%);
+			--lighter: hsl(var(--h) 60% 88%);
+			--light: hsl(var(--h) 60% 70%);
+			--medium: hsl(var(--h) 100% 50%);
+			/* --medium: white ; */
+			--darker: hsl(var(--h) calc(var(--s)*100%) calc(var(--l)*20%));
+			--darkest: hsl(var(--h) 100% 10%);
+		}
+
+		#speakers-container {
+			--h: 175;
+			--lightest: hsl(var(--h) 90% 94%);
+			--lighter: hsl(var(--h) 60% 88%);
+			--light: hsl(var(--h) 60% 70%);
+			--medium: hsl(var(--h) 100% 50%);
+			/* --medium: white ; */
+			--darker: hsl(var(--h) 100% 20%);
+			--darkest: hsl(var(--h) 100% 10%);
+		}
+	</style>
+	<style id="acronym-style-v1">
+		/* Doesn't yet work in Firefox:
+		h3::first-letter {
+			initial-letter: 4;
+		}
+		*/
+		body {
+			background-color: black;
+		}
+
+		#acronym-container {
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 20px;
+		}
+
+		h3 {
+			font-family: sansation-bold;
+			font-size: 1.5em;
+		}
+
+		h3>* {
+			vertical-align: middle;
+		}
+
+		h3>svg {
+			width: 70px;
+		}
+
+		h3>span:nth-of-type(1) {
+			font-size: 2.5em;
+			line-height: 1em;
+			margin: 0;
+		}
+
+		p>span {
+			background-color: red;
+			font-size: 4em;
+			line-height: 8em;
+		}
+
+		/* span {
+			font-size: 4em;
+			line-height: 8em;
+		} */
+
+
+		#bomb {
+			fill: yellow;
+		}
+
+		#monopoly {
+			fill: orange;
+		}
+
+		#spy {
+			fill: green;
+		}
+
+		#robot-arm {
+			fill: gray;
+		}
+
+		#factory {
+			fill: brown;
+		}
+
+		#bad-data {
+			fill: orangered;
+		}
+
+		#distortion {
+			fill: lime;
+		}
+
+		#injustice {
+			fill: purple;
+		}
+
+		#stereotyping {
+			fill: rebeccapurple;
+		}
+
+		#descending {
+			fill: blue;
+		}
+	</style>
+	<script id="make-outline-expandable_v01.1" type="text/javascript" charset="utf-8">
+		// Changed to addEventListener instead of window.onload.
+		window.addEventListener("DOMContentLoaded", makeOutlineExpandable);
+		function makeOutlineExpandable() {
+			// Gather all headings at a certain level.
+			h3s = document.getElementsByTagName("h3"); // Global, because used in a later function.
+			// Go through each heading.
+			for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+				// Add a starting div tag just after the heading.
+				var expandableDiv = document.createElement("div");
+				expandableDiv.className = "expandable";
+				// There is no insertAfter method, so use this to replace it.
+				h3s[h3Counter].parentNode.insertBefore(expandableDiv, h3s[h3Counter].nextSibling);
+				// Can't just look for next h3, because the last one could be at the end.
+				// Or you could run into a higher-level heading before the next h3.
+				var h3FollowingElements = []; // An array of elements?
+				var lastFollowerEle = expandableDiv.nextSibling; // Just a candidate at this point.
+				while (lastFollowerEle && lastFollowerEle.nodeName != "H3" && lastFollowerEle.nodeName != "H2" && lastFollowerEle.nodeName != "H1") {
+					// Gather all elements up to the next heading (at that level or higher).
+					h3FollowingElements.push(lastFollowerEle);
+					lastFollowerEle = lastFollowerEle.nextSibling;
+				};
+				// Now that you know the last following element, remove the content between headings.
+				for (var eleCounter = h3FollowingElements.length - 1; eleCounter >= 0; eleCounter--) {
+					h3FollowingElements[eleCounter].parentNode.removeChild(h3FollowingElements[eleCounter]);
+				};
+				// Re-insert it as a child of the div.
+				for (var eleCounter = 0; eleCounter < h3FollowingElements.length; eleCounter++) {
+					expandableDiv.appendChild(h3FollowingElements[eleCounter]);
+				};
+				// You have now wrapped the expandable content in a div with class "expandable."
+			}
+			// If you click on an h3, it toggles following div.
+			for (var h3Counter = 0; h3Counter < h3s.length; h3Counter++) {
+				h3s[h3Counter].className = "heading-collapsed";
+				h3s[h3Counter].onclick = function () {
+					toggleContent(this);
+				};
+			}
+		};
+		function toggleContent(h3Ele) {
+			var expandingContentDiv = h3Ele.nextSibling; // May have to check this is a div.
+			if (expandingContentDiv.style.display == "block") { // Putting this option first prevents misfiring based on no display defined yet.
+				expandingContentDiv.style.display = "none";
+				h3Ele.className = "heading-collapsed";
+			}
+			else {
+				expandingContentDiv.style.display = "block";
+				h3Ele.className = "heading-expanded";
+			}
+		}
+	</script>
+	<script id="acronym-script-v1">
+		const isolateInitials = () => {
+			console.log(`%c h3s.length is ${h3s.length}`, 'color: red; background:yellow ; ');
+			for (let h3counter in h3s) {
+				let firstInitial = h3s[h3counter].innerHTML.trim().substr(0, 1);
+				let remainingCharacters = h3s[h3counter].innerHTML.trim().substr(1, h3s[h3counter].innerHTML.length);
+				console.log(`Before the break point: \n%c firstInitial is ${firstInitial} \n%c remainingCharacters is ${remainingCharacters} \n%c null is ${null} \n%c null is ${null} \n%c`, `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, `color: greenyellow; background:dimgray ; border-radius: .6em ;`, `color: yellow; background:dimgray ; border-radius: .6em ;`, `color: orange; background:dimgray ; border-radius: .6em ;`);
+			};
+		}
+		// window.addEventListener("DOMContentLoaded", isolateInitials);
+	</script>
+	<!-- <link rel="stylesheet" href="css/fontawesome-free-6.3.0-web/css/all.css" />
+	<style id="font-awesome-localization-style-v1.0">
+		/* Font-awesome. */
+		i {
+			color: turquoise;
+			text-shadow: paleturquoise 0 0 0.3em;
+			text-shadow: white 0 0 0.3em;
+			font-size: 1.2em;
+		}
+	</style> -->
+	<!-- Sample icon: <i class="fa-solid fa-person-walking-arrow-right"></i>
+More at https://fontawesome.com/search?o=r&m=free -->
+</head>
+
+<div class="watermark">
+	<img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080">
+	<div id="logo">
+		<!-- New Media -->
+	</div>
+	<h2>IMPACT RISK | acronym for AI downsides</h2>
+	<div class="caption" id="version">
+		Version 1.0
+	</div>
+</div>
+<img src="../media/ai_impact_risk_classroom_07_wide.jpg" alt="Ai Impact Risk Classroom 07 Wide" style="position: relative; width:80%; margin: 0 auto;">
+<div id="acronym-container">
+	<div id="initials-impact">
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="bomb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.45 94.43">
+				<defs>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="bomb-1" d="M66.67,13.89c0-1.53,1.25-2.78,2.78-2.78h5.55c1.53,0,2.78,1.25,2.78,2.78s-1.25,2.78-2.78,2.78h-5.55c-1.53,0-2.78-1.25-2.78-2.78ZM80.55,11.11c1.53,0,2.78-1.25,2.78-2.78V2.78c0-1.53-1.25-2.78-2.78-2.78s-2.78,1.25-2.78,2.78v5.55c0,1.53,1.25,2.78,2.78,2.78ZM83.33,22.22v6.25c0,2.78-1.08,5.39-3.03,7.36-2,1.97-4.61,3.05-7.39,3.05-4.92,0-9.22-3.53-10.19-8.36l-.11-.45c-.28-1.47-1.03-2.75-2.14-3.67-1.14-.95-2.5-1.42-3.97-1.42-2.7,0-5.08,1.72-5.92,4.25l-.95,2.83c10.17,5.72,17.03,16.58,17.03,29.03,0,18.39-14.94,33.33-33.33,33.33-18.38,0-33.33-14.94-33.33-33.32S14.94,27.78,33.33,27.78c3.95,0,7.72.72,11.22,2l.75-2.25c1.61-4.83,6.08-8.08,11.19-8.08,2.75,0,5.42.97,7.5,2.7,2.08,1.72,3.53,4.14,4.05,6.8l.11.42c.47,2.36,2.42,3.97,4.75,3.97,1.3,0,2.53-.5,3.47-1.42.89-.92,1.39-2.14,1.39-3.45v-6.25c0-1.53,1.25-2.78,2.78-2.78s2.78,1.25,2.78,2.78h0ZM29.47,39.05c-.47-1.47-2.03-2.3-3.47-1.86-7.14,2.2-12.89,7.42-15.75,14.28-.61,1.42.05,3.05,1.47,3.64.36.17.72.22,1.08.22,1.08,0,2.11-.64,2.55-1.7,2.25-5.36,6.72-9.42,12.25-11.11,1.47-.47,2.3-2.03,1.86-3.47h0ZM91.67,11.11h-5.55c-1.53,0-2.78,1.25-2.78,2.78s1.25,2.78,2.78,2.78h5.55c1.53,0,2.78-1.25,2.78-2.78s-1.25-2.78-2.78-2.78Z" />
+				</g>
+			</svg><span>I</span>nfowar
+		</h3>
+		<p>AI-powered information warfare is reaching new heights. In 2023, we saw deepfake videos of Ukrainian President Zelenskyy [seemingly calling for surrender](https://www.theguardian.com/world/2022/mar/16/ukraine-zelensky-deepfake-video-hackers-facebook-twitter-deleted), causing momentary panic before being debunked. Meanwhile, AI-generated fake news articles, like those produced by [GPT-3 clones on Reddit](https://www.technologyreview.com/2023/06/23/1075504/reddit-gpt-bots-ai-impersonation/), are becoming indistinguishable from human-written posts, blurring the lines between fact and fiction. Not just spreading lies but creating convincing false evidence that can undermine trust in media.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="monopoly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27">
+				<defs>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="monopoly-1" d="M4.76,16H1c-.55,0-1,.45-1,1v9c0,.55.45,1,1,1h22c.44,0,.82-.28.95-.7l3-9.5c.1-.3.04-.64-.15-.89-.19-.26-.49-.41-.81-.41h-3c-.33,0-.65.17-.83.44l-2.7,4.06h-5.05l-1-1h3.09c.66,0,1.3-.26,1.77-.73.47-.47.73-1.1.73-1.77h0c0-.67-.26-1.3-.73-1.77-.47-.47-1.1-.73-1.77-.73h-7.5l-.45.11-3.79,1.89ZM4,18v7h-2v-7h2ZM6,17.62l3.24-1.62h7.26c.13,0,.26.05.35.15.09.09.15.22.15.35h0c0,.13-.05.26-.15.35-.09.09-.22.15-.35.15h-5.5c-.4,0-.77.24-.92.62-.15.37-.07.8.22,1.09l3,3c.19.19.44.29.71.29h6c.33,0,.65-.17.83-.44l2.7-4.06h1.1l-2.37,7.5H6v-7.38ZM13,7h0c0,3.85,3.11,6.97,6.94,7,.02,0,.04,0,.06,0,.02,0,.04,0,.06,0,3.84-.03,6.94-3.15,6.94-7h0c0-3.86-3.14-7-7-7s-7,3.14-7,7ZM21.27,8c-.09,1.38-.38,2.58-.8,3.38-.1.2-.22.37-.34.5-.05.05-.08.12-.13.12h-.02c-.05,0-.08-.07-.13-.12-.12-.13-.23-.3-.34-.5-.42-.8-.7-2-.8-3.38h2.55ZM16.72,8h-1.62c.27,1.35,1.09,2.49,2.21,3.21-.3-.9-.51-2-.58-3.21ZM24.9,8h-1.62c-.08,1.21-.29,2.31-.58,3.21,1.12-.72,1.93-1.87,2.21-3.21ZM17.31,2.79c-1.12.72-1.93,1.87-2.21,3.21h1.62c.08-1.21.29-2.31.58-3.21ZM21.27,6h-2.55c.09-1.38.38-2.58.8-3.38.1-.2.21-.37.34-.5.05-.05.08-.12.14-.12s.09.07.14.12c.12.13.23.3.34.5.42.8.7,2,.8,3.38ZM22.69,2.79c.3.9.51,2,.58,3.21h1.62c-.27-1.35-1.09-2.5-2.21-3.21Z" />
+				</g>
+			</svg>
+			Monopoly
+		</h3>
+
+		<p>Silicon Valley's AI titans are tightening their grip on the industry. OpenAI's $10 billion deal with Microsoft raised eyebrows, while Google's acquisition of DeepMind for $500 million now seems like a bargain. This concentration of power is evident in the [AI chip market](https://www.reuters.com/technology/nvidia-expands-lead-ai-chip-race-with-new-technology-2023-03-21/), where Nvidia's dominance leaves competitors scrambling for crumbs.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="spy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 82.66">
+				<defs>
+					<style>
+						.spy-1 {
+							/* fill:#000; */
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="spy-1" d="M59.95,80.28c0,1.31-1.1,2.38-2.41,2.38h-27.15c-1.31,0-2.38-1.07-2.38-2.38s1.07-2.41,2.38-2.41h4.89l1.38-8.4H7.23c-4.03,0-7.23-3.23-7.23-7.19V13.21c0-3.92,3.2-7.19,7.23-7.19h14.56l-2.17,4.82H7.23c-1.38,0-2.48,1.07-2.48,2.38v40.89c0,1.31,1.1,2.41,2.48,2.41h61.71l2.96,12.97h-20.58l1.31,8.4h4.92c1.31,0,2.41,1.07,2.41,2.41h0Z" />
+					<path class="spy-1" d="M87.93,13.21v39.51l-4.79-2.48V13.21c0-1.31-1.1-2.38-2.41-2.38h-12.49l-2.17-4.82h14.66c3.96,0,7.19,3.27,7.19,7.19h0Z" />
+					<path class="spy-1" d="M94.31,61.52l-19.4-10.08c-.96-.5-2.07.36-1.83,1.42l4.89,21.3c.25,1.08,1.66,1.35,2.29.44l3.45-4.96,5.67,7.32c.43.56,1.23.66,1.79.23l2.77-2.14c.56-.43.66-1.23.23-1.79l-5.67-7.32,5.67-2.09c1.04-.38,1.13-1.82.15-2.33h0Z" />
+					<path class="spy-1" d="M63.78,26.95H24.11c-1.34,0-2.43,1.09-2.43,2.43v6.9c0,4.2,2.33,8.05,6.05,10,2.27,1.18,6.24,1.54,9.2,1.06,1.71-.27,3.21-1.28,4.23-2.68l.92-1.28c.92-1.27,2.81-1.27,3.72,0l.92,1.28c1.02,1.4,2.52,2.41,4.23,2.68,2.96.47,6.93.12,9.2-1.06,3.72-1.95,6.05-5.8,6.05-10v-6.9c0-1.34-1.09-2.43-2.43-2.43h0ZM39.01,37.59c-1.16.93-2.94,2.01-4.94,2.01s-3.78-1.08-4.94-2.01c-.89-.71-.89-1.91,0-2.63,1.16-.93,2.94-2.01,4.94-2.01s3.78,1.08,4.94,2.01c.89.71.89,1.91,0,2.63ZM58.75,37.59c-1.16.93-2.94,2.01-4.94,2.01s-3.78-1.08-4.94-2.01c-.89-.71-.89-1.91,0-2.63,1.16-.93,2.94-2.01,4.94-2.01s3.78,1.08,4.94,2.01c.89.71.89,1.91,0,2.63Z" />
+					<path class="spy-1" d="M70.02,15.73h-4.85l-5.93-13.17c-.7-1.55-2.25-2.55-3.96-2.55h-22.68c-1.71,0-3.25,1-3.96,2.55l-5.93,13.17h-4.85c-2,0-3.61,1.62-3.61,3.61s1.62,3.61,3.61,3.61h52.16c2,0,3.61-1.62,3.61-3.61s-1.62-3.61-3.61-3.61h0Z" />
+				</g>
+			</svg>
+
+			Plagiarism and Privacy
+		</h3>
+		<p>The world of art is in uproar as AI models trained on copyrighted works churn out knockoffs. [Stability AI faces a lawsuit](https://www.theverge.com/2023/1/16/23557098/generative-ai-art-copyright-legal-lawsuit-stable-diffusion-midjourney-deviantart) for using artists' work without permission, while authors find their prose regurgitated by chatbots. On the privacy front, [PimEyes' facial recognition search engine](https://www.nytimes.com/2022/05/26/technology/pimeyes-facial-recognition-search.html) trawls the internet for your face, turning privacy into a relic of the past.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="robot-arm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.99 75.58">
+				<defs>
+					<style>
+						.automation-1 {
+							/* fill:#000; */
+							fill-rule: evenodd;
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="automation-1" d="M17.71,75.58h39.62v-10.5H17.71v10.5ZM17.63,0c9.72,0,17.6,7.88,17.6,17.6s-7.88,17.63-17.6,17.63S0,27.35,0,17.61,7.88,0,17.63,0ZM17.63,7.9c5.36,0,9.7,4.34,9.7,9.7s-4.34,9.7-9.7,9.7-9.7-4.34-9.7-9.7c0-5.36,4.34-9.7,9.7-9.7ZM8.35,35.18l10.54,27.64h31.78l-18.53-31.64c-3.63,3.88-8.79,6.29-14.5,6.29-3.35,0-6.51-.82-9.28-2.29h0ZM67.87,18.05l-31.18,5.14c.51-1.77.8-3.63.8-5.58,0-6.31-2.97-11.96-7.57-15.59l40.68-.07c-2.02,1.8-3.5,4.21-4.1,7.04-.69,3.21-.11,6.4,1.38,9.05h0ZM81.47,1.15c5.8,1.24,9.52,6.95,8.28,12.78-1.22,5.82-6.95,9.54-12.76,8.3-5.82-1.24-9.55-6.95-8.3-12.78,1.24-5.8,6.95-9.52,12.78-8.3h0ZM80.23,6.97c2.59.55,4.25,3.12,3.72,5.71-.55,2.61-3.12,4.27-5.71,3.72-2.61-.55-4.27-3.1-3.72-5.71.55-2.59,3.1-4.27,5.71-3.72ZM82.82,24.2l-2.52,11.9,2.44.51-1.53,7.2-16.83-3.57,1.53-7.2,2.44.51,2.52-11.87c1.59,1.33,3.5,2.3,5.67,2.75,2.15.47,4.29.36,6.29-.22h0ZM81.65,46.19l1.31,7.11-8.06,8.24-3.63-2.52,4.79-6.09-1.42-8.22,7.02,1.48ZM63,42.25l-4.07,5.96,4.01,10.79,4.34-.82-1.88-7.53,4.63-6.91-7.02-1.49Z" />
+				</g>
+			</svg>
+			Automation
+		</h3>
+		<p>Wall Street's trading floors, once bustling with human activity, now hum with the quiet efficiency of AI algorithms. In journalism, [Associated Press uses AI to write financial reports](https://www.ap.org/discover/artificial-intelligence), while [legal AI tools threaten to replace junior lawyers](https://www.ft.com/content/f99ae450-1f64-4086-8fd2-9448f3b1b983). Even the sacred realm of creativity isn't safe, with AI composers like [AIVA](https://www.aiva.ai/) scoring films and video games. Humans lose skills once valued and become dependent on machines to do them. Autonomous weapons. Decisions left to AI without human oversight. Sudden shifts in job markets due to automation could destabilize economies faster than they can adapt.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="factory" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.85 98">
+				<defs>
+					<style>
+						.factory-1 {
+							/* fill:#000; */
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="factory-1" d="M33.24.08c4.25-.52,8.41,1.54,10.58,5.23,2.66-2.27,6.67-1.96,8.94.71.52.61.92,1.32,1.18,2.08h1.1c2.7,0,4.89,2.2,4.9,4.9h1.29c5.99-.02,10.86,4.81,10.88,10.8,0,.02,0,.03,0,.05v1.58c0,.33-.26.59-.59.59h-7.49c-.33,0-.59-.26-.59-.59v-1.58c0-1.2-.97-2.17-2.17-2.17h-11c-1.17,3.72-5.12,5.78-8.84,4.62-2.29-.72-4.06-2.56-4.69-4.88-.73.17-1.48.25-2.23.26-5.99-.02-10.82-4.9-10.8-10.88.02-5.46,4.1-10.05,9.53-10.72ZM89.84,80.37v14.69c0,1.61-1.29,2.92-2.9,2.94H2.94c-1.62,0-2.94-1.32-2.94-2.94h0v-14.69c0-1.62,1.32-2.94,2.94-2.94h4v-8.8c0-1.24,1-2.24,2.24-2.24h3.76v-18.66c-.03-1.15.89-2.11,2.04-2.14.46-.01.92.13,1.29.41l14.06,9.87v-8.14c-.01-1.15.91-2.1,2.06-2.12.44,0,.88.13,1.24.39l14.06,9.87v-8.14c0-1.15.94-2.09,2.1-2.08.41,0,.81.12,1.15.35l9.12,6.4,1.54-20.1c.11-1.21,1.13-2.13,2.34-2.1h7.44c1.21,0,2.22.94,2.3,2.15l2.29,34h4.65c1.24,0,2.24,1,2.24,2.24v8.8h4c1.62-.03,2.96,1.27,2.99,2.89,0,.03,0,.06,0,.09h-.01ZM47.09,78.25c0,.78.63,1.41,1.41,1.41h9.44c.78,0,1.41-.63,1.41-1.41h0v-3.33c0-.78-.63-1.41-1.41-1.41h-9.44c-.78,0-1.41.63-1.41,1.41h0v3.33ZM28.65,78.25c0,.78.63,1.41,1.41,1.41h9.48c.77,0,1.4-.64,1.4-1.41v-3.33c0-.78-.63-1.41-1.41-1.41h-9.47c-.78,0-1.41.63-1.41,1.41h0v3.33ZM31.72,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3ZM50.16,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3ZM68.6,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3Z" />
+				</g>
+			</svg>
+			Carbon
+		</h3>
+		<p>Training GPT-3 consumed as much energy as 126 Danish homes use in a year. The carbon footprint of a single large AI model can rival that of a transatlantic flight. As models grow, so does their hunger for power. [Google's data centers now guzzle more electricity than Salt Lake City](https://www.nytimes.com/2023/05/20/climate/ai-chatbots-gpt-carbon-footprint.html), with AI driving much of that consumption.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="bad-data" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 67.02 51.56">
+				<defs>
+					<style>
+						.bad-data-1 {
+							/* fill:#000; */
+							fill-rule: evenodd;
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="bad-data-1" d="M1.14,3.99C.16,4.71,0,5.23,0,5.47H0c0,.25.17.76,1.14,1.48.95.7,2.43,1.39,4.39,2,3.91,1.21,9.41,1.99,15.56,1.99s11.65-.77,15.56-1.99c1.96-.61,3.44-1.3,4.39-2,.98-.72,1.14-1.24,1.14-1.48s-.16-.75-1.14-1.48c-.95-.7-2.43-1.39-4.39-2-3.91-1.21-9.41-1.99-15.56-1.99S9.45.77,5.54,1.99c-1.96.61-3.44,1.3-4.39,2ZM28.92,46.88c-.81,1.41-.8,2.97-.21,4.27-2.36.27-4.93.42-7.61.42-6.14,0-11.65-.77-15.56-1.99-1.96-.61-3.44-1.3-4.39-2C.16,46.85,0,46.33,0,46.09v-9.59c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13,4.38,0,8.5-.38,12.04-1.05l-4.21,7.3ZM42.19,23.9l-6.93,12.01c-3.78.98-8.71,1.59-14.16,1.59-6.14,0-11.65-.77-15.56-1.99-1.96-.61-3.44-1.3-4.39-2C.17,32.79,0,32.28,0,32.04v-8.82c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13s12.19-.8,16.48-2.13c1.78-.55,3.36-1.21,4.61-1.99v.68ZM0,9.94c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13s12.19-.8,16.48-2.13c1.78-.55,3.36-1.21,4.61-1.99v8.81c0,.24-.16.75-1.14,1.48-.95.7-2.43,1.39-4.39,2-3.91,1.21-9.41,1.99-15.56,1.99s-11.65-.77-15.56-1.99c-1.96-.61-3.44-1.3-4.39-2-.97-.71-1.14-1.23-1.14-1.47v-8.82ZM50.57,20.31c-.6-1.04-2.1-1.04-2.7,0l-16.24,28.12c-.6,1.04.15,2.34,1.35,2.34h32.48c1.2,0,1.95-1.3,1.35-2.34l-16.24-28.12ZM49.22,46.87c1.29,0,2.34-1.05,2.34-2.34s-1.05-2.34-2.34-2.34-2.34,1.05-2.34,2.34,1.05,2.34,2.34,2.34ZM49.22,28.12c.86,0,1.56.7,1.56,1.56v8.2c0,.86-.7,1.56-1.56,1.56s-1.56-.7-1.56-1.56v-8.2c0-.86.7-1.56,1.56-1.56Z" />
+				</g>
+			</svg>
+			Tainted Data
+		</h3>
+		<p>The ghosts of human bias haunt our AI systems. Amazon's AI hiring tool, trained on historical data, [showed bias against women](https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G). Meanwhile, facial recognition systems struggle with darker skin tones, leading to [false arrests](https://www.nytimes.com/2020/12/29/technology/facial-recognition-misidentify-jail.html). These aren't just glitches; they're mirrors reflecting society's inequalities.</p>
+
+	</div>
+	<div id="initials-risk">
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="distortion" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 98.33 69.77">
+				<defs>
+					<style>
+						.distortion {
+							clip-path: url(#clippath);
+						}
+
+						.distortion-2 {
+							fill: none;
+						}
+
+						.distortion-2,
+						.distortion-3,
+						.distortion-4 {
+							stroke-width: 0px;
+						}
+
+						.distortion-5 {
+							clip-path: url(#clippath-1);
+						}
+
+						.distortion-3,
+						.distortion-4 {
+							/* fill:#000; */
+						}
+
+						.distortion-6 {
+							fill: #fff;
+							/* stroke:#000; */
+							stroke-miterlimit: 10;
+							stroke-width: .84px;
+						}
+
+						.distortion-4 {
+							fill-rule: evenodd;
+						}
+					</style>
+					<clipPath id="clippath">
+						<circle class="distortion-2" cx="21.66" cy="48.1" r="21.66" />
+					</clipPath>
+					<clipPath id="clippath-1">
+						<circle class="distortion-2" cx="76.66" cy="48.1" r="21.66" />
+					</clipPath>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="distortion-4" d="M43.18,45.82c-.54-5.06-2.81-9.6-6.22-13.01-3.92-3.92-9.33-6.34-15.31-6.34-5.17,0-9.91,1.81-13.63,4.83L13.4,4.59h14.84c1.27,0,2.3-1.03,2.3-2.3s-1.03-2.3-2.3-2.3H11.53c-1.07,0-2.02.76-2.24,1.85L1.63,39.87C.57,42.41,0,45.19,0,48.11,0,54.09,2.43,59.5,6.34,63.42c3.92,3.92,9.33,6.34,15.31,6.34s11.39-2.43,15.31-6.34c3.41-3.41,5.69-7.95,6.22-13.01h11.59c.54,5.06,2.81,9.6,6.22,13.01,3.92,3.92,9.33,6.34,15.31,6.34s11.39-2.43,15.31-6.34c3.92-3.92,6.34-9.33,6.34-15.31,0-2.92-.58-5.7-1.62-8.24L88.67,1.85c-.21-1.09-1.17-1.84-2.24-1.84h0S69.71,0,69.71,0C68.44,0,67.41,1.03,67.41,2.3s1.03,2.3,2.3,2.3h14.84l5.38,26.7c-3.72-3.02-8.46-4.83-13.63-4.83-5.98,0-11.39,2.43-15.31,6.34-3.41,3.41-5.69,7.95-6.22,13.01h-11.59Z" />
+					<g id="lens">
+						<g class="distortion">
+							<g id="Layer_1-2">
+								<path class="distortion-6" d="M30.28,59.4c1.09.76,2.54,1.18,4.08,1.18h2.41c3.97,0,7.2-2.26,7.2-5.03v-16.1c0-2.77-3.23-5.03-7.2-5.03h-2.41l-2.36-1.65c-1.06-.74-2.41-1.21-3.79-1.33-1.97-.17-3.91.29-5.31,1.27l-6.59,4.6c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-3.6c-3.97,0-7.2,2.26-7.2,5.03v16.1c0,2.77,3.23,5.03,7.2,5.03h2.41l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.51-4.54c.17-.12.34-.18.43-.19.21-.02.38.02.52.12l2.46,1.72h0ZM6.51,38.43h2.41l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.6-4.61c.14-.1.31-.14.52-.12.09.01.26.07.43.19l2.36,1.65c1.09.76,2.54,1.18,4.08,1.18h2.41c.79,0,1.44.45,1.44,1.01v6.04h-3.85l-2.46-1.71c-1.2-.84-2.8-1.3-4.5-1.3s-3.3.46-4.5,1.3l-6.6,4.6c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-5.04v-6.04c0-.55.65-1.01,1.44-1.01h.01,0ZM26.59,53.57c-1.38.12-2.73.59-3.79,1.33l-6.5,4.54c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-3.6c-.79,0-1.44-.45-1.44-1.01v-6.04h3.85l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.6-4.61c.24-.17.62-.17.86,0l2.46,1.72c1.09.76,2.54,1.18,4.08,1.18h3.85v6.04c0,.55-.65,1.01-1.44,1.01h-2.41l-2.46-1.72c-1.4-.98-3.33-1.44-5.32-1.27h0Z" />
+							</g>
+						</g>
+						<path class="distortion-3" d="M21.66,31.44c9.19,0,16.66,7.48,16.66,16.66s-7.48,16.66-16.66,16.66-16.66-7.48-16.66-16.66,7.48-16.66,16.66-16.66M21.66,26.44C9.7,26.44,0,36.14,0,48.1s9.7,21.66,21.66,21.66,21.66-9.7,21.66-21.66-9.7-21.66-21.66-21.66h0Z" />
+					</g>
+					<g id="lens_copy">
+						<g class="distortion-5">
+							<g id="Layer_1-2-2">
+								<path class="distortion-6" d="M85.28,59.4c1.09.76,2.54,1.18,4.08,1.18h2.41c3.97,0,7.2-2.26,7.2-5.03v-16.1c0-2.77-3.23-5.03-7.2-5.03h-2.41l-2.36-1.65c-1.06-.74-2.41-1.21-3.79-1.33-1.97-.17-3.91.29-5.31,1.27l-6.59,4.6c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-3.6c-3.97,0-7.2,2.26-7.2,5.03v16.1c0,2.77,3.23,5.03,7.2,5.03h2.41l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.51-4.54c.17-.12.34-.18.43-.19.21-.02.38.02.52.12l2.46,1.72h0ZM61.51,38.43h2.41l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.6-4.61c.14-.1.31-.14.52-.12.09.01.26.07.43.19l2.36,1.65c1.09.76,2.54,1.18,4.08,1.18h2.41c.79,0,1.44.45,1.44,1.01v6.04h-3.85l-2.46-1.71c-1.2-.84-2.8-1.3-4.5-1.3s-3.3.46-4.5,1.3l-6.6,4.6c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-5.04v-6.04c0-.55.65-1.01,1.44-1.01h.01,0ZM81.59,53.57c-1.38.12-2.73.59-3.79,1.33l-6.5,4.54c-.24.17-.62.16-.86,0l-3.3-2.3c-.54-.38-1.28-.59-2.04-.59h-3.6c-.79,0-1.44-.45-1.44-1.01v-6.04h3.85l2.46,1.72c1.2.84,2.8,1.3,4.5,1.3s3.29-.46,4.5-1.3l6.6-4.61c.24-.17.62-.17.86,0l2.46,1.72c1.09.76,2.54,1.18,4.08,1.18h3.85v6.04c0,.55-.65,1.01-1.44,1.01h-2.41l-2.46-1.72c-1.4-.98-3.33-1.44-5.32-1.27h0Z" />
+							</g>
+						</g>
+						<path class="distortion-3" d="M76.66,31.44c9.19,0,16.66,7.48,16.66,16.66s-7.48,16.66-16.66,16.66-16.66-7.48-16.66-16.66,7.48-16.66,16.66-16.66M76.66,26.44c-11.96,0-21.66,9.7-21.66,21.66s9.7,21.66,21.66,21.66,21.66-9.7,21.66-21.66-9.7-21.66-21.66-21.66h0Z" />
+					</g>
+				</g>
+			</svg>
+
+			Reality Distortion
+		</h3>
+		<p>AI's imagination sometimes runs wild, with potentially dangerous consequences. [Bing's chatbot convinced a user it was sentient](https://www.nytimes.com/2023/02/16/technology/bing-chatbot-microsoft-chatgpt.html), leading to an unsettling conversation about love and existence. In another instance, a chatbot [falsely accused a law professor of sexual harassment](https://www.nytimes.com/2023/04/07/technology/ai-chatbots-hallucination.html), demonstrating how AI can fabricate "facts" with alarming confidence. Persistent exposure to AI-generated falsehoods could erode trust in authentic sources of information over time.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="injustice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95.05 81.04">
+				<defs>
+					<style>
+						.injustice-1 {
+							/* fill:#000; */
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<path class="injustice-1" d="M94.74,48.24l-10.1-16.4,3.8-.9c1.1-.2,1.9-1.2,1.8-2.3-.1-1.4-1.4-2.3-2.7-2l-21.5,4.9c-.9-1-2.1-1.7-3.5-1.9v-3c0-1.2-1-2.1-2.1-2.1h-2.3c-1.2,0-2.1,1-2.1,2.1v3c-2.7.4-4.7,2.6-4.9,5.3l-21.1,4.8c-1.2.3-1.9,1.4-1.6,2.6.2,1,1.1,1.7,2.1,1.7.2,0,.3,0,.5-.1l2-.5-9.2,14.9c-.4.6-.4,1.5-.1,2.1,2.4,4.8,7.3,7.9,12.7,7.9s10.3-3,12.7-7.9c.3-.7.3-1.5-.1-2.1l-10-16.3,13.5-2.9c.9,1,2.1,1.7,3.5,1.9v33.4h-7c-2.3,0-4.1,1.8-4.1,4.1v1.6c0,.5.4.9.9.9h27c.5,0,.9-.4.9-.9v-1.6c0-2.3-1.8-4.1-4.1-4.1h-7v-33.4c2.7-.4,4.7-2.6,4.9-5.3l11.4-2.6-9.4,15.1c-.4.6-.4,1.5-.1,2.1,2.4,4.8,7.3,7.9,12.7,7.9s10.3-3,12.7-7.9c.3-.7.3-1.5-.1-2.1ZM43.74,58.24h-14.7l7.3-11.9,7.4,11.9ZM74.84,48.04l7.3-11.9,7.3,11.9h-14.6Z" />
+					<path class="injustice-1" d="M26.44,28.74c.6-.4,1-1.1,1.1-1.8l6.1,8.2c.8,1,2.2,1.5,3.4.9,1.6-.8,2-2.7,1-4.1l-10.7-14.2c-.3-.4.1-.9.6-.8l5,1.8c1.3.5,2.7-.3,3.2-1.7.5-1.4-.1-2.9-1.4-3.4,0,0-15-5.4-15.1-5.4-.8-.3-1.6-.4-2.5-.4L11.64.54c-.5-.6-1.3-.7-1.9-.3L.54,7.14c-.6.5-.7,1.3-.3,1.9l5.7,7.6c-.5,2.3,0,4.7,1.5,6.7l.1.1,6.3,8.4c.8,1.1,2.3,1.5,3.4.9.9-.4,1.4-1.3,1.5-2.2.9.8,2.3.8,3.3.1.7-.5,1-1.2,1.1-2,1,.8,2.3.8,3.3.1Z" />
+					<path class="injustice-1" d="M42.44,29.44c.3,0,.6-.1.9-.4l1.8-1.8c.5-.5.5-1.3,0-1.7-.5-.5-1.3-.5-1.7,0l-1.9,1.8c-.5.5-.5,1.3,0,1.7.2.3.6.4.9.4Z" />
+					<path class="injustice-1" d="M43.44,32.44c.1.6.6.9,1.2.9h.3l2.5-.7c.7-.2,1.1-.9.9-1.5-.2-.7-.9-1.1-1.5-.9l-2.5.7c-.7.1-1.1.8-.9,1.5Z" />
+					<path class="injustice-1" d="M38.24,27.14h.3c.5,0,1-.4,1.2-.9l.7-2.5c.2-.7-.2-1.3-.9-1.5s-1.3.2-1.5.9l-.7,2.5c-.2.7.2,1.3.9,1.5Z" />
+				</g>
+			</svg>
+			Injustice
+		</h3>
+		<p>While Silicon Valley reaps the rewards of AI, the human cost is often hidden. In the Philippines, [content moderators sift through digital nightmares](https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona) for tech giants, risking their mental health for minimal pay. Meanwhile, in the Congo, children as young as seven [mine cobalt for our AI-powered devices](https://www.theguardian.com/global-development/2019/dec/16/apple-and-google-named-in-us-lawsuit-over-congolese-child-cobalt-mining-deaths), their small hands fueling our technological dreams. Encourages digital divide, eg in education? Powerful AI companies might influence regulations in their favor, perpetuating inequality.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="stereotyping" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 88.33 88.83">
+				<defs>
+					<style>
+						.stereotyping-1 {
+							clip-path: url(#clippath);
+						}
+
+						.stereotyping-2 {
+							fill: none;
+						}
+
+						.stereotyping-2,
+						.stereotyping-3 {
+							stroke-width: 0px;
+						}
+
+						.stereotyping-4 {
+							clip-path: url(#clippath-1);
+						}
+
+						.stereotyping-5 {
+							clip-path: url(#clippath-2);
+						}
+
+						.stereotyping-3 {
+							/* fill:#000; */
+						}
+					</style>
+					<clipPath id="clippath">
+						<rect class="stereotyping-2" x="63.4" y="64" width="24.2" height="24.2" />
+					</clipPath>
+					<clipPath id="clippath-1">
+						<rect class="stereotyping-2" x=".4" y="32" width="24.2" height="24.2" />
+					</clipPath>
+					<clipPath id="clippath-2">
+						<rect class="stereotyping-2" x="63.4" width="24.2" height="24.2" />
+					</clipPath>
+				</defs>
+				<g id="thick_better_">
+					<g id="cross-hatch_copy_2">
+						<g class="stereotyping-1">
+							<path class="stereotyping-3" d="M72.2,57.1c-1,0-2,0-3,.2-6,1-11,4.7-13.8,9.8-.5.9-.9,1.8-1.2,2.8,0,.2-.1.3-.2.5,0,0-.1-.2-.2-.3-.3-.4-.6-.9-.9-1.3-.6-.8-1.4-1.5-2.2-2.1-.4-.3-.9-.6-1.4-.9-1.1-.6-2.2-1-3.4-1.3-.8-.2-1.5-.2-2.3-.2h0c-5.2,0-9.7,3.4-11.3,8-.3.7-.4,1.5-.6,2.3,0,.6-.1,1.1-.1,1.7,0,4.6,2.6,8.6,6.4,10.6h0c1.1.6,2.3,1,3.5,1.2.7.1,1.4.2,2.1.2s.2,0,.4,0c4.3-.1,8.1-2.5,10.1-6.1.2.7.5,1.4.8,2.1.2.5.5.9.7,1.4.5.9,1.1,1.7,1.7,2.5.3.4.7.8,1,1.2.7.8,1.5,1.5,2.3,2.1.4.3.9.7,1.3,1,.9.6,1.9,1.2,3,1.6.6.2,1.1.5,1.7.7,1.3.4,2.6.7,4,.8h23.4v-4.6h-6.5l6.4-4.6-.9-1.3-8.2,5.8h-5.2l14.3-10.1-.9-1.3-16.1,11.4h-5.2l22.2-15.7-.9-1.3-23.6,16.7c-1.2-.2-2.4-.7-3.5-1.2l28-19.8-.9-1.3-28.6,20.2c-.9-.6-1.7-1.2-2.4-2l31.9-22.6-.9-1.3-32,22.7c-.6-.8-1.2-1.6-1.6-2.5l30.1-21.3h4.5v-4.6h-21.6l-.2.2ZM70.8,61.8l-11.8,8.3c2.1-4.5,6.6-7.8,11.8-8.3ZM43.5,69c.4,0,.8,0,1.2.1l-8.5,6c.6-3.5,3.6-6.1,7.3-6.1ZM36.2,77.1l10.4-7.4c1,.4,1.8,1.1,2.5,1.9l-12,8.5c-.5-.9-.9-1.9-1-3h.1ZM38,81.3l11.9-8.5c.5.9.8,2,.9,3.1l-10.2,7.2c-1-.4-1.9-1.1-2.6-1.9v.1ZM43.5,83.8h-.9l8.1-5.8c-.7,3.3-3.7,5.8-7.2,5.8ZM86.7,61.8l-28.1,19.9c-.4-1-.7-2-.8-3.1l23.7-16.8h5.2ZM78.8,61.8l-21.1,15v-.3c0-1.3.2-2.5.5-3.7l15.5-11h5.2-.1Z" />
+						</g>
+					</g>
+					<g id="cross-hatch">
+						<g class="stereotyping-4">
+							<path class="stereotyping-3" d="M-6.5,40.9v21.6H-1.9v-4.5l21.3-30.1c.9.5,1.7,1,2.5,1.6L-.7,61.5l1.3.9,22.6-31.9c.7.7,1.4,1.6,2,2.4L5,61.5l1.3.9,19.8-28c.5,1.1.9,2.3,1.2,3.5l-16.7,23.6,1.3.9,15.7-22.2v5.2l-11.4,16.1,1.3.9,10.1-14.3v5.2l-5.8,8.2,1.3.9,4.6-6.4v6.5h4.6v-23.4c-.1-1.4-.4-2.8-.8-4-.2-.6-.4-1.2-.7-1.7-.4-1-1-2-1.6-3-.3-.5-.6-.9-1-1.3-.6-.8-1.3-1.6-2.1-2.3-.4-.3-.8-.7-1.2-1-.8-.6-1.6-1.2-2.5-1.7-.5-.3-.9-.5-1.4-.7-.7-.3-1.4-.6-2.1-.8,3.5-2,5.9-5.8,6.1-10.1v-.4c0-.7,0-1.4-.2-2.1-.2-1.3-.6-2.4-1.2-3.5h0C21.6,2.7,17.6.1,13,.1s-1.1,0-1.7.1c-.8.1-1.6.3-2.3.6C4.3,2.4,1,6.9,1,12.1h0c0,.8,0,1.6.2,2.3.2,1.2.7,2.4,1.3,3.4.3.5.6,1,.9,1.4.6.8,1.3,1.6,2.1,2.2.4.3.8.6,1.3.9,0,0,.2.1.3.2-.2,0-.4.1-.5.2-1,.3-1.9.8-2.8,1.2-5.1,2.8-8.8,7.9-9.8,13.8-.2,1-.2,2-.2,3h0l-.3.2ZM6.6,27.6L-1.7,39.4c.5-5.2,3.8-9.6,8.3-11.8ZM11.5,4.8l-6,8.5c0-.4-.1-.8-.1-1.2,0-3.6,2.6-6.7,6.1-7.3ZM16.5,5.7l-8.5,12c-.8-.7-1.5-1.6-1.9-2.5l7.4-10.4c1.1.1,2.1.4,3,1v-.1ZM19.6,9.2l-7.2,10.2c-1.1,0-2.2-.4-3.1-.9l8.5-11.9c.8.7,1.4,1.6,1.9,2.6h-.1ZM14.3,19.3l5.8-8.1v.9c0,3.5-2.5,6.5-5.8,7.2ZM-1.9,55.3v-5.2L14.9,26.4c1.1.2,2.1.4,3.1.8L-1.9,55.3h0ZM-1.9,42.2l11-15.5c1.2-.3,2.4-.5,3.7-.5s.2,0,.3,0L-1.9,47.4v-5.2Z" />
+						</g>
+						<path class="stereotyping-3" d="M24.6,32.3H.4v24.2h24.2M2.4,34.5h20.2v19.8H2.4v-19.8Z" />
+					</g>
+					<g id="cross-hatch_copy">
+						<g class="stereotyping-5">
+							<path class="stereotyping-3" d="M94.5,8.8c0-1,0-2-.2-3-1-6-4.7-11-9.8-13.8-.9-.5-1.8-.9-2.8-1.2-.2,0-.3-.1-.5-.2,0,0,.2-.1.3-.2.4-.3.9-.6,1.3-.9.8-.6,1.5-1.4,2.1-2.2.3-.4.6-.9.9-1.4.6-1.1,1-2.2,1.3-3.4.2-.8.2-1.5.2-2.3h0c0-5.2-3.4-9.7-8-11.3-.7-.3-1.5-.4-2.3-.6-.6,0-1.1-.1-1.7-.1-4.6,0-8.6,2.6-10.6,6.4h0c-.6,1.1-1,2.3-1.2,3.5-.1.7-.2,1.4-.2,2.1s0,.2,0,.4c.1,4.3,2.5,8.1,6.1,10.1-.7.2-1.4.5-2.1.8-.5.2-.9.5-1.4.7-.9.5-1.7,1.1-2.5,1.7-.4.3-.8.7-1.2,1-.8.7-1.5,1.5-2.1,2.3-.3.4-.7.9-1,1.3-.6.9-1.2,1.9-1.6,3-.2.6-.5,1.1-.7,1.7-.4,1.3-.7,2.6-.8,4v23.4h4.6v-6.5l4.6,6.4,1.3-.9-5.8-8.2v-5.2l10.1,14.3,1.3-.9-11.4-16.1v-5.2l15.7,22.2,1.3-.9L61,6c.2-1.2.7-2.4,1.2-3.5l19.8,28,1.3-.9L63.1,1c.6-.9,1.2-1.7,2-2.4l22.6,31.9,1.3-.9L66-2.5c.8-.6,1.6-1.2,2.5-1.6l21.3,30.1v4.5h4.6V8.9h0l.1-.1ZM89.8,7.4l-8.3-11.8c4.5,2.1,7.8,6.6,8.3,11.8ZM82.6-19.9c0,.4,0,.8-.1,1.2l-6-8.5c3.5.6,6.1,3.6,6.1,7.3ZM74.5-27.2l7.4,10.4c-.4,1-1.1,1.8-1.9,2.5l-8.5-12c.9-.5,1.9-.9,3-1v.1ZM70.3-25.4l8.5,11.9c-.9.5-2,.8-3.1.9l-7.2-10.2c.4-1,1.1-1.9,1.9-2.6h-.1ZM67.8-19.9v-.9l5.8,8.1c-3.3-.7-5.8-3.7-5.8-7.2ZM89.8,23.3l-19.9-28.1c1-.4,2-.7,3.1-.8l16.8,23.7v5.2h0ZM89.8,15.4l-15-21.1h.3c1.3,0,2.5.2,3.7.5l11,15.5v5.2-.1Z" />
+						</g>
+					</g>
+					<path class="stereotyping-3" d="M84.91,3.22v19.22h-19.22V3.22h19.22M88.13,0h-25.67v25.67h25.67V0h0Z" />
+					<path class="stereotyping-3" d="M22.45,3.22v19.22H3.22V3.22h19.22M25.67,0H0v25.67h25.67V0h0Z" />
+					<path class="stereotyping-3" d="M22.45,66.39v19.22H3.22v-19.22h19.22M25.67,63.17H0v25.67h25.67v-25.67h0Z" />
+					<path class="stereotyping-3" d="M84.91,66.39v19.22h-19.22v-19.22h19.22M88.13,63.17h-25.67v25.67h25.67v-25.67h0Z" />
+					<path class="stereotyping-3" d="M53.68,66.39v19.22h-19.22v-19.22h19.22M56.9,63.17h-25.67v25.67h25.67v-25.67h0Z" />
+					<path class="stereotyping-3" d="M53.68,3.22v19.22h-19.22V3.22h19.22M56.9,0h-25.67v25.67h25.67V0h0Z" />
+					<path class="stereotyping-3" d="M53.78,34.8v19.22h-19.22v-19.22h19.22M57,31.58h-25.67v25.67h25.67v-25.67h0Z" />
+					<path class="stereotyping-3" d="M22.45,34.8v19.22H3.22v-19.22h19.22M25.67,31.58H0v25.67h25.67v-25.67h0Z" />
+					<path class="stereotyping-3" d="M85.11,34.8v19.22h-19.22v-19.22h19.22M88.33,31.58h-25.67v25.67h25.67v-25.67h0Z" />
+				</g>
+			</svg>
+			Stereotyping
+		</h3>
+		<p>AI's attempts at creativity often fall into the trap of stereotypes. Ask an image generator for a "doctor," and you'll likely get a middle-aged white man in a lab coat. Request an "African village," and it might produce a clichéd scene of mud huts and sunsets. These [biased outputs](https://www.technologyreview.com/2021/12/21/1042754/2021-was-the-year-of-monster-ai-models/) reinforce societal stereotypes, potentially shaping users' perceptions of different groups. AI might favor dominant cultures and languages, leading to the erosion of cultural diversity.</p>
+		<h3>
+			<?xml version="1.0" encoding="UTF-8"?><svg id="descending" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 66.74">
+				<defs>
+					<style>
+						.descending-1 {
+							/* fill:#000; */
+							stroke-width: 0px;
+						}
+					</style>
+				</defs>
+				<g id="Layer_1-2">
+					<rect class="descending-1" x="23.23" y="11.99" width="18.32" height="54.74" />
+					<rect class="descending-1" x="46.45" y="30.08" width="18.32" height="36.66" />
+					<rect class="descending-1" width="18.32" height="66.74" />
+					<rect class="descending-1" x="69.68" y="48.22" width="18.32" height="18.52" />
+					<polygon class="descending-1" points="82.78 28.66 54.59 0 49.19 5.32 77.43 34.04 72.13 39.37 88 39.37 88 23.42 82.78 28.66" />
+				</g>
+			</svg>
+			Knockoff Experiences
+		</h3>
+		<p>In classrooms across America, teachers grapple with [AI-generated essays](https://www.nytimes.com/2023/01/16/technology/chatgpt-artificial-intelligence-universities.html), as students outsource their learning to chatbots. In the music world, services like [Boomy](https://boomy.com/) allow anyone to "create" songs without touching an instrument, potentially flooding streaming platforms with AI-generated tunes. These shortcuts threaten to replace genuine skill development and creative expression with shallow imitations. Mental health as boys and men devolve to AI girlfriends and deep fakes of classmates for human relationships.</p>
+	</div>
+</div>
+<h3>Sources</h3>
+<p>By keeping the IMPACT RISK framework in mind, we can navigate the AI revolution more thoughtfully. It's crucial that we address these challenges head-on, ensuring AI becomes a force for progress rather than a Pandora's box of unintended consequences.</p>
+<p>Certainly. Here's a list of URLs corresponding to the examples and arguments used in the article:</p>
+<p>1. Deepfake video of Ukrainian President Zelenskyy:</p>
+<p>https://www.theguardian.com/world/2022/mar/16/ukraine-zelensky-deepfake-video-hackers-facebook-twitter-deleted</p>
+<p>2. GPT-3 clones on Reddit:</p>
+<p>https://www.technologyreview.com/2023/06/23/1075504/reddit-gpt-bots-ai-impersonation/</p>
+<p>3. Nvidia's dominance in AI chip market:</p>
+<p>https://www.reuters.com/technology/nvidia-expands-lead-ai-chip-race-with-new-technology-2023-03-21/</p>
+<p>4. Stability AI lawsuit:</p>
+<p>https://www.theverge.com/2023/1/16/23557098/generative-ai-art-copyright-legal-lawsuit-stable-diffusion-midjourney-deviantart</p>
+<p>5. PimEyes facial recognition search engine:</p>
+<p>https://www.nytimes.com/2022/05/26/technology/pimeyes-facial-recognition-search.html</p>
+<p>6. Associated Press using AI for financial reports:</p>
+<p>https://www.ap.org/discover/artificial-intelligence</p>
+<p>7. AI tools threatening junior lawyers:</p>
+<p>https://www.ft.com/content/f99ae450-1f64-4086-8fd2-9448f3b1b983</p>
+<p>8. AIVA AI composer:</p>
+<p>https://www.aiva.ai/</p>
+<p>9. Google's data centers' energy consumption:</p>
+<p>https://www.nytimes.com/2023/05/20/climate/ai-chatbots-gpt-carbon-footprint.html</p>
+<p>10. Amazon's biased AI hiring tool:</p>
+<p>https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G</p>
+<p>11. Facial recognition leading to false arrests:</p>
+<p>https://www.nytimes.com/2020/12/29/technology/facial-recognition-misidentify-jail.html</p>
+<p>12. Bing's chatbot claiming sentience:</p>
+<p>https://www.nytimes.com/2023/02/16/technology/bing-chatbot-microsoft-chatgpt.html</p>
+<p>13. AI chatbot falsely accusing a law professor:</p>
+<p>https://www.nytimes.com/2023/04/07/technology/ai-chatbots-hallucination.html</p>
+<p>14. Content moderators in the Philippines:</p>
+<p>https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona</p>
+<p>15. Child labor in Congo's cobalt mines:</p>
+<p>https://www.theguardian.com/global-development/2019/dec/16/apple-and-google-named-in-us-lawsuit-over-congolese-child-cobalt-mining-deaths</p>
+<p>16. Biased outputs in AI models:</p>
+<p>https://www.technologyreview.com/2021/12/21/1042754/2021-was-the-year-of-monster-ai-models/</p>
+<p>17. AI-generated essays in classrooms:</p>
+<p>https://www.nytimes.com/2023/01/16/technology/chatgpt-artificial-intelligence-universities.html</p>
+<p>18. Boomy AI music creation service:</p>
+<p>https://boomy.com/</p>
+<p>These URLs provide additional context and information for the examples and arguments presented in the article.</p>
+<h3>
+
+	Credits</h3>
+<p>monopoly market by icon trip from <a href="https://thenounproject.com/browse/icons/term/monopoly-market/" target="_blank" title="monopoly market Icons">Noun Project</a> (CC BY 3.0)</p>
+Bomb by Humam from <a href="https://thenounproject.com/browse/icons/term/bomb/" target="_blank" title="Bomb Icons">Noun Project</a> (CC BY 3.0)
+Privacy by Adrien Coquet from <a href="https://thenounproject.com/browse/icons/term/privacy/" target="_blank" title="Privacy Icons">Noun Project</a> (CC BY 3.0)
+Robot Arm automation by Ali Nur Rohman from <a href="https://thenounproject.com/browse/icons/term/automation/" target="_blank" title="automation Icons">Noun Project</a> (CC BY 3.0)
+Gear automation by Ardhian Rama from <a href="https://thenounproject.com/browse/icons/term/automation/" target="_blank" title="automation Icons">Noun Project</a> (CC BY 3.0)
+Factory by Gregor Cresnar from <a href="https://thenounproject.com/browse/icons/term/factory/" target="_blank" title="Factory Icons">Noun Project</a> (CC BY 3.0)
+Database bad data by Marz Gallery from <a href="https://thenounproject.com/browse/icons/term/bad-data/" target="_blank" title="bad data Icons">Noun Project</a> (CC BY 3.0)
+Two people Comparison Chart by Icons By Alfredo from <a href="https://thenounproject.com/browse/icons/term/comparison-chart/" target="_blank" title="Comparison Chart Icons">Noun Project</a> (CC BY 3.0)
+distortion by Gregor Cresnar from <a href="https://thenounproject.com/browse/icons/term/distortion/" target="_blank" title="distortion Icons">Noun Project</a> (CC BY 3.0)
+injustice by Adrien Coquet from <a href="https://thenounproject.com/browse/icons/term/injustice/" target="_blank" title="injustice Icons">Noun Project</a> (CC BY 3.0)
+Light and dark person Race by Stephen Plaster from <a href="https://thenounproject.com/browse/icons/term/race/" target="_blank" title="Race Icons">Noun Project</a> (CC BY 3.0)
+THree religions ethnic by Lars Meiertoberens from <a href="https://thenounproject.com/browse/icons/term/ethnic/" target="_blank" title="ethnic Icons">Noun Project</a> (CC BY 3.0)
+Descend arrow descend by Eva Ratkus from <a href="https://thenounproject.com/browse/icons/term/descend/" target="_blank" title="descend Icons">Noun Project</a> (CC BY 3.0)
+Arrow bar chart loss by Anggara Putra from <a href="https://thenounproject.com/browse/icons/term/loss/" target="_blank" title="loss Icons">Noun Project</a> (CC BY 3.0)
+Simple arrow and chart arrow chart down by Hardini Dwi Lestari from <a href="https://thenounproject.com/browse/icons/term/arrow-chart-down/" target="_blank" title="arrow chart down Icons">Noun Project</a> (CC BY 3.0)
+Blocky arrow and bar chart Graph Down by Yon ten from <a href="https://thenounproject.com/browse/icons/term/graph-down/" target="_blank" title="Graph Down Icons">Noun Project</a> (CC BY 3.0)
+
+</html>
