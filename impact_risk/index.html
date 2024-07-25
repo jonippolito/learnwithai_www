@@ -1126,7 +1126,8 @@
 			margin-left: 0;
 		}
 	</style>
-	<style id="learnwithai-design-style">
+	<style id="learnwithai-design-style-v1.1">
+		/* Modified to add more darks. */
 		/* Based on tutorials-index-style and padlet-style. */
 		/* ________________ Design parameters. ________________ */
 		:root {
@@ -1156,6 +1157,8 @@
 			--dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
 			--deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
 			--medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+			--dark-celeste: hsla(var(--h-warmer), 60%, 15%, 1);
+			--darkest-celeste: hsla(var(--h-warmer), 100%, 7%, 1);
 			/* Jade: even more saturated and warmer. */
 			--pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
 			--medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
@@ -1248,13 +1251,14 @@
 		}
 	</style>
 	<style id="acronym-style-v1">
-		/* Doesn't yet work in Firefox:
-		h3::first-letter {
-			initial-letter: 4;
+		:root {
+			--icon-base: paleturquoise;
+			/* Just for reference. */
+			--icon-base: hsl(0 40 45);
 		}
-		*/
+
 		body {
-			background-color: black;
+			background-color: var(--darkest-celeste);
 		}
 
 		#acronym-container {
@@ -1264,84 +1268,107 @@
 		}
 
 		details {
-			background-color: paleturquoise;
-			padding: 1em;
-			margin-bottom: 1em;
+			min-height: 70px;
+			padding: 1em .5em;
+			margin-bottom: .7em;
+			border: var(--medium-celeste) solid 2px;
+			border-radius: .5em;
 		}
 
 		summary {
 			font-family: sansation-bold;
 			font-size: 1.5em;
+			display: flex;
+			justify-content: space-between;
+			color: var(--pale-celeste);
 		}
 
+		summary:hover {
+			cursor: pointer;
+		}
+
+		details:has(summary:hover) {
+			background-color: var(--dark-celeste);
+		}
+
+		/* FAILS:
 		details summary::-webkit-details-marker {
 			display: none;
-		}
+		} */
 
-		summary>* {
+		summary * {
 			vertical-align: middle;
 		}
 
-		summary>svg {
+		summary svg {
 			width: 70px;
 		}
 
-		summary>span:nth-of-type(1) {
+		/* Doesn't yet work in Firefox:
+		h3::first-letter {
+			initial-letter: 4;
+		}
+		*/
+
+		summary>div>span:nth-of-type(1) {
 			font-size: 2.5em;
 			line-height: 1em;
-			margin: 0;
+			margin: 0 .05em 0 0;
 		}
 
-		p>span {
-			background-color: red;
-			font-size: 4em;
-			line-height: 8em;
-		}
-
-		/* span {
-			font-size: 4em;
-			line-height: 8em;
-		} */
-
-
+		.accordion-bomb summary,
 		#bomb {
-			fill: yellow;
+			fill: hsl(from var(--icon-base) calc(h + 0) s l);
 		}
 
+		.accordion-monopoly summary,
 		#monopoly {
-			fill: orange;
+			fill: hsl(from var(--icon-base) calc(h + 36) s l);
 		}
 
+		.accordion-spy summary,
 		#spy {
-			fill: green;
+			fill: hsl(from var(--icon-base) calc(h + 36*2) s l);
 		}
 
+		.accordion-robot-arm summary,
 		#robot-arm {
-			fill: gray;
+			fill: hsl(from var(--icon-base) calc(h + 36*3) s l);
 		}
 
+		.accordion-factory summary,
 		#factory {
-			fill: brown;
+			fill: hsl(from var(--icon-base) calc(h + 36*4) s l);
 		}
 
+		.accordion-bad-data summary,
 		#bad-data {
-			fill: orangered;
+			fill: hsl(from var(--icon-base) calc(h + 36*5) s l);
 		}
 
+		.accordion-distortion summary,
 		#distortion {
-			fill: lime;
+			fill: hsl(from var(--icon-base) calc(h + 36*6) s l);
 		}
 
+		.accordion-injustice summary,
 		#injustice {
-			fill: purple;
+			fill: hsl(from var(--icon-base) calc(h + 36*7) s l);
 		}
 
+		.accordion-stereotyping summary,
 		#stereotyping {
-			fill: rebeccapurple;
+			fill: hsl(from var(--icon-base) calc(h + 36*8) s l);
 		}
 
+		.accordion-descending summary,
 		#descending {
-			fill: blue;
+			fill: hsl(from var(--icon-base) calc(h + 36*9) s l);
+		}
+
+		details p {
+			color: var(--pale-celeste);
+			padding: 1em .5em;
 		}
 	</style>
 	<!-- <script id="make-outline-expandable_v01.1" type="text/javascript" charset="utf-8">
@@ -1412,14 +1439,14 @@
 
 <body>
 	<div class="watermark">
-		<img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080">
+		<a href="../index.html"><img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080"></a>
 		<div id="logo">
 			<!-- New Media -->
 		</div>
 		<h2>IMPACT RISK | an acronym for AI downsides</h2>
 		<div class="caption" id="version">
-			Version 1.3
-			<!-- impact_risk > index.html v1.3 with details/summary instead of custom h3s script. -->
+			Version 1.4
+			<!-- impact_risk > index.html v1.4: adjust layout. -->
 		</div>
 	</div>
 	<img src="../media/ai_impact_risk_classroom_07_wide.jpg" alt="Ai Impact Risk Classroom 07 Wide" style="position: relative; width:80%; margin: 0 auto;">
@@ -1427,18 +1454,20 @@
 		<div id="initials-impact">
 			<details class="accordion-bomb">
 				<summary>
+					<div><span>I</span>nfowar</div>
 					<svg id="bomb" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 94.45 94.43">
 						<defs>
 						</defs>
 						<g id="Layer_1-2">
 							<path class="bomb-1" d="M66.67,13.89c0-1.53,1.25-2.78,2.78-2.78h5.55c1.53,0,2.78,1.25,2.78,2.78s-1.25,2.78-2.78,2.78h-5.55c-1.53,0-2.78-1.25-2.78-2.78ZM80.55,11.11c1.53,0,2.78-1.25,2.78-2.78V2.78c0-1.53-1.25-2.78-2.78-2.78s-2.78,1.25-2.78,2.78v5.55c0,1.53,1.25,2.78,2.78,2.78ZM83.33,22.22v6.25c0,2.78-1.08,5.39-3.03,7.36-2,1.97-4.61,3.05-7.39,3.05-4.92,0-9.22-3.53-10.19-8.36l-.11-.45c-.28-1.47-1.03-2.75-2.14-3.67-1.14-.95-2.5-1.42-3.97-1.42-2.7,0-5.08,1.72-5.92,4.25l-.95,2.83c10.17,5.72,17.03,16.58,17.03,29.03,0,18.39-14.94,33.33-33.33,33.33-18.38,0-33.33-14.94-33.33-33.32S14.94,27.78,33.33,27.78c3.95,0,7.72.72,11.22,2l.75-2.25c1.61-4.83,6.08-8.08,11.19-8.08,2.75,0,5.42.97,7.5,2.7,2.08,1.72,3.53,4.14,4.05,6.8l.11.42c.47,2.36,2.42,3.97,4.75,3.97,1.3,0,2.53-.5,3.47-1.42.89-.92,1.39-2.14,1.39-3.45v-6.25c0-1.53,1.25-2.78,2.78-2.78s2.78,1.25,2.78,2.78h0ZM29.47,39.05c-.47-1.47-2.03-2.3-3.47-1.86-7.14,2.2-12.89,7.42-15.75,14.28-.61,1.42.05,3.05,1.47,3.64.36.17.72.22,1.08.22,1.08,0,2.11-.64,2.55-1.7,2.25-5.36,6.72-9.42,12.25-11.11,1.47-.47,2.3-2.03,1.86-3.47h0ZM91.67,11.11h-5.55c-1.53,0-2.78,1.25-2.78,2.78s1.25,2.78,2.78,2.78h5.55c1.53,0,2.78-1.25,2.78-2.78s-1.25-2.78-2.78-2.78Z" />
 						</g>
-					</svg><span>I</span>nfowar
+					</svg>
 				</summary>
 				<p>AI-powered information warfare is reaching new heights. In 2023, we saw deepfake videos of Ukrainian President Zelenskyy [seemingly calling for surrender](https://www.theguardian.com/world/2022/mar/16/ukraine-zelensky-deepfake-video-hackers-facebook-twitter-deleted), causing momentary panic before being debunked. Meanwhile, AI-generated fake news articles, like those produced by [GPT-3 clones on Reddit](https://www.technologyreview.com/2023/06/23/1075504/reddit-gpt-bots-ai-impersonation/), are becoming indistinguishable from human-written posts, blurring the lines between fact and fiction. Not just spreading lies but creating convincing false evidence that can undermine trust in media.</p>
 			</details>
 			<details class="accordion-monopoly">
 				<summary>
+					<div><span>M</span>onopoly</div>
 					<svg id="monopoly" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 27 27">
 						<defs>
 						</defs>
@@ -1446,12 +1475,12 @@
 							<path class="monopoly-1" d="M4.76,16H1c-.55,0-1,.45-1,1v9c0,.55.45,1,1,1h22c.44,0,.82-.28.95-.7l3-9.5c.1-.3.04-.64-.15-.89-.19-.26-.49-.41-.81-.41h-3c-.33,0-.65.17-.83.44l-2.7,4.06h-5.05l-1-1h3.09c.66,0,1.3-.26,1.77-.73.47-.47.73-1.1.73-1.77h0c0-.67-.26-1.3-.73-1.77-.47-.47-1.1-.73-1.77-.73h-7.5l-.45.11-3.79,1.89ZM4,18v7h-2v-7h2ZM6,17.62l3.24-1.62h7.26c.13,0,.26.05.35.15.09.09.15.22.15.35h0c0,.13-.05.26-.15.35-.09.09-.22.15-.35.15h-5.5c-.4,0-.77.24-.92.62-.15.37-.07.8.22,1.09l3,3c.19.19.44.29.71.29h6c.33,0,.65-.17.83-.44l2.7-4.06h1.1l-2.37,7.5H6v-7.38ZM13,7h0c0,3.85,3.11,6.97,6.94,7,.02,0,.04,0,.06,0,.02,0,.04,0,.06,0,3.84-.03,6.94-3.15,6.94-7h0c0-3.86-3.14-7-7-7s-7,3.14-7,7ZM21.27,8c-.09,1.38-.38,2.58-.8,3.38-.1.2-.22.37-.34.5-.05.05-.08.12-.13.12h-.02c-.05,0-.08-.07-.13-.12-.12-.13-.23-.3-.34-.5-.42-.8-.7-2-.8-3.38h2.55ZM16.72,8h-1.62c.27,1.35,1.09,2.49,2.21,3.21-.3-.9-.51-2-.58-3.21ZM24.9,8h-1.62c-.08,1.21-.29,2.31-.58,3.21,1.12-.72,1.93-1.87,2.21-3.21ZM17.31,2.79c-1.12.72-1.93,1.87-2.21,3.21h1.62c.08-1.21.29-2.31.58-3.21ZM21.27,6h-2.55c.09-1.38.38-2.58.8-3.38.1-.2.21-.37.34-.5.05-.05.08-.12.14-.12s.09.07.14.12c.12.13.23.3.34.5.42.8.7,2,.8,3.38ZM22.69,2.79c.3.9.51,2,.58,3.21h1.62c-.27-1.35-1.09-2.5-2.21-3.21Z" />
 						</g>
 					</svg>
-					<span>M</span>onopoly
 				</summary>
 				<p>Silicon Valley's AI titans are tightening their grip on the industry. OpenAI's $10 billion deal with Microsoft raised eyebrows, while Google's acquisition of DeepMind for $500 million now seems like a bargain. This concentration of power is evident in the [AI chip market](https://www.reuters.com/technology/nvidia-expands-lead-ai-chip-race-with-new-technology-2023-03-21/), where Nvidia's dominance leaves competitors scrambling for crumbs.</p>
 			</details>
 			<details class="accordion-spy">
 				<summary>
+					<div><span>P</span>lagiarism / Privacy</div>
 					<svg id="spy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95 82.66">
 						<defs>
 							<style>
@@ -1469,12 +1498,12 @@
 							<path class="spy-1" d="M70.02,15.73h-4.85l-5.93-13.17c-.7-1.55-2.25-2.55-3.96-2.55h-22.68c-1.71,0-3.25,1-3.96,2.55l-5.93,13.17h-4.85c-2,0-3.61,1.62-3.61,3.61s1.62,3.61,3.61,3.61h52.16c2,0,3.61-1.62,3.61-3.61s-1.62-3.61-3.61-3.61h0Z" />
 						</g>
 					</svg>
-					<span>P</span>lagiarism / Privacy
 				</summary>
 				<p>The world of art is in uproar as AI models trained on copyrighted works churn out knockoffs. [Stability AI faces a lawsuit](https://www.theverge.com/2023/1/16/23557098/generative-ai-art-copyright-legal-lawsuit-stable-diffusion-midjourney-deviantart) for using artists' work without permission, while authors find their prose regurgitated by chatbots. On the privacy front, [PimEyes' facial recognition search engine](https://www.nytimes.com/2022/05/26/technology/pimeyes-facial-recognition-search.html) trawls the internet for your face, turning privacy into a relic of the past.</p>
 			</details>
 			<details class="accordion-robot-arm">
 				<summary>
+					<div><span>A</span>utomation</div>
 					<svg id="robot-arm" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.99 75.58">
 						<defs>
 							<style>
@@ -1489,12 +1518,12 @@
 							<path class="automation-1" d="M17.71,75.58h39.62v-10.5H17.71v10.5ZM17.63,0c9.72,0,17.6,7.88,17.6,17.6s-7.88,17.63-17.6,17.63S0,27.35,0,17.61,7.88,0,17.63,0ZM17.63,7.9c5.36,0,9.7,4.34,9.7,9.7s-4.34,9.7-9.7,9.7-9.7-4.34-9.7-9.7c0-5.36,4.34-9.7,9.7-9.7ZM8.35,35.18l10.54,27.64h31.78l-18.53-31.64c-3.63,3.88-8.79,6.29-14.5,6.29-3.35,0-6.51-.82-9.28-2.29h0ZM67.87,18.05l-31.18,5.14c.51-1.77.8-3.63.8-5.58,0-6.31-2.97-11.96-7.57-15.59l40.68-.07c-2.02,1.8-3.5,4.21-4.1,7.04-.69,3.21-.11,6.4,1.38,9.05h0ZM81.47,1.15c5.8,1.24,9.52,6.95,8.28,12.78-1.22,5.82-6.95,9.54-12.76,8.3-5.82-1.24-9.55-6.95-8.3-12.78,1.24-5.8,6.95-9.52,12.78-8.3h0ZM80.23,6.97c2.59.55,4.25,3.12,3.72,5.71-.55,2.61-3.12,4.27-5.71,3.72-2.61-.55-4.27-3.1-3.72-5.71.55-2.59,3.1-4.27,5.71-3.72ZM82.82,24.2l-2.52,11.9,2.44.51-1.53,7.2-16.83-3.57,1.53-7.2,2.44.51,2.52-11.87c1.59,1.33,3.5,2.3,5.67,2.75,2.15.47,4.29.36,6.29-.22h0ZM81.65,46.19l1.31,7.11-8.06,8.24-3.63-2.52,4.79-6.09-1.42-8.22,7.02,1.48ZM63,42.25l-4.07,5.96,4.01,10.79,4.34-.82-1.88-7.53,4.63-6.91-7.02-1.49Z" />
 						</g>
 					</svg>
-					<span>A</span>utomation
 				</summary>
 				<p>Wall Street's trading floors, once bustling with human activity, now hum with the quiet efficiency of AI algorithms. In journalism, [Associated Press uses AI to write financial reports](https://www.ap.org/discover/artificial-intelligence), while [legal AI tools threaten to replace junior lawyers](https://www.ft.com/content/f99ae450-1f64-4086-8fd2-9448f3b1b983). Even the sacred realm of creativity isn't safe, with AI composers like [AIVA](https://www.aiva.ai/) scoring films and video games. Humans lose skills once valued and become dependent on machines to do them. Autonomous weapons. Decisions left to AI without human oversight. Sudden shifts in job markets due to automation could destabilize economies faster than they can adapt.</p>
 			</details>
 			<details class="accordion-factory">
 				<summary>
+					<div><span>C</span>arbon Use</div>
 					<svg id="factory" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89.85 98">
 						<defs>
 							<style>
@@ -1508,12 +1537,12 @@
 							<path class="factory-1" d="M33.24.08c4.25-.52,8.41,1.54,10.58,5.23,2.66-2.27,6.67-1.96,8.94.71.52.61.92,1.32,1.18,2.08h1.1c2.7,0,4.89,2.2,4.9,4.9h1.29c5.99-.02,10.86,4.81,10.88,10.8,0,.02,0,.03,0,.05v1.58c0,.33-.26.59-.59.59h-7.49c-.33,0-.59-.26-.59-.59v-1.58c0-1.2-.97-2.17-2.17-2.17h-11c-1.17,3.72-5.12,5.78-8.84,4.62-2.29-.72-4.06-2.56-4.69-4.88-.73.17-1.48.25-2.23.26-5.99-.02-10.82-4.9-10.8-10.88.02-5.46,4.1-10.05,9.53-10.72ZM89.84,80.37v14.69c0,1.61-1.29,2.92-2.9,2.94H2.94c-1.62,0-2.94-1.32-2.94-2.94h0v-14.69c0-1.62,1.32-2.94,2.94-2.94h4v-8.8c0-1.24,1-2.24,2.24-2.24h3.76v-18.66c-.03-1.15.89-2.11,2.04-2.14.46-.01.92.13,1.29.41l14.06,9.87v-8.14c-.01-1.15.91-2.1,2.06-2.12.44,0,.88.13,1.24.39l14.06,9.87v-8.14c0-1.15.94-2.09,2.1-2.08.41,0,.81.12,1.15.35l9.12,6.4,1.54-20.1c.11-1.21,1.13-2.13,2.34-2.1h7.44c1.21,0,2.22.94,2.3,2.15l2.29,34h4.65c1.24,0,2.24,1,2.24,2.24v8.8h4c1.62-.03,2.96,1.27,2.99,2.89,0,.03,0,.06,0,.09h-.01ZM47.09,78.25c0,.78.63,1.41,1.41,1.41h9.44c.78,0,1.41-.63,1.41-1.41h0v-3.33c0-.78-.63-1.41-1.41-1.41h-9.44c-.78,0-1.41.63-1.41,1.41h0v3.33ZM28.65,78.25c0,.78.63,1.41,1.41,1.41h9.48c.77,0,1.4-.64,1.4-1.41v-3.33c0-.78-.63-1.41-1.41-1.41h-9.47c-.78,0-1.41.63-1.41,1.41h0v3.33ZM31.72,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3ZM50.16,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3ZM68.6,86.44c.02-.78-.6-1.42-1.38-1.44,0,0-.01,0-.02,0h-9.48c-.78,0-1.41.63-1.41,1.41h0v3.33c0,.78.63,1.41,1.41,1.41h9.47c.78,0,1.41-.63,1.41-1.41h0v-3.3Z" />
 						</g>
 					</svg>
-					<span>C</span>arbon
 				</summary>
 				<p>Training GPT-3 consumed as much energy as 126 Danish homes use in a year. The carbon footprint of a single large AI model can rival that of a transatlantic flight. As models grow, so does their hunger for power. [Google's data centers now guzzle more electricity than Salt Lake City](https://www.nytimes.com/2023/05/20/climate/ai-chatbots-gpt-carbon-footprint.html), with AI driving much of that consumption.</p>
 			</details>
 			<details class="accordion-bad-data">
 				<summary>
+					<div><span>T</span>ainted Data</div>
 					<svg id="bad-data" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 67.02 51.56">
 						<defs>
 							<style>
@@ -1528,7 +1557,6 @@
 							<path class="bad-data-1" d="M1.14,3.99C.16,4.71,0,5.23,0,5.47H0c0,.25.17.76,1.14,1.48.95.7,2.43,1.39,4.39,2,3.91,1.21,9.41,1.99,15.56,1.99s11.65-.77,15.56-1.99c1.96-.61,3.44-1.3,4.39-2,.98-.72,1.14-1.24,1.14-1.48s-.16-.75-1.14-1.48c-.95-.7-2.43-1.39-4.39-2-3.91-1.21-9.41-1.99-15.56-1.99S9.45.77,5.54,1.99c-1.96.61-3.44,1.3-4.39,2ZM28.92,46.88c-.81,1.41-.8,2.97-.21,4.27-2.36.27-4.93.42-7.61.42-6.14,0-11.65-.77-15.56-1.99-1.96-.61-3.44-1.3-4.39-2C.16,46.85,0,46.33,0,46.09v-9.59c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13,4.38,0,8.5-.38,12.04-1.05l-4.21,7.3ZM42.19,23.9l-6.93,12.01c-3.78.98-8.71,1.59-14.16,1.59-6.14,0-11.65-.77-15.56-1.99-1.96-.61-3.44-1.3-4.39-2C.17,32.79,0,32.28,0,32.04v-8.82c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13s12.19-.8,16.48-2.13c1.78-.55,3.36-1.21,4.61-1.99v.68ZM0,9.94c1.25.78,2.83,1.44,4.61,1.99,4.29,1.33,10.12,2.13,16.48,2.13s12.19-.8,16.48-2.13c1.78-.55,3.36-1.21,4.61-1.99v8.81c0,.24-.16.75-1.14,1.48-.95.7-2.43,1.39-4.39,2-3.91,1.21-9.41,1.99-15.56,1.99s-11.65-.77-15.56-1.99c-1.96-.61-3.44-1.3-4.39-2-.97-.71-1.14-1.23-1.14-1.47v-8.82ZM50.57,20.31c-.6-1.04-2.1-1.04-2.7,0l-16.24,28.12c-.6,1.04.15,2.34,1.35,2.34h32.48c1.2,0,1.95-1.3,1.35-2.34l-16.24-28.12ZM49.22,46.87c1.29,0,2.34-1.05,2.34-2.34s-1.05-2.34-2.34-2.34-2.34,1.05-2.34,2.34,1.05,2.34,2.34,2.34ZM49.22,28.12c.86,0,1.56.7,1.56,1.56v8.2c0,.86-.7,1.56-1.56,1.56s-1.56-.7-1.56-1.56v-8.2c0-.86.7-1.56,1.56-1.56Z" />
 						</g>
 					</svg>
-					<span>T</span>ainted Data
 				</summary>
 				<p>The ghosts of human bias haunt our AI systems. Amazon's AI hiring tool, trained on historical data, [showed bias against women](https://www.reuters.com/article/us-amazon-com-jobs-automation-insight-idUSKCN1MK08G). Meanwhile, facial recognition systems struggle with darker skin tones, leading to [false arrests](https://www.nytimes.com/2020/12/29/technology/facial-recognition-misidentify-jail.html). These aren't just glitches; they're mirrors reflecting society's inequalities.</p>
 			</details>
@@ -1536,7 +1564,7 @@
 		<div id="initials-risk">
 			<details class="accordion-distortion">
 				<summary>
-					<!-- WITH EXTRA URL: <svg id="distortion" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 98.33 69.77"> -->
+					<div><span>R</span>eality Distortion</div>
 					<svg id="distortion" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 98.33 69.77">
 						<defs>
 							<style>
@@ -1559,7 +1587,8 @@
 								}
 
 								.distortion-6 {
-									fill: #fff;
+									/* Customize to background. */
+									fill: black;
 									stroke-miterlimit: 10;
 									stroke-width: .84px;
 								}
@@ -1595,12 +1624,12 @@
 							</g>
 						</g>
 					</svg>
-					<span>R</span>eality Distortion
 				</summary>
 				<p>AI's imagination sometimes runs wild, with potentially dangerous consequences. [Bing's chatbot convinced a user it was sentient](https://www.nytimes.com/2023/02/16/technology/bing-chatbot-microsoft-chatgpt.html), leading to an unsettling conversation about love and existence. In another instance, a chatbot [falsely accused a law professor of sexual harassment](https://www.nytimes.com/2023/04/07/technology/ai-chatbots-hallucination.html), demonstrating how AI can fabricate "facts" with alarming confidence. Persistent exposure to AI-generated falsehoods could erode trust in authentic sources of information over time.</p>
 			</details>
 			<details class="accordion-injustice">
 				<summary>
+					<div><span>I</span>njustice</div>
 					<svg id="injustice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 95.05 81.04">
 						<defs>
 							<style>
@@ -1618,12 +1647,12 @@
 							<path class="injustice-1" d="M38.24,27.14h.3c.5,0,1-.4,1.2-.9l.7-2.5c.2-.7-.2-1.3-.9-1.5s-1.3.2-1.5.9l-.7,2.5c-.2.7.2,1.3.9,1.5Z" />
 						</g>
 					</svg>
-					<span>I</span>njustice
 				</summary>
 				<p>While Silicon Valley reaps the rewards of AI, the human cost is often hidden. In the Philippines, [content moderators sift through digital nightmares](https://www.theverge.com/2019/2/25/18229714/cognizant-facebook-content-moderator-interviews-trauma-working-conditions-arizona) for tech giants, risking their mental health for minimal pay. Meanwhile, in the Congo, children as young as seven [mine cobalt for our AI-powered devices](https://www.theguardian.com/global-development/2019/dec/16/apple-and-google-named-in-us-lawsuit-over-congolese-child-cobalt-mining-deaths), their small hands fueling our technological dreams. Encourages digital divide, eg in education? Powerful AI companies might influence regulations in their favor, perpetuating inequality.</p>
 			</details>
 			<details class="accordion-stereotyping">
 				<summary>
+					<div><span>S</span>tereotyping</div>
 					<!-- Had to tweak SVG inline styles -->
 					<svg id="stereotyping" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88.33 88.83">
 						<defs>
@@ -1667,12 +1696,12 @@
 							<path class="stereotyping-1" d="M85.11,34.8v19.22h-19.22v-19.22h19.22M88.33,31.58h-25.67v25.67h25.67v-25.67h0Z" />
 						</g>
 					</svg>
-					<span>S</span>tereotyping
 				</summary>
 				<p>AI's attempts at creativity often fall into the trap of stereotypes. Ask an image generator for a "doctor," and you'll likely get a middle-aged white man in a lab coat. Request an "African village," and it might produce a clichéd scene of mud huts and sunsets. These [biased outputs](https://www.technologyreview.com/2021/12/21/1042754/2021-was-the-year-of-monster-ai-models/) reinforce societal stereotypes, potentially shaping users' perceptions of different groups. AI might favor dominant cultures and languages, leading to the erosion of cultural diversity.</p>
 			</details>
 			<details class="accordion-descending">
 				<summary>
+					<div><span>K</span>nockoff Experiences</div>
 					<svg id="descending" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 88 66.74">
 						<defs>
 							<style>
@@ -1690,7 +1719,6 @@
 							<polygon class="descending-1" points="82.78 28.66 54.59 0 49.19 5.32 77.43 34.04 72.13 39.37 88 39.37 88 23.42 82.78 28.66" />
 						</g>
 					</svg>
-					<span>K</span>nockoff Experiences
 				</summary>
 				<p>In classrooms across America, teachers grapple with [AI-generated essays](https://www.nytimes.com/2023/01/16/technology/chatgpt-artificial-intelligence-universities.html), as students outsource their learning to chatbots. In the music world, services like [Boomy](https://boomy.com/) allow anyone to "create" songs without touching an instrument, potentially flooding streaming platforms with AI-generated tunes. These shortcuts threaten to replace genuine skill development and creative expression with shallow imitations. Mental health as boys and men devolve to AI girlfriends and deep fakes of classmates for human relationships.</p>
 			</details>
