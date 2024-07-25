@@ -642,7 +642,8 @@
 		}
 
 		p {
-			color: paleturquoise;
+			color: var(--pale-celeste);
+			margin: 1em 0 !important;
 		}
 
 		a {
@@ -728,8 +729,15 @@
 			gap: 20px;
 		}
 
+		@media (width < 500px) {
+			#acronym-container {
+				grid-template-columns: 1fr;
+			}
+		}
+
 		details {
 			min-height: 70px;
+			min-height: clamp(32px, 7vw, 70px);
 			padding: 1em .5em;
 			margin-bottom: .7em;
 			border: var(--medium-celeste) solid 2px;
@@ -739,6 +747,7 @@
 		summary {
 			font-family: sansation-bold;
 			font-size: 1.5em;
+			font-size: clamp(14px, 3vw, 26px);
 			display: flex;
 			justify-content: space-between;
 			color: var(--pale-celeste);
@@ -763,6 +772,8 @@
 
 		summary svg {
 			width: 70px;
+			width: clamp(14px, 3vw, 26px);
+			width: clamp(32px, 7vw, 70px);
 		}
 
 		/* Doesn't yet work in Firefox:
@@ -827,9 +838,12 @@
 			fill: hsl(from var(--icon-base) calc(h + 36*9) s l);
 		}
 
-		details p {
+		/* details p {
 			color: var(--pale-celeste);
 			padding: 1em .5em;
+		} */
+		#credits-container {
+			font-size: .8em;
 		}
 	</style>
 </head>
@@ -843,13 +857,13 @@
 			</div>
 			<h2>IMPACT RISK: an acronym for AI downsides</h2>
 			<div class="caption" id="version">
-				Version 1.7
-				<!-- impactrisk > index.html v1.7: tweak layout and rewrite all text. -->
+				Version 1.8
+				<!-- impactrisk > index.html v1.8: tweak layout, add clamps. -->
 			</div>
 		</div>
 		<img src="../media/ai_impact_risk_classroom_07_wide.jpg" alt="Ai Impact Risk Classroom 07 Wide" class="hero">
 		<div id="introduction">
-			<p>Along with the benefits of generative AI come a varied array of harms--enough that it can be hard to remember all of them. The I.M.P.A.C.T. R.I.S.K. acronym offers a mnemonic to you or your students take them into account. </p>
+			<p>Along with the benefits of generative AI come a varied array of harms--enough that it can be hard to remember all of them. The IMPACT RISK acronym offers a mnemonic to you or your students take them into account. </p>
 			<p>By keeping the IMPACT RISK framework in mind, we can navigate the AI revolution more thoughtfully, examining whether AI can be a force for progress rather than a Pandora's box of unintended consequences.</p>
 		</div>
 		<div id="acronym-container">
@@ -1134,9 +1148,11 @@
 				</details>
 			</div>
 		</div>
-		<h3>Credits</h3>
-		<p><a href="https://jonippolito.net">Jon Ippolito</a> determined a draft of the mneumonic in conversation with GPT-4o and then revised it, wrote the descriptions, and hand-coded this website. He generated image of a classroom with the words IMPACT RISK in the background with Stable Diffusion (model: Ideogram 1.0).</p>
-		<p>Icons on this page are by the author or have been modified from the following sources on <a href="https://thenounproject.com">The Noun Project</a>: Bomb by Humam; monopoly market by icon trip; Privacy by Adrien Coquet; Robot Arm automation by Ali Nur Rohman; Factory by Gregor Cresnar; Database bad data by Marz Gallery; injustice by Adrien Coquet; Blocky arrow and bar chart Graph Down by Yon ten.</p>
+		<div id="credits-container">
+			<h2>Credits</h2>
+			<p><a href="https://jonippolito.net">Jon Ippolito</a> determined a draft of the mneumonic in conversation with GPT-4o and then revised it, wrote the descriptions, and hand-coded this website. He generated image of a classroom with the words IMPACT RISK in the background with Stable Diffusion (model: Ideogram 1.0).</p>
+			<p>Icons on this page are by the author or have been modified from the following sources on <a href="https://thenounproject.com">The Noun Project</a>: Bomb by Humam; monopoly market by icon trip; Privacy by Adrien Coquet; Robot Arm automation by Ali Nur Rohman; Factory by Gregor Cresnar; Database bad data by Marz Gallery; injustice by Adrien Coquet; Blocky arrow and bar chart Graph Down by Yon ten.</p>
+		</div>
 	</main>
 </body>
 
