@@ -1,5 +1,5 @@
 <!doctype html>
-<!-- Version input 5.5: Refine same date option, "Level" tags. UPGRADE: Eliminate "popup" dead wood.
+<!-- Version input/index.html v5.6: Remove same date as tag, add STEM synonym. UPGRADE: Eliminate "popup" dead wood.
 <!-- UPGRADE: Change tooltips so they're created and destroyed each time like popups. -->
 <!-- That will prevent tips from going off the page when it's resized. -->
 <!-- Still contains dead wood for making hashtags.  -->
@@ -906,7 +906,7 @@
 			tagObjects.push(new TagObject("art", "Discipline"));
 			tagObjects.push(new TagObject("business", "Discipline", "company, finance"));
 			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives, preservation"));
-			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science"));
+			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science, STEM"));
 			tagObjects.push(new TagObject("design", "Discipline", "graphic design, UX design, UI design"));
 			tagObjects.push(new TagObject("disability", "Discipline"));
 			tagObjects.push(new TagObject("economics", "Discipline", "economy"));
@@ -924,7 +924,7 @@
 			tagObjects.push(new TagObject("network", "Discipline", "Internet, social media"));
 			tagObjects.push(new TagObject("politics", "Discipline", "political science, American studies"));
 			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience, emotion, fear, hope"));
-			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy"));
+			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy, mathematics, STEM"));
 			tagObjects.push(new TagObject("story", "Discipline", "narrative"));
 			tagObjects.push(new TagObject("work", "Discipline", "jobs, labor"));
 			tagObjects.push(new TagObject("writing", "Discipline", "essays, papers, composition, English"));
@@ -1325,7 +1325,8 @@
 			this.tags = [];
 			document.querySelectorAll("input[type='checkbox']").forEach(
 				checkbox => {
-					if (checkbox.checked) {
+					let disallowedInputIds = ["same-date"];
+					if (checkbox.checked && !disallowedInputIds.includes(checkbox.id)) {
 						this.tags.push(checkbox.id);
 					};
 				}

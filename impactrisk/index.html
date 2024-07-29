@@ -1,8 +1,9 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-	<meta charset="utf-8">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="A project from UMaine New Media">
 	<title>IMPACT RISK | acronym for AI downsides</title>
 	<style id="digital-curation-localization-v03.0" type="text/css" media="screen">
@@ -672,18 +673,20 @@
 		}
 
 		.watermark {
-			width: 90% !important;
+			/* UPGRADE: Delete competition above. */
+			width: auto !important;
 			margin: 0 5% 14px !important;
 			text-align: center;
 			padding: 0;
 			color: darkseagreen;
 			position: relative;
 			text-align: center;
-			min-width: 400px;
+			min-width: auto !important;
 			/* height: 100px !important; */
-			height: auto !important;
 			/*	IE seems to require important */
-			z-index: -1;
+			height: auto !important;
+			/* Bizarrely set  to -1 above. */
+			z-index: 1 !important;
 			/* outline: orange solid; */
 		}
 
@@ -692,10 +695,11 @@
 		}
 
 		.watermark h2 {
-			font-size: 1.6em !important;
+			/* UPGRADE: Delete competing style above. */
+			font-size: clamp(16px, 3.5vw, 28px) !important;
 		}
 
-		#logo {
+		/* #logo {
 			position: relative;
 			margin: 0 auto !important;
 			width: 400px;
@@ -705,7 +709,7 @@
 
 		#logo img {
 			width: 100%;
-		}
+		} */
 
 		.caption {
 			margin-bottom: 10em;
@@ -726,10 +730,10 @@
 		#acronym-container {
 			display: grid;
 			grid-template-columns: 1fr 1fr;
-			gap: 20px;
+			gap: 20px 40px;
 		}
 
-		@media (width < 500px) {
+		@media (width < 480px) {
 			#acronym-container {
 				grid-template-columns: 1fr;
 			}
@@ -746,8 +750,8 @@
 
 		summary {
 			font-family: sansation-bold;
-			font-size: 1.5em;
-			font-size: clamp(14px, 3vw, 26px);
+			/* font-size: 1.5em; */
+			font-size: clamp(14px, 3vw, 24px);
 			display: flex;
 			justify-content: space-between;
 			color: var(--pale-celeste);
@@ -766,6 +770,12 @@
 			display: none;
 		} */
 
+		/* Required on Safari for some reason. */
+		summary>div {
+			width: 100%;
+			/* outline: yellow solid; */
+		}
+
 		summary * {
 			vertical-align: middle;
 		}
@@ -783,11 +793,12 @@
 		*/
 
 		summary>div>span:nth-of-type(1) {
-			font-size: 2.5em;
+			font-size: 2.3em;
 			line-height: 1em;
 			margin: 0 .05em 0 0;
 		}
 
+		/* Fallback color is a fix for Safari. */
 		.accordion-bomb summary,
 		#bomb {
 			fill: hsl(from var(--icon-base) calc(h + 0) s l);
@@ -846,24 +857,36 @@
 			font-size: .8em;
 		}
 	</style>
+	<script id="device-sniffer-script-localized">
+		const isPhone = window.matchMedia("(max-device-width: 480px)").matches;
+		let couldBeSafari = navigator.userAgent.includes("AppleWebKit");
+		let isNotChrome = !navigator.userAgent.includes("Chrome") && !navigator.userAgent.includes("Chromium");
+		let isSafari = couldBeSafari && isNotChrome;
+		if (isSafari) {
+			window.addEventListener("DOMContentLoaded",
+				() => {
+					document.querySelectorAll("svg").forEach(
+						svg => svg.style.fill = "paleturquoise"
+					)
+				}
+			)
+		}
+	</script>
 </head>
 
 <body>
 	<main>
 		<div class="watermark">
 			<a href="../index.html"><img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080"></a>
-			<div id="logo">
-				<!-- New Media -->
-			</div>
 			<h2>IMPACT RISK: an acronym for AI downsides</h2>
 			<div class="caption" id="version">
-				Version 1.8
-				<!-- impactrisk > index.html v1.8: tweak layout, add clamps. -->
+				Version 1.9
+				<!-- impactrisk > index.html v1.9: fix top LWA link from logo. -->
 			</div>
 		</div>
 		<img src="../media/ai_impact_risk_classroom_07_wide.jpg" alt="Ai Impact Risk Classroom 07 Wide" class="hero">
 		<div id="introduction">
-			<p>Along with the benefits of generative AI come a varied array of harms--enough that it can be hard to remember all of them. The IMPACT RISK acronym offers a mnemonic to you or your students take them into account. </p>
+			<p>Along with the benefits of generative AI come a varied array of harms&mdash;enough that it can be hard to remember all of them. The IMPACT RISK acronym offers a mnemonic so you or your students can take them into account. </p>
 			<p>By keeping the IMPACT RISK framework in mind, we can navigate the AI revolution more thoughtfully, examining whether AI can be a force for progress rather than a Pandora's box of unintended consequences.</p>
 		</div>
 		<div id="acronym-container">
@@ -879,7 +902,7 @@
 							</g>
 						</svg>
 					</summary>
-					<p>AI-powered information warfare threatens to undermine democracy, from deep fakes of high-profile figures like President Joe Biden to personalized attacks on local figures like high school principals.</p>
+					<p>AI-powered information warfare threatens to undermine democracy, from deep fakes of high-profile figures like President Biden to personalized attacks on local figures like high school principals.</p>
 					<p>The ease of generating customized code and text has made cyberattacks cheaper and faster to deploy, whether writing custom malware to spearphishing emails.</p>
 				</details>
 				<details class="accordion-monopoly">
@@ -1046,7 +1069,7 @@
 						</svg>
 					</summary>
 					<p>AI's outputs are often disconnected from reality, with potentially dangerous consequences. Bing's Sydney chatbot told a New York Times reporter to leave his wife for her, while ChatGPT accused a law professor of sexual harrassment.</p>
-					<p>These confident-sounding fabrications, or "hallucinations" as they are sometimes misleadingly called, don't have to be deliberate disinformation to cause harm. Unscrupulous users can now generate low-quality news articles--several per minute--that can be hard to distinguish from human-written posts. Persistent exposure to AI-generated distortions may erode trust in authentic sources of information over time or simply bury them in a mountain of digital debris.</p>
+					<p>These confident-sounding fabrications, or "hallucinations" as they are sometimes misleadingly called, don't have to be deliberate disinformation to cause harm. Unscrupulous users can now generate low-quality news articles&mdash;several per minute&mdash;that can be hard to distinguish from human-written posts. Persistent exposure to AI-generated distortions may erode trust in authentic sources of information over time or simply bury them in a mountain of digital debris.</p>
 				</details>
 				<details class="accordion-injustice">
 					<summary>
@@ -1069,8 +1092,8 @@
 							</g>
 						</svg>
 					</summary>
-					<p>While Silicon Valley reaps the rewards of AI, the human cost is often hidden. Kenyons making $1 an hour are suffering trauma from flagging passages containing hate speech and detailed descriptions of murder, rape, and child sex abuse. Meanwhile, in the Congo, children as young as seven are mining cobalt for our AI-powered devices.</p>
-					<p>In government, powerful AI companies might influence regulations in their favor, perpetuating inequality in the market. In education, the subscription costs of better large language models raise concern about a new digital divide.</p>
+					<p>While Silicon Valley reaps the rewards of AI, the human cost is often hidden. Kenyons making $1 an hour are suffering emotional trauma while flagging detailed descriptions of murder, rape, and child sex abuse generated by chatbots. Meanwhile, in the Congo, children as young as seven are mining cobalt for our AI-powered devices.</p>
+					<p>In government, powerful AI companies might influence regulations in their favor, perpetuating inequality in the market. In education, the subscription costs of better large language models raise concerns about a new digital divide.</p>
 				</details>
 				<details class="accordion-stereotyping">
 					<summary>
@@ -1119,7 +1142,7 @@
 							</g>
 						</svg>
 					</summary>
-					<p>Generative AI often devolves to cliches when answering questions. Ask an image generator for a "doctor," and you'll likely get a middle-aged white man in a lab coat. Request an "African village," and it might produce a clichéd scene of mud huts and sunsets.</p>
+					<p>Generative AI often devolves to clich&eacute;s when answering questions. Ask an image generator for a "doctor," and you'll likely get a middle-aged white man in a lab coat. Request an "African village," and it might depict mud huts and sunsets.</p>
 					<p>These outputs are not simply the result of biased data. At a deeper level, they reflect the probabalistic nature of large language models, which return the "average" result from a prompt. Nevertheless, by surfacing stereotypes rather than outliers, AI might favor dominant cultures and languages, leading to the erosion of cultural diversity.</p>
 				</details>
 				<details class="accordion-descending">
@@ -1144,13 +1167,13 @@
 						</svg>
 					</summary>
 					<p>In classrooms across America, teachers grapple with AI-generated homework as students outsource their learning to chatbots. In the music world, services like Suno allow anyone to "create" songs without touching an instrument, potentially flooding streaming platforms with AI-generated tunes. These shortcuts threaten to replace genuine skill development and creative expression with shallow imitations that undermine personal growth.</p>
-					<p>Beyond the individual, human relationships may devolve as AI generates thank you notes, teen boys deep fake nude images of their female classmates, and adults turn to AI partners for companionship instead of their flesh-and-blood peers.</p>
+					<p>Beyond the individual, human relationships may devolve as AI generates thank you notes, teen boys deep-fake nude images of their female classmates, and adults turn to AI partners for companionship instead of their flesh-and-blood peers.</p>
 				</details>
 			</div>
 		</div>
 		<div id="credits-container">
 			<h2>Credits</h2>
-			<p><a href="https://jonippolito.net">Jon Ippolito</a> determined a draft of the mneumonic in conversation with GPT-4o and then revised it, wrote the descriptions, and hand-coded this website. He generated image of a classroom with the words IMPACT RISK in the background with Stable Diffusion (model: Ideogram 1.0).</p>
+			<p>The IMPACT RISK framework is a project of the <a href="https://LearnWithAI.org">Learning With AI</a> initiative. <a href="https://jonippolito.net">Jon Ippolito</a> drafted the mneumonic in conversation with GPT-4o and then revised it, wrote the descriptions, and hand-coded this website. The image of a classroom with the words IMPACT RISK in the background was created with Stable Diffusion (model: Ideogram 1.0).</p>
 			<p>Icons on this page are by the author or have been modified from the following sources on <a href="https://thenounproject.com">The Noun Project</a>: Bomb by Humam; monopoly market by icon trip; Privacy by Adrien Coquet; Robot Arm automation by Ali Nur Rohman; Factory by Gregor Cresnar; Database bad data by Marz Gallery; injustice by Adrien Coquet; Blocky arrow and bar chart Graph Down by Yon ten.</p>
 		</div>
 	</main>
