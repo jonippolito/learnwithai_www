@@ -1,0 +1,500 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="A project by Jon Ippolito">
+	<title>8 Takeaways about AI energy and water usage</title>
+	<!-- ai_energy_water_impact.html v1.0, with bland style. -->
+	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
+	<!--[if IE]>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+<![endif]-->
+	<style id="set-html5-blocks">
+		article,
+		aside,
+		details,
+		figcaption,
+		figure,
+		footer,
+		header,
+		hgroup,
+		menu,
+		nav,
+		section {
+			display: block;
+		}
+	</style>
+	<style id="outline-styles-v2.2">
+		/* Outline styles v2.2, revised to add alternating row colors for tables.*/
+		/*__________ Layout hierarchy. __________*/
+		body {
+			font-family: verdana;
+			margin: 3em 3em;
+		}
+
+		strong {
+			color: purple;
+		}
+
+		em {
+			color: olive;
+		}
+
+		h1 {
+			font-variant: small-caps;
+			font-size: 1.5em;
+			color: rgb(100%, 75%, 25%);
+		}
+
+		h2 {
+			margin: 20px;
+			font-size: 1.2em;
+			color: rgb(90%, 70%, 22%);
+		}
+
+		h3 {
+			margin-left: 40px;
+			color: rgb(80%, 60%, 20%);
+		}
+
+		h4 {
+			font-weight: normal;
+			margin-left: 60px;
+			color: rgb(60%, 45%, 15%);
+		}
+
+		h5 {
+			font-weight: normal;
+			margin: .8em 0 .0 80px;
+			color: olive;
+			color: rgb(40%, 30%, 10%);
+		}
+
+		h6 {
+			font-size: .8em;
+			font-weight: normal;
+			margin: .8em 0 0 100px;
+			color: rgb(20%, 15%, 5%);
+		}
+
+		p,
+		blockquote {
+			font-size: .9em;
+			font-weight: normal;
+			margin: .8em 0 0 84px;
+			color: rgb(10%, 7%, 2%);
+		}
+
+		p {
+			margin: .8em 0 0 84px;
+		}
+
+		blockquote p {
+			margin: .8em 20px 0 80px;
+		}
+
+		ul,
+		ol {
+			font-size: .9em;
+			margin: .8em 0 0 60px;
+			padding-left: 40px;
+			/*For IE.*/
+			color: dimgray;
+		}
+
+		li {
+			margin-top: .5em;
+		}
+
+		pre {
+			/*		background-color: rgb( 100%, 100%, 20%);*/
+		}
+
+		/*__________ Links. __________*/
+		a {
+			font-weight: bold;
+			text-decoration: none;
+			color: tomato;
+		}
+
+		a:hover {
+			text-decoration: underline;
+		}
+
+		/*__________ Headings. __________*/
+		div.watermark {
+			width: 90%;
+			margin: 0 5%;
+			text-align: center;
+			padding: 1em;
+			color: rgb(80%, 75%, 65%);
+			/* Putty. */
+		}
+
+		div.watermark h1,
+		div.watermark h2,
+		div.watermark h3,
+		div.watermark h4 {
+			color: rgb(54%, 50%, 42%);
+			/* Dark putty (2/3 values) */
+			margin-top: 0;
+		}
+
+		/* Use logo for page title inside watermark. */
+		/* Version number can follow as plain text.*/
+		div#logo {
+			font-size: 1.8em;
+			margin: .5em 0;
+			font-weight: bold;
+		}
+
+		.caption {
+			font-size: .6em;
+			margin-top: -1em;
+		}
+
+		.folder {
+			color: rgb(20%, 60%, 40%);
+		}
+
+		/*__________ Inline emphasis. __________*/
+		.good,
+		.confirmation {
+			color: lightgreen;
+		}
+
+		.bad,
+		.warning {
+			color: red;
+		}
+
+		.confirmation,
+		.warning {
+			font-weight: bold;
+		}
+
+		tt {
+			color: steelblue;
+		}
+
+		/*__________ Block emphasis. __________*/
+		.callout {
+			/*Meant to apply to a div.*/
+			border: black solid 1px;
+			padding: .5em;
+			width: 80%
+		}
+
+		.code {
+			border: dimgray solid 1px;
+			background-color: white !important;
+			font-family: courier;
+			padding: .5em;
+			margin: .8em 0 0 84px;
+			font-size: .8em;
+			-webkit-border-radius: 10px;
+			-moz-border-radius: 10px;
+		}
+
+		.code em {
+			font-style: normal;
+			color: purple;
+		}
+
+		/*__________ Table styles. __________*/
+		/*Use with this HTML:
+		<table border="1" cellspacing="0" cellpadding="2">
+			<tbody>
+				<tr>
+					<th>First label</th>
+					<th>Second label</th>
+				</tr>
+				<tr>
+					<td>Content</td>
+					<td>Content</td>
+				</tr>
+				...
+	*/
+		table,
+		tr,
+		td,
+		th {
+			border-width: .2em;
+			padding: .4em;
+		}
+
+		/*	DEPRECATED: 
+		tr.labels {
+		background-color: black; 
+		background-color: peru; 
+		color: white
+	} */
+		table {
+			border-left: black solid 1px;
+			border-bottom: black solid 1px;
+		}
+
+		tr:nth-child(odd) {
+			background-color: beige;
+		}
+
+		tr:nth-child(even) {
+			background-color: paleGoldenRod;
+		}
+
+		th {
+			text-align: left;
+			background-color: black;
+			color: white;
+		}
+
+		td {
+			/* min-width: 40px ;*/
+			border-right: black solid 1px;
+		}
+	</style><!-- end outline-styles. -->
+	<style id="outline-styles-print-v1.2" type="text/css" media="print">
+		/*	Modified by Jon to adjust logo, p margins to work with Jon's outline-styles-v2.2.*/
+		body {
+			margin: 0 !important;
+		}
+
+		h1 {
+			font-variant: small-caps;
+			font-size: 12pt;
+			color: rgb(100%, 75%, 25%);
+		}
+
+		h2 {
+			margin: 20px;
+			margin: 2pt 0 2pt 0 !important;
+			font-size: 10pt;
+			color: rgb(90%, 70%, 22%);
+		}
+
+		h3 {
+			font-size: 9pt;
+			margin-left: 40px;
+			margin: 0 !important;
+			color: rgb(80%, 60%, 20%);
+		}
+
+		h4 {
+			font-size: 8pt;
+			font-weight: normal;
+			margin-left: 60px;
+			margin: 0 !important;
+			color: rgb(60%, 45%, 15%);
+		}
+
+		h5 {
+			font-weight: normal;
+			font-size: 7pt;
+			margin: .8em 0 .0 80px;
+			margin: 0 !important;
+			color: olive;
+			color: rgb(40%, 30%, 10%);
+		}
+
+		h6 {
+			font-size: 6pt;
+			font-weight: normal;
+			margin: .8em 0 0 100px;
+			margin: 0 !important;
+			color: rgb(20%, 15%, 5%);
+		}
+
+		p,
+		blockquote {
+			font-size: 9pt !important;
+			font-weight: normal;
+			margin: .8em 0 6pt 20pt !important;
+			color: rgb(10%, 7%, 2%);
+		}
+
+		ul,
+		ol {
+			font-size: 5pt;
+			margin: .8em 0 0 60px;
+			margin: 0 !important;
+		}
+
+		li {
+			font-size: 7pt !important;
+			margin-top: .5em;
+			margin-top: 0 !important;
+		}
+
+		#logo {
+			font-size: 1.4em;
+		}
+
+		.caption {
+			margin-top: 0;
+		}
+
+		.do-not-print {
+			display: none;
+		}
+	</style><!-- end outline-styles-print. -->
+	<!-- <style id="nmw-localization-style-v01.3">
+/* Revised to tweak heading colors. */
+	body {
+		font-family: Gill sans, verdana ;
+		font-size: 1.3em ;
+		background-color: rgb(88%, 64%, 0%) ;
+		background-repeat: none !important ;
+		/* Required to prevent gradient tiling. */
+		background-position: fixed ;
+		/* Gradient. */
+		background: -moz-linear-gradient(
+			top,
+			rgb(32%, 16%, 0%) 50px,
+			rgb(88%, 64%, 0%) 500px,
+			rgb(88%, 64%, 0%)
+		) ;
+		background: -webkit-linear-gradient(
+			top,
+			rgb(32%, 16%, 0%) 50px,
+			rgb(88%, 64%, 0%) 500px,
+			rgb(88%, 64%, 0%)
+		) ;
+		background: -ms-linear-gradient(
+			top,
+			rgb(32%, 16%, 0%) 50px,
+			rgb(88%, 64%, 0%) 500px,
+			rgb(88%, 64%, 0%)
+		) ;
+		background: -o-linear-gradient(
+			top,
+			rgb(32%, 16%, 0%) 50px,
+			rgb(88%, 64%, 0%) 500px,
+			rgb(88%, 64%, 0%)
+		) ;
+		background: linear-gradient(
+			top,
+			rgb(32%, 16%, 0%) 50px,
+			rgb(88%, 64%, 0%) 500px,
+			rgb(88%, 64%, 0%)
+		) ;
+	}
+	.watermark {
+		color: rgb(90%, 70%, 22% ) !important ;
+		margin-top: -40px !important ;
+	}
+	.watermark h2 {
+		color: rgb(80%, 60%, 20% ) !important ;
+		text-shadow: none ;
+	}
+	ul,
+	ol {
+		color: rgb(30%, 20%, 0%) ;
+	}
+	h2 {
+		color: rgb(90%, 80%, 40%) ; ;
+		text-shadow: rgb(60%, 30%, 0% ) 0px 0px 5px;
+	}
+	h3 {
+		color: rgb(60%, 30%, 0% ) ;
+		text-shadow: rgb(98%, 94%, 0%) 0 0 2px;
+	}
+	h4 {
+		color: sienna ;
+	}
+	h5 {
+		font-size: .95em ;
+		color: rgb(32%, 16%, 0%) ; ;
+	}
+	a {
+		color: khaki ;
+		text-decoration: none ;
+		border-bottom: dotted 1px ;
+		text-shadow: rgb(8%, 4%, 0%) 0 0 6px;
+		font-family: Gill sans, verdana !important ;
+	}
+	a:hover {
+		text-decoration: none ;
+		border-bottom: solid 1px ;
+	}
+	p,
+	ol {
+		font-size: 1em ;
+	}
+	.tweet {
+		margin: .8em 0 .8em 8em ;
+		padding: .4em ;
+		-webkit-border-radius: 4px ; 
+		-moz-border-radius: 4px ;
+		border-radius: 4px ;
+		border: dimgray solid 1px ; 
+		background-color: moccasin ;
+	}
+	.label {
+		float: left ;
+	}
+</style> -->
+	<style id="localization-style">
+		.emoji {
+			font-size: 2em;
+			margin-right: .2em;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="watermark">
+		<!-- <img src="http://newmedia.umaine.edu/media/nm_logo_klima_glasbead-m.jpg" alt="Nm Logo Klima Glasbead M"> -->
+		<div id="logo">
+			AI impact on energy and water usage
+		</div>
+		<h2>8 takeaways from recent research</h2>
+		<div class="caption" id="version">
+			Version 1.0 by <a href="https://jonippolito.net">Jon Ippolito</a>
+		</div>
+	</div>
+	<p>It's hard to keep up with studies of the energy impact of generative AI, so here are 8 takeaways from the sources I have personally found most illuminating.</p>
+	<p>I'm aiming for a "just the facts" approach that sidesteps the dueling interpretations of AI champions and critics. I'm also using one set of measures rather than comparing apples to oranges, including:</p>
+	<ul>
+		<li><span class="emoji">💡</span>watt-hour (running an incandescent light bulb for 1 minute)</li>
+		<li><span class="emoji">🥤</span>liter (about a quart)</li>
+		<li><span class="emoji">☔️</span>cubic centimeter (a raindrop).</li>
+	</ul>
+	<p>This list assesses only energy and water usage, and not actual environmental impact. I'm neither a climate scientist nor an electrical engineer; these are only my rough estimates based on academic studies, industry reports, or back-of-the envelope calculations. I welcome suggestions of research that updates or contradicts these findings.</p>
+	<ol>
+		<li><span class="emoji">🙈</span>Lack of transparency by AI companies means usage calculations at this point are only estimates.</li>
+		<li><span class="emoji">🌍</span>Water and energy impacts are extremely localized; eg the stress on Ireland's water and grid is much higher than Norway's due to the latter's hydropower and cool climate.</li>
+		<li><span class="emoji">🔌</span>Large models consume disproportionately more energy and water than smaller ones.</li>
+		<li><span class="emoji">🏋️</span>Training consumes more energy and water than inference (prompting).</li>
+		<li><span class="emoji">🏛</span>Policy changes by new administrations can result in more or less climate impact for the same energy consumption.<br></li>
+		<li><span class="emoji">📊</span>Data centers are currently 2% of global energy demand (Ritchie 2024).<br></li>
+		<ul>
+			<li><span class="emoji">🪙</span>Crypto is responsible for about 25% of the energy used by data centers.<br></li>
+			<li><span class="emoji">📱</span>Social media and data mining currently consume most of the rest.</li>
+			<li><span class="emoji">🤖</span>AI is responsible for only 2% of data center energy demand (Ritchie 2024). </li>
+		</ul>
+		<li><span class="emoji">💻</span>Prompting a local model on a laptop requires no water and uses 1-10% of the energy of prompting a model in a data center.</li>
+		<li><span class="emoji">🚰</span>Cooling a data center requires about 2 cubic centimeters per watt-hour regardless of task (Lawrence 2016).</li>
+		<li><span class="emoji">⚖️</span>Comparisons (approximate Watt-hours and liters/ccs):</li>
+		<ul>
+			<li><span class="emoji">📺</span>4000 Wh / 8 L: hour-long video streamed on a big TV (Kamiya 2020).<br></li>
+			<li><span class="emoji">🎦</span>1000 Wh / 1 L: hour-long Zoom call with 10 people (devices 600 + transmission 200 + server-processing 200).</li>
+			<li><span class="emoji">🪫</span>20 Wh / 40 cc: charging a smartphone (EPA 2024).<br></li>
+			<li><span class="emoji">🖼</span>3 Wh / 6 cc: generating an image online (Luccioni 2024).</li>
+			<li><span class="emoji">🔍</span>.3 Wh / .6 cc: one non-AI Google search (Google 2009).<br></li>
+			<li><span class="emoji">📝</span>.05 Wh / .1 cc: generating text with an online chatbot (Luccioni 2024).</li>
+			<li><span class="emoji">💻</span>.01 Wh / .02 cc: Generating text with a local chatbot (30W * 0.5s).</li>
+		</ul>
+	</ol>
+	<h4>Sources:</h4>
+	<ul>
+		<li><a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references">EPA 2024 </a></li>
+		<li><a href="https://googleblog.blogspot.com/2009/01/powering-google-search.html">Google 2009 </a></li>
+		<li><a href="https://www.iea.org/commentaries/the-carbon-footprint-of-streaming-video-fact-checking-the-headlines">Kamiya 2020 </a></li>
+		<li><a href="https://eta-publications.lbl.gov/sites/default/files/lbnl-1005775_v2.pdf">Lawrence 2016 </a></li>
+		<li><a href="https://arxiv.org/html/2311.16863v3">Luccioni 2024 </a></li>
+		<li><a href="https://www.sustainabilitybynumbers.com/p/ai-energy-demand">Ritchie 2024 </a></li>
+	</ul>
+</body>
+
+</html>
