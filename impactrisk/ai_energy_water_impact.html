@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="A project by Jon Ippolito">
-	<title>8 Takeaways about AI energy and water usage</title>
+	<title>9 Takeaways about AI energy and water usage</title>
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
 <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -1245,47 +1245,48 @@
 		<a href="https://LearnWithAI.org"><img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080"></a>
 		<h2>AI's impact on energy and water usage</h2>
 		<div class="caption" id="version">
-			Version 1.1 by <a href="https://jonippolito.net">Jon Ippolito</a> for <a href="https://LearnWithAI.org">Learning With AI</a>
-			<!-- ai_energy_water_impact.html v1.1, with IMPACT RISK dark style, better references. -->
+			Version 1.3 by <a href="https://jonippolito.net">Jon Ippolito</a> for <a href="https://LearnWithAI.org">Learning With AI</a>
+			<!-- ai_energy_water_impact.html v1.3, clarified 2% and ccs of water, revised TV figures. Ilya Kashnitsky noticed Kamiya's numbers are inconsistent; if you read his chart, the 50-inch TV is 120Wh, which seems hard to reconcile with his ballpark claim that smartphones are "100x" as efficient as TVs. In response to these contradictory numbers, I've "split the difference" and revised the 4000 Wh / 8 L figure down to 2000Wh / 4 L. -->
 		</div>
 	</div>
 	<main>
-		<p>It's hard to keep up with studies of the energy impact of generative AI, so here are 8 takeaways from the sources I have personally found most illuminating.</p>
+		<p><img src="media/cooling_towers_bridge_river_cc0_xvga.jpg" alt="Cooling towers" style="float: right; margin:0 0 .5em 1em; width: 45%;">It's hard to keep up with studies of the energy impact of generative AI, so here are nine takeaways from the sources I have personally found most illuminating.</p>
 		<p>This list aims for a "just the facts" approach that sidesteps the dueling interpretations of AI champions and critics. I'm also using one set of measures rather than comparing apples to oranges, specifically:</p>
 		<ul class="list-small">
 			<li><span class="emoji">💡</span>watt-hour (running an incandescent light bulb for 1 minute)</li>
 			<li><span class="emoji">🥤</span>liter (about a quart)</li>
 			<li><span class="emoji">☔️</span>cubic centimeter (a raindrop).</li>
 		</ul>
-		<p>This list assesses only energy and water usage, and not actual environmental impact. I'm neither a climate scientist nor an electrical engineer; these are only my rough estimates based on academic studies, industry reports, or back-of-the envelope calculations. This list also excludes numerous potential AI downsides apart from environmental risks, which you can find explained in the <a href="https://AI-Impact-Risk.com">IMPACT RISK</a> framework.</p>
+		<p>This list assesses only energy and water usage, and not actual environmental impact. I'm neither a climate scientist nor an electrical engineer; these are only my rough estimates based on academic studies, industry reports, or back-of-the envelope calculations. It's unclear how some future tradeoffs will play out, eg whether improved efficiencies will cancel out increased demand. This list also excludes numerous potential AI downsides apart from environmental risks, which you can find explained in the <a href="https://AI-Impact-Risk.com">IMPACT RISK</a> framework.</p>
 		<p>I welcome suggestions of research that updates or contradicts these findings.</p>
-		<h3>8 takeaways from recent research</h3>
+		<h3>9 takeaways from recent research</h3>
 		<ol class="list-large">
-			<li><span class="emoji">🙈</span>Lack of transparency by AI companies means usage calculations at this point are only estimates.</li>
-			<li><span class="emoji">🌍</span>Water and energy impacts are extremely localized; eg the stress on Ireland's water and grid is much higher than Norway's due to the latter's hydropower and cool climate.</li>
-			<li><span class="emoji">🔌</span>Large models consume disproportionately more energy and water than smaller ones.</li>
-			<li><span class="emoji">🏋️</span>Training consumes more energy and water than inference (prompting).</li>
-			<li><span class="emoji">🏛</span>Policy changes by new administrations can result in more or less climate impact for the same energy consumption.<br></li>
-			<li><span class="emoji">📊</span>Data centers are currently 2% of global energy demand (Ritchie 2024).<br></li>
+			<li><span class="emoji">🙈</span>1. Lack of transparency by AI companies means usage calculations at this point are only estimates.</li>
+			<li><span class="emoji">🌍</span>2. Water and energy impacts are extremely localized; eg the stress on Ireland's water and grid is much higher than Norway's due to the latter's hydropower and cool climate.</li>
+			<li><span class="emoji">🔌</span>3. Large models consume disproportionately more energy and water than smaller ones.</li>
+			<li><span class="emoji">🏋️</span>4. Training consumes more energy and water than inference (prompting).</li>
+			<li><span class="emoji">🏛</span>5. Policy changes by new administrations can result in more or less climate impact for the same energy consumption.<br></li>
+			<li><span class="emoji">📊</span>6. Data centers are currently 2% of global energy demand (Ritchie 2024).<br></li>
 			<ul>
 				<li><span class="emoji">🪙</span>Crypto is responsible for somewhere around 25% of the energy used by data centers.<br></li>
 				<li><span class="emoji">📱</span>Social media and data usage currently consume most of the rest.</li>
-				<li><span class="emoji">🤖</span>AI is responsible for only 2% of data center energy demand (Ritchie 2024). </li>
+				<li><span class="emoji">🤖</span>AI is responsible for only 2% of data center energy demand, ie 2% x 2% = .04% of global demand (Ritchie 2024). </li>
 			</ul>
-			<li><span class="emoji">💻</span>Prompting a local model on a laptop requires no water and uses 1-10% of the energy of prompting a model in a data center.</li>
-			<li><span class="emoji">🚰</span>Cooling a data center requires about 2 cubic centimeters per watt-hour regardless of task (Lawrence 2016).</li>
-			<li><span class="emoji">⚖️</span>Comparisons (approximate Watt-hours and liters or ccs):</li>
+			<li><span class="emoji">💻</span>7. Prompting a local model on a laptop requires no water and uses 1-10% of the energy of prompting a model in a data center.</li>
+			<li><span class="emoji">🚰</span>8. Cooling a data center requires about 2 cubic centimeters of water per watt-hour regardless of task (Lawrence 2016).</li>
+			<li><span class="emoji">⚖️</span>9. Comparisons can be surprising (approximate Watt-hours and liters or ccs):</li>
 			<ul>
-				<li><span class="emoji">📺</span>4000 Wh / 8 L: hour-long video streamed on a big TV (Kamiya 2020).<br></li>
+				<li><span class="emoji">📺</span>2000 Wh / 4 L: hour-long video streamed on a big TV (Kamiya 2020).<br></li>
 				<li><span class="emoji">🎦</span>1000 Wh / 1 L: hour-long Zoom call with 10 people (devices 600 + transmission 200 + server-processing 200).</li>
 				<li><span class="emoji">🪫</span>20 Wh / 40 cc: charging a smartphone (EPA 2024).<br></li>
 				<li><span class="emoji">🖼</span>3 Wh / 6 cc: generating an image online (Luccioni 2024).</li>
 				<li><span class="emoji">🔍</span>.3 Wh / .6 cc: one non-AI Google search (Google 2009).<br></li>
 				<li><span class="emoji">📝</span>.05 Wh / .1 cc: generating text with an online chatbot (Luccioni 2024).</li>
-				<li><span class="emoji">💻</span>.01 Wh / .02 cc: Generating text with a local chatbot (30W * 0.5s).</li>
+				<li><span class="emoji">💻</span>.01 Wh / .02 cc: Generating text with a local chatbot (30W x 1s).</li>
 			</ul>
 		</ol>
-		<h4>Sources:</h4>
+		<hr />
+		<h3>Sources</h3>
 		<ul>
 			<li>EPA, <a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references">Greenhouse Gas Equivalencies Calculator - Calculations and References</a>, 2024</li>
 			<li>Google, <a href="https://googleblog.blogspot.com/2009/01/powering-google-search.html">Powering a Google search</a>, 2009 </li>
@@ -1294,6 +1295,7 @@
 			<li>Luccioni, <a href="https://arxiv.org/html/2311.16863v3">Power Hungry Processing</a>, 2024 </li>
 			<li>Ritchie, <a href="https://www.sustainabilitybynumbers.com/p/ai-energy-demand">What’s the impact of artificial intelligence on energy demand?</a>, 2024 </li>
 		</ul>
+		<p class="caption" style="text-align: right;">Public domain cooling tower photograph via picryl.com (CC0).</p>
 </body>
 
 </html>
