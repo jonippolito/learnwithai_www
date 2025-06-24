@@ -191,8 +191,11 @@
 
     <script>
         // Generalized function to fetch and parse Google Sheet data
-        async function fetchSheetData(sheetId) {
-            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+        async function fetchSheetData(sheetId, gid = null) {
+            let url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+            if (gid) {
+                url += `&gid=${gid}`;
+            }
             const response = await fetch(url);
             const text = await response.text();
             const json = JSON.parse(text.substr(47).slice(0, -2));
@@ -200,9 +203,10 @@
             return rows;
         }
 
-        // Fetch energy values for tasks
+        // Fetch energy values for tasks (first tab)
         async function getEnergyValues() {
             const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            // Default tab (no gid needed)
             const rows = await fetchSheetData(sheetId);
             let energyValues = {};
             rows.forEach(row => {
@@ -215,13 +219,11 @@
             return energyValues;
         }
 
-        // Fetch factors for switches (parameters)
+        // Fetch factors for switches (second tab, gid=1688264219)
         async function getFactorValues() {
-            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY"; // The new sheet id if different
-            // If the factors are on a different sheet, replace the above id with the new one
-            // For your prompt, use: 1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY (gid=1688264219)
-            const factorSheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
-            const rows = await fetchSheetData(factorSheetId);
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            const gid = "1688264219";
+            const rows = await fetchSheetData(sheetId, gid);
             let factorValues = {};
             rows.forEach(row => {
                 let factorName = row.c[0] || { v: "" };
@@ -245,7 +247,8 @@
             });
         }
 
-        document.getElementById("first-task").addEventListener("change", syncSecondMenu);
+        // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
+        // document.getElementById("first-task").addEventListener("change", syncSecondMenu);
 
         async function calculate() {
             // Fetch data if not already loaded
@@ -265,28 +268,40 @@
             let secondEnergy = energyData[secondTask];
 
             // Get selected factors for first task
-            const firstLocation = document.getElementById("first-task-location").value;
-            const firstComplexity = document.getElementById("first-task-complexity").value;
-            const firstPromptCount = document.getElementById("first-task-prompt-count").value;
-            const firstSeason = document.getElementById("first-task-season").value;
+            const firstLocation = document.getElementById("first-task-location");
+            const firstLocationText = firstLocation.options[firstLocation.selectedIndex].text;
+            console.log(`%c In calculate() %c firstLocationText %c is %c  ${firstLocationText}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
+
+            const firstComplexity = document.getElementById("first-task-complexity");
+            const firstComplexityText = firstComplexity.options[firstComplexity.selectedIndex].text;
+            const firstPromptCount = document.getElementById("first-task-prompt-count");
+            const firstPromptCountText = firstPromptCount.options[firstPromptCount.selectedIndex].text;
+            const firstSeason = document.getElementById("first-task-season");
+            const firstSeasonText = firstSeason.options[firstSeason.selectedIndex].text;
 
             // Multiply by all relevant factors for first task
             let firstProduct = firstEnergy;
-            [firstLocation, firstComplexity, firstPromptCount, firstSeason].forEach(factor => {
+            [firstLocationText, firstComplexityText, firstPromptCountText, firstSeasonText].forEach(factor => {
+                console.log(`%c In calculate %c factorValues[factor] for ${factor} %c is %c  ${factorValues[factor]}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
+
                 if (factorValues[factor]) {
                     firstProduct *= factorValues[factor];
                 }
             });
 
             // Get selected factors for second task
-            const secondLocation = document.getElementById("second-task-location").value;
-            const secondComplexity = document.getElementById("second-task-complexity").value;
-            const secondPromptCount = document.getElementById("second-task-prompt-count").value;
-            const secondSeason = document.getElementById("second-task-season").value;
+            const secondLocation = document.getElementById("second-task-location");
+            const secondLocationText = secondLocation.options[secondLocation.selectedIndex].text;
+            const secondComplexity = document.getElementById("second-task-complexity");
+            const secondComplexityText = secondComplexity.options[secondComplexity.selectedIndex].text;
+            const secondPromptCount = document.getElementById("second-task-prompt-count");
+            const secondPromptCountText = secondPromptCount.options[secondPromptCount.selectedIndex].text;
+            const secondSeason = document.getElementById("second-task-season");
+            const secondSeasonText = secondSeason.options[secondSeason.selectedIndex].text;
 
             // Multiply by all relevant factors for second task
             let secondProduct = secondEnergy;
-            [secondLocation, secondComplexity, secondPromptCount, secondSeason].forEach(factor => {
+            [secondLocationText, secondComplexityText, secondPromptCountText, secondSeasonText].forEach(factor => {
                 if (factorValues[factor]) {
                     secondProduct *= factorValues[factor];
                 }
@@ -300,7 +315,8 @@
         }
 
         // Initialize on page load
-        window.addEventListener("DOMContentLoaded", syncSecondMenu);
+        // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
+        // window.addEventListener("DOMContentLoaded", syncSecondMenu);
     </script>
 </body>
 
