@@ -46,6 +46,10 @@
             border-top: 1px solid #ccc;
             padding-top: 15px;
         }
+
+        .units-col {
+            min-width: 200px;
+        }
     </style>
 </head>
 
@@ -55,17 +59,13 @@
     <div class="calculator-grid">
         <fieldset class="left-col">
             <legend>Task</legend>
-            <label for="ai-task">Generate with a text prompt</label>
-            <select id="ai-task">
+            <label for="first-task">First task</label>
+            <select id="first-task">
                 <option value="Paragraph of AI text">Paragraph of AI text</option>
                 <option value="10 lines of AI code">10 lines of AI code</option>
                 <option value="1024x1024 AI image">1024x1024 AI image</option>
                 <option value="3-second AI video from text">3-second AI video from text</option>
                 <option value="3-second AI video from image">3-second AI video from image</option>
-            </select>
-
-            <label for="non-ai-task">Non-AI equivalent</label>
-            <select id="non-ai-task">
                 <option value="Searching Google without AI">Searching Google without AI</option>
                 <option value="Charging a smartphone">Charging a smartphone</option>
                 <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
@@ -73,19 +73,21 @@
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
 
-            <label for="energy-units">Output units:</label>
-            <select id="energy-units">
-                <option value="Wh">Watt-hours (Wh)</option>
-                <option value="J">Joules (J)</option>
-                <option value="gCO2">Grams of CO₂ (gCO2)</option>
-            </select>
-
-            <label for="water-units">Water units:</label>
-            <select id="water-units">
-                <option value="cc">Cubic centimeters</option>
-                <option value="l">Liters</option>
+            <label for="second-task">Second task (for comparison)</label>
+            <select id="second-task">
+                <option value="Paragraph of AI text">Paragraph of AI text</option>
+                <option value="10 lines of AI code">10 lines of AI code</option>
+                <option value="1024x1024 AI image">1024x1024 AI image</option>
+                <option value="3-second AI video from text">3-second AI video from text</option>
+                <option value="3-second AI video from image">3-second AI video from image</option>
+                <option value="Searching Google without AI">Searching Google without AI</option>
+                <option value="Charging a smartphone">Charging a smartphone</option>
+                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
+                <option value="Watching 2-hour Netflix movie">Watching 2-hour Netflix movie</option>
+                <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
         </fieldset>
+
         <fieldset class="right-col">
             <legend>Parameters</legend>
             <div class="switch">
@@ -125,13 +127,29 @@
                 </label>
             </div>
         </fieldset>
+
+        <fieldset class="units-col" style="min-width: 200px;">
+            <legend>Units</legend>
+            <label for="energy-units">Output units:</label>
+            <select id="energy-units">
+                <option value="Wh">Watt-hours (Wh)</option>
+                <option value="J">Joules (J)</option>
+                <option value="gCO2">Grams of CO₂ (gCO2)</option>
+            </select>
+
+            <label for="water-units">Water units:</label>
+            <select id="water-units">
+                <option value="cc">Cubic centimeters</option>
+                <option value="l">Liters</option>
+            </select>
+        </fieldset>
     </div>
 
     <button onclick="calculate()">Calculate</button>
 
     <div class="output">
-        <p>AI task energy: <span id="ai-energy">--</span> <span id="ai-emoji"></span></p>
-        <p>Equivalent non-AI units: <span id="nonai-equivalent">--</span> <span id="nonai-emoji"></span></p>
+        <p>First footprint: <span id="first-footprint">--</span> <span id="first-emoji"></span></p>
+        <p>Second footprint: <span id="second-footprint">--</span> <span id="second-emoji"></span></p>
     </div>
 
     <script>
@@ -165,23 +183,36 @@
 
         let energyData = null;
 
+        // Disable the selected option in the second menu
+        function syncSecondMenu() {
+            const firstTask = document.getElementById("first-task").value;
+            const secondTaskMenu = document.getElementById("second-task");
+            Array.from(secondTaskMenu.options).forEach(option => {
+                option.disabled = (option.value === firstTask);
+            });
+        }
+
+        document.getElementById("first-task").addEventListener("change", syncSecondMenu);
+
         async function calculate() {
             // Fetch data if not already loaded
             if (!energyData) {
                 energyData = await fetchSheetData();
             }
 
-            // Example usage:
-            const aiTask = document.getElementById("ai-task").value;
-            const nonAITask = document.getElementById("non-ai-task").value;
+            // Use new task selectors
+            const firstTask = document.getElementById("first-task").value;
+            const secondTask = document.getElementById("second-task").value;
 
-            const aiEnergy = energyData[aiTask];
-            const nonAIEnergy = energyData[nonAITask];
+            const firstEnergy = energyData[firstTask];
+            const secondEnergy = energyData[secondTask];
 
-            // ...rest of your calculation logic using aiEnergy and nonAIEnergy...
-            document.getElementById("ai-energy").textContent = aiEnergy !== undefined ? aiEnergy : "--";
-            document.getElementById("nonai-equivalent").textContent = nonAIEnergy !== undefined ? nonAIEnergy : "--";
+            document.getElementById("first-footprint").textContent = firstEnergy !== undefined ? firstEnergy : "--";
+            document.getElementById("second-footprint").textContent = secondEnergy !== undefined ? secondEnergy : "--";
         }
+
+        // Initialize on page load
+        window.addEventListener("DOMContentLoaded", syncSecondMenu);
     </script>
 </body>
 
