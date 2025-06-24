@@ -207,20 +207,27 @@
             return rows;
         }
 
-        // Fetch energy values for tasks (first tab)
-        async function getEnergyValues() {
+        // Fetch task values for tasks (first tab)
+        async function getTaskValues() {
             const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
             // Default tab (no gid needed)
             const rows = await fetchSheetData(sheetId);
-            let energyValues = {};
+            let taskValues = {};
+            let taskScope = {};
             rows.forEach(row => {
                 let taskPair = row.c[0] || { v: "" };
                 let energyPair = row.c[1] || { v: "" };
+                let scopeValue = row.c[2] || { v: "" };
                 if (taskPair.v && energyPair.v) {
-                    energyValues[taskPair.v] = parseFloat(energyPair.v);
+                    taskValues[taskPair.v] = parseFloat(energyPair.v);
+                    if (scopeValue.v) {
+                        taskScope[taskPair.v] = scopeValue.v;
+                    }
                 }
             });
-            return energyValues;
+            // Attach scope as a property for easy lookup
+            taskValues.taskScope = taskScope;
+            return taskValues;
         }
 
         // Fetch factors for switches (second tab, gid=1688264219)
@@ -229,17 +236,24 @@
             const gid = "1688264219";
             const rows = await fetchSheetData(sheetId, gid);
             let factorValues = {};
+            let factorScope = {};
             rows.forEach(row => {
                 let factorName = row.c[0] || { v: "" };
                 let factorValue = row.c[1] || { v: "" };
+                let scopeValue = row.c[2] || { v: "" };
                 if (factorName.v && factorValue.v) {
                     factorValues[factorName.v] = parseFloat(factorValue.v);
+                    if (scopeValue.v) {
+                        factorScope[factorName.v] = scopeValue.v;
+                    }
                 }
             });
+            // Attach scope as a property for easy lookup
+            factorValues.factorScope = factorScope;
             return factorValues;
         }
 
-        let energyData = null;
+        let taskData = null;
         let factorValues = null;
 
         // Disable the selected option in the second menu
@@ -258,8 +272,8 @@
 
         async function calculate() {
             // Fetch data if not already loaded
-            if (!energyData) {
-                energyData = await getEnergyValues();
+            if (!taskData) {
+                taskData = await getTaskValues();
             }
             if (!factorValues) {
                 factorValues = await getFactorValues();
@@ -270,8 +284,8 @@
             const secondTask = document.getElementById("second-task").value;
 
             // Get base energy values
-            let firstEnergy = energyData[firstTask];
-            let secondEnergy = energyData[secondTask];
+            let firstEnergy = taskData[firstTask];
+            let secondEnergy = taskData[secondTask];
 
             // Get selected factors for first task
             const firstLocation = document.getElementById("first-task-location");
