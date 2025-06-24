@@ -184,11 +184,15 @@
 
     <button onclick="calculate()">Calculate</button>
 
-    <div class="output">
-        <p>First footprint: <span id="first-footprint">--</span> <span id="first-emoji"></span></p>
-        <p>Second footprint: <span id="second-footprint">--</span> <span id="second-emoji"></span></p>
+    <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
+        <div>
+            <p>First footprint: <span id="first-footprint">--</span></p>
+            <p>Second footprint: <span id="second-footprint">--</span></p>
+        </div>
+        <div id="bar-chart" style="width: 220px; height: 120px; display: flex; align-items: flex-end;"></div>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         // Generalized function to fetch and parse Google Sheet data
         async function fetchSheetData(sheetId, gid = null) {
@@ -250,6 +254,8 @@
         // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
         // document.getElementById("first-task").addEventListener("change", syncSecondMenu);
 
+        let chartInstance = null;
+
         async function calculate() {
             // Fetch data if not already loaded
             if (!energyData) {
@@ -270,8 +276,6 @@
             // Get selected factors for first task
             const firstLocation = document.getElementById("first-task-location");
             const firstLocationText = firstLocation.options[firstLocation.selectedIndex].text;
-            console.log(`%c In calculate() %c firstLocationText %c is %c  ${firstLocationText}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
-
             const firstComplexity = document.getElementById("first-task-complexity");
             const firstComplexityText = firstComplexity.options[firstComplexity.selectedIndex].text;
             const firstPromptCount = document.getElementById("first-task-prompt-count");
@@ -282,8 +286,6 @@
             // Multiply by all relevant factors for first task
             let firstProduct = firstEnergy;
             [firstLocationText, firstComplexityText, firstPromptCountText, firstSeasonText].forEach(factor => {
-                console.log(`%c In calculate %c factorValues[factor] for ${factor} %c is %c  ${factorValues[factor]}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
-
                 if (factorValues[factor]) {
                     firstProduct *= factorValues[factor];
                 }
@@ -312,11 +314,48 @@
                 (firstProduct !== undefined && !isNaN(firstProduct)) ? firstProduct.toFixed(3) : "--";
             document.getElementById("second-footprint").textContent =
                 (secondProduct !== undefined && !isNaN(secondProduct)) ? secondProduct.toFixed(3) : "--";
+
+            // Draw bar chart
+            drawBarChart(firstProduct, secondProduct);
         }
 
-        // Initialize on page load
-        // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
-        // window.addEventListener("DOMContentLoaded", syncSecondMenu);
+        function drawBarChart(first, second) {
+            const ctxId = "bar-chart-canvas";
+            let chartDiv = document.getElementById("bar-chart");
+            chartDiv.innerHTML = `<canvas id="${ctxId}" width="200" height="100"></canvas>`;
+            const ctx = document.getElementById(ctxId).getContext("2d");
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['First', 'Second'],
+                    datasets: [{
+                        label: 'Footprint',
+                        data: [
+                            (first !== undefined && !isNaN(first)) ? first : 0,
+                            (second !== undefined && !isNaN(second)) ? second : 0
+                        ],
+                        backgroundColor: ['#4e79a7', '#f28e2b']
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Footprint' }
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 
