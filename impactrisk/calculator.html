@@ -256,18 +256,47 @@
                 factorValues = await getFactorValues();
             }
 
-            // Use new task selectors
+            // Get selected tasks
             const firstTask = document.getElementById("first-task").value;
             const secondTask = document.getElementById("second-task").value;
 
-            const firstEnergy = energyData[firstTask];
-            const secondEnergy = energyData[secondTask];
+            // Get base energy values
+            let firstEnergy = energyData[firstTask];
+            let secondEnergy = energyData[secondTask];
 
-            // Example: how to use factorValues
-            // let locationFactor = factorValues["Solar-powered (CA)"];
+            // Get selected factors for first task
+            const firstLocation = document.getElementById("first-task-location").value;
+            const firstComplexity = document.getElementById("first-task-complexity").value;
+            const firstPromptCount = document.getElementById("first-task-prompt-count").value;
+            const firstSeason = document.getElementById("first-task-season").value;
 
-            document.getElementById("first-footprint").textContent = firstEnergy !== undefined ? firstEnergy : "--";
-            document.getElementById("second-footprint").textContent = secondEnergy !== undefined ? secondEnergy : "--";
+            // Multiply by all relevant factors for first task
+            let firstProduct = firstEnergy;
+            [firstLocation, firstComplexity, firstPromptCount, firstSeason].forEach(factor => {
+                if (factorValues[factor]) {
+                    firstProduct *= factorValues[factor];
+                }
+            });
+
+            // Get selected factors for second task
+            const secondLocation = document.getElementById("second-task-location").value;
+            const secondComplexity = document.getElementById("second-task-complexity").value;
+            const secondPromptCount = document.getElementById("second-task-prompt-count").value;
+            const secondSeason = document.getElementById("second-task-season").value;
+
+            // Multiply by all relevant factors for second task
+            let secondProduct = secondEnergy;
+            [secondLocation, secondComplexity, secondPromptCount, secondSeason].forEach(factor => {
+                if (factorValues[factor]) {
+                    secondProduct *= factorValues[factor];
+                }
+            });
+
+            // Report results
+            document.getElementById("first-footprint").textContent =
+                (firstProduct !== undefined && !isNaN(firstProduct)) ? firstProduct.toFixed(3) : "--";
+            document.getElementById("second-footprint").textContent =
+                (secondProduct !== undefined && !isNaN(secondProduct)) ? secondProduct.toFixed(3) : "--";
         }
 
         // Initialize on page load
