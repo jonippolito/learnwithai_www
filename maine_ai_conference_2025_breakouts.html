@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Crowdsourced Insights from the 2025 Maine AI Conference</title>
+    <style>
+        :root {
+            interpolate-size: allow-keywords
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, hsl(229, 28%, 20%) 0%, hsl(222, 16%, 12%) 100%);
+            color: #f9f9fb;
+            margin: 2rem;
+            line-height: 1.7;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 2rem;
+            color: #a9c6df;
+            margin-bottom: 1.2rem;
+        }
+
+        ul {
+            background: #222;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.06);
+            padding: 2rem 2.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        li {
+            margin-bottom: 1.5rem;
+            padding-left: 0.5rem;
+        }
+
+        strong {
+            color: #6be7d6;
+        }
+
+        @media (max-width: 600px) {
+            ul {
+                padding: 1rem;
+            }
+        }
+
+        .insights-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(700px, 1fr));
+            gap: 1.5rem;
+        }
+
+        summary {
+            font-size: 1.7rem;
+            color: #a9c6df;
+            margin-bottom: 0.5rem;
+        }
+
+        .insights-grid>details {
+            background: #181818;
+            color: #f9f9fb;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(44, 62, 80, 0.10);
+            padding: 1.5rem;
+            /* transition: background 0.3s ease; */
+            overflow: hidden;
+
+        }
+
+        details::details-content {
+            color: hsl(0 0% 78%);
+            font-size: 1rem;
+            block-size: 0;
+            transition: block-size 1s, content-visibility 1s;
+            transition-behavior: allow-discrete;
+        }
+
+        details:open::details-content {
+            block-size: auto;
+        }
+
+        strong {
+            color: azure;
+            font-weight: normal;
+            text-shadow: 0 0 .4em .6em lime;
+        }
+
+        a {
+            color: deepskyblue;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            text-decoration: underline;
+            color: lime;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; align-items: center; gap: 1.5rem; margin-bottom: 1.5rem;">
+        <img src="media/umaine_ai_logo.jpg" alt="Conference Logo" style="max-width: 200px; height: auto; display: block;">
+        <h1 style="margin: 0;">Crowdsourced Insights from the 2025 Maine AI Conference</h1>
+    </div>
+    <div style="display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; margin-bottom: 2rem;">
+        <div style="flex: 1 1 320px; min-width: 260px; max-width: 600px;">
+            <p>In addition to expert panels on topics from AI in biomedical research or the legal quandaries of AI images, the <a href="https://ai.umaine.edu/ai-conference/">2025 Maine AI Conference</a> offered a novel way to network with other AI thinkers in the region. Attenders voted on topics of interest in real time, and the most compelling themes became hubs for focused conversation. Recurring breakout discussions between panels offered a chance to connect with peers pursuing similar lines of inquiry.</p>
+            <p>Following the last breakout session, the organizers collected thoughts and questions that attenders added to post-its at each table, then prompted ChatGPT to summarize the key takeaways. The result, compiled below, represents insights to emerge from the range of professions and disciplines represented by participants.</p>
+        </div>
+        <div style="flex: 1 1 320px; min-width: 220px; max-width: 480px; display: flex; justify-content: center;">
+            <img src="media/25orono_maine_ai_conference_breakout_xvga.jpg" alt="Breakout Session" style="max-width: 100%; height: auto; display: block; margin-bottom: 0;" />
+        </div>
+    </div>
+    <div class="insights-grid">
+        <details>
+            <summary>AI’s <strong>environmental cost</strong> is now a mainstream concern—but not an argument-stopper.</summary>
+            <span>Attendees raised tough but constructive questions about energy use, carbon impact, and whether AI-driven efficiency is worth the tradeoff. These weren’t deal-breakers but calls for more thoughtful design and deployment, suggesting that environmental accountability is becoming a standard expectation, not a fringe worry.</span>
+        </details>
+        <details>
+            <summary><strong>Bias</strong> isn’t just a technical problem—it’s a cultural and contextual one.</summary>
+            <span>Comments emphasized that addressing AI bias requires more than better training data; it demands attention to the human contexts around data and decisions. This wasn’t defeatist—it was a reminder that nuance and equity must be part of AI literacy and governance from the start.</span>
+        </details>
+        <details>
+            <summary>AI is reshaping <strong>job ladders</strong>, not just job counts.</summary>
+            <span>Rather than blanket fears of automation, the Creative/Tech table focused on subtler shifts: juniors struggling to get hired, professionals wondering how to “thread the needle” of AI transformation, and senior developers using tools like Claude to deepen their craft. These are signals of a workplace evolving, not collapsing.</span>
+        </details>
+        <details>
+            <summary><strong>Emerging roles</strong>: from coder to curator, writer to editor.</summary>
+            <span>Multiple notes proposed that students and workers alike will need to master overseeing AI—crafting prompts, editing results, and architecting workflows—rather than doing everything from scratch. This reframing sees AI not as a crutch but a catalyst for higher-level thinking.</span>
+        </details>
+        <details>
+            <summary>Educators are rethinking both <strong>the what and the why of learning</strong>.</summary>
+            <span>Post-its pushed beyond plagiarism panic to ask: How can we use AI to deepen inquiry? What happens if students “do the assignment with AI” and reflect on it? What does authentic assessment mean now? One group even suggested drawing from oral exam traditions to reconnect learning with real-time thought.</span>
+        </details>
+        <details>
+            <summary>Speculative futures like <strong>UBI and personal AI agents</strong> are now discussion-worthy, not sci-fi.</summary>
+            <span>The suggestion that AI might attend interviews for you or that basic income might be needed weren’t jokes—they were taken seriously as provocative, necessary thought experiments. These show a shift in the conversation from “what is AI doing now?” to “what kind of society do we want as a result?”</span>
+        </details>
+        <details>
+            <summary>AI can <strong>amplify</strong> creativity—but may also flood the zone.</summary>
+            <span>One note asked whether human-made creative work will gain value in a world of “AI slop.” Others saw AI as a spark for brainstorming and experimentation. The takeaway: creative professionals aren’t just worried—they’re exploring how to stand out and stay relevant.</span>
+        </details>
+        <details>
+            <summary>Students can become <strong>bridge-builders</strong>—across disciplines, contexts, and AI outputs.</summary>
+            <span>Ideas like using AI to “make connections across distances and disciplines” and introducing “random noise” in the classroom highlight the excitement some educators feel about AI as a partner in expansive, interdisciplinary learning.</span>
+        </details>
+    </div>
+</body>
+
+
+</html>
