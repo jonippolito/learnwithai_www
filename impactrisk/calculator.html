@@ -25,7 +25,8 @@
         }
 
         .calculator-grid {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
             gap: 32px;
             align-items: flex-start;
             margin-bottom: 20px;
@@ -33,7 +34,6 @@
 
         .left-col,
         .right-col {
-            flex: 1 1 0;
             min-width: 250px;
         }
 
@@ -57,19 +57,33 @@
             <legend>Task</legend>
             <label for="ai-task">Generate with a text prompt</label>
             <select id="ai-task">
-                <option value="1 text paragraph">1 text paragraph</option>
-                <option value="10 lines of code">10 lines of code</option>
-                <option value="1 1024x1024 image">1 1024x1024 image</option>
-                <option value="1 3-second video">1 3-second video</option>
+                <option value="Paragraph of AI text">Paragraph of AI text</option>
+                <option value="10 lines of AI code">10 lines of AI code</option>
+                <option value="1024x1024 AI image">1024x1024 AI image</option>
+                <option value="3-second AI video from text">3-second AI video from text</option>
+                <option value="3-second AI video from image">3-second AI video from image</option>
             </select>
 
             <label for="non-ai-task">Non-AI equivalent</label>
             <select id="non-ai-task">
                 <option value="Searching Google without AI">Searching Google without AI</option>
                 <option value="Charging a smartphone">Charging a smartphone</option>
-                <option value="Storing 5 GB in the cloud (not transfer)">Storing 5 GB in the cloud (not transfer)</option>
+                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
                 <option value="Watching 2-hour Netflix movie">Watching 2-hour Netflix movie</option>
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+            </select>
+
+            <label for="energy-units">Output units:</label>
+            <select id="energy-units">
+                <option value="Wh">Watt-hours (Wh)</option>
+                <option value="J">Joules (J)</option>
+                <option value="gCO2">Grams of CO₂ (gCO2)</option>
+            </select>
+
+            <label for="water-units">Water units:</label>
+            <select id="water-units">
+                <option value="cc">Cubic centimeters</option>
+                <option value="l">Liters</option>
             </select>
         </fieldset>
         <fieldset class="right-col">
@@ -110,25 +124,6 @@
                     </select>
                 </label>
             </div>
-
-            <div class="switch">
-                <label>Output units:
-                    <select id="energy-units">
-                        <option value="Wh">Watt-hours (Wh)</option>
-                        <option value="J">Joules (J)</option>
-                        <option value="gCO2">Grams of CO₂ (gCO2)</option>
-                    </select>
-                </label>
-            </div>
-
-            <div class="switch">
-                <label>Water units:
-                    <select id="water-units">
-                        <option value="cc">Cubic centimeters</option>
-                        <option value="l">Liters</option>
-                    </select>
-                </label>
-            </div>
         </fieldset>
     </div>
 
@@ -140,51 +135,52 @@
     </div>
 
     <script>
-        function calculate() {
-            // Very rough placeholder values for demonstration
-            const baseEnergy = {
-                "1 text paragraph": 0.05,
-                "10 lines of code": 0.08,
-                "1 1024x1024 image": 2.0,
-                "1 3-second video": 6.0
-            };
-            const nonAIEquiv = {
-                "Charging a smartphone": 5,
-                "Watching 2-hour Netflix movie": 360,
-                "Storing 5 GB in the cloud (not transfer)": 15,
-                "Searching Google without AI": 0.3,
-                "Zooming for 1 hour with 10 people": 70
-            };
+        // Fetch and parse Google Sheet data for energy values
+        async function fetchSheetData() {
+            // Google Sheet as JSON endpoint
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
 
+            const response = await fetch(url);
+            const text = await response.text();
+            // Remove Google JSONP wrapper
+            const json = JSON.parse(text.substr(47).slice(0, -2));
+            const rows = json.table.rows;
+
+            // Parse rows into a single object for both AI and non-AI tasks
+            let energyValues = {};
+
+            rows.forEach(row => {
+                // Only two columns: [Task, Energy]
+                let taskPair = row.c[0] || { v: "" };
+                let energyPair = row.c[1] || { v: "" };
+
+                if (taskPair.v && energyPair.v) {
+                    energyValues[taskPair.v] = parseFloat(energyPair.v);
+                }
+            });
+
+            return energyValues;
+        }
+
+        let energyData = null;
+
+        async function calculate() {
+            // Fetch data if not already loaded
+            if (!energyData) {
+                energyData = await fetchSheetData();
+            }
+
+            // Example usage:
             const aiTask = document.getElementById("ai-task").value;
-            const nonAiTask = document.getElementById("non-ai-task").value;
-            const complexity = document.getElementById("complexity").value;
-            const promptCount = document.getElementById("prompt-count").value;
-            const location = document.getElementById("location").value;
-            const season = document.getElementById("season").value;
-            const units = document.getElementById("energy-units").value;
+            const nonAITask = document.getElementById("non-ai-task").value;
 
-            let energy = baseEnergy[aiTask] || 0.5;
+            const aiEnergy = energyData[aiTask];
+            const nonAIEnergy = energyData[nonAITask];
 
-            // Apply multipliers
-            if (complexity === "complex") energy *= 2;
-            if (complexity === "reasoning") energy *= 3;
-            if (promptCount === "multi") energy *= 2;
-            if (location === "coal") energy *= 1.5;
-            if (season === "winter") energy *= 1.1;
-
-            let emojiCount = Math.round(energy);
-            let nonAIenergy = nonAIEquiv[nonAiTask] || 1;
-            let equivalentUnits = (energy / nonAIenergy).toFixed(2);
-
-            // Unit conversion (to joules or CO2 as a very rough calc)
-            if (units === "J") energy *= 3600;
-            if (units === "gCO2") energy *= (location === "coal" ? 800 : 50); // very rough gCO2 per Wh
-
-            document.getElementById("ai-energy").textContent = energy.toFixed(2) + " " + units;
-            document.getElementById("ai-emoji").textContent = "💡".repeat(Math.min(emojiCount, 20));
-            document.getElementById("nonai-equivalent").textContent = equivalentUnits + " x " + nonAiTask;
-            document.getElementById("nonai-emoji").textContent = "🛰".repeat(Math.min(Math.round(equivalentUnits), 20));
+            // ...rest of your calculation logic using aiEnergy and nonAIEnergy...
+            document.getElementById("ai-energy").textContent = aiEnergy !== undefined ? aiEnergy : "--";
+            document.getElementById("nonai-equivalent").textContent = nonAIEnergy !== undefined ? nonAIEnergy : "--";
         }
     </script>
 </body>
