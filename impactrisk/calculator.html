@@ -190,35 +190,51 @@
     </div>
 
     <script>
-        // Fetch and parse Google Sheet data for energy values
-        async function fetchSheetData() {
-            // Google Sheet as JSON endpoint
-            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+        // Generalized function to fetch and parse Google Sheet data
+        async function fetchSheetData(sheetId) {
             const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
-
             const response = await fetch(url);
             const text = await response.text();
-            // Remove Google JSONP wrapper
             const json = JSON.parse(text.substr(47).slice(0, -2));
             const rows = json.table.rows;
+            return rows;
+        }
 
-            // Parse rows into a single object for both AI and non-AI tasks
+        // Fetch energy values for tasks
+        async function getEnergyValues() {
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            const rows = await fetchSheetData(sheetId);
             let energyValues = {};
-
             rows.forEach(row => {
-                // Only two columns: [Task, Energy]
                 let taskPair = row.c[0] || { v: "" };
                 let energyPair = row.c[1] || { v: "" };
-
                 if (taskPair.v && energyPair.v) {
                     energyValues[taskPair.v] = parseFloat(energyPair.v);
                 }
             });
-
             return energyValues;
         }
 
+        // Fetch factors for switches (parameters)
+        async function getFactorValues() {
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY"; // The new sheet id if different
+            // If the factors are on a different sheet, replace the above id with the new one
+            // For your prompt, use: 1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY (gid=1688264219)
+            const factorSheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            const rows = await fetchSheetData(factorSheetId);
+            let factorValues = {};
+            rows.forEach(row => {
+                let factorName = row.c[0] || { v: "" };
+                let factorValue = row.c[1] || { v: "" };
+                if (factorName.v && factorValue.v) {
+                    factorValues[factorName.v] = parseFloat(factorValue.v);
+                }
+            });
+            return factorValues;
+        }
+
         let energyData = null;
+        let factorValues = null;
 
         // Disable the selected option in the second menu
         function syncSecondMenu() {
@@ -234,7 +250,10 @@
         async function calculate() {
             // Fetch data if not already loaded
             if (!energyData) {
-                energyData = await fetchSheetData();
+                energyData = await getEnergyValues();
+            }
+            if (!factorValues) {
+                factorValues = await getFactorValues();
             }
 
             // Use new task selectors
@@ -243,6 +262,9 @@
 
             const firstEnergy = energyData[firstTask];
             const secondEnergy = energyData[secondTask];
+
+            // Example: how to use factorValues
+            // let locationFactor = factorValues["Solar-powered (CA)"];
 
             document.getElementById("first-footprint").textContent = firstEnergy !== undefined ? firstEnergy : "--";
             document.getElementById("second-footprint").textContent = secondEnergy !== undefined ? secondEnergy : "--";
