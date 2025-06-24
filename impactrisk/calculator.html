@@ -58,7 +58,7 @@
 
     <div class="calculator-grid">
         <fieldset class="left-col">
-            <legend>Task</legend>
+            <legend>First task</legend>
             <label for="first-task">First task</label>
             <select id="first-task">
                 <option value="Paragraph of AI text">Paragraph of AI text</option>
@@ -73,6 +73,46 @@
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
 
+            <div class="switch">
+                <label>Location:
+                    <select id="first-task-location">
+                        <option value="solar">Solar-powered (CA)</option>
+                        <option value="coal">Coal-powered (WV)</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Prompt complexity:
+                    <select id="first-task-complexity">
+                        <option value="simple">Simple</option>
+                        <option value="complex">Complex</option>
+                        <option value="reasoning">Reasoning</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Number of prompts:
+                    <select id="first-task-prompt-count">
+                        <option value="single">Single (zero-shot)</option>
+                        <option value="multi">Multi-step</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Season:
+                    <select id="first-task-season">
+                        <option value="summer">Summer</option>
+                        <option value="winter">Winter</option>
+                    </select>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset class="right-col">
+            <legend>Second task (for comparison)</legend>
             <label for="second-task">Second task (for comparison)</label>
             <select id="second-task">
                 <option value="Paragraph of AI text">Paragraph of AI text</option>
@@ -86,13 +126,10 @@
                 <option value="Watching 2-hour Netflix movie">Watching 2-hour Netflix movie</option>
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
-        </fieldset>
 
-        <fieldset class="right-col">
-            <legend>Parameters</legend>
             <div class="switch">
                 <label>Location:
-                    <select id="location">
+                    <select id="second-task-location">
                         <option value="solar">Solar-powered (CA)</option>
                         <option value="coal">Coal-powered (WV)</option>
                     </select>
@@ -101,7 +138,7 @@
 
             <div class="switch">
                 <label>Prompt complexity:
-                    <select id="complexity">
+                    <select id="second-task-complexity">
                         <option value="simple">Simple</option>
                         <option value="complex">Complex</option>
                         <option value="reasoning">Reasoning</option>
@@ -111,7 +148,7 @@
 
             <div class="switch">
                 <label>Number of prompts:
-                    <select id="prompt-count">
+                    <select id="second-task-prompt-count">
                         <option value="single">Single (zero-shot)</option>
                         <option value="multi">Multi-step</option>
                     </select>
@@ -120,7 +157,7 @@
 
             <div class="switch">
                 <label>Season:
-                    <select id="season">
+                    <select id="second-task-season">
                         <option value="summer">Summer</option>
                         <option value="winter">Winter</option>
                     </select>
