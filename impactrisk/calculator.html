@@ -335,23 +335,51 @@
             const energyUnitValue = energyUnitsMenu.value;
             const energyUnitLabel = energyUnitsMenu.options[energyUnitsMenu.selectedIndex].text;
 
+            let firstProductForWater = firstProduct;
+            let secondProductForWater = secondProduct;
+
             if (energyUnitValue === "J") {
                 const jouleFactor = factorValues["joules per watt-hour"] || 1;
                 firstProduct *= jouleFactor;
                 secondProduct *= jouleFactor;
+                // For water, keep the original Wh value
             } else if (energyUnitValue === "gCO2") {
                 const co2Factor = factorValues["grams of CO2 per watt-hour"] || 1;
                 firstProduct *= co2Factor;
                 secondProduct *= co2Factor;
+                // For water, keep the original Wh value
             }
 
-            // Report results using formatNumber and append the unit label
+            // Water units calculation (always based on Wh, not converted units)
+            const waterUnitsMenu = document.getElementById("water-units");
+            const waterUnitValue = waterUnitsMenu.value;
+            const waterUnitLabel = waterUnitsMenu.options[waterUnitsMenu.selectedIndex].text;
+
+            // Calculate water usage in cc
+            let firstWater = firstProductForWater * (factorValues["cubic centimeters per watt-hour"] || 0);
+            let secondWater = secondProductForWater * (factorValues["cubic centimeters per watt-hour"] || 0);
+
+            // If liters, convert
+            if (waterUnitValue === "l") {
+                firstWater *= (factorValues["liters per cubic centimeter"] || 0);
+                secondWater *= (factorValues["liters per cubic centimeter"] || 0);
+            }
+
+            // Format water output
+            function formatWater(num) {
+                if (Number.isInteger(num)) {
+                    return num.toString();
+                }
+                return num.toFixed(2);
+            }
+
+            // Report results using formatNumber and append the unit label and water in brackets
             document.getElementById("first-footprint").textContent =
                 (firstProduct !== undefined && !isNaN(firstProduct))
-                    ? `${formatNumber(firstProduct)} ${energyUnitLabel}` : "--";
+                    ? `${formatNumber(firstProduct)} ${energyUnitLabel} [${formatWater(firstWater)} ${waterUnitLabel}]` : "--";
             document.getElementById("second-footprint").textContent =
                 (secondProduct !== undefined && !isNaN(secondProduct))
-                    ? `${formatNumber(secondProduct)} ${energyUnitLabel}` : "--";
+                    ? `${formatNumber(secondProduct)} ${energyUnitLabel} [${formatWater(secondWater)} ${waterUnitLabel}]` : "--";
 
             // Draw bar chart
             drawBarChart(firstProduct, secondProduct);
