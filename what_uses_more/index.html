@@ -241,7 +241,7 @@
         </div>
     </dialog>
 
-    <div style="display: flex; align-items: center; gap: 18px; margin-bottom: 0.5em;">
+    <div id="logo" style="display: flex; align-items: center; gap: 18px; margin-bottom: 0.5em;">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 103.95 87.86" width="60" height="60" style="flex-shrink:0;">
             <style>
                 .logo-pale-celeste {
@@ -341,6 +341,12 @@
                     </select>
                 </label>
             </div>
+
+            <div class="switch">
+                <label for="first-task-quantity">Quantity
+                    <input type="number" id="first-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
+                </label>
+            </div>
         </fieldset>
 
         <fieldset class="fieldset-second-task">
@@ -393,6 +399,12 @@
                         <option value="summer">Summer</option>
                         <option value="winter">Winter</option>
                     </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label for="second-task-quantity">Quantity
+                    <input type="number" id="second-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
                 </label>
             </div>
         </fieldset>
@@ -572,6 +584,14 @@
                 }
                 secondProduct *= factorValue;
             });
+
+            // Get quantities
+            const firstQuantity = parseFloat(document.getElementById("first-task-quantity").value) || 1;
+            const secondQuantity = parseFloat(document.getElementById("second-task-quantity").value) || 1;
+
+            // Apply quantities
+            firstProduct *= firstQuantity;
+            secondProduct *= secondQuantity;
 
             // Handle energy units conversion
             const energyUnitsMenu = document.getElementById("energy-units");
