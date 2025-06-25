@@ -167,11 +167,11 @@
 
         <fieldset class="units-col" style="min-width: 200px;">
             <legend>Units</legend>
-            <label for="energy-units">Output units:</label>
+            <label for="energy-units">Energy units:</label>
             <select id="energy-units">
                 <option value="Wh">Watt-hours (Wh)</option>
                 <option value="J">Joules (J)</option>
-                <option value="gCO2">Grams of CO₂ (gCO2)</option>
+                <option value="gCO2">carbon equivalent (gCO2)</option>
             </select>
 
             <label for="water-units">Water units:</label>
@@ -330,11 +330,28 @@
                 secondProduct *= factorValue;
             });
 
-            // Report results using formatNumber
+            // Handle energy units conversion
+            const energyUnitsMenu = document.getElementById("energy-units");
+            const energyUnitValue = energyUnitsMenu.value;
+            const energyUnitLabel = energyUnitsMenu.options[energyUnitsMenu.selectedIndex].text;
+
+            if (energyUnitValue === "J") {
+                const jouleFactor = factorValues["joules per watt-hour"] || 1;
+                firstProduct *= jouleFactor;
+                secondProduct *= jouleFactor;
+            } else if (energyUnitValue === "gCO2") {
+                const co2Factor = factorValues["grams of CO2 per watt-hour"] || 1;
+                firstProduct *= co2Factor;
+                secondProduct *= co2Factor;
+            }
+
+            // Report results using formatNumber and append the unit label
             document.getElementById("first-footprint").textContent =
-                (firstProduct !== undefined && !isNaN(firstProduct)) ? formatNumber(firstProduct) : "--";
+                (firstProduct !== undefined && !isNaN(firstProduct))
+                    ? `${formatNumber(firstProduct)} ${energyUnitLabel}` : "--";
             document.getElementById("second-footprint").textContent =
-                (secondProduct !== undefined && !isNaN(secondProduct)) ? formatNumber(secondProduct) : "--";
+                (secondProduct !== undefined && !isNaN(secondProduct))
+                    ? `${formatNumber(secondProduct)} ${energyUnitLabel}` : "--";
 
             // Draw bar chart
             drawBarChart(firstProduct, secondProduct);
