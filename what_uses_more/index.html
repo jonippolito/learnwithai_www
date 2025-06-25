@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>What Uses More? AI Energy and Water Guestimator</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         /* Uses custom CSS properties and fonts from learnwithai-design-style-v1.1 */
 
@@ -99,7 +100,7 @@
 
         .Guestimator-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 32px;
             align-items: flex-start;
             margin-bottom: 20px;
