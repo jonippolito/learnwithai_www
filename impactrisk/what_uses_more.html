@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>What Uses More? AI Energy and Water Guestimator</title>
+    <style>
+        /* Uses custom CSS properties and fonts from learnwithai-design-style-v1.1 */
+
+        :root {
+            --container-width: 1000px;
+            --margin-wide: 40px;
+            --padding-padlet: 1em;
+            --padding-section: 1em;
+            --event-min-height: 100px;
+            --lexia-transition-duration: 0.3s;
+            --h-cooler: 220;
+            --h-medium: 210;
+            --h-warmer: 200;
+            --h-warmest: 160;
+            --h-rotate-from-sepia: 170deg;
+            --pale-ice: azure;
+            --dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
+            --darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
+            --darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
+            --pale-celeste: hsla(var(--h-medium), 90%, 80%, 1);
+            --dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
+            --deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
+            --medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+            --dark-celeste: hsla(var(--h-warmer), 60%, 15%, 1);
+            --darkest-celeste: hsla(var(--h-warmer), 100%, 7%, 1);
+            --pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
+            --medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
+            --lexia-lightest: azure;
+            --lexia-lighter: paleturquoise;
+            --lexia-darker: teal;
+            --dull-aqua: lightseagreen;
+            --darker-body: hsla(180, 25%, 25%);
+            --gradientStopA: hsla(var(--h-warmer), 100%, 10%, 0.8);
+            --gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
+            --gradientStopC: hsla(var(--h-warmer), 70%, 35%, 0.8);
+            --gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
+            --gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
+            --gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
+            --gradient-lightest: azure;
+            --gradient-lightest: hsla(var(--h-warmer), 90%, 95%, 1);
+            --background-lightest: skyblue;
+            --cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
+            --screenshot-background: hsla(0, 0%, 0%, 0.5);
+            --accent: aqua;
+            --highlight: lime;
+            --first-task-color: aquamarine;
+            --second-task-color: hsl(285, 100%, 90%);
+        }
+
+        @font-face {
+            font-family: "sansation-bold";
+            src: url("../../fonts/Sansation-Bold.ttf") format("truetype");
+        }
+
+        body {
+            font-family: 'century gothic', verdana, sans-serif;
+            background-color: var(--darkest-celeste);
+            color: var(--pale-celeste);
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--pale-celeste);
+            font-weight: normal;
+            font-size: 2em;
+            text-shadow: royalblue 1px -1px 3px;
+            margin-bottom: 1em;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            color: var(--pale-celeste);
+        }
+
+        select,
+        input {
+            margin-top: 5px;
+            width: 100%;
+            padding: 4px;
+            background: var(--dark-celeste);
+            /* Defaults if not overridden: */
+            color: var(--pale-ice);
+            border: 1px solid var(--pale-celeste);
+            border-radius: 4px;
+        }
+
+        select:disabled {
+            background: var(--darkest-ice);
+            color: var(--pale-celeste);
+            opacity: 0.7;
+        }
+
+        .Guestimator-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 32px;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .fieldset-first-task,
+        .fieldset-second-task,
+        .units-col {
+            min-width: 250px;
+            background: var(--dark-celeste);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--cluster-shadow);
+        }
+
+
+        .fieldset-first-task select {
+            color: var(--first-task-color);
+        }
+
+        .fieldset-second-task select {
+            color: var(--second-task-color);
+        }
+
+        .fieldset-first-task {
+            border: 1px solid var(--first-task-color);
+        }
+
+        .fieldset-second-task {
+            border: 1px solid var(--second-task-color);
+        }
+
+        .switch {
+            margin-top: 10px;
+        }
+
+        legend {
+            color: var(--pale-celeste);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .output {
+            margin-top: 20px;
+            border-top: 1px solid var(--pale-celeste);
+            padding: 1em;
+            background: var(--dark-celeste);
+            border-radius: 8px;
+        }
+
+        #first-footprint-label {
+            color: var(--first-task-color);
+        }
+
+        #second-footprint-label {
+            color: var(--second-task-color);
+        }
+
+        #bar-chart {
+            background: var(--deep-celeste);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--cluster-shadow);
+        }
+
+        button {
+            background: var(--medium-celeste);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+
+        p {
+            color: var(--pale-celeste);
+            font-size: 1em;
+        }
+
+        span {
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .Guestimator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fieldset-first-task,
+            .fieldset-second-task,
+            .units-col {
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>What Uses More?</h1>
+    <h2>AI Energy and Water Guestimator</h2>
+    <div class="Guestimator-grid">
+        <fieldset class="fieldset-first-task">
+            <legend>First task</legend>
+            <label for="first-task">Task</label>
+            <select id="first-task">
+                <option value="Paragraph of AI text">Paragraph of AI text</option>
+                <option value="10 lines of AI code">10 lines of AI code</option>
+                <option value="1024x1024 AI image">1024x1024 AI image</option>
+                <option value="3-second AI video from text">3-second AI video from text</option>
+                <option value="3-second AI video from image">3-second AI video from image</option>
+                <option value="Searching Google without AI">Searching Google without AI</option>
+                <option value="Charging a smartphone">Charging a smartphone</option>
+                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
+                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
+                <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+            </select>
+
+            <div class="switch">
+                <label>Location
+                    <select id="first-task-location">
+                        <option value="solar">Solar-powered (CA)</option>
+                        <option value="coal">Coal-powered (WV)</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Prompt complexity
+                    <select id="first-task-complexity">
+                        <option value="simple">Simple</option>
+                        <option value="complex">Complex</option>
+                        <option value="reasoning">Reasoning</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Number of prompts
+                    <select id="first-task-prompt-count">
+                        <option value="single">Single (zero-shot)</option>
+                        <option value="multi">Multi-step</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Season
+                    <select id="first-task-season">
+                        <option value="summer">Summer</option>
+                        <option value="winter">Winter</option>
+                    </select>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset class="fieldset-second-task">
+            <legend>Second task (for comparison)</legend>
+            <label for="second-task">Task</label>
+            <select id="second-task">
+                <option value="Paragraph of AI text">Paragraph of AI text</option>
+                <option value="10 lines of AI code">10 lines of AI code</option>
+                <option value="1024x1024 AI image">1024x1024 AI image</option>
+                <option value="3-second AI video from text">3-second AI video from text</option>
+                <option value="3-second AI video from image">3-second AI video from image</option>
+                <option value="Searching Google without AI">Searching Google without AI</option>
+                <option value="Charging a smartphone">Charging a smartphone</option>
+                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
+                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
+                <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+            </select>
+
+            <div class="switch">
+                <label>Location
+                    <select id="second-task-location">
+                        <option value="solar">Solar-powered (CA)</option>
+                        <option value="coal">Coal-powered (WV)</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Prompt complexity
+                    <select id="second-task-complexity">
+                        <option value="simple">Simple</option>
+                        <option value="complex">Complex</option>
+                        <option value="reasoning">Reasoning</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Number of prompts
+                    <select id="second-task-prompt-count">
+                        <option value="single">Single (zero-shot)</option>
+                        <option value="multi">Multi-step</option>
+                    </select>
+                </label>
+            </div>
+
+            <div class="switch">
+                <label>Season
+                    <select id="second-task-season">
+                        <option value="summer">Summer</option>
+                        <option value="winter">Winter</option>
+                    </select>
+                </label>
+            </div>
+        </fieldset>
+
+        <fieldset class="units-col" style="min-width: 200px;">
+            <legend>Units</legend>
+            <label for="energy-units">Energy units</label>
+            <select id="energy-units">
+                <option value="Wh">Watt-hours (Wh)</option>
+                <option value="J">Joules (J)</option>
+                <option value="gCO2">carbon equivalent (gCO2)</option>
+            </select>
+
+            <label for="water-units">Water units</label>
+            <select id="water-units">
+                <option value="cc">Cubic centimeters</option>
+                <option value="l">Liters</option>
+            </select>
+        </fieldset>
+    </div>
+
+    <button onclick="calculate()">Calculate</button>
+
+    <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
+        <div>
+            <p><span id="first-footprint-label">First footprint:</span> <span id="first-footprint">--</span></p>
+            <p style="text-align: center;">versus</p>
+            <p><span id="second-footprint-label">Second footprint:</span> <span id="second-footprint">--</span></p>
+        </div>
+        <div id="bar-chart" style="width: 220px; height: 120px; display: flex; align-items: flex-end;"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Generalized function to fetch and parse Google Sheet data
+        async function fetchSheetData(sheetId, gid = null) {
+            let url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json`;
+            if (gid) {
+                url += `&gid=${gid}`;
+            }
+            const response = await fetch(url);
+            const text = await response.text();
+            const json = JSON.parse(text.substr(47).slice(0, -2));
+            const rows = json.table.rows;
+            return rows;
+        }
+
+        // Fetch task values for tasks (first tab)
+        async function getTaskValues() {
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            // Default tab (no gid needed)
+            const rows = await fetchSheetData(sheetId);
+            let taskValues = {};
+            let taskScope = {};
+            rows.forEach(row => {
+                let taskPair = row.c[0] || { v: "" };
+                let energyPair = row.c[1] || { v: "" };
+                let scopeValue = row.c[2] || { v: "" };
+                if (taskPair.v && energyPair.v) {
+                    taskValues[taskPair.v] = parseFloat(energyPair.v);
+                    if (scopeValue.v) {
+                        taskScope[taskPair.v] = scopeValue.v;
+                    }
+                }
+            });
+            // Attach scope as a property for easy lookup
+            taskValues.taskScope = taskScope;
+            return taskValues;
+        }
+
+        // Fetch factors for switches (second tab, gid=1688264219)
+        async function getFactorValues() {
+            const sheetId = "1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY";
+            const gid = "1688264219";
+            const rows = await fetchSheetData(sheetId, gid);
+            let factorValues = {};
+            let factorScope = {};
+            rows.forEach(row => {
+                let factorName = row.c[0] || { v: "" };
+                let factorValue = row.c[1] || { v: "" };
+                let scopeValue = row.c[2] || { v: "" };
+                if (factorName.v && factorValue.v) {
+                    factorValues[factorName.v] = parseFloat(factorValue.v);
+                    if (scopeValue.v) {
+                        factorScope[factorName.v] = scopeValue.v;
+                    }
+                }
+            });
+            // Attach scope as a property for easy lookup
+            factorValues.factorScope = factorScope;
+            return factorValues;
+        }
+
+        let taskData = null;
+        let factorValues = null;
+
+        // Disable the selected option in the second menu
+        function syncSecondMenu() {
+            const firstTask = document.getElementById("first-task").value;
+            const secondTaskMenu = document.getElementById("second-task");
+            Array.from(secondTaskMenu.options).forEach(option => {
+                option.disabled = (option.value === firstTask);
+            });
+        }
+
+        // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
+        // document.getElementById("first-task").addEventListener("change", syncSecondMenu);
+
+        let chartInstance = null;
+
+        function formatNumber(num) {
+            if (Number.isInteger(num)) {
+                return num.toString();
+            }
+            return num.toFixed(2);
+        }
+
+        async function calculate() {
+            // Fetch data if not already loaded
+            if (!taskData) {
+                taskData = await getTaskValues();
+            }
+            if (!factorValues) {
+                factorValues = await getFactorValues();
+            }
+
+            // Get selected tasks and their labels
+            const firstTaskMenu = document.getElementById("first-task");
+            const secondTaskMenu = document.getElementById("second-task");
+            const firstTaskLabel = firstTaskMenu.options[firstTaskMenu.selectedIndex].text;
+            const secondTaskLabel = secondTaskMenu.options[secondTaskMenu.selectedIndex].text;
+
+            // Dynamically update output labels
+            document.getElementById("first-footprint-label").textContent = firstTaskLabel + ":";
+            document.getElementById("second-footprint-label").textContent = secondTaskLabel + ":";
+
+            // Get selected tasks
+            const firstTask = document.getElementById("first-task").value;
+            const secondTask = document.getElementById("second-task").value;
+
+            // Get base energy values
+            let firstEnergy = taskData[firstTask];
+            let secondEnergy = taskData[secondTask];
+
+            // Get selected factors for first task
+            const firstLocation = document.getElementById("first-task-location");
+            const firstComplexity = document.getElementById("first-task-complexity");
+            const firstPromptCount = document.getElementById("first-task-prompt-count");
+            const firstSeason = document.getElementById("first-task-season");
+
+            // Multiply by all relevant factors for first task, defaulting to 1 if disabled or undefined
+            let firstProduct = firstEnergy;
+            [firstLocation, firstComplexity, firstPromptCount, firstSeason].forEach((select) => {
+                const factorText = select.options[select.selectedIndex].text;
+                const isDisabled = select.options[select.selectedIndex].disabled;
+                let factorValue = factorValues[factorText];
+                if (isDisabled || factorValue === undefined) {
+                    factorValue = 1;
+                }
+                firstProduct *= factorValue;
+            });
+
+            // Get selected factors for second task
+            const secondLocation = document.getElementById("second-task-location");
+            const secondComplexity = document.getElementById("second-task-complexity");
+            const secondPromptCount = document.getElementById("second-task-prompt-count");
+            const secondSeason = document.getElementById("second-task-season");
+
+            // Multiply by all relevant factors for second task, defaulting to 1 if disabled or undefined
+            let secondProduct = secondEnergy;
+            [secondLocation, secondComplexity, secondPromptCount, secondSeason].forEach((select) => {
+                const factorText = select.options[select.selectedIndex].text;
+                const isDisabled = select.options[select.selectedIndex].disabled;
+                let factorValue = factorValues[factorText];
+                if (isDisabled || factorValue === undefined) {
+                    factorValue = 1;
+                }
+                secondProduct *= factorValue;
+            });
+
+            // Handle energy units conversion
+            const energyUnitsMenu = document.getElementById("energy-units");
+            const energyUnitValue = energyUnitsMenu.value;
+            const energyUnitLabel = energyUnitsMenu.options[energyUnitsMenu.selectedIndex].text;
+
+            let firstProductForWater = firstProduct;
+            let secondProductForWater = secondProduct;
+
+            if (energyUnitValue === "J") {
+                const jouleFactor = factorValues["joules per watt-hour"] || 1;
+                firstProduct *= jouleFactor;
+                secondProduct *= jouleFactor;
+                // For water, keep the original Wh value
+            } else if (energyUnitValue === "gCO2") {
+                const co2Factor = factorValues["grams of CO2 per watt-hour"] || 1;
+                firstProduct *= co2Factor;
+                secondProduct *= co2Factor;
+                // For water, keep the original Wh value
+            }
+
+            // Water units calculation (always based on Wh, not converted units)
+            const waterUnitsMenu = document.getElementById("water-units");
+            const waterUnitValue = waterUnitsMenu.value;
+            const waterUnitLabel = waterUnitsMenu.options[waterUnitsMenu.selectedIndex].text;
+
+            // Calculate water usage in cc
+            let firstWater = firstProductForWater * (factorValues["cubic centimeters per watt-hour"] || 0);
+            let secondWater = secondProductForWater * (factorValues["cubic centimeters per watt-hour"] || 0);
+
+            // If liters, convert
+            if (waterUnitValue === "l") {
+                firstWater *= (factorValues["liters per cubic centimeter"] || 0);
+                secondWater *= (factorValues["liters per cubic centimeter"] || 0);
+            }
+
+            // Format water output
+            function formatWater(num) {
+                if (Number.isInteger(num)) {
+                    return num.toString();
+                }
+                return num.toFixed(2);
+            }
+
+            // Report results using formatNumber and append the unit label and water in brackets
+            document.getElementById("first-footprint").textContent =
+                (firstProduct !== undefined && !isNaN(firstProduct))
+                    ? `${formatNumber(firstProduct)} ${energyUnitLabel} [${formatWater(firstWater)} ${waterUnitLabel}]` : "--";
+            document.getElementById("second-footprint").textContent =
+                (secondProduct !== undefined && !isNaN(secondProduct))
+                    ? `${formatNumber(secondProduct)} ${energyUnitLabel} [${formatWater(secondWater)} ${waterUnitLabel}]` : "--";
+
+            // Draw bar chart
+            drawBarChart(firstProduct, secondProduct);
+        }
+
+        function drawBarChart(first, second) {
+            const ctxId = "bar-chart-canvas";
+            let chartDiv = document.getElementById("bar-chart");
+            chartDiv.innerHTML = `<canvas id="${ctxId}" width="200" height="100"></canvas>`;
+            const ctx = document.getElementById(ctxId).getContext("2d");
+
+            if (chartInstance) {
+                chartInstance.destroy();
+            }
+
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Task 1', 'Task 2'],
+                    datasets: [{
+                        label: 'Footprint',
+                        data: [
+                            (first !== undefined && !isNaN(first)) ? first : 0,
+                            (second !== undefined && !isNaN(second)) ? second : 0
+                        ],
+                        backgroundColor: ['aquamarine', 'hsl(285, 100%, 90%)'],
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    plugins: {
+                        legend: {
+                            display: false,
+                            labels: {
+                                color: 'black' // Set legend label color to black
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Footprint', color: 'black' },
+                            ticks: { color: 'black' } // Set y-axis numbers to black
+                        },
+                        x: {
+                            ticks: { color: 'black' }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Utility to enable/disable factor options based on task scope
+        function updateFactorOptionsForTask(taskSelectId, taskScopeObj, factorValuesObj, prefix) {
+            const task = document.getElementById(taskSelectId).value;
+            const scope = taskScopeObj[task];
+            // List of factor select IDs for this task
+            const factorSelects = [
+                `${prefix}-location`,
+                `${prefix}-complexity`,
+                `${prefix}-prompt-count`,
+                `${prefix}-season`
+            ];
+            factorSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+                Array.from(select.options).forEach(option => {
+                    const factorLabel = option.text;
+                    const factorScope = factorValuesObj.factorScope && factorValuesObj.factorScope[factorLabel];
+                    // If factor is AI-scoped but task is not AI, disable it
+                    if (factorScope === "AI" && scope !== "AI") {
+                        option.disabled = true;
+                        // Optionally, deselect if currently selected
+                        if (select.value === option.value) {
+                            select.selectedIndex = 0;
+                        }
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            });
+        }
+
+        // Call this whenever the task selection changes
+        function setupTaskFactorSync() {
+            // For first task
+            document.getElementById("first-task").addEventListener("change", async () => {
+                if (!taskData) taskData = await getTaskValues();
+                if (!factorValues) factorValues = await getFactorValues();
+                updateFactorOptionsForTask(
+                    "first-task",
+                    taskData.taskScope,
+                    factorValues,
+                    "first-task"
+                );
+            });
+
+            // For second task
+            document.getElementById("second-task").addEventListener("change", async () => {
+                if (!taskData) taskData = await getTaskValues();
+                if (!factorValues) factorValues = await getFactorValues();
+                updateFactorOptionsForTask(
+                    "second-task",
+                    taskData.taskScope,
+                    factorValues,
+                    "second-task"
+                );
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener("DOMContentLoaded", () => {
+            syncSecondMenu();
+            setupTaskFactorSync();
+        });
+    </script>
+</body>
+
+</html>
