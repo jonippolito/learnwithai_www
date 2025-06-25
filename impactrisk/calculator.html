@@ -186,8 +186,8 @@
 
     <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
         <div>
-            <p>First footprint: <span id="first-footprint">--</span></p>
-            <p>Second footprint: <span id="second-footprint">--</span></p>
+            <p><span id="first-footprint-label">First footprint:</span> <span id="first-footprint">--</span></p>
+            <p><span id="second-footprint-label">Second footprint:</span> <span id="second-footprint">--</span></p>
         </div>
         <div id="bar-chart" style="width: 220px; height: 120px; display: flex; align-items: flex-end;"></div>
     </div>
@@ -285,6 +285,16 @@
             if (!factorValues) {
                 factorValues = await getFactorValues();
             }
+
+            // Get selected tasks and their labels
+            const firstTaskMenu = document.getElementById("first-task");
+            const secondTaskMenu = document.getElementById("second-task");
+            const firstTaskLabel = firstTaskMenu.options[firstTaskMenu.selectedIndex].text;
+            const secondTaskLabel = secondTaskMenu.options[secondTaskMenu.selectedIndex].text;
+
+            // Dynamically update output labels
+            document.getElementById("first-footprint-label").textContent = firstTaskLabel + ":";
+            document.getElementById("second-footprint-label").textContent = secondTaskLabel + ":";
 
             // Get selected tasks
             const firstTask = document.getElementById("first-task").value;
