@@ -5,16 +5,78 @@
     <meta charset="UTF-8">
     <title>AI Energy and Water Guestimator</title>
     <style>
+        /* Uses custom CSS properties and fonts from learnwithai-design-style-v1.1 */
+
+        :root {
+            --container-width: 1000px;
+            --margin-wide: 40px;
+            --padding-padlet: 1em;
+            --padding-section: 1em;
+            --event-min-height: 100px;
+            --lexia-transition-duration: 0.3s;
+            --h-cooler: 220;
+            --h-medium: 210;
+            --h-warmer: 200;
+            --h-warmest: 160;
+            --h-rotate-from-sepia: 170deg;
+            --pale-ice: azure;
+            --dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
+            --darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
+            --darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
+            --pale-celeste: hsla(var(--h-medium), 90%, 80%, 1);
+            --dull-celeste: hsla(var(--h-warmer), 40%, 70%, 1);
+            --deep-celeste: hsla(var(--h-warmer), 60%, 70%, 1);
+            --medium-celeste: hsla(var(--h-warmer), 60%, 20%, 1);
+            --dark-celeste: hsla(var(--h-warmer), 60%, 15%, 1);
+            --darkest-celeste: hsla(var(--h-warmer), 100%, 7%, 1);
+            --pale-jade: hsla(var(--h-warmest), 100%, 40%, 1);
+            --medium-jade: hsla(var(--h-warmest), 100%, 20%, 1);
+            --lexia-lightest: azure;
+            --lexia-lighter: paleturquoise;
+            --lexia-darker: teal;
+            --dull-aqua: lightseagreen;
+            --darker-body: hsla(180, 25%, 25%);
+            --gradientStopA: hsla(var(--h-warmer), 100%, 10%, 0.8);
+            --gradientStopB: hsla(var(--h-warmer), 100%, 60%, 0);
+            --gradientStopC: hsla(var(--h-warmer), 70%, 35%, 0.8);
+            --gradientStopD: hsla(var(--h-warmer), 70%, 60%, 0);
+            --gradientStopE: hsla(var(--h-cooler), 90%, 90%, 0.8);
+            --gradientStopF: hsla(var(--h-cooler), 90%, 95%, 0);
+            --gradient-lightest: azure;
+            --gradient-lightest: hsla(var(--h-warmer), 90%, 95%, 1);
+            --background-lightest: skyblue;
+            --cluster-shadow: hsl(var(--h-warmer), 5%, 5%);
+            --screenshot-background: hsla(0, 0%, 0%, 0.5);
+            --accent: aqua;
+            --highlight: lime;
+            --first-task-color: aquamarine;
+            --second-task-color: hsl(285, 100%, 90%);
+        }
+
+        @font-face {
+            font-family: "sansation-bold";
+            src: url("../fonts/Sansation-Bold.ttf") format("truetype");
+        }
+
         body {
-            font-family: sans-serif;
-            background-color: #f9f9f9;
-            color: #333;
+            font-family: 'century gothic', verdana, sans-serif;
+            background-color: var(--darkest-celeste);
+            color: var(--pale-celeste);
             padding: 20px;
+        }
+
+        h1 {
+            color: var(--pale-celeste);
+            font-weight: normal;
+            font-size: 2em;
+            text-shadow: royalblue 1px -1px 3px;
+            margin-bottom: 1em;
         }
 
         label {
             display: block;
             margin-top: 15px;
+            color: var(--pale-celeste);
         }
 
         select,
@@ -22,33 +84,123 @@
             margin-top: 5px;
             width: 100%;
             padding: 4px;
+            background: var(--dark-celeste);
+            /* Defaults if not overridden: */
+            color: var(--pale-ice);
+            border: 1px solid var(--pale-celeste);
+            border-radius: 4px;
+        }
+
+        select:disabled {
+            background: var(--darkest-ice);
+            color: var(--pale-celeste);
+            opacity: 0.7;
         }
 
         .Guestimator-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 32px;
             align-items: flex-start;
             margin-bottom: 20px;
         }
 
-        .left-col,
-        .right-col {
+        .fieldset-first-task,
+        .fieldset-second-task,
+        .units-col {
             min-width: 250px;
+            background: var(--dark-celeste);
+            border-radius: 8px;
+            padding: 16px;
+            box-shadow: 0 2px 8px var(--cluster-shadow);
+        }
+
+
+        .fieldset-first-task select {
+            color: var(--first-task-color);
+        }
+
+        .fieldset-second-task select {
+            color: var(--second-task-color);
+        }
+
+        .fieldset-first-task {
+            border: 1px solid var(--first-task-color);
+        }
+
+        .fieldset-second-task {
+            border: 1px solid var(--second-task-color);
         }
 
         .switch {
             margin-top: 10px;
         }
 
-        .output {
-            margin-top: 20px;
-            border-top: 1px solid #ccc;
-            padding-top: 15px;
+        legend {
+            color: var(--pale-celeste);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 8px;
         }
 
-        .units-col {
-            min-width: 200px;
+        .output {
+            margin-top: 20px;
+            border-top: 1px solid var(--pale-celeste);
+            padding: 1em;
+            background: var(--dark-celeste);
+            border-radius: 8px;
+        }
+
+        #first-footprint-label {
+            color: var(--first-task-color);
+        }
+
+        #second-footprint-label {
+            color: var(--second-task-color);
+        }
+
+        #bar-chart {
+            background: var(--deep-celeste);
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--cluster-shadow);
+        }
+
+        button {
+            background: var(--medium-celeste);
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 10px 24px;
+            font-size: 1em;
+            font-weight: bold;
+            margin-top: 16px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        button:hover {
+            background: var(--accent);
+        }
+
+        p {
+            color: var(--pale-celeste);
+            font-size: 1em;
+        }
+
+        span {
+            color: #fff;
+        }
+
+        @media (max-width: 900px) {
+            .Guestimator-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .fieldset-first-task,
+            .fieldset-second-task,
+            .units-col {
+                margin-bottom: 16px;
+            }
         }
     </style>
 </head>
@@ -57,9 +209,9 @@
     <h1>AI Energy and Water Guestimator</h1>
 
     <div class="Guestimator-grid">
-        <fieldset class="left-col">
+        <fieldset class="fieldset-first-task">
             <legend>First task</legend>
-            <label for="first-task">First task</label>
+            <label for="first-task">Task</label>
             <select id="first-task">
                 <option value="Paragraph of AI text">Paragraph of AI text</option>
                 <option value="10 lines of AI code">10 lines of AI code</option>
@@ -74,7 +226,7 @@
             </select>
 
             <div class="switch">
-                <label>Location:
+                <label>Location
                     <select id="first-task-location">
                         <option value="solar">Solar-powered (CA)</option>
                         <option value="coal">Coal-powered (WV)</option>
@@ -83,7 +235,7 @@
             </div>
 
             <div class="switch">
-                <label>Prompt complexity:
+                <label>Prompt complexity
                     <select id="first-task-complexity">
                         <option value="simple">Simple</option>
                         <option value="complex">Complex</option>
@@ -93,7 +245,7 @@
             </div>
 
             <div class="switch">
-                <label>Number of prompts:
+                <label>Number of prompts
                     <select id="first-task-prompt-count">
                         <option value="single">Single (zero-shot)</option>
                         <option value="multi">Multi-step</option>
@@ -102,7 +254,7 @@
             </div>
 
             <div class="switch">
-                <label>Season:
+                <label>Season
                     <select id="first-task-season">
                         <option value="summer">Summer</option>
                         <option value="winter">Winter</option>
@@ -111,9 +263,9 @@
             </div>
         </fieldset>
 
-        <fieldset class="right-col">
+        <fieldset class="fieldset-second-task">
             <legend>Second task (for comparison)</legend>
-            <label for="second-task">Second task (for comparison)</label>
+            <label for="second-task">Task</label>
             <select id="second-task">
                 <option value="Paragraph of AI text">Paragraph of AI text</option>
                 <option value="10 lines of AI code">10 lines of AI code</option>
@@ -128,7 +280,7 @@
             </select>
 
             <div class="switch">
-                <label>Location:
+                <label>Location
                     <select id="second-task-location">
                         <option value="solar">Solar-powered (CA)</option>
                         <option value="coal">Coal-powered (WV)</option>
@@ -137,7 +289,7 @@
             </div>
 
             <div class="switch">
-                <label>Prompt complexity:
+                <label>Prompt complexity
                     <select id="second-task-complexity">
                         <option value="simple">Simple</option>
                         <option value="complex">Complex</option>
@@ -147,7 +299,7 @@
             </div>
 
             <div class="switch">
-                <label>Number of prompts:
+                <label>Number of prompts
                     <select id="second-task-prompt-count">
                         <option value="single">Single (zero-shot)</option>
                         <option value="multi">Multi-step</option>
@@ -156,7 +308,7 @@
             </div>
 
             <div class="switch">
-                <label>Season:
+                <label>Season
                     <select id="second-task-season">
                         <option value="summer">Summer</option>
                         <option value="winter">Winter</option>
@@ -167,14 +319,14 @@
 
         <fieldset class="units-col" style="min-width: 200px;">
             <legend>Units</legend>
-            <label for="energy-units">Energy units:</label>
+            <label for="energy-units">Energy units</label>
             <select id="energy-units">
                 <option value="Wh">Watt-hours (Wh)</option>
                 <option value="J">Joules (J)</option>
                 <option value="gCO2">carbon equivalent (gCO2)</option>
             </select>
 
-            <label for="water-units">Water units:</label>
+            <label for="water-units">Water units</label>
             <select id="water-units">
                 <option value="cc">Cubic centimeters</option>
                 <option value="l">Liters</option>
@@ -187,6 +339,7 @@
     <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
         <div>
             <p><span id="first-footprint-label">First footprint:</span> <span id="first-footprint">--</span></p>
+            <p style="text-align: center;">versus</p>
             <p><span id="second-footprint-label">Second footprint:</span> <span id="second-footprint">--</span></p>
         </div>
         <div id="bar-chart" style="width: 220px; height: 120px; display: flex; align-items: flex-end;"></div>
@@ -408,25 +561,34 @@
             chartInstance = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: ['First', 'Second'],
+                    labels: ['Task 1', 'Task 2'],
                     datasets: [{
                         label: 'Footprint',
                         data: [
                             (first !== undefined && !isNaN(first)) ? first : 0,
                             (second !== undefined && !isNaN(second)) ? second : 0
                         ],
-                        backgroundColor: ['#4e79a7', '#f28e2b']
+                        backgroundColor: ['aquamarine', 'hsl(285, 100%, 90%)'],
                     }]
                 },
                 options: {
                     responsive: false,
                     plugins: {
-                        legend: { display: false }
+                        legend: {
+                            display: false,
+                            labels: {
+                                color: 'black' // Set legend label color to black
+                            }
+                        }
                     },
                     scales: {
                         y: {
                             beginAtZero: true,
-                            title: { display: true, text: 'Footprint' }
+                            title: { display: true, text: 'Footprint', color: 'black' },
+                            ticks: { color: 'black' } // Set y-axis numbers to black
+                        },
+                        x: {
+                            ticks: { color: 'black' }
                         }
                     }
                 }
