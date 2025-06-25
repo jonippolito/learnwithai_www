@@ -50,8 +50,8 @@
             --screenshot-background: hsla(0, 0%, 0%, 0.5);
             --accent: aqua;
             --highlight: lime;
-            --first-task-color: aquamarine;
-            --second-task-color: hsl(285, 100%, 90%);
+            --first-task-color: hsl(285, 100%, 90%);
+            --second-task-color: aquamarine;
         }
 
         @font-face {
@@ -97,6 +97,11 @@
             color: var(--pale-celeste);
             opacity: 0.7;
         }
+
+        a {
+            color: var(--accent);
+        }
+
 
         .Guestimator-grid {
             display: grid;
@@ -192,6 +197,22 @@
             color: #fff;
         }
 
+        .emoji {
+            font-size: 1em;
+            margin-right: .5em;
+        }
+
+        ul.list-small {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        ul.list-small .emoji {
+            font-size: 1.5em;
+        }
+
+
+        /* Is this necessary given minmax function? */
         @media (max-width: 900px) {
             .Guestimator-grid {
                 grid-template-columns: 1fr;
@@ -222,6 +243,20 @@
 
     <h1>What Uses More?</h1>
     <h2>AI Energy and Water Guestimator</h2>
+    <details class="explanation" style="margin-bottom: 1.5em;">
+        <summary style="font-weight: bold; font-size: 1.1em; cursor: pointer;">
+            About this calculator
+        </summary>
+        <p>It's hard to know what to believe about the ecological impact of generative AI when the Internet seems evenly divided between "Stop worrying" and "It's the apocalypse." This nonpartisan calculator is an attempt to provide a more objective comparison of the energy and water usage of various AI tasks versus other common digital activities, like watching Netflix or searching Google. The calculations are based on academic papers, industry reports, and expert estimates.</p>
+        <p>The calculations include only current energy and water usage, and not growth scenarios or actual environmental impact. Even for energy and water, it's extremely difficult to do more than estimate values given the lack of transparency in the tech industry. It's also unclear how some future tradeoffs will play out, eg whether improved efficiencies will cancel out increased demand. These calculations also exclude numerous potential AI downsides apart from environmental risks, which you can find explained in the <a href="https://AI-Impact-Risk.com">IMPACT RISK</a> framework.</p>
+        <p>You can find a list of all sources with rationales for calculations <a href="https://docs.google.com/spreadsheets/d/1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY/edit?gid=0#gid=0">here</a>. Please <a href="https://jonippolito.net">contact me</a> with suggestions of research that updates or contradicts these findings.</p>
+        <p>These are the default units for energy and water, chosen because they are intuitive:</p>
+        <ul class="list-small">
+            <li><span class="emoji">💡</span>watt-hour (running an incandescent light bulb for 1 minute)</li>
+            <li><span class="emoji">🥤</span>liter (about a quart)</li>
+            <li><span class="emoji">☔️</span>cubic centimeter (a raindrop).</li>
+        </ul>
+    </details>
     <div class="Guestimator-grid">
         <fieldset class="fieldset-first-task">
             <legend>First task</legend>
@@ -582,7 +617,7 @@
                             (first !== undefined && !isNaN(first)) ? first : 0,
                             (second !== undefined && !isNaN(second)) ? second : 0
                         ],
-                        backgroundColor: ['aquamarine', 'hsl(285, 100%, 90%)'],
+                        backgroundColor: ['hsl(285, 100%, 90%)', 'aquamarine'],
                     }]
                 },
                 options: {
