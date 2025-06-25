@@ -207,6 +207,19 @@
 </head>
 
 <body>
+    <!-- Modal for caveat message -->
+    <dialog id="caveat-modal" style="max-width: 400px; border-radius: 10px; border: 2px solid var(--accent); box-shadow: 0 4px 24px rgba(0,0,0,0.3); text-align: center;">
+        <div style="padding: 1.5em;">
+            <span class="emoji" style="font-size: 2em;">⚠️</span>
+            <div style="margin: 1em 0;">
+                Please do not quote any of these figures without this caveat:
+                <br>
+                <em>"These are guesses based on incomplete and often contradictory sources."</em>
+            </div>
+            <button id="close-caveat-modal" style="margin-top: 1em;">OK</button>
+        </div>
+    </dialog>
+
     <h1>What Uses More?</h1>
     <h2>AI Energy and Water Guestimator</h2>
     <div class="Guestimator-grid">
@@ -653,6 +666,47 @@
                 );
             });
         }
+
+        // Modal logic
+        document.addEventListener("DOMContentLoaded", function () {
+            // Only show modal if not previously dismissed
+            if (!localStorage.getItem("caveatModalDismissed")) {
+                const modal = document.getElementById("caveat-modal");
+                if (modal && typeof modal.showModal === "function") {
+                    modal.showModal();
+                } else if (modal) {
+                    modal.style.display = "block";
+                }
+            }
+            const closeBtn = document.getElementById("close-caveat-modal");
+            if (closeBtn) {
+                closeBtn.onclick = function () {
+                    const modal = document.getElementById("caveat-modal");
+                    localStorage.setItem("caveatModalDismissed", "true");
+                    if (typeof modal.close === "function") {
+                        modal.close();
+                    } else {
+                        modal.style.display = "none";
+                    }
+                };
+            }
+
+            // Automatically copy caveat to clipboard on arrival
+            const caveatText = 'These are guesses based on incomplete and often contradictory sources.';
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(caveatText).catch(() => { });
+            } else {
+                // Fallback for older browsers
+                const tempInput = document.createElement('textarea');
+                tempInput.value = caveatText;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                try {
+                    document.execCommand('copy');
+                } catch (e) { }
+                document.body.removeChild(tempInput);
+            }
+        });
 
         // Initialize on page load
         window.addEventListener("DOMContentLoaded", () => {
