@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>AI Energy and Water Calculator</title>
+    <title>AI Energy and Water Guestimator</title>
     <style>
         body {
             font-family: sans-serif;
@@ -24,7 +24,7 @@
             padding: 4px;
         }
 
-        .calculator-grid {
+        .Guestimator-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 32px;
@@ -54,9 +54,9 @@
 </head>
 
 <body>
-    <h1>AI Energy and Water Calculator</h1>
+    <h1>AI Energy and Water Guestimator</h1>
 
-    <div class="calculator-grid">
+    <div class="Guestimator-grid">
         <fieldset class="left-col">
             <legend>First task</legend>
             <label for="first-task">First task</label>
@@ -69,7 +69,7 @@
                 <option value="Searching Google without AI">Searching Google without AI</option>
                 <option value="Charging a smartphone">Charging a smartphone</option>
                 <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                <option value="Watching 2-hour Netflix movie">Watching 2-hour Netflix movie</option>
+                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
 
@@ -123,7 +123,7 @@
                 <option value="Searching Google without AI">Searching Google without AI</option>
                 <option value="Charging a smartphone">Charging a smartphone</option>
                 <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                <option value="Watching 2-hour Netflix movie">Watching 2-hour Netflix movie</option>
+                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
                 <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
             </select>
 
@@ -270,6 +270,13 @@
 
         let chartInstance = null;
 
+        function formatNumber(num) {
+            if (Number.isInteger(num)) {
+                return num.toString();
+            }
+            return num.toFixed(2);
+        }
+
         async function calculate() {
             // Fetch data if not already loaded
             if (!taskData) {
@@ -289,45 +296,45 @@
 
             // Get selected factors for first task
             const firstLocation = document.getElementById("first-task-location");
-            const firstLocationText = firstLocation.options[firstLocation.selectedIndex].text;
             const firstComplexity = document.getElementById("first-task-complexity");
-            const firstComplexityText = firstComplexity.options[firstComplexity.selectedIndex].text;
             const firstPromptCount = document.getElementById("first-task-prompt-count");
-            const firstPromptCountText = firstPromptCount.options[firstPromptCount.selectedIndex].text;
             const firstSeason = document.getElementById("first-task-season");
-            const firstSeasonText = firstSeason.options[firstSeason.selectedIndex].text;
 
-            // Multiply by all relevant factors for first task
+            // Multiply by all relevant factors for first task, defaulting to 1 if disabled or undefined
             let firstProduct = firstEnergy;
-            [firstLocationText, firstComplexityText, firstPromptCountText, firstSeasonText].forEach(factor => {
-                if (factorValues[factor]) {
-                    firstProduct *= factorValues[factor];
+            [firstLocation, firstComplexity, firstPromptCount, firstSeason].forEach((select) => {
+                const factorText = select.options[select.selectedIndex].text;
+                const isDisabled = select.options[select.selectedIndex].disabled;
+                let factorValue = factorValues[factorText];
+                if (isDisabled || factorValue === undefined) {
+                    factorValue = 1;
                 }
+                firstProduct *= factorValue;
             });
 
             // Get selected factors for second task
             const secondLocation = document.getElementById("second-task-location");
-            const secondLocationText = secondLocation.options[secondLocation.selectedIndex].text;
             const secondComplexity = document.getElementById("second-task-complexity");
-            const secondComplexityText = secondComplexity.options[secondComplexity.selectedIndex].text;
             const secondPromptCount = document.getElementById("second-task-prompt-count");
-            const secondPromptCountText = secondPromptCount.options[secondPromptCount.selectedIndex].text;
             const secondSeason = document.getElementById("second-task-season");
-            const secondSeasonText = secondSeason.options[secondSeason.selectedIndex].text;
 
-            // Multiply by all relevant factors for second task
+            // Multiply by all relevant factors for second task, defaulting to 1 if disabled or undefined
             let secondProduct = secondEnergy;
-            [secondLocationText, secondComplexityText, secondPromptCountText, secondSeasonText].forEach(factor => {
-                if (factorValues[factor]) {
-                    secondProduct *= factorValues[factor];
+            [secondLocation, secondComplexity, secondPromptCount, secondSeason].forEach((select) => {
+                const factorText = select.options[select.selectedIndex].text;
+                const isDisabled = select.options[select.selectedIndex].disabled;
+                let factorValue = factorValues[factorText];
+                if (isDisabled || factorValue === undefined) {
+                    factorValue = 1;
                 }
+                secondProduct *= factorValue;
             });
 
-            // Report results
+            // Report results using formatNumber
             document.getElementById("first-footprint").textContent =
-                (firstProduct !== undefined && !isNaN(firstProduct)) ? firstProduct.toFixed(3) : "--";
+                (firstProduct !== undefined && !isNaN(firstProduct)) ? formatNumber(firstProduct) : "--";
             document.getElementById("second-footprint").textContent =
-                (secondProduct !== undefined && !isNaN(secondProduct)) ? secondProduct.toFixed(3) : "--";
+                (secondProduct !== undefined && !isNaN(secondProduct)) ? formatNumber(secondProduct) : "--";
 
             // Draw bar chart
             drawBarChart(firstProduct, secondProduct);
@@ -370,6 +377,70 @@
                 }
             });
         }
+
+        // Utility to enable/disable factor options based on task scope
+        function updateFactorOptionsForTask(taskSelectId, taskScopeObj, factorValuesObj, prefix) {
+            const task = document.getElementById(taskSelectId).value;
+            const scope = taskScopeObj[task];
+            // List of factor select IDs for this task
+            const factorSelects = [
+                `${prefix}-location`,
+                `${prefix}-complexity`,
+                `${prefix}-prompt-count`,
+                `${prefix}-season`
+            ];
+            factorSelects.forEach(selectId => {
+                const select = document.getElementById(selectId);
+                if (!select) return;
+                Array.from(select.options).forEach(option => {
+                    const factorLabel = option.text;
+                    const factorScope = factorValuesObj.factorScope && factorValuesObj.factorScope[factorLabel];
+                    // If factor is AI-scoped but task is not AI, disable it
+                    if (factorScope === "AI" && scope !== "AI") {
+                        option.disabled = true;
+                        // Optionally, deselect if currently selected
+                        if (select.value === option.value) {
+                            select.selectedIndex = 0;
+                        }
+                    } else {
+                        option.disabled = false;
+                    }
+                });
+            });
+        }
+
+        // Call this whenever the task selection changes
+        function setupTaskFactorSync() {
+            // For first task
+            document.getElementById("first-task").addEventListener("change", async () => {
+                if (!taskData) taskData = await getTaskValues();
+                if (!factorValues) factorValues = await getFactorValues();
+                updateFactorOptionsForTask(
+                    "first-task",
+                    taskData.taskScope,
+                    factorValues,
+                    "first-task"
+                );
+            });
+
+            // For second task
+            document.getElementById("second-task").addEventListener("change", async () => {
+                if (!taskData) taskData = await getTaskValues();
+                if (!factorValues) factorValues = await getFactorValues();
+                updateFactorOptionsForTask(
+                    "second-task",
+                    taskData.taskScope,
+                    factorValues,
+                    "second-task"
+                );
+            });
+        }
+
+        // Initialize on page load
+        window.addEventListener("DOMContentLoaded", () => {
+            syncSecondMenu();
+            setupTaskFactorSync();
+        });
     </script>
 </body>
 
