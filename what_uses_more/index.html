@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>What Uses More? AI Energy and Water Guestimator</title>
+    <title>What Uses More? Compare the environmental footprint of digital tasks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         /* Uses custom CSS properties and fonts from learnwithai-design-style-v1.1 */
@@ -278,7 +278,7 @@
         </svg>
         <h1 style="margin: 0;">What Uses More?</h1>
     </div>
-    <h2>AI Energy and Water Guestimator</h2>
+    <h2>Compare the environmental footprint of digital tasks</h2>
     <details class="explanation" style="margin-bottom: 1.5em;">
         <summary style="font-weight: bold; font-size: 1.1em; cursor: pointer;">
             About this calculator
@@ -324,145 +324,149 @@
             <li><strong>Don't</strong> permit students (say, above middle school) to cite this tool directly; require them instead to track down and read the related sources in the associated <a href="https://docs.google.com/spreadsheets/d/1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY/edit?gid=0#gid=0">Google Sheet</a>.</li>
         </ul>
     </details>
-    <div class="Guestimator-grid">
-        <fieldset class="fieldset-first-task">
-            <legend>First task</legend>
-            <label for="first-task">Task</label>
-            <select id="first-task">
-                <option value="Paragraph of AI text">Paragraph of AI text</option>
-                <option value="10 lines of AI code">10 lines of AI code</option>
-                <option value="1024x1024 AI image">1024x1024 AI image</option>
-                <option value="3-second AI video from text">3-second AI video from text</option>
-                <option value="3-second AI video from image">3-second AI video from image</option>
-                <option value="Searching Google without AI">Searching Google without AI</option>
-                <option value="Charging a smartphone">Charging a smartphone</option>
-                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
-                <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
-            </select>
+    <form id="guestimator-form" onsubmit="event.preventDefault(); calculate();">
+        <div class="Guestimator-grid">
+            <fieldset class="fieldset-first-task">
+                <legend>First task</legend>
+                <label for="first-task">Task</label>
+                <select required id="first-task">
+                    <option value="" disabled selected>Pick a first task</option>
+                    <option value="Paragraph of AI text">Paragraph of AI text</option>
+                    <option value="10 lines of AI code">10 lines of AI code</option>
+                    <option value="1024x1024 AI image">1024x1024 AI image</option>
+                    <option value="3-second AI video from text">3-second AI video from text</option>
+                    <option value="3-second AI video from image">3-second AI video from image</option>
+                    <option value="Searching Google without AI">Searching Google without AI</option>
+                    <option value="Charging a smartphone">Charging a smartphone</option>
+                    <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
+                    <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
+                    <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+                </select>
 
-            <div class="switch">
-                <label>Location
-                    <select id="first-task-location">
-                        <option value="solar">Solar-powered (CA)</option>
-                        <option value="coal">Coal-powered (WV)</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Local energy source
+                        <select id="first-task-location">
+                            <option value="solar">Solar-powered (California)</option>
+                            <option value="coal">Coal-powered (West Virginia)</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Prompt complexity
-                    <select id="first-task-complexity">
-                        <option value="simple">Simple</option>
-                        <option value="complex">Complex</option>
-                        <option value="reasoning">Reasoning</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Prompt complexity
+                        <select id="first-task-complexity">
+                            <option value="simple">Simple</option>
+                            <option value="complex">Complex</option>
+                            <option value="reasoning">Reasoning</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Number of prompts
-                    <select id="first-task-prompt-count">
-                        <option value="single">Single (zero-shot)</option>
-                        <option value="multi">Multi-step</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Number of prompts
+                        <select id="first-task-prompt-count">
+                            <option value="single">Single (zero-shot)</option>
+                            <option value="multi">Multi-step</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Season
-                    <select id="first-task-season">
-                        <option value="summer">Summer</option>
-                        <option value="winter">Winter</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Local data center climate
+                        <select id="first-task-season">
+                            <option value="winter">Cold (Norway in winter)</option>
+                            <option value="summer">Warm (Arizona in summer)</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label for="first-task-quantity">Quantity
-                    <input type="number" id="first-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
-                </label>
-            </div>
-        </fieldset>
+                <div class="switch">
+                    <label for="first-task-quantity">Quantity
+                        <input type="number" id="first-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
+                    </label>
+                </div>
+            </fieldset>
 
-        <fieldset class="fieldset-second-task">
-            <legend>Second task (for comparison)</legend>
-            <label for="second-task">Task</label>
-            <select id="second-task">
-                <option value="Paragraph of AI text">Paragraph of AI text</option>
-                <option value="10 lines of AI code">10 lines of AI code</option>
-                <option value="1024x1024 AI image">1024x1024 AI image</option>
-                <option value="3-second AI video from text">3-second AI video from text</option>
-                <option value="3-second AI video from image">3-second AI video from image</option>
-                <option value="Searching Google without AI">Searching Google without AI</option>
-                <option value="Charging a smartphone">Charging a smartphone</option>
-                <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
-                <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
-            </select>
+            <fieldset class="fieldset-second-task">
+                <legend>Second task</legend>
+                <label for="second-task">Task</label>
+                <select required id="second-task">
+                    <option value="" disabled selected>Pick a second task to compare with the first</option>
+                    <option value="Paragraph of AI text">Paragraph of AI text</option>
+                    <option value="10 lines of AI code">10 lines of AI code</option>
+                    <option value="1024x1024 AI image">1024x1024 AI image</option>
+                    <option value="3-second AI video from text">3-second AI video from text</option>
+                    <option value="3-second AI video from image">3-second AI video from image</option>
+                    <option value="Searching Google without AI">Searching Google without AI</option>
+                    <option value="Charging a smartphone">Charging a smartphone</option>
+                    <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
+                    <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
+                    <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+                </select>
 
-            <div class="switch">
-                <label>Location
-                    <select id="second-task-location">
-                        <option value="solar">Solar-powered (CA)</option>
-                        <option value="coal">Coal-powered (WV)</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Local energy source
+                        <select id="second-task-location">
+                            <option value="solar">Solar-powered (California)</option>
+                            <option value="coal">Coal-powered (West Virginia)</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Prompt complexity
-                    <select id="second-task-complexity">
-                        <option value="simple">Simple</option>
-                        <option value="complex">Complex</option>
-                        <option value="reasoning">Reasoning</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Prompt complexity
+                        <select id="second-task-complexity">
+                            <option value="simple">Simple</option>
+                            <option value="complex">Complex</option>
+                            <option value="reasoning">Reasoning</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Number of prompts
-                    <select id="second-task-prompt-count">
-                        <option value="single">Single (zero-shot)</option>
-                        <option value="multi">Multi-step</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Number of prompts
+                        <select id="second-task-prompt-count">
+                            <option value="single">Single (zero-shot)</option>
+                            <option value="multi">Multi-step</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label>Season
-                    <select id="second-task-season">
-                        <option value="summer">Summer</option>
-                        <option value="winter">Winter</option>
-                    </select>
-                </label>
-            </div>
+                <div class="switch">
+                    <label>Local data center climate
+                        <select id="second-task-season">
+                            <option value="winter">Cold (Norway in winter)</option>
+                            <option value="summer">Warm (Arizona in summer)</option>
+                        </select>
+                    </label>
+                </div>
 
-            <div class="switch">
-                <label for="second-task-quantity">Quantity
-                    <input type="number" id="second-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
-                </label>
-            </div>
-        </fieldset>
+                <div class="switch">
+                    <label for="second-task-quantity">Quantity
+                        <input type="number" id="second-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
+                    </label>
+                </div>
+            </fieldset>
 
-        <fieldset class="units-col" style="min-width: 200px;">
-            <legend>Units</legend>
-            <label for="energy-units">Energy units</label>
-            <select id="energy-units">
-                <option value="Wh">Watt-hours (Wh)</option>
-                <option value="J">Joules (J)</option>
-                <option value="gCO2">carbon equivalent (gCO2)</option>
-            </select>
+            <fieldset class="units-col" style="min-width: 200px;">
+                <legend>Units</legend>
+                <label for="energy-units">Energy units</label>
+                <select id="energy-units">
+                    <option value="Wh">Watt-hours (Wh)</option>
+                    <option value="J">Joules (J)</option>
+                    <option value="gCO2">carbon equivalent (gCO2)</option>
+                </select>
 
-            <label for="water-units">Water units</label>
-            <select id="water-units">
-                <option value="cc">Cubic centimeters</option>
-                <option value="l">Liters</option>
-            </select>
-        </fieldset>
-    </div>
-
-    <button onclick="calculate()">Calculate</button>
+                <label for="water-units">Water units</label>
+                <select id="water-units">
+                    <option value="cc">Cubic centimeters</option>
+                    <option value="l">Liters</option>
+                </select>
+            </fieldset>
+        </div>
+        <button type="submit">Calculate</button>
+        <button type="button" onclick="document.querySelector('form').reset();">Reset</button>
+    </form>
 
     <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
         <div>
