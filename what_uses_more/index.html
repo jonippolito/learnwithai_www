@@ -202,9 +202,14 @@
             margin-right: .5em;
         }
 
+        ul li {
+            margin: 0 0 0 1em;
+        }
+
         ul.list-small {
             list-style: none;
             padding-left: 0;
+            margin-bottom: 0;
         }
 
         ul.list-small .emoji {
@@ -286,6 +291,37 @@
             <li><span class="emoji">💡</span>watt-hour (running an incandescent light bulb for 1 minute)</li>
             <li><span class="emoji">🥤</span>liter (about a quart)</li>
             <li><span class="emoji">☔️</span>cubic centimeter (a raindrop).</li>
+        </ul>
+    </details>
+    <details class="explanation" style="margin-bottom: 1.5em;">
+        <summary style="font-weight: bold; font-size: 1.1em; cursor: pointer;">
+            How to use this in the classroom
+        </summary>
+        <p>First, thank you for caring about climate and education! In the hopes that this tool may help that cause, here are some recommendations:</p>
+        <h5>Do's</h5>
+        <ul>
+            <li><strong>Do</strong> encourage students to experiment with different combinations of tasks, energy sources (solar vs coal), prompt complexity, and local climate to see how these factors affect energy and water usage.</li>
+            <li><strong>Do</strong> help students who need handholding by suggesting that they:
+                <ol>
+                    <li>Pick an activity from the <strong>First task</strong> menu they're familiar with, such as "Watching 1-hour Netflix movie" or "Searching Google without AI."</li>
+                    <li>Use the <strong>Second task</strong> menu to select a task that students are less familiar with, such as "3-second AI video from text" or "Storing 5 GB in the cloud for 1 month."</li>
+                </ol>
+            </li>
+            <li><strong>Do</strong> experiment with turning the tool into a game, eg:
+                <ul>
+                    <li>Ask the class to vote on which of two tasks uses more energy or water before clicking the <strong>Calculate</strong> button, or</li>
+                    <li>Ask them to choose different tasks from the menus and adjust the parameters to see if they can find equivalences, eg "How many 3-second AI videos from text equal the energy of watching a 1-hour Netflix movie?"</li>
+                </ul>
+            </li>
+            <li><strong>Do</strong> brainstorm what environmental impacts are missing from these parameters, such as energy embedded in server components, data center strains on local electricity and water supplies, or the health risks of discarded electronics (e-waste).</li>
+            <li><strong>Do</strong> remind students that these figures are guesses based on incomplete and often contradictory sources.</li>
+            <li><strong>Do</strong> <a href="https://jonippolito.net">let me know</a> any other activities or suggestions to share!</li>
+        </ul>
+        <h5><strong>Don'ts</strong></h5>
+        <ul>
+            <li><strong>Don't</strong> use this tool to make definitive claims about the environmental impact of AI. The calculations are based on estimates and assumptions and may be superseded in future.</li>
+            <li><strong>Don't</strong> ignore the broader context of AI's environmental impact, including hardware manufacturing, data center cooling, and other factors not covered by this calculator.</li>
+            <li><strong>Don't</strong> permit students (say, above middle school) to cite this tool directly; require them instead to track down and read the related sources in the associated <a href="https://docs.google.com/spreadsheets/d/1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY/edit?gid=0#gid=0">Google Sheet</a>.</li>
         </ul>
     </details>
     <div class="Guestimator-grid">
@@ -537,9 +573,13 @@
             const firstTaskLabel = firstTaskMenu.options[firstTaskMenu.selectedIndex].text;
             const secondTaskLabel = secondTaskMenu.options[secondTaskMenu.selectedIndex].text;
 
-            // Dynamically update output labels
-            document.getElementById("first-footprint-label").textContent = firstTaskLabel + ":";
-            document.getElementById("second-footprint-label").textContent = secondTaskLabel + ":";
+            // Get quantities
+            const firstQuantity = parseFloat(document.getElementById("first-task-quantity").value) || 1;
+            const secondQuantity = parseFloat(document.getElementById("second-task-quantity").value) || 1;
+
+            // Dynamically update output labels to include quantity
+            document.getElementById("first-footprint-label").textContent = `${firstTaskLabel} x ${firstQuantity}:`;
+            document.getElementById("second-footprint-label").textContent = `${secondTaskLabel} x ${secondQuantity}:`;
 
             // Get selected tasks
             const firstTask = document.getElementById("first-task").value;
@@ -585,9 +625,10 @@
                 secondProduct *= factorValue;
             });
 
-            // Get quantities
-            const firstQuantity = parseFloat(document.getElementById("first-task-quantity").value) || 1;
-            const secondQuantity = parseFloat(document.getElementById("second-task-quantity").value) || 1;
+            // DUPLICATED:
+            // // Get quantities
+            // const firstQuantity = parseFloat(document.getElementById("first-task-quantity").value) || 1;
+            // const secondQuantity = parseFloat(document.getElementById("second-task-quantity").value) || 1;
 
             // Apply quantities
             firstProduct *= firstQuantity;
@@ -639,10 +680,10 @@
             // Report results using formatNumber and append the unit label and water in brackets
             document.getElementById("first-footprint").textContent =
                 (firstProduct !== undefined && !isNaN(firstProduct))
-                    ? `${formatNumber(firstProduct)} ${energyUnitLabel} [${formatWater(firstWater)} ${waterUnitLabel}]` : "--";
+                    ? `💡 ${formatNumber(firstProduct)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]` : "--";
             document.getElementById("second-footprint").textContent =
                 (secondProduct !== undefined && !isNaN(secondProduct))
-                    ? `${formatNumber(secondProduct)} ${energyUnitLabel} [${formatWater(secondWater)} ${waterUnitLabel}]` : "--";
+                    ? `💡 ${formatNumber(secondProduct)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]` : "--";
 
             // Draw bar chart
             drawBarChart(firstProduct, secondProduct);
