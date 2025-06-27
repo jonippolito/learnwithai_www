@@ -10,6 +10,7 @@
 
         :root {
             --container-width: 1000px;
+            --column-min-width: 300px;
             --margin-wide: 40px;
             --padding-padlet: 1em;
             --padding-section: 1em;
@@ -103,18 +104,17 @@
         }
 
 
-        .Guestimator-grid {
+        .guestimator-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(var(--column-min-width), 1fr));
             gap: 32px;
             align-items: flex-start;
             margin-bottom: 20px;
         }
 
         .fieldset-first-task,
-        .fieldset-second-task,
-        .units-col {
-            min-width: 250px;
+        .fieldset-second-task {
+            min-width: var(--column-min-width);
             background: var(--dark-celeste);
             border-radius: 8px;
             padding: 16px;
@@ -217,9 +217,9 @@
         }
 
 
-        /* Is this necessary given minmax function? */
-        @media (max-width: 900px) {
-            .Guestimator-grid {
+        /* Superseded by minmax function. */
+        /* @media (max-width: 900px) {
+            .guestimator-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -228,7 +228,7 @@
             .units-col {
                 margin-bottom: 16px;
             }
-        }
+        } */
     </style>
 </head>
 
@@ -324,8 +324,25 @@
             <li><strong>Don't</strong> permit students (say, above middle school) to cite this tool directly; require them instead to track down and read the related sources in the associated <a href="https://docs.google.com/spreadsheets/d/1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY/edit?gid=0#gid=0">Google Sheet</a>.</li>
         </ul>
     </details>
+    <!-- Units fieldset: full width, spans both columns -->
+    <fieldset class="units-col">
+        <legend>Units</legend>
+        <label for="energy-units">Energy units</label>
+        <select id="energy-units">
+            <option value="Wh">Watt-hours (Wh)</option>
+            <option value="J">Joules (J)</option>
+            <option value="gCO2">carbon equivalent (gCO2)</option>
+        </select>
+
+        <label for="water-units">Water units</label>
+        <select id="water-units">
+            <option value="cc">Cubic centimeters</option>
+            <option value="l">Liters</option>
+        </select>
+    </fieldset>
     <form id="guestimator-form" onsubmit="event.preventDefault(); calculate();">
-        <div class="Guestimator-grid">
+        <div class="guestimator-grid">
+            <!-- First and Second task fieldsets side by side -->
             <fieldset class="fieldset-first-task">
                 <legend>First task</legend>
                 <label for="first-task">Task</label>
@@ -386,12 +403,11 @@
                     </label>
                 </div>
             </fieldset>
-
             <fieldset class="fieldset-second-task">
                 <legend>Second task</legend>
                 <label for="second-task">Task</label>
                 <select required id="second-task">
-                    <option value="" disabled selected>Pick a second task to compare with the first</option>
+                    <option value="" disabled selected>Pick a second task to compare</option>
                     <option value="Paragraph of AI text">Paragraph of AI text</option>
                     <option value="100 lines of AI code">100 lines of AI code</option>
                     <option value="1024x1024 AI image">1024x1024 AI image</option>
@@ -446,22 +462,6 @@
                         <input type="number" id="second-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
                     </label>
                 </div>
-            </fieldset>
-
-            <fieldset class="units-col" style="min-width: 200px;">
-                <legend>Units</legend>
-                <label for="energy-units">Energy units</label>
-                <select id="energy-units">
-                    <option value="Wh">Watt-hours (Wh)</option>
-                    <option value="J">Joules (J)</option>
-                    <option value="gCO2">carbon equivalent (gCO2)</option>
-                </select>
-
-                <label for="water-units">Water units</label>
-                <select id="water-units">
-                    <option value="cc">Cubic centimeters</option>
-                    <option value="l">Liters</option>
-                </select>
             </fieldset>
         </div>
         <button type="submit">Calculate</button>
