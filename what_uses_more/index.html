@@ -234,15 +234,19 @@
 
 <body>
     <!-- Modal for caveat message -->
-    <dialog id="caveat-modal" style="max-width: 400px; border-radius: 10px; border: 2px solid var(--accent); box-shadow: 0 4px 24px rgba(0,0,0,0.3); text-align: center;">
+    <dialog id="caveat-modal" style="max-width: 400px; border-radius: 10px; border: 2px solid var(--accent); box-shadow: 0 4px 24px rgba(0,0,0,0.3); text-align: center; color: darkslategray;">
         <div style="padding: 1.5em;">
             <span class="emoji" style="font-size: 2em;">⚠️</span>
             <div style="margin: 1em 0;">
                 Please do not quote any of these figures without this caveat:
-                <br>
-                <em>"These are guesses based on incomplete and often contradictory sources."</em>
+                <br />
+                <br />
+                <em>"These estimates are guesses based on incomplete and often contradictory sources."</em>
+                <br />
+                <br />
+                <span style="font-size: .7em; color: dimgray;">(This warning has been added to your clipboard so you can paste it into another document.)</span>
             </div>
-            <button id="close-caveat-modal" style="margin-top: 1em;">OK</button>
+            <button id="close-caveat-modal" style="margin-top: 1em;">Got it</button>
         </div>
     </dialog>
 
@@ -798,7 +802,9 @@
             });
         }
 
-        // Modal logic
+        // Remove modal logic from DOMContentLoaded
+        // (Delete or comment out this block)
+        /*
         document.addEventListener("DOMContentLoaded", function () {
             // Only show modal if not previously dismissed
             if (!localStorage.getItem("caveatModalDismissed")) {
@@ -838,11 +844,59 @@
                 document.body.removeChild(tempInput);
             }
         });
+        */
 
-        // Initialize on page load
+        // Add this logic to show modal on first Calculate click
         window.addEventListener("DOMContentLoaded", () => {
             syncSecondMenu();
             setupTaskFactorSync();
+
+            // Intercept Calculate button/form submit
+            const form = document.getElementById("guestimator-form");
+            if (form) {
+                form.addEventListener("submit", function (e) {
+                    if (!localStorage.getItem("caveatModalDismissed")) {
+                        e.preventDefault();
+                        const modal = document.getElementById("caveat-modal");
+                        if (modal && typeof modal.showModal === "function") {
+                            modal.showModal();
+                        } else if (modal) {
+                            modal.style.display = "block";
+                        }
+
+                        // Copy caveat to clipboard
+                        const caveatText = 'These are guesses based on incomplete and often contradictory sources.';
+                        if (navigator.clipboard) {
+                            navigator.clipboard.writeText(caveatText).catch(() => { });
+                        } else {
+                            const tempInput = document.createElement('textarea');
+                            tempInput.value = caveatText;
+                            document.body.appendChild(tempInput);
+                            tempInput.select();
+                            try {
+                                document.execCommand('copy');
+                            } catch (e) { }
+                            document.body.removeChild(tempInput);
+                        }
+
+                        // When modal is dismissed, set flag and trigger calculation
+                        const closeBtn = document.getElementById("close-caveat-modal");
+                        if (closeBtn) {
+                            closeBtn.onclick = function () {
+                                localStorage.setItem("caveatModalDismissed", "true");
+                                if (typeof modal.close === "function") {
+                                    modal.close();
+                                } else {
+                                    modal.style.display = "none";
+                                }
+                                // Now trigger calculation
+                                calculate();
+                            };
+                        }
+                    }
+                    // else, allow normal calculation (calculate() will run)
+                });
+            }
         });
     </script>
 </body>
