@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<!-- 
+what_uses_more/index.html
+
+Test caveat modal by running this in console:
+localStorage.removeItem("caveatModalDismissed") 
+
+-->
+
 <html lang="en">
 
 <head>
@@ -307,8 +315,8 @@
             <li><strong>Do</strong> encourage students to experiment with different combinations of tasks, energy sources (solar vs coal), prompt complexity, and local climate to see how these factors affect energy and water usage.</li>
             <li><strong>Do</strong> help students who need handholding by suggesting that they:
                 <ol>
-                    <li>Pick an activity from the <strong>First task</strong> menu they're familiar with, such as "Watching 1-hour Netflix movie" or "Searching Google without AI."</li>
-                    <li>Use the <strong>Second task</strong> menu to select a task that students are less familiar with, such as "3-second AI video from text" or "Storing 5 GB in the cloud for 1 month."</li>
+                    <li>Pick an activity from the <strong>First task</strong> menu they're familiar with, such as "<strong>🍿 Watching 1-hour Netflix movie</strong>" or "<strong>🔍 Searching Google without AI</strong>."</li>
+                    <li>Use the <strong>Second task</strong> menu to select a task that students are less familiar with, such as "<strong>🎬 3-second AI video from text</strong>" or "<strong>☁️ Storing 5 GB in the cloud for 1 month</strong>."</li>
                 </ol>
             </li>
             <li><strong>Do</strong> experiment with turning the tool into a game, eg:
@@ -352,16 +360,16 @@
                 <label for="first-task">Task</label>
                 <select required id="first-task">
                     <option value="" disabled selected>Pick a first task</option>
-                    <option value="Paragraph of AI text">Paragraph of AI text</option>
-                    <option value="100 lines of AI code">100 lines of AI code</option>
-                    <option value="1024x1024 AI image">1024x1024 AI image</option>
-                    <option value="3-second AI video from text">3-second AI video from text</option>
-                    <option value="3-second AI video from image">3-second AI video from image</option>
-                    <option value="Searching Google without AI">Searching Google without AI</option>
-                    <option value="Charging a smartphone">Charging a smartphone</option>
-                    <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                    <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
-                    <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+                    <option value="📝 Paragraph of AI text">📝 Paragraph of AI text</option>
+                    <option value="🖥️ 100 lines of AI code">🖥️ 100 lines of AI code</option>
+                    <option value="🖼 1024x1024 AI image">🖼 1024x1024 AI image</option>
+                    <option value="🎬 3-second AI video from text">🎬 3-second AI video from text</option>
+                    <option value="🎬 3-second AI video from image">🎬 3-second AI video from image</option>
+                    <option value="🔍 Searching Google without AI">🔍 Searching Google without AI</option>
+                    <option value="🪫 Charging a smartphone">🪫 Charging a smartphone</option>
+                    <option value="☁️ Storing 5 GB in the cloud for 1 month">☁️ Storing 5 GB in the cloud for 1 month</option>
+                    <option value="🍿 Watching 1-hour Netflix movie">🍿 Watching 1-hour Netflix movie</option>
+                    <option value="🎦 Zooming for 1 hour with 10 people">🎦 Zooming for 1 hour with 10 people</option>
                 </select>
 
                 <div class="switch">
@@ -412,16 +420,16 @@
                 <label for="second-task">Task</label>
                 <select required id="second-task">
                     <option value="" disabled selected>Pick a second task to compare</option>
-                    <option value="Paragraph of AI text">Paragraph of AI text</option>
-                    <option value="100 lines of AI code">100 lines of AI code</option>
-                    <option value="1024x1024 AI image">1024x1024 AI image</option>
-                    <option value="3-second AI video from text">3-second AI video from text</option>
-                    <option value="3-second AI video from image">3-second AI video from image</option>
-                    <option value="Searching Google without AI">Searching Google without AI</option>
-                    <option value="Charging a smartphone">Charging a smartphone</option>
-                    <option value="Storing 5 GB in the cloud for 1 month">Storing 5 GB in the cloud for 1 month</option>
-                    <option value="Watching 1-hour Netflix movie">Watching 1-hour Netflix movie</option>
-                    <option value="Zooming for 1 hour with 10 people">Zooming for 1 hour with 10 people</option>
+                    <option value="📝 Paragraph of AI text">📝 Paragraph of AI text</option>
+                    <option value="🖥️ 100 lines of AI code">🖥️ 100 lines of AI code</option>
+                    <option value="🖼 1024x1024 AI image">🖼 1024x1024 AI image</option>
+                    <option value="🎬 3-second AI video from text">🎬 3-second AI video from text</option>
+                    <option value="🎬 3-second AI video from image">🎬 3-second AI video from image</option>
+                    <option value="🔍 Searching Google without AI">🔍 Searching Google without AI</option>
+                    <option value="🪫 Charging a smartphone">🪫 Charging a smartphone</option>
+                    <option value="☁️ Storing 5 GB in the cloud for 1 month">☁️ Storing 5 GB in the cloud for 1 month</option>
+                    <option value="🍿 Watching 1-hour Netflix movie">🍿 Watching 1-hour Netflix movie</option>
+                    <option value="🎦 Zooming for 1 hour with 10 people">🎦 Zooming for 1 hour with 10 people</option>
                 </select>
 
                 <div class="switch">
