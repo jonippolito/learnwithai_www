@@ -348,8 +348,8 @@ localStorage.removeItem("caveatModalDismissed")
 
         <label for="water-units">Water units</label>
         <select id="water-units">
-            <option value="cc">Cubic centimeters</option>
-            <option value="l">Liters</option>
+            <option value="cc">cubic centimeters</option>
+            <option value="l">liters</option>
         </select>
     </fieldset>
     <form id="guestimator-form" onsubmit="event.preventDefault(); calculate();">
@@ -375,8 +375,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Local energy source
                         <select id="first-task-location">
-                            <option value="solar">Solar-powered (California)</option>
-                            <option value="coal">Coal-powered (West Virginia)</option>
+                            <option value="solar">☀️ Solar-powered (California)</option>
+                            <option value="coal">🛢️ Coal-powered (West Virginia)</option>
                         </select>
                     </label>
                 </div>
@@ -384,9 +384,9 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Prompt complexity
                         <select id="first-task-complexity">
-                            <option value="simple">Simple</option>
-                            <option value="complex">Complex</option>
-                            <option value="reasoning">Reasoning</option>
+                            <option value="simple">✏️ Simple</option>
+                            <option value="complex">🤔 Complex</option>
+                            <option value="reasoning">🧠 Reasoning</option>
                         </select>
                     </label>
                 </div>
@@ -394,8 +394,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Number of prompts
                         <select id="first-task-prompt-count">
-                            <option value="single">Single (zero-shot)</option>
-                            <option value="multi">Multi-step</option>
+                            <option value="single">📄 Single (zero-shot)</option>
+                            <option value="multi">📚 Multi-step</option>
                         </select>
                     </label>
                 </div>
@@ -403,8 +403,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Local data center climate
                         <select id="first-task-season">
-                            <option value="winter">Cold (Norway in winter)</option>
-                            <option value="summer">Warm (Arizona in summer)</option>
+                            <option value="winter">🥶 Cold (Norway in winter)</option>
+                            <option value="summer">🥵 Warm (Arizona in summer)</option>
                         </select>
                     </label>
                 </div>
@@ -435,8 +435,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Local energy source
                         <select id="second-task-location">
-                            <option value="solar">Solar-powered (California)</option>
-                            <option value="coal">Coal-powered (West Virginia)</option>
+                            <option value="solar">☀️ Solar-powered (California)</option>
+                            <option value="coal">🛢️ Coal-powered (West Virginia)</option>
                         </select>
                     </label>
                 </div>
@@ -444,9 +444,9 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Prompt complexity
                         <select id="second-task-complexity">
-                            <option value="simple">Simple</option>
-                            <option value="complex">Complex</option>
-                            <option value="reasoning">Reasoning</option>
+                            <option value="simple">✏️ Simple</option>
+                            <option value="complex">🤔 Complex</option>
+                            <option value="reasoning">🧠 Reasoning</option>
                         </select>
                     </label>
                 </div>
@@ -454,8 +454,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Number of prompts
                         <select id="second-task-prompt-count">
-                            <option value="single">Single (zero-shot)</option>
-                            <option value="multi">Multi-step</option>
+                            <option value="single">📄 Single (zero-shot)</option>
+                            <option value="multi">📚 Multi-step</option>
                         </select>
                     </label>
                 </div>
@@ -463,8 +463,8 @@ localStorage.removeItem("caveatModalDismissed")
                 <div class="switch">
                     <label>Local data center climate
                         <select id="second-task-season">
-                            <option value="winter">Cold (Norway in winter)</option>
-                            <option value="summer">Warm (Arizona in summer)</option>
+                            <option value="winter">🥶 Cold (Norway in winter)</option>
+                            <option value="summer">🥵 Warm (Arizona in summer)</option>
                         </select>
                     </label>
                 </div>
@@ -553,7 +553,7 @@ localStorage.removeItem("caveatModalDismissed")
         let taskData = null;
         let factorValues = null;
 
-        // Disable the selected option in the second menu
+        /* DEPRECATED in order to allow user to choose the same task in both menus.
         function syncSecondMenu() {
             const firstTask = document.getElementById("first-task").value;
             const secondTaskMenu = document.getElementById("second-task");
@@ -561,9 +561,7 @@ localStorage.removeItem("caveatModalDismissed")
                 option.disabled = (option.value === firstTask);
             });
         }
-
-        // DISABLED TO ALLOW FACTOR ADJUSTMENT FOR SAME TASK
-        // document.getElementById("first-task").addEventListener("change", syncSecondMenu);
+        */
 
         let chartInstance = null;
 
@@ -617,6 +615,9 @@ localStorage.removeItem("caveatModalDismissed")
                 const factorText = select.options[select.selectedIndex].text;
                 const isDisabled = select.options[select.selectedIndex].disabled;
                 let factorValue = factorValues[factorText];
+                console.log(`%c In factorText %c factorText %c is %c  ${factorText}`, "color: yellow; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
+                console.log(`%c In factorValue %c factorValue %c is %c  ${factorValue}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
+
                 if (isDisabled || factorValue === undefined) {
                     factorValue = 1;
                 }
@@ -856,7 +857,7 @@ localStorage.removeItem("caveatModalDismissed")
 
         // Add this logic to show modal on first Calculate click
         window.addEventListener("DOMContentLoaded", () => {
-            syncSecondMenu();
+            // syncSecondMenu(); Would prevent selecting same task in both menus; better to let user choose same task with different factors.
             setupTaskFactorSync();
 
             // Intercept Calculate button/form submit
