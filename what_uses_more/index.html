@@ -65,14 +65,28 @@ localStorage.removeItem("caveatModalDismissed")
 
         @font-face {
             font-family: "sansation-bold";
-            src: url("../fonts/Sansation-Bold.ttf") format("truetype");
+            src: url("fonts/Sansation-Bold.ttf") format("truetype");
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Montserrat";
+            src: url("fonts/Montserrat-VariableFont_wght.ttf") format("woff");
+            font-display: swap;
         }
 
         body {
-            font-family: 'century gothic', verdana, sans-serif;
+            font-family: "Montserrat", verdana, sans-serif;
             background-color: var(--darkest-celeste);
             color: var(--pale-celeste);
             padding: 20px;
+        }
+
+        h1,
+        h2,
+        h5,
+        summary {
+            font-family: 'sansation-bold', sans-serif;
         }
 
         h1 {
@@ -111,13 +125,32 @@ localStorage.removeItem("caveatModalDismissed")
             color: var(--accent);
         }
 
+        summary {
+            font-weight: bold;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        details ul li {
+            margin: .7em 0;
+        }
+
+        .units-col,
+        .guestimator-grid {
+            margin-bottom: 20px;
+        }
+
+        .units-col {
+            border-color: var(--pale-celeste);
+            border-radius: 8px;
+            padding: 16px;
+        }
 
         .guestimator-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(var(--column-min-width), 1fr));
             gap: 32px;
             align-items: flex-start;
-            margin-bottom: 20px;
         }
 
         .fieldset-first-task,
@@ -126,7 +159,7 @@ localStorage.removeItem("caveatModalDismissed")
             background: var(--dark-celeste);
             border-radius: 8px;
             padding: 16px;
-            box-shadow: 0 2px 8px var(--cluster-shadow);
+            /* box-shadow: 0 2px 8px var(--cluster-shadow); */
         }
 
 
@@ -216,7 +249,7 @@ localStorage.removeItem("caveatModalDismissed")
 
         ul.list-small {
             list-style: none;
-            padding-left: 0;
+            padding-left: 1em;
             margin-bottom: 0;
         }
 
@@ -292,8 +325,8 @@ localStorage.removeItem("caveatModalDismissed")
     </div>
     <h2>Compare the environmental footprint of digital tasks</h2>
     <details class="explanation" style="margin-bottom: 1.5em;">
-        <summary style="font-weight: bold; font-size: 1.1em; cursor: pointer;">
-            About this calculator
+        <summary>
+            About this app
         </summary>
         <p>It's hard to know what to believe about the ecological impact of generative AI when the Internet seems evenly divided between "Stop worrying" and "It's the apocalypse." This nonpartisan calculator is an attempt to provide a more objective comparison of the energy and water usage of various AI tasks versus other common digital activities, like watching Netflix or searching Google. The calculations are based on academic papers, industry reports, and expert estimates.</p>
         <p>The calculations include only current energy and water usage, and not growth scenarios or actual environmental impact. Even for energy and water, it's extremely difficult to do more than estimate values given the lack of transparency in the tech industry. It's also unclear how some future tradeoffs will play out, eg whether improved efficiencies will cancel out increased demand. These calculations also exclude numerous potential AI downsides apart from environmental risks, which you can find explained in the <a href="https://AI-Impact-Risk.com">IMPACT RISK</a> framework.</p>
@@ -304,9 +337,10 @@ localStorage.removeItem("caveatModalDismissed")
             <li><span class="emoji">🥤</span>liter (about a quart)</li>
             <li><span class="emoji">☔️</span>cubic centimeter (a raindrop).</li>
         </ul>
+        <p>This app is a project of the <a href="https://learnwithai.design">Learn with AI</a> initiative, which aims to help educators and students understand the impact of AI on society. It is not affiliated with any commercial entity or political agenda.</p>
     </details>
     <details class="explanation" style="margin-bottom: 1.5em;">
-        <summary style="font-weight: bold; font-size: 1.1em; cursor: pointer;">
+        <summary>
             How to use this in the classroom
         </summary>
         <p>First, thank you for caring about climate and education! In the hopes that this tool may help that cause, here are some recommendations:</p>
