@@ -1250,14 +1250,9 @@
 		<a href="https://LearnWithAI.org"><img src="../media/learnwithai_graphic_banner_1080.png" alt="Learnwithai Graphic Banner 1080"></a>
 		<h2>AI's impact on energy and water usage</h2>
 		<div class="caption" id="version">
-			Version 1.8 by <a href="https://jonippolito.net">Jon Ippolito</a> for <a href="https://LearnWithAI.org">Learning With AI</a>
-			<!-- ai_energy_water_impact.html v1.8: 
-				1. Increased current AI use in data centers to 15% per EPRI 2024.
-				2. Increased Watt-hours for a page of text to 30 after recalibrating to GPT-4 (Ippolito 2025b).
-				3. Added figure of 30% for energy used in training per EPRI 2024.
-				4. Added World Resources Institute 2020 to support 4 cubic centimeters of water per watt-hour.
-				5. Omitted "scope-2" water usage (eg, hydrodynamic water used to make the electricity sent to the data center) based on reports suggesting it is only around 3% of "scope-1" (cooling) needs. See 1,658 v. 48,952 mt CO2e in "For a better reality: 2024 sustainability report" (Meta, https://sustainability.atmeta.com/wp-content/uploads/2024/08/Meta-2024-Sustainability-Report.pdf).
-				6. Ignored wildy varying water usage (cc/Wh) reported by Li et. al in "Making AI Less "Thirsty" (https://arxiv.org/pdf/2304.03271) and, via Luccioni, in "Water stewardship" (Amazon, https://sustainability.aboutamazon.com/natural-resources/water) and "How Microsoft measures datacenter water and energy use to improve Azure Cloud sustainability" (Microsoft, https://azure.microsoft.com/en-us/blog/how-microsoft-measures-datacenter-water-and-energy-use-to-improve-azure-cloud-sustainability/) in favor of clearer definition in Lawrence 2024.
+			Version 1.9 by <a href="https://jonippolito.net">Jon Ippolito</a> for <a href="https://LearnWithAI.org">Learning With AI</a>
+			<!-- ai_energy_water_impact.html v1.9: 
+				Replaced comparisons with link to calculator.
 				🙏 Thanks to Rebecca Yeager for her ongoing critique of these numbers in private correspondence!
 			-->
 		</div>
@@ -1287,37 +1282,13 @@
 			</ul>
 			<li><span class="emoji">💻</span>7. Prompting a local model on a laptop requires no water and uses less than 10% of the energy of prompting a model in a data center.</li>
 			<li><span class="emoji">🚰</span>8. Cooling a data center requires about 4 cubic centimeters of water per watt-hour regardless of task (World Resources Institute 2020, Lawrence 2024).</li>
-			<li><span class="emoji">⚖️</span>9. Comparisons can be surprising (approximate Watt-hours and Liters or cubic centimeters):</li>
-			<ul>
-				<li><span class="emoji">🎦</span>1000 Wh / 4 L: hour-long Zoom call with 10 people (devices 600 + transmission 200 + server-processing 200).</li>
-				<li><span class="emoji">📺</span>200 Wh / .8 L: hour-long video streamed on a big TV (Kamiya 2020, Carbon Trust 2021).<br></li>
-				<li><span class="emoji">📝</span>30 Wh / 120 cc: generating a page with an online chatbot (Brown 2020, Ippolito 2025b).</li>
-				<li><span class="emoji">🪫</span>20 Wh / 80 cc: charging a smartphone (EPA 2024).<br></li>
-				<li><span class="emoji">🖼</span>6 Wh / 24 cc: generating an image online (Luccioni 2024, Ippolito 2025a).</li>
-				<li><span class="emoji">✏️</span>3 Wh / 12 cc: generating a sentence with an online chatbot (Luccioni 2024, Ippolito 2025a, EPRI 2024).</li>
-				<li><span class="emoji">🔍</span>.3 Wh / 1 cc: one non-AI Google search (Google 2009).<br></li>
-				<li><span class="emoji">💻</span>.01 Wh / .04 cc: Generating text with a local chatbot (30W x 1s).</li>
-			</ul>
-			<p><span class="emoji">⚠️</span> Please do not quote any of these figures without this caveat: <em>"These are guesses based on incomplete and often contradictory sources."</em></p>
+			<li><a href="https://What-Uses-More.com"><img src="https://what-uses-more.com/media/what_uses_more_sample_chart.png" alt="What Uses More sample chart" style="float: right; margin:0 0 .5em 1em; width: 20%;" /></a><span class="emoji">⚖️</span>9. The impact of watching Netflix or joining a Zoom call can rival the largest impacts of AI generation. To compare the energy and water use of AI and non-AI tasks, visit our new app <a href="https://What-Uses-More.com">What Uses More</a>.</li>
+		</ol>
+		<p><span class="emoji">⚠️</span> Please do not quote any of these figures without this caveat: <em>"These are guesses based on incomplete and often contradictory sources."</em></p>
 		</ol>
 		<hr />
 		<h3>Sources</h3>
-		<ul>
-			<li>Brown, <a href="https://arxiv.org/pdf/2005.14165">Language Models are Few-Shot Learners</a>, 2020</li>
-			<li>Carbon Trust, <a href="https://www.carbonbrief.org/factcheck-what-is-the-carbon-footprint-of-streaming-video-on-netflix/">Carbon impact of video streaming</a>, 2021 </li>
-			<li>EPA, <a href="https://www.epa.gov/energy/greenhouse-gas-equivalencies-calculator-calculations-and-references">Greenhouse Gas Equivalencies Calculator - Calculations and References</a>, 2024</li>
-			<li>EPRI, <a href="https://www.epri.com/research/products/3002028905">Powering Intelligence: Analyzing Artificial Intelligence and Data Center Energy Consumption</a>, 2024</li>
-			<li>Goldman Sachs, <a href=https://www.goldmansachs.com/pdfs/insights/pages/generational-growth-ai-data-centers-and-the-coming-us-power-surge/report.pdf">Generational growth: AI, data centers and the coming US power demand surge</a>, 2024</li>
-			<li>Google, <a href="https://googleblog.blogspot.com/2009/01/powering-google-search.html">Powering a Google search</a>, 2009 </li>
-			<li>Ippolito, <a href="https://chatgpt.com/share/678f13d2-69c4-8003-9a21-9e518238a9bf">Transcript of o1 calculation estimating GPT-4 v. GPT-2 and Stable Diffusion 2.1 v. 3.5</a>, 2025a.</li>
-			<li>Ippolito, <a href="https://chatgpt.com/share/67965d87-e520-8003-b8bb-42e2d0e08341">Transcript of o1 calculation estimating energy usage for a page of text</a>, 2025b.</li>
-			<li>Kamiya, <a href="https://www.carbonbrief.org/factcheck-what-is-the-carbon-footprint-of-streaming-video-on-netflix/">The carbon footprint of streaming video</a>, 2020 </li>
-			<li>Lawrence, <a href="https://eta-publications.lbl.gov/sites/default/files/2024-12/lbnl-2024-united-states-data-center-energy-usage-report.pdf">United States Data Center Energy Usage Report</a>, 2024 </li>
-			<!-- <li>Li, <a href="https://arxiv.org/pdf/2304.03271">Making AI Less "Thirsty": Uncovering and Addressing the Secret Water Footprint of AI Models</a>, 2025.</li> -->
-			<li>Luccioni, <a href="https://arxiv.org/html/2311.16863v3">Power Hungry Processing</a>, 2024 </li>
-			<!-- <li>Ritchie, <a href="https://www.sustainabilitybynumbers.com/p/ai-energy-demand">What’s the impact of artificial intelligence on energy demand?</a>, 2024 </li> -->
-			<li>World Resources Institute, <a href="https://files.wri.org/d8/s3fs-public/guidance-calculating-water-use-embedded-purchased-electricity_0.pdf"> Guidance for calculating water use embedded in purchased electricity</a>, 2020</li>
-		</ul>
+		<p>For an updated list of sources, see the <a href="https://docs.google.com/spreadsheets/d/1xgvGhd6rmnBAEk9t2lesKlJeUy4TRQHrW6uWDSEVDFY">Google Sheet</a> associated with the What Uses More app.</p>
 		<p class="caption" style="text-align: right;">Public domain cooling tower photograph via picryl.com (CC0).</p>
 </body>
 

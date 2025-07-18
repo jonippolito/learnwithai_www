@@ -13,6 +13,19 @@ localStorage.removeItem("caveatModalDismissed")
     <meta charset="UTF-8">
     <title>What Uses More? Compare the environmental footprint of digital tasks</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Add these meta tags inside your <head> section -->
+    <meta property="og:title" content="What Uses More? Compare the environmental footprint of digital tasks">
+    <meta property="og:description" content="Compare the energy and water footprint of AI and digital activities.">
+    <meta property="og:image" content="https://what-uses-more.com/media/what_uses_more_ann_wxga_1080.png">
+    <meta property="og:url" content="https://what-uses-more.com/what_uses_more/index.html">
+    <meta property="og:type" content="website">
+
+    <!-- Optional: Twitter Card tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="What Uses More? Compare the environmental footprint of digital tasks">
+    <meta name="twitter:description" content="Compare the energy and water footprint of AI and digital activities.">
+    <meta name="twitter:image" content="https://what-uses-more.com/media/what_uses_more_ann_wxga_1080.png">
+
     <style>
         /* Uses custom CSS properties and fonts from learnwithai-design-style-v1.1 */
 
@@ -903,7 +916,7 @@ localStorage.removeItem("caveatModalDismissed")
                         const modal = document.getElementById("caveat-modal");
                         if (modal && typeof modal.showModal === "function") {
                             modal.showModal();
-                        } else if (modal) {
+                        } else {
                             modal.style.display = "block";
                         }
 
