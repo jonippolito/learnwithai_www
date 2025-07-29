@@ -283,6 +283,13 @@ localStorage.removeItem("caveatModalDismissed")
                 margin-bottom: 16px;
             }
         } */
+
+        .switch.disabled,
+        .switch label.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
     </style>
 </head>
 
@@ -619,6 +626,66 @@ localStorage.removeItem("caveatModalDismissed")
             return num.toFixed(2);
         }
 
+        // 1. Define which fields are relevant for each task using an object of key-value pairs
+        const taskFieldVisibility = {
+            "📝 Paragraph of AI text": { promptCount: true, complexity: true, location: true, season: true },
+            "🖥️ 100 lines of AI code": { promptCount: true, complexity: true, location: true, season: true },
+            "🖼 1024x1024 AI image": { promptCount: true, complexity: true, location: true, season: true },
+            "🎬 3-second AI video from text": { promptCount: false, complexity: true, location: true, season: true },
+            "🎬 3-second AI video from image": { promptCount: false, complexity: true, location: true, season: true },
+            "🔍 Searching Google without AI": { promptCount: false, complexity: false, location: true, season: true },
+            "🪫 Charging a smartphone": { promptCount: false, complexity: false, location: true, season: false },
+            "☁️ Storing 5 GB in the cloud for 1 month": { promptCount: false, complexity: false, location: true, season: true },
+            "🍿 Watching 1-hour Netflix movie": { promptCount: false, complexity: false, location: true, season: true },
+            "🎦 Zooming for 1 hour with 10 people": { promptCount: false, complexity: false, location: true, season: true }
+        };
+
+        // 2. Utility to show/hide fields based on the selected task
+        function updateFieldVisibility(prefix, task) {
+            const config = taskFieldVisibility[task] || {};
+            // Map field keys to their .switch container class or label "for" attribute
+            const fieldMap = {
+                promptCount: `${prefix}-prompt-count`,
+                complexity: `${prefix}-complexity`,
+                location: `${prefix}-location`,
+                season: `${prefix}-season`
+            };
+            Object.entries(fieldMap).forEach(([key, id]) => {
+                const select = document.getElementById(id);
+                if (select) {
+                    // Find the closest .switch container
+                    const container = select.closest('.switch');
+                    if (container) {
+                        container.style.display = config[key] ? "" : "none";
+                    }
+                }
+            });
+        }
+
+        // 3. Hook up listeners to update field visibility on task change
+        function setupFieldVisibilitySync() {
+            // First task
+            document.getElementById("first-task").addEventListener("change", function () {
+                updateFieldVisibility("first-task", this.value);
+            });
+            // Second task
+            document.getElementById("second-task").addEventListener("change", function () {
+                updateFieldVisibility("second-task", this.value);
+            });
+            // Initialize on page load
+            updateFieldVisibility("first-task", document.getElementById("first-task").value);
+            updateFieldVisibility("second-task", document.getElementById("second-task").value);
+        }
+
+        // 4. Update calculation logic to skip hidden fields
+        function getRelevantFactor(select, visible) {
+            if (!visible) return 1;
+            const factorText = select.options[select.selectedIndex].text;
+            let factorValue = factorValues[factorText];
+            if (factorValue === undefined) factorValue = 1;
+            return factorValue;
+        }
+
         async function calculate() {
             // Fetch data if not already loaded
             if (!taskData) {
@@ -650,26 +717,22 @@ localStorage.removeItem("caveatModalDismissed")
             let firstEnergy = taskData[firstTask];
             let secondEnergy = taskData[secondTask];
 
+            // Get field visibility config
+            const firstConfig = taskFieldVisibility[firstTask] || {};
+            const secondConfig = taskFieldVisibility[secondTask] || {};
+
             // Get selected factors for first task
             const firstLocation = document.getElementById("first-task-location");
             const firstComplexity = document.getElementById("first-task-complexity");
             const firstPromptCount = document.getElementById("first-task-prompt-count");
             const firstSeason = document.getElementById("first-task-season");
 
-            // Multiply by all relevant factors for first task, defaulting to 1 if disabled or undefined
+            // Multiply by only relevant factors for first task
             let firstProduct = firstEnergy;
-            [firstLocation, firstComplexity, firstPromptCount, firstSeason].forEach((select) => {
-                const factorText = select.options[select.selectedIndex].text;
-                const isDisabled = select.options[select.selectedIndex].disabled;
-                let factorValue = factorValues[factorText];
-                console.log(`%c In factorText %c factorText %c is %c  ${factorText}`, "color: yellow; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
-                console.log(`%c In factorValue %c factorValue %c is %c  ${factorValue}`, "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: orange; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; ", "color: white; background-color: black; padding: .3em ; border-radius: .2em 0 0 .2em;", "color: yellow; background-color: black; padding: .3em; border-radius: 0 .2em .2em 0; font-size: 12px;");
-
-                if (isDisabled || factorValue === undefined) {
-                    factorValue = 1;
-                }
-                firstProduct *= factorValue;
-            });
+            firstProduct *= getRelevantFactor(firstLocation, firstConfig.location);
+            firstProduct *= getRelevantFactor(firstComplexity, firstConfig.complexity);
+            firstProduct *= getRelevantFactor(firstPromptCount, firstConfig.promptCount);
+            firstProduct *= getRelevantFactor(firstSeason, firstConfig.season);
 
             // Get selected factors for second task
             const secondLocation = document.getElementById("second-task-location");
@@ -677,22 +740,12 @@ localStorage.removeItem("caveatModalDismissed")
             const secondPromptCount = document.getElementById("second-task-prompt-count");
             const secondSeason = document.getElementById("second-task-season");
 
-            // Multiply by all relevant factors for second task, defaulting to 1 if disabled or undefined
+            // Multiply by only relevant factors for second task
             let secondProduct = secondEnergy;
-            [secondLocation, secondComplexity, secondPromptCount, secondSeason].forEach((select) => {
-                const factorText = select.options[select.selectedIndex].text;
-                const isDisabled = select.options[select.selectedIndex].disabled;
-                let factorValue = factorValues[factorText];
-                if (isDisabled || factorValue === undefined) {
-                    factorValue = 1;
-                }
-                secondProduct *= factorValue;
-            });
-
-            // DUPLICATED:
-            // // Get quantities
-            // const firstQuantity = parseFloat(document.getElementById("first-task-quantity").value) || 1;
-            // const secondQuantity = parseFloat(document.getElementById("second-task-quantity").value) || 1;
+            secondProduct *= getRelevantFactor(secondLocation, secondConfig.location);
+            secondProduct *= getRelevantFactor(secondComplexity, secondConfig.complexity);
+            secondProduct *= getRelevantFactor(secondPromptCount, secondConfig.promptCount);
+            secondProduct *= getRelevantFactor(secondSeason, secondConfig.season);
 
             // Apply quantities
             firstProduct *= firstQuantity;
@@ -906,6 +959,7 @@ localStorage.removeItem("caveatModalDismissed")
         window.addEventListener("DOMContentLoaded", () => {
             // syncSecondMenu(); Would prevent selecting same task in both menus; better to let user choose same task with different factors.
             setupTaskFactorSync();
+            setupFieldVisibilitySync();
 
             // Intercept Calculate button/form submit
             const form = document.getElementById("guestimator-form");
