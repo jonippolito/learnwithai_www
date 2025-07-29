@@ -128,12 +128,6 @@ localStorage.removeItem("caveatModalDismissed")
             border-radius: 4px;
         }
 
-        select:disabled {
-            background: var(--darkest-ice);
-            color: var(--pale-celeste);
-            opacity: 0.7;
-        }
-
         a {
             color: var(--accent);
         }
@@ -268,27 +262,6 @@ localStorage.removeItem("caveatModalDismissed")
 
         ul.list-small .emoji {
             font-size: 1.5em;
-        }
-
-
-        /* Superseded by minmax function. */
-        /* @media (max-width: 900px) {
-            .guestimator-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .fieldset-first-task,
-            .fieldset-second-task,
-            .units-col {
-                margin-bottom: 16px;
-            }
-        } */
-
-        .switch.disabled,
-        .switch label.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            pointer-events: none;
         }
     </style>
 </head>
@@ -425,7 +398,6 @@ localStorage.removeItem("caveatModalDismissed")
                     <option value="🍿 Watching 1-hour Netflix movie">🍿 Watching 1-hour Netflix movie</option>
                     <option value="🎦 Zooming for 1 hour with 10 people">🎦 Zooming for 1 hour with 10 people</option>
                 </select>
-
                 <div class="switch">
                     <label>Local energy source
                         <select id="first-task-location">
@@ -434,7 +406,14 @@ localStorage.removeItem("caveatModalDismissed")
                         </select>
                     </label>
                 </div>
-
+                <div class="switch">
+                    <label>Local data center climate
+                        <select id="first-task-season">
+                            <option value="winter">🥶 Cold (Norway in winter)</option>
+                            <option value="summer">🥵 Warm (Arizona in summer)</option>
+                        </select>
+                    </label>
+                </div>
                 <div class="switch">
                     <label>Prompt complexity
                         <select id="first-task-complexity">
@@ -444,7 +423,6 @@ localStorage.removeItem("caveatModalDismissed")
                         </select>
                     </label>
                 </div>
-
                 <div class="switch">
                     <label>Number of prompts
                         <select id="first-task-prompt-count">
@@ -453,16 +431,6 @@ localStorage.removeItem("caveatModalDismissed")
                         </select>
                     </label>
                 </div>
-
-                <div class="switch">
-                    <label>Local data center climate
-                        <select id="first-task-season">
-                            <option value="winter">🥶 Cold (Norway in winter)</option>
-                            <option value="summer">🥵 Warm (Arizona in summer)</option>
-                        </select>
-                    </label>
-                </div>
-
                 <div class="switch">
                     <label for="first-task-quantity">Quantity
                         <input type="number" id="first-task-quantity" min="0.0001" step="any" value="1" style="width: 100%;">
@@ -679,7 +647,8 @@ localStorage.removeItem("caveatModalDismissed")
 
         // 4. Update calculation logic to skip hidden fields
         function getRelevantFactor(select, visible) {
-            if (!visible) return 1;
+            // Only include the factor if visible is true and the select exists
+            if (!visible || !select) return 1;
             const factorText = select.options[select.selectedIndex].text;
             let factorValue = factorValues[factorText];
             if (factorValue === undefined) factorValue = 1;
@@ -910,50 +879,6 @@ localStorage.removeItem("caveatModalDismissed")
                 );
             });
         }
-
-        // Remove modal logic from DOMContentLoaded
-        // (Delete or comment out this block)
-        /*
-        document.addEventListener("DOMContentLoaded", function () {
-            // Only show modal if not previously dismissed
-            if (!localStorage.getItem("caveatModalDismissed")) {
-                const modal = document.getElementById("caveat-modal");
-                if (modal && typeof modal.showModal === "function") {
-                    modal.showModal();
-                } else if (modal) {
-                    modal.style.display = "block";
-                }
-            }
-            const closeBtn = document.getElementById("close-caveat-modal");
-            if (closeBtn) {
-                closeBtn.onclick = function () {
-                    const modal = document.getElementById("caveat-modal");
-                    localStorage.setItem("caveatModalDismissed", "true");
-                    if (typeof modal.close === "function") {
-                        modal.close();
-                    } else {
-                        modal.style.display = "none";
-                    }
-                };
-            }
-
-            // Automatically copy caveat to clipboard on arrival
-            const caveatText = 'These are guesses based on incomplete and often contradictory sources.';
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(caveatText).catch(() => { });
-            } else {
-                // Fallback for older browsers
-                const tempInput = document.createElement('textarea');
-                tempInput.value = caveatText;
-                document.body.appendChild(tempInput);
-                tempInput.select();
-                try {
-                    document.execCommand('copy');
-                } catch (e) { }
-                document.body.removeChild(tempInput);
-            }
-        });
-        */
 
         // Add this logic to show modal on first Calculate click
         window.addEventListener("DOMContentLoaded", () => {
