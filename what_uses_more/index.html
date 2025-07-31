@@ -500,13 +500,19 @@ localStorage.removeItem("caveatModalDismissed")
         </div>
         <button type="submit">Calculate</button>
         <button type="button" onclick="document.querySelector('form').reset();">Reset</button>
+        <label style="margin-left:1em; font-weight:normal;">
+            <input type="checkbox" id="show-depletion-toggle" style="vertical-align:middle; margin-right:0.5em;">
+            Show resource depletion where applicable
+        </label>
     </form>
 
     <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
         <div>
             <p><span id="first-footprint-label">First footprint:</span> <span id="first-footprint">--</span></p>
+            <div id="first-depletion" style="display:none; margin-bottom:1em; color:var(--first-task-color);"></div>
             <p style="text-align: center;">versus</p>
             <p><span id="second-footprint-label">Second footprint:</span> <span id="second-footprint">--</span></p>
+            <div id="second-depletion" style="display:none; color:var(--second-task-color);"></div>
         </div>
         <div id="bar-chart" style="width: 220px; height: 120px; display: flex; align-items: flex-end;"></div>
     </div>
@@ -536,12 +542,8 @@ localStorage.removeItem("caveatModalDismissed")
             rows.forEach(row => {
                 let taskPair = row.c[0] || { v: "" };
                 let energyPair = row.c[1] || { v: "" };
-                let scopeValue = row.c[2] || { v: "" };
                 if (taskPair.v && energyPair.v) {
                     taskValues[taskPair.v] = parseFloat(energyPair.v);
-                    if (scopeValue.v) {
-                        taskScope[taskPair.v] = scopeValue.v;
-                    }
                 }
             });
             // Attach scope as a property for easy lookup
@@ -556,6 +558,7 @@ localStorage.removeItem("caveatModalDismissed")
             const rows = await fetchSheetData(sheetId, gid);
             let factorValues = {};
             let factorScope = {};
+            // UPGRADE: "scope" is deprecated.
             rows.forEach(row => {
                 let factorName = row.c[0] || { v: "" };
                 let factorValue = row.c[1] || { v: "" };
@@ -587,28 +590,39 @@ localStorage.removeItem("caveatModalDismissed")
 
         let chartInstance = null;
 
-        function formatNumber(num) {
+        function formatEnergy(num) {
             if (Number.isInteger(num)) {
                 return num.toString();
             }
             return num.toFixed(2);
         }
 
-        // 1. Define which fields are relevant for each task using an object of key-value pairs
+        // 1. Add showDepletion to taskFieldVisibility
         const taskFieldVisibility = {
-            "📝 Paragraph of AI text": { promptCount: true, complexity: true, location: true, season: true },
-            "🖥️ 100 lines of AI code": { promptCount: true, complexity: true, location: true, season: true },
-            "🖼 1024x1024 AI image": { promptCount: true, complexity: true, location: true, season: true },
-            "🎬 3-second AI video from text": { promptCount: false, complexity: true, location: true, season: true },
-            "🎬 3-second AI video from image": { promptCount: false, complexity: true, location: true, season: true },
-            "🔍 Searching Google without AI": { promptCount: false, complexity: false, location: true, season: true },
-            "🪫 Charging a smartphone": { promptCount: false, complexity: false, location: true, season: false },
-            "☁️ Storing 5 GB in the cloud for 1 month": { promptCount: false, complexity: false, location: true, season: true },
-            "🍿 Watching 1-hour Netflix movie": { promptCount: false, complexity: false, location: true, season: true },
-            "🎦 Zooming for 1 hour with 10 people": { promptCount: false, complexity: false, location: true, season: true }
+            "📝 Paragraph of AI text": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
+            "🖥️ 100 lines of AI code": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
+            "🖼 1024x1024 AI image": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
+            "🎬 3-second AI video from text": { promptCount: false, complexity: true, location: true, season: true, showDepletion: true },
+            "🎬 3-second AI video from image": { promptCount: false, complexity: true, location: true, season: true, showDepletion: true },
+            "🔍 Searching Google without AI": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
+            "🪫 Charging a smartphone": { promptCount: false, complexity: false, location: true, season: false, showDepletion: false },
+            "☁️ Storing 5 GB in the cloud for 1 month": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
+            "🍿 Watching 1-hour Netflix movie": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
+            "🎦 Zooming for 1 hour with 10 people": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false }
         };
 
-        // 2. Utility to show/hide fields based on the selected task
+        // 2. Generalizable depletion formatting function
+        function formatDepletion(energy, factor, label = "of smartphone use (equivalent resource depletion)") {
+            if (!energy || isNaN(energy) || !factor) return "";
+            const minutes = energy * factor;
+            if (minutes < 1) {
+                const seconds = Math.round(minutes * 60);
+                return `⛏️ ${seconds} seconds ${label}`;
+            }
+            return `⛏️ ${Math.round(minutes)} minutes ${label}`;
+        }
+
+        // 3. Utility to show/hide fields based on the selected task
         function updateFieldVisibility(prefix, task) {
             const config = taskFieldVisibility[task] || {};
             // Map field keys to their .switch container class or label "for" attribute
@@ -630,7 +644,7 @@ localStorage.removeItem("caveatModalDismissed")
             });
         }
 
-        // 3. Hook up listeners to update field visibility on task change
+        // 4. Hook up listeners to update field visibility on task change
         function setupFieldVisibilitySync() {
             // First task
             document.getElementById("first-task").addEventListener("change", function () {
@@ -645,7 +659,7 @@ localStorage.removeItem("caveatModalDismissed")
             updateFieldVisibility("second-task", document.getElementById("second-task").value);
         }
 
-        // 4. Update calculation logic to skip hidden fields
+        // 5. Update calculation logic to skip hidden fields
         function getRelevantFactor(select, visible) {
             // Only include the factor if visible is true and the select exists
             if (!visible || !select) return 1;
@@ -763,16 +777,44 @@ localStorage.removeItem("caveatModalDismissed")
                 return num.toFixed(2);
             }
 
-            // Report results using formatNumber and append the unit label and water in brackets
+            // Get depletion factor from factorValues
+            const depletionFactor = factorValues["minutes of phone use per watt-hour"];
+
+            // Show main results (energy + water) as before, but without depletion
             document.getElementById("first-footprint").textContent =
-                (firstProduct !== undefined && !isNaN(firstProduct))
-                    ? `💡 ${formatNumber(firstProduct)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]` : "--";
+                (firstEnergy !== undefined && !isNaN(firstEnergy))
+                    ? `💡 ${formatEnergy(firstEnergy)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]`
+                    : "--";
             document.getElementById("second-footprint").textContent =
-                (secondProduct !== undefined && !isNaN(secondProduct))
-                    ? `💡 ${formatNumber(secondProduct)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]` : "--";
+                (secondEnergy !== undefined && !isNaN(secondEnergy))
+                    ? `💡 ${formatEnergy(secondEnergy)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]`
+                    : "--";
+
+            // Handle depletion toggle and output
+            const showDepletion = document.getElementById("show-depletion-toggle").checked;
+
+            // First task depletion
+            const firstDepletionDiv = document.getElementById("first-depletion");
+            if (showDepletion && firstConfig.showDepletion) {
+                firstDepletionDiv.textContent = formatDepletion(firstEnergy, depletionFactor);
+                firstDepletionDiv.style.display = "";
+            } else {
+                firstDepletionDiv.textContent = "";
+                firstDepletionDiv.style.display = "none";
+            }
+
+            // Second task depletion
+            const secondDepletionDiv = document.getElementById("second-depletion");
+            if (showDepletion && secondConfig.showDepletion) {
+                secondDepletionDiv.textContent = formatDepletion(secondEnergy, depletionFactor);
+                secondDepletionDiv.style.display = "";
+            } else {
+                secondDepletionDiv.textContent = "";
+                secondDepletionDiv.style.display = "none";
+            }
 
             // Draw bar chart
-            drawBarChart(firstProduct, secondProduct);
+            drawBarChart(firstEnergy, secondEnergy);
         }
 
         function drawBarChart(first, second) {
@@ -840,6 +882,7 @@ localStorage.removeItem("caveatModalDismissed")
                     const factorLabel = option.text;
                     const factorScope = factorValuesObj.factorScope && factorValuesObj.factorScope[factorLabel];
                     // If factor is AI-scoped but task is not AI, disable it
+                    // UPGRADE: Delete this deprecated code?
                     if (factorScope === "AI" && scope !== "AI") {
                         option.disabled = true;
                         // Optionally, deselect if currently selected
@@ -879,6 +922,35 @@ localStorage.removeItem("caveatModalDismissed")
                 );
             });
         }
+
+        // Add this after your calculate() function definition
+        document.addEventListener("DOMContentLoaded", function () {
+            const depletionToggle = document.getElementById("show-depletion-toggle");
+            if (depletionToggle) {
+                depletionToggle.addEventListener("change", function () {
+                    // Get current config and values
+                    const firstTask = document.getElementById("first-task").value;
+                    const secondTask = document.getElementById("second-task").value;
+                    const firstConfig = taskFieldVisibility[firstTask] || {};
+                    const secondConfig = taskFieldVisibility[secondTask] || {};
+
+                    const firstDepletionDiv = document.getElementById("first-depletion");
+                    const secondDepletionDiv = document.getElementById("second-depletion");
+
+                    // Only toggle visibility, do not recalculate values
+                    if (this.checked && firstDepletionDiv.textContent && firstConfig.showDepletion) {
+                        firstDepletionDiv.style.display = "";
+                    } else {
+                        firstDepletionDiv.style.display = "none";
+                    }
+                    if (this.checked && secondDepletionDiv.textContent && secondConfig.showDepletion) {
+                        secondDepletionDiv.style.display = "";
+                    } else {
+                        secondDepletionDiv.style.display = "none";
+                    }
+                });
+            }
+        });
 
         // Add this logic to show modal on first Calculate click
         window.addEventListener("DOMContentLoaded", () => {
