@@ -444,7 +444,7 @@ localStorage.removeItem("caveatModalDismissed")
         <legend>Units</legend>
         <label for="energy-units">Energy units</label>
         <select id="energy-units">
-            <option value="Wh">Watt-hours (Wh)</option>
+            <option value="Wh">Lightbulb-minutes (Wh)</option>
             <option value="J">Joules (J)</option>
             <option value="gCO2">carbon equivalent (gCO2)</option>
         </select>
@@ -869,12 +869,12 @@ localStorage.removeItem("caveatModalDismissed")
 
             // Show main results (energy + water) as before, but without depletion
             document.getElementById("first-footprint").textContent =
-                (firstEnergy !== undefined && !isNaN(firstEnergy))
-                    ? `💡 ${formatEnergy(firstEnergy)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]`
+                (firstProduct !== undefined && !isNaN(firstProduct))
+                    ? `💡 ${formatEnergy(firstProduct)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]`
                     : "--";
             document.getElementById("second-footprint").textContent =
-                (secondEnergy !== undefined && !isNaN(secondEnergy))
-                    ? `💡 ${formatEnergy(secondEnergy)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]`
+                (secondProduct !== undefined && !isNaN(secondProduct))
+                    ? `💡 ${formatEnergy(secondProduct)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]`
                     : "--";
 
             // Handle depletion toggle and output
