@@ -860,6 +860,13 @@ localStorage.removeItem("caveatModalDismissed")
             // Get depletion factor from factorValues
             const depletionFactor = factorValues["minutes of phone use per watt-hour"];
 
+            // Store for toggle use
+            lastFirstEnergy = firstEnergy;
+            lastSecondEnergy = secondEnergy;
+            lastFirstConfig = firstConfig;
+            lastSecondConfig = secondConfig;
+            lastDepletionFactor = depletionFactor;
+
             // Show main results (energy + water) as before, but without depletion
             document.getElementById("first-footprint").textContent =
                 (firstEnergy !== undefined && !isNaN(firstEnergy))
@@ -1008,24 +1015,30 @@ localStorage.removeItem("caveatModalDismissed")
             const depletionToggle = document.getElementById("show-depletion-toggle");
             if (depletionToggle) {
                 depletionToggle.addEventListener("change", function () {
-                    // Get current config and values
-                    const firstTask = document.getElementById("first-task").value;
-                    const secondTask = document.getElementById("second-task").value;
-                    const firstConfig = taskFieldVisibility[firstTask] || {};
-                    const secondConfig = taskFieldVisibility[secondTask] || {};
-
                     const firstDepletionDiv = document.getElementById("first-depletion");
                     const secondDepletionDiv = document.getElementById("second-depletion");
 
-                    // Only toggle visibility, do not recalculate values
-                    if (this.checked && firstDepletionDiv.textContent && firstConfig.showDepletion) {
-                        firstDepletionDiv.style.display = "";
+                    if (this.checked) {
+                        // If we have stored values and config, fill in the depletion results
+                        if (lastFirstConfig && lastFirstConfig.showDepletion && lastFirstEnergy !== undefined && lastDepletionFactor) {
+                            firstDepletionDiv.textContent = formatDepletion(lastFirstEnergy, lastDepletionFactor);
+                            firstDepletionDiv.style.display = "";
+                        } else {
+                            firstDepletionDiv.textContent = "";
+                            firstDepletionDiv.style.display = "none";
+                        }
+                        if (lastSecondConfig && lastSecondConfig.showDepletion && lastSecondEnergy !== undefined && lastDepletionFactor) {
+                            secondDepletionDiv.textContent = formatDepletion(lastSecondEnergy, lastDepletionFactor);
+                            secondDepletionDiv.style.display = "";
+                        } else {
+                            secondDepletionDiv.textContent = "";
+                            secondDepletionDiv.style.display = "none";
+                        }
                     } else {
+                        // Hide depletion results
+                        firstDepletionDiv.textContent = "";
                         firstDepletionDiv.style.display = "none";
-                    }
-                    if (this.checked && secondDepletionDiv.textContent && secondConfig.showDepletion) {
-                        secondDepletionDiv.style.display = "";
-                    } else {
+                        secondDepletionDiv.textContent = "";
                         secondDepletionDiv.style.display = "none";
                     }
                 });
