@@ -1043,6 +1043,16 @@ localStorage.removeItem("caveatModalDismissed")
                     }
                 });
             }
+
+            // Add listeners for unit changes
+            const energyUnitsMenu = document.getElementById("energy-units");
+            if (energyUnitsMenu) {
+                energyUnitsMenu.addEventListener("change", calculate);
+            }
+            const waterUnitsMenu = document.getElementById("water-units");
+            if (waterUnitsMenu) {
+                waterUnitsMenu.addEventListener("change", calculate);
+            }
         });
 
         // Add this logic to show modal on first Calculate click
