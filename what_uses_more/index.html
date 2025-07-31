@@ -132,6 +132,11 @@ localStorage.removeItem("caveatModalDismissed")
             border-radius: 4px;
         }
 
+        input[type="checkbox"] {
+            width: auto;
+            margin-right: 1em;
+        }
+
         a {
             color: var(--accent);
         }
@@ -241,6 +246,18 @@ localStorage.removeItem("caveatModalDismissed")
 
         .switch {
             margin-top: 10px;
+        }
+
+        #calculate-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1em;
+            margin-top: 1em;
+        }
+
+        #calculate-actions button {
+            min-width: 12ch
         }
 
         legend {
@@ -557,12 +574,16 @@ localStorage.removeItem("caveatModalDismissed")
                 </div>
             </fieldset>
         </div>
-        <button type="submit">Calculate</button>
-        <button type="button" onclick="document.querySelector('form').reset();">Reset</button>
-        <label style="margin-left:1em; font-weight:normal;">
-            <input type="checkbox" id="show-depletion-toggle" style="vertical-align:middle; margin-right:0.5em;">
-            Show resource depletion where applicable
-        </label>
+        <div id="calculate-actions">
+            <div>
+                <button type="submit">Calculate</button>
+                <button type="button" onclick="document.querySelector('form').reset();">Reset</button>
+            </div>
+            <label style="display: flex; align-items: center; justify-content: flex-end;">
+                <input type="checkbox" id="show-depletion-toggle" style="vertical-align:middle; margin-right:0.5em;">
+                Show resource depletion where applicable
+            </label>
+        </div>
     </form>
 
     <div class="output" style="display: flex; align-items: flex-end; gap: 32px;">
