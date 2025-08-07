@@ -904,7 +904,9 @@ localStorage.removeItem("caveatModalDismissed")
             }
 
             // Draw bar chart
-            drawBarChart(firstEnergy, secondEnergy);
+            // firstProduct and secondProduct reflect all the user's choices, including the "switch" parameters.
+            // firstEnergy and secondEnergy are just the base values for the selected tasks, not including the effect of the switches.
+            drawBarChart(firstProduct, secondProduct);
         }
 
         function drawBarChart(first, second) {
@@ -924,8 +926,8 @@ localStorage.removeItem("caveatModalDismissed")
                     datasets: [{
                         label: 'Footprint',
                         data: [
-                            (first !== undefined && !isNaN(first)) ? first : 0,
-                            (second !== undefined && !isNaN(second)) ? second : 0
+                            Number.isFinite(first) ? first : 0,
+                            Number.isFinite(second) ? second : 0
                         ],
                         backgroundColor: ['hsl(285, 100%, 90%)', 'aquamarine'],
                     }]
