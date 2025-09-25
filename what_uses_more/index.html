@@ -622,11 +622,11 @@ localStorage.removeItem("caveatModalDismissed")
             let taskValues = {};
             let taskScope = {};
             rows.forEach(row => {
-                let taskPair = row.c[0] || { v: "" };
-                let energyPair = row.c[1] || { v: "" };
-                if (taskPair.v && energyPair.v) {
-                    taskValues[taskPair.v] = parseFloat(energyPair.v);
-                }
+                const taskName = row.c[0].v; // Task name
+                const energyValue = row.c[1].v; // Energy value
+                const scaleExponent = row.c[3]?.v || 1; // Scale exponent (default to 1 if not provided)
+                taskValues[taskName] = { energy: energyValue, scaleExponent };
+                taskScope[taskName] = row.c[2]?.v; // Scope (if applicable)
             });
             // Attach scope as a property for easy lookup
             taskValues.taskScope = taskScope;
@@ -752,6 +752,7 @@ localStorage.removeItem("caveatModalDismissed")
             return factorValue;
         }
 
+        // Update the calculate function to use the scale exponent for tasks
         async function calculate() {
             // Fetch data if not already loaded
             if (!taskData) {
@@ -779,9 +780,19 @@ localStorage.removeItem("caveatModalDismissed")
             const firstTask = document.getElementById("first-task").value;
             const secondTask = document.getElementById("second-task").value;
 
-            // Get base energy values
-            let firstEnergy = taskData[firstTask];
-            let secondEnergy = taskData[secondTask];
+            // Get base energy values and scale exponents
+            const firstEnergy = taskData[firstTask]?.energy || 0;
+            const secondEnergy = taskData[secondTask]?.energy || 0;
+            const firstScaleExponent = taskData[firstTask]?.scaleExponent || 1;
+            const secondScaleExponent = taskData[secondTask]?.scaleExponent || 1;
+
+            // Apply scale exponents to quantities
+            const scaledFirstQuantity = Math.pow(firstQuantity, firstScaleExponent);
+            const scaledSecondQuantity = Math.pow(secondQuantity, secondScaleExponent);
+
+            // Calculate products
+            let firstProduct = firstEnergy * scaledFirstQuantity;
+            let secondProduct = secondEnergy * scaledSecondQuantity;
 
             // Get field visibility config
             const firstConfig = taskFieldVisibility[firstTask] || {};
@@ -794,7 +805,6 @@ localStorage.removeItem("caveatModalDismissed")
             const firstSeason = document.getElementById("first-task-season");
 
             // Multiply by only relevant factors for first task
-            let firstProduct = firstEnergy;
             firstProduct *= getRelevantFactor(firstLocation, firstConfig.location);
             firstProduct *= getRelevantFactor(firstComplexity, firstConfig.complexity);
             firstProduct *= getRelevantFactor(firstPromptCount, firstConfig.promptCount);
@@ -807,15 +817,10 @@ localStorage.removeItem("caveatModalDismissed")
             const secondSeason = document.getElementById("second-task-season");
 
             // Multiply by only relevant factors for second task
-            let secondProduct = secondEnergy;
             secondProduct *= getRelevantFactor(secondLocation, secondConfig.location);
             secondProduct *= getRelevantFactor(secondComplexity, secondConfig.complexity);
             secondProduct *= getRelevantFactor(secondPromptCount, secondConfig.promptCount);
             secondProduct *= getRelevantFactor(secondSeason, secondConfig.season);
-
-            // Apply quantities
-            firstProduct *= firstQuantity;
-            secondProduct *= secondQuantity;
 
             // Handle energy units conversion
             const energyUnitsMenu = document.getElementById("energy-units");
