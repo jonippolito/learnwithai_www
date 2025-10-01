@@ -6,7 +6,7 @@
 	<meta name="description" content="Strategies for using generative AI such as ChatGPT and DALLE to create, learn, and educate." />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title id="version">Learn With AI | a toolkit for learners and educators</title>
-	<!-- index v6.3 Add What Uses More app to news. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
+	<!-- index v6.4: You can now open Recording link separately from main Event listing link. Still need to reinstate submitter metadata in strategies. There's a naming redundancy (eg, search-boxes) that could come back to haunt you, although clouds and lexia collections are rebuilt when switching screens.-->
 	<!-- This HTML5 template is based on http://html5doctor.com/html-5-boilerplates/ -->
 	<!--[if IE]>
 			<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -2127,6 +2127,10 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					this.recordingDiv.appendChild(this.recordingLink);
 					this.recordingLink.href = argumentsObject.recording;
 					this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i> Recording available`;
+					// Prevent parent click handler from firing when recording link is clicked
+					this.recordingLink.addEventListener("click", function (event) {
+						event.stopPropagation();
+					});
 				}
 			};
 			// Add speaker stuff not shared with other view modes above.
