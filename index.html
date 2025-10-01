@@ -2118,7 +2118,7 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.presentersDiv.className = "presenters";
 				this.presentersDiv.innerHTML = `<img src="media/person_icon.jpg") class="events-person-icon" />${argumentsObject.presenters}`;
 				// Build recording div if it exists.
-				if (argumentsObject.recording) { // Deliberately using null comparison to stop "".
+				if (argumentsObject.recording && argumentsObject.recording !== "[BLANK]") { // Deliberately using null comparison to stop "".
 					this.recordingDiv = document.createElement("div");
 					this.lexiaDiv.appendChild(this.recordingDiv);
 					this.recordingDiv.className = "recording";
