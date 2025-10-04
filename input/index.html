@@ -894,19 +894,20 @@
 			tagObjects.push(new TagObject("list", "General", "compilation"));
 			tagObjects.push(new TagObject("research", "General", "experiment"));
 			// Technology 
+			tagObjects.push(new TagObject("agent", "Technology", "Agents, autonomy"));
 			tagObjects.push(new TagObject("data", "Technology"));
 			tagObjects.push(new TagObject("detection", "Technology"));
-			tagObjects.push(new TagObject("free", "Technology", "open source, open access, sharing"));
+			tagObjects.push(new TagObject("free", "Technology", "open source, open access, sharing, OER, transparency"));
 			tagObjects.push(new TagObject("freemium", "Technology", "paid tier"));
 			tagObjects.push(new TagObject("prompt", "Technology"));
-			tagObjects.push(new TagObject("tool", "Technology", "service, technology"));
+			tagObjects.push(new TagObject("tool", "Technology", "service, technology, edtech, ed tech"));
 			tagObjects.push(new TagObject("subscription", "Technology", "paid"));
 			// Discipline / context
 			tagObjects.push(new TagObject("animation", "Discipline", "rotoscoping, motion graphics"));
 			tagObjects.push(new TagObject("art", "Discipline"));
 			tagObjects.push(new TagObject("business", "Discipline", "company, finance"));
-			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives, preservation"));
-			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science, STEM"));
+			tagObjects.push(new TagObject("collections", "Discipline", "museums, archives, preservation, digital curation, digital humanities, libraries"));
+			tagObjects.push(new TagObject("computer science", "Discipline", "programming, data science, STEM, engineering, interpretability"));
 			tagObjects.push(new TagObject("design", "Discipline", "graphic design, UX design, UI design"));
 			tagObjects.push(new TagObject("disability", "Discipline"));
 			tagObjects.push(new TagObject("economics", "Discipline", "economy"));
@@ -917,14 +918,14 @@
 			tagObjects.push(new TagObject("history", "Discipline"));
 			tagObjects.push(new TagObject("journalism", "Discipline", "news"));
 			tagObjects.push(new TagObject("law", "Discipline"));
-			tagObjects.push(new TagObject("languages", "Discipline"));
+			tagObjects.push(new TagObject("languages", "Discipline", "ESL, EFL, foreign language, translation, linguistics, metaphor"));
 			tagObjects.push(new TagObject("libraries", "Discipline"));
 			tagObjects.push(new TagObject("literature", "Discipline", "fiction"));
 			tagObjects.push(new TagObject("marketing", "Discipline", "promotion, adversiting, publicity"));
 			tagObjects.push(new TagObject("network", "Discipline", "Internet, social media"));
 			tagObjects.push(new TagObject("politics", "Discipline", "political science, American studies"));
-			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience, emotion, fear, hope"));
-			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy, mathematics, STEM"));
+			tagObjects.push(new TagObject("psychology", "Discipline", "neuroscience, emotion, fear, hope, interpretability"));
+			tagObjects.push(new TagObject("science", "Discipline", "biology, chemistry, physics, geology, astronomy, mathematics, STEM, engineering"));
 			tagObjects.push(new TagObject("story", "Discipline", "narrative"));
 			tagObjects.push(new TagObject("work", "Discipline", "jobs, labor"));
 			tagObjects.push(new TagObject("writing", "Discipline", "essays, papers, composition, English"));
@@ -932,8 +933,8 @@
 			tagObjects.push(new TagObject("3d", "Medium", "VR, AR, virtual reality, augmented reality, XR, fabrication, environment"));
 			tagObjects.push(new TagObject("audio", "Medium", "music, sound, podcasting")); // -> audio for voice simulation.
 			tagObjects.push(new TagObject("code", "Medium", "software"));
-			tagObjects.push(new TagObject("image", "Medium", "visual, picture"));
-			tagObjects.push(new TagObject("performance", "Medium", "theater, drama, dance"));
+			tagObjects.push(new TagObject("image", "Medium", "visual, picture, vision, photo, photography, graphic"));
+			tagObjects.push(new TagObject("performance", "Medium", "theater, theatre, drama, dance"));
 			tagObjects.push(new TagObject("presentation", "Medium", "slides, talk"));
 			tagObjects.push(new TagObject("publication", "Medium", "book, article"));
 			tagObjects.push(new TagObject("robotics", "Medium", "hardware, manufacturing"));
@@ -963,11 +964,11 @@
 			// Priority / focus
 			tagObjects.push(new TagObject("AI-human-collaboration", "Focus"));
 			tagObjects.push(new TagObject("creator-focused", "Focus", "artist, designer, programmer, musician, filmmaker"));
-			tagObjects.push(new TagObject("educator-focused", "Focus", "professor, teacher, instructor"));
+			tagObjects.push(new TagObject("educator-focused", "Focus", "professor, teacher, instructor, faculty, faculty development, instructional design"));
 			tagObjects.push(new TagObject("human-first", "Focus"));
 			tagObjects.push(new TagObject("learner-focused", "Focus", "student"));
 			// Ethics 
-			tagObjects.push(new TagObject("access", "Ethics", "accessibility"));
+			tagObjects.push(new TagObject("access", "Ethics", "accessibility, transparency"));
 			tagObjects.push(new TagObject("bias", "Ethics", "discrimination, fairness"));
 			tagObjects.push(new TagObject("defect", "Ethics", "problem, challenge, failure"));
 			tagObjects.push(new TagObject("disinformation", "Ethics", "misinformation, propaganda"));
@@ -977,15 +978,16 @@
 			tagObjects.push(new TagObject("hype", "Ethics", "exaggeration"));
 			tagObjects.push(new TagObject("DEI", "Ethics", "diversity, inclusion, equity"));
 			tagObjects.push(new TagObject("identity", "Ethics", "gender, ethnicity, race, neurodiversity"));
-			tagObjects.push(new TagObject("justice", "Ethics", "fairness, digital divide"));
-			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating, copyright"));
+			tagObjects.push(new TagObject("justice", "Ethics", "fairness, digital divide, accountability"));
+			tagObjects.push(new TagObject("monopoly", "Ethics", "consolidation, centralization, antitrust, big tech"));
+			tagObjects.push(new TagObject("plagiarism", "Ethics", "cheating, copyright, intellectual property, attribution, integrity, honesty"));
 			tagObjects.push(new TagObject("success", "Ethics", "favorable outcome"));
-			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy"));
+			tagObjects.push(new TagObject("sustainability", "Ethics", "climate, nature, energy, environment, carbon footprint, ecology, green, pollution, conservation, recycling, renewable, emissions, global warming, climate change, water"));
 			tagObjects.push(new TagObject("security", "Ethics", "privacy, cybersecurity, malware, hacking"));
-			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security"));
+			tagObjects.push(new TagObject("surveillance", "Ethics", "privacy, security, facial recognition, police"));
 			// Level.
 			tagObjects.push(new TagObject("K-12", "Level", "primary, secondary, kindergarten"));
-			tagObjects.push(new TagObject("undergraduate", "Level", "postsecondary, college, Associates, higher education"));
+			tagObjects.push(new TagObject("undergraduate", "Level", "postsecondary, college, Associates, higher education, higher ed"));
 			tagObjects.push(new TagObject("graduate", "Level", "Phd, Masters"));
 			// Location (events only).
 			if (submissionType === "event" || submissionType === "speaker") {
