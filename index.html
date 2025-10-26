@@ -216,6 +216,19 @@
 
 		/* ________________ Links and buttons. ________________ */
 		/* Nav bar buttons that look like text. */
+		#browse-options {
+			position: relative;
+			clear: both;
+			/* font-weight: bold; */
+			/* font-size: 1.85vw; */
+			font-family: sansation-bold;
+			font-size: clamp(1.2em, 2vw, 2.5em);
+			width: 100%;
+			margin: 20px 0 var(--margin-wide) 0;
+			text-align: center;
+			color: var(--dark-ice);
+		}
+
 		#browse-options button {
 			font-weight: bold;
 			background-color: transparent;
@@ -387,8 +400,9 @@
 
 		h2#rubric {
 			/* width: 60vw; */
+			/* Old: font-size: 5vw; */
+			font-size: clamp(2.2rem, 5vw, 4.5rem);
 			text-align: center;
-			font-size: 5vw;
 			color: var(--lexia-lightest);
 			font-family: sansation-regular;
 		}
@@ -445,19 +459,6 @@
 			padding-right: 0;
 			margin-right: 0;
 			/*				border: orchid solid 2px ; */
-		}
-
-		#browse-options {
-			position: relative;
-			clear: both;
-			/* font-weight: bold; */
-			/* font-size: 1.85vw; */
-			font-family: sansation-bold;
-			font-size: clamp(2em, 2.1vw, 2.1vw);
-			width: 100%;
-			margin: 20px 0 var(--margin-wide) 0;
-			text-align: center;
-			color: var(--dark-ice);
 		}
 
 		#about-container {
@@ -1751,12 +1752,21 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 		/*________________ Utilities. ________________*/
 		const getSortableDateFromRow = (row) => {
 			// Transform month format from 9 to 09 to fix sorting.
-			let initialDate = row["c"][1]["v"];
+			console.info('getSortableDateFromRow called');
+			let initialDate;
+			try {
+				initialDate = row["c"][1]["v"];
+				// initialDate = row && row["c"] && row["c"][1] && row["c"][1]["v"];
+				// if (!initialDate) throw new Error("Missing date value");
+			} catch (e) {
+				alert('Error getting date from row. See console for details.');
+				console.error('Error getting date from row:', e);
+				console.log('Row object:', row);
+				return "9999-12-31"; // Far future date to avoid mis-sorting.
+			}
 			// initialDate looks like Date(2023,10,1).
-			let leftTrimmedDate = initialDate.substr(5,);
-			// console.log('%c leftTrimmedDate', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, leftTrimmedDate);
+			let leftTrimmedDate = initialDate.substr(5);
 			let rightTrimmedDate = leftTrimmedDate.substr(0, leftTrimmedDate.length - 1);
-			// console.log('%c rightTrimmedDate', `color: deepskyblue; background:dimgray ; border-radius: .6em ;`, rightTrimmedDate);
 			let dateArray = rightTrimmedDate.split(",");
 			if (dateArray[1].length === 1) {
 				dateArray[1] = `0${dateArray[1]}`;
@@ -2118,7 +2128,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 				this.presentersDiv.className = "presenters";
 				this.presentersDiv.innerHTML = `<img src="media/person_icon.jpg") class="events-person-icon" />${argumentsObject.presenters}`;
 				// Build recording div if it exists.
-				if (argumentsObject.recording && argumentsObject.recording !== "[BLANK]") { // Deliberately using null comparison to stop "".
+				// ...inside the Lexia constructor, where you build the recording link...
+				if (argumentsObject.recording && argumentsObject.recording !== "[BLANK]") {
 					this.recordingDiv = document.createElement("div");
 					this.lexiaDiv.appendChild(this.recordingDiv);
 					this.recordingDiv.className = "recording";
@@ -2126,6 +2137,8 @@ alert("You appear to be using a mobile browser, but this site is optimized for a
 					this.recordingLink = document.createElement("a");
 					this.recordingDiv.appendChild(this.recordingLink);
 					this.recordingLink.href = argumentsObject.recording;
+					this.recordingLink.target = "_blank"; // Ensure link opens in a new tab
+					this.recordingLink.rel = "noopener noreferrer"; // Security best practice
 					this.recordingLink.innerHTML = `<i class="fa-brands fa-youtube" aria-hidden="true"></i> Recording available`;
 					// Prevent parent click handler from firing when recording link is clicked
 					this.recordingLink.addEventListener("click", function (event) {
