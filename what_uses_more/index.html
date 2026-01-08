@@ -102,6 +102,18 @@ localStorage.removeItem("caveatModalDismissed")
             font-family: 'sansation-bold', sans-serif;
         }
 
+        kbd {
+            background: var(--dark-celeste);
+            border: 1px solid var(--pale-celeste);
+            border-radius: 4px;
+            box-shadow: 0 2px 4px var(--cluster-shadow);
+            color: var(--pale-celeste);
+            display: inline-block;
+            font-size: 0.9em;
+            padding: 2px 6px;
+            font-family: 'sansation-bold', sans-serif;
+        }
+
         h1 {
             color: var(--pale-celeste);
             font-weight: normal;
@@ -192,6 +204,12 @@ localStorage.removeItem("caveatModalDismissed")
 
         #cc-tagline {
             font-size: clamp(0.8rem, 2vw, 1rem);
+            margin-bottom: .5em;
+        }
+
+        #credits-tagline {
+            margin-top: 0;
+            font-size: clamp(0.6rem, 1.8vw, .8rem);
         }
 
         @container (width < 600px) {
@@ -389,6 +407,7 @@ localStorage.removeItem("caveatModalDismissed")
                 </g>
             </svg>
             <p id="cc-tagline">Free to share or adapt</p>
+            <p id="credits-tagline">(see <strong>About this app</strong> for credits)</p>
             </a>
         </div>
     </div>
@@ -407,27 +426,30 @@ localStorage.removeItem("caveatModalDismissed")
             <li><span class="emoji">☔️</span>cubic centimeter (or mL, a big raindrop).</li>
         </ul>
         <p>This app is a project of the <a href="https://learnwithai.org">Learn with AI</a> initiative, which aims to help educators and students understand the impact of AI on society. It is not affiliated with any commercial entity or political agenda.</p>
+        <p>You can cite this app as Jon Ippolito, "What Uses More," <em>Learning With AI</em>, https://What-Uses-More.com, launched 25 June 2025. <a href="#" onclick='navigator.clipboard.writeText(`Jon Ippolito, "What Uses More," Learning With AI, https://What-Uses-More.com, launched 25 June 2025.`);'>Copy citation to your clipboard.</a></p>
     </details>
     <details class="explanation" style="margin-bottom: 1.5em;">
         <summary>
             How to use this in the classroom
         </summary>
-        <p>First, thank you for caring about climate and education! In the hopes that this tool may help that cause, here are some recommendations:</p>
+        <p>First, thank you for caring about climate and education! In the hopes that this tool may help that cause, here are some recommendations for your students:</p>
+        <h5>Quick exercises</h5>
+        <ul>
+            <li><strong>Guess what's higher</strong>: Pick two tasks from the menus and predict which one uses more energy or water before clicking the <kbd>Calculate</kbd> button, then explain what you got right or wrong.</li>
+            <li><strong>Find equivalences</strong>: Tweak the parameters until two tasks have the same footpring, eg "How many seconds of AI video generated from a text prompt equal the energy of watching a 1-hour Netflix movie?"</li>
+        </ul>
+        <h5>Longer exercises</h5>
+        <ul>
+            <li><strong>Audit your energy diet</strong>: Estimate the hours you spent last week on AI versus other digital activities like social media, education, and entertainment (or pull real data from your <a href="https://support.apple.com/guide/iphone/get-started-with-screen-time-iphbfa595995/ios">iPhone</a> or <a href="https://support.google.com/android/answer/9346420?hl=en-GB">Android phone</a>). Plot one pie chart showing the relative time for each category of activity. Then use <strong>What Uses More</strong> to calculate the corresponding energy or water usage for each and plot a second pie chart showing the relative footprint for each category. How do the two charts compare? (For extra points, research the percentage of social media that is currently AI-generated and factor that into your charts.)</li>
+            <li><strong>Make a personal AI budget</strong>: Draft a budget for your own responsible use of AI. Will you use it for professional or personal purposes? For generating text, images, or video? Will you limit your other digital or non-digital activities to compensate?</li>
+            <li><strong>Check sources</strong>: Research and present on the sources used in this calculator, evaluating their reliability and relevance.</li>
+            <li><strong>Expand the activity list</strong>: Brainstorm other digital activities not included in this tool and estimate their energy and water usage based on similar calculations.</li>
+            <li><strong>Use statistics for good and evil</strong>: Create two infographics, one that could mislead the public using out-of-context comparisons, and one that responsibly conextualizes impact.</li>
+            <li><strong>Probe inequities</strong>: Set two set of conditions, one to represent an affluent community and another a poor community (eg, a drought-risk state or city with a vulnerable electrical grid) and compare AI's relative impact on local power or water.</li>
+        </ul>
         <h5>Do's</h5>
         <ul>
             <li><strong>Do</strong> encourage students to experiment with different combinations of tasks, energy sources (solar vs coal), prompt complexity, and local climate to see how these factors affect energy and water usage.</li>
-            <li><strong>Do</strong> help students who need handholding by suggesting that they:
-                <ol>
-                    <li>Pick an activity from the <strong>First task</strong> menu they're familiar with, such as "<strong>🍿 Watching 1-hour Netflix movie</strong>" or "<strong>🔍 Searching Google without AI</strong>."</li>
-                    <li>Use the <strong>Second task</strong> menu to select a task that students are less familiar with, such as "<strong>🎬 3 seconds of AI video from text</strong>" or "<strong>☁️ Storing 5 GB in the cloud for 1 month</strong>."</li>
-                </ol>
-            </li>
-            <li><strong>Do</strong> experiment with turning the tool into a game, eg:
-                <ul>
-                    <li>Ask the class to vote on which of two tasks uses more energy or water before clicking the <strong>Calculate</strong> button, or</li>
-                    <li>Ask them to choose different tasks from the menus and adjust the parameters to see if they can find equivalences, eg "How many seconds of AI video generated from a text prompt equal the energy of watching a 1-hour Netflix movie?"</li>
-                </ul>
-            </li>
             <li><strong>Do</strong> brainstorm what environmental impacts are missing from these parameters, such as energy embedded in server components, data center strains on local electricity and water supplies, or the health risks of discarded electronics (e-waste).</li>
             <li><strong>Do</strong> remind students that these figures are estimates based on incomplete and often contradictory sources.</li>
             <li><strong>Do</strong> <a href="https://jonippolito.net">let me know</a> any other activities or suggestions to share!</li>
