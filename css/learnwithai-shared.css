@@ -19,6 +19,7 @@
 	
 	/* Ice: a cool, dull blue. */
 	--pale-ice: azure;
+	--medium-ice: hsla(var(--h-medium), 30%, 50%, 1);
 	--dark-ice: hsla(var(--h-medium), 30%, 30%, 1);
 	--darker-ice: hsla(var(--h-medium), 100%, 20%, 1);
 	--darkest-ice: hsla(var(--h-medium), 100%, 10%, 1);
