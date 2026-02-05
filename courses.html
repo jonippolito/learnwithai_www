@@ -57,7 +57,7 @@
         .hero-image {
             width: 100%;
             border-radius: 10px;
-            filter: drop-shadow(0 4px 8px var(--cluster-shadow));
+            filter: drop-shadow(0 4px 8px var(--dull-celeste));
         }
 
         .hero-text h1 {
@@ -114,6 +114,7 @@
         .meta-item i {
             color: var(--deep-celeste);
             font-size: 1.2em;
+            text-shadow: 0 1px 3px var(--darker-ice);
         }
 
         /* Content sections */
@@ -273,12 +274,14 @@
         }
 
         .cta-button.secondary {
-            background-color: var(--darker-ice);
+            background-color: rgba(255, 255, 255, 0.15);
             color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .cta-button.secondary:hover {
-            background-color: var(--darkest-ice);
+            background-color: rgba(255, 255, 255, 0.25);
+            border-color: rgba(255, 255, 255, 0.5);
         }
 
         .contact-info {
@@ -354,6 +357,16 @@
 
         .cta-section .learn-more-link:hover {
             color: var(--darker-ice);
+        }
+
+        /* Footer adjustments */
+        .footer {
+            gap: 30px;
+        }
+
+        .footer .nmd-logo-phrase a {
+            text-decoration: none;
+            background-image: none;
         }
 
         /* Responsive design */
@@ -447,7 +460,7 @@
             </div>
 
             <div>
-                <img src="media/gen_ai_cert_edu_ill_sq_1080.png" alt="AI Foundations for Educators" class="hero-image">
+                <img src="media/gen_ai_cert_edu_medium_ill_sq_1080.png" alt="AI Foundations for Educators" class="hero-image">
             </div>
         </div>
 
@@ -517,6 +530,17 @@
 
             <div class="context-text">
                 <p><strong>Before applying, please note:</strong> UMaine's distance learning tuition discount applies to this course. This 1-credit graduate course is open to anyone with a BA as well as UMaine undergraduates. No prior AI experience is required.</p>
+                <details style="margin-top: 12px; font-size: 0.9em; opacity: 0.85;">
+                    <summary style="cursor: pointer; font-weight: normal;">View tuition rates</summary>
+                    <div style="margin-top: 8px; padding-left: 10px;">
+                        <div style="display: inline-block; margin-right: 20px;">
+                            <strong>Undergrad:</strong> ME/Canadian $424, Non-resident $1229
+                        </div>
+                        <div style="display: inline-block;">
+                            <strong>Grad:</strong> ME/Canadian $573, Non-resident $1747
+                        </div>
+                    </div>
+                </details>
             </div>
 
             <div class="enrollment-options">
@@ -556,10 +580,10 @@
 
     <div class="footer">
         <div id="credit">
-            <p>&copy; 2026 Learn With AI | University of Maine</p>
+            <p>Learn With AI | University of Maine</p>
         </div>
         <div class="nmd-logo-phrase">
-            <a href="https://umaine.edu/digitalcuration/"><img src="media/nmd_logo_phrase_gray_tra_med.png" alt="UMaine New Media Logo" /></a>
+            <a href="https://umaine.edu/"><img src="media/ume_crest_logo_gray_tra.png" alt="University of Maine crest" style="height: 60px;" /></a>
         </div>
     </div>
 </body>
