@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AI Foundations for Educators - A graduate course on thoughtful, ethical use of generative AI in teaching and learning.">
-    <title>AI Foundations for Educators | University of Maine</title>
-
+    <title id="version">AI Foundations for Educators | University of Maine</title>
+    <!-- courses.html v1.1: improve enrollment information. -->
     <link rel="stylesheet" href="css/learnwithai-shared.css">
     <link rel="stylesheet" href="css/fontawesome-free-6.3.0-web/css/all.css" />
 
@@ -297,6 +297,65 @@
             opacity: 0.8;
         }
 
+        /* Enrollment options */
+        .enrollment-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+
+        .enrollment-option {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s;
+        }
+
+        .enrollment-option:hover {
+            border-color: white;
+            transform: translateY(-2px);
+        }
+
+        .enrollment-option h4 {
+            color: var(--deep-celeste);
+            margin: 0 0 10px 0;
+            font-size: 1.3em;
+        }
+
+        .enrollment-option p {
+            color: var(--darker-ice);
+            font-size: 0.95em;
+            margin-bottom: 15px;
+        }
+
+        .enrollment-option .cta-button {
+            width: 100%;
+            text-align: center;
+        }
+
+        .cta-section .context-text {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .cta-section .learn-more-link {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--deep-celeste);
+            text-decoration: underline;
+            font-size: 0.95em;
+        }
+
+        .cta-section .learn-more-link:hover {
+            color: var(--darker-ice);
+        }
+
         /* Responsive design */
         @media (max-width: 768px) {
             .hero-section {
@@ -372,7 +431,7 @@
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-graduation-cap"></i>
-                        <span>Graduate Level</span>
+                        <span>Graduate Level (open to UMaine undergrads</span>
                     </div>
                     <div class="meta-item">
                         <i class="fas fa-award"></i>
@@ -381,8 +440,8 @@
                 </div>
 
                 <div class="hero-cta">
-                    <a href="#" onclick="alert('This link is coming soon!')" class="cta-button" target="_blank">
-                        <i class="fas fa-user-plus"></i> Register for Course
+                    <a href="#enroll-info" class="cta-button">
+                        <i class="fas fa-info-circle"></i> Learn How To Apply
                     </a>
                 </div>
             </div>
@@ -452,22 +511,45 @@
             </div>
         </section>
 
-        <!-- Call to Action -->
-        <div class="cta-section">
-            <h3>Ready to Transform Your Teaching?</h3>
-            <p>Join us in exploring how AI can enhance education while maintaining pedagogical integrity.</p>
+        <!-- Enrollment Information -->
+        <div class="cta-section" id="enroll-info">
+            <h3>How to Apply</h3>
 
-            <div class="cta-buttons">
-                <a href="#" onclick="alert('This link is coming soon!')" class="cta-button" target="_blank">
-                    <i class="fas fa-user-plus"></i> Register for Course
-                </a>
-                <a href="index.html" class="cta-button secondary">
-                    <i class="fas fa-tools"></i> Explore Our Toolkit
-                </a>
+            <div class="context-text">
+                <p><strong>Before applying, please note:</strong> UMaine's distance learning tuition discount applies to this course. This 1-credit graduate course is open to anyone with a BA as well as UMaine undergraduates. No prior AI experience is required.</p>
             </div>
 
-            <div class="contact-info">
-                <p><i class="fas fa-envelope"></i> Questions? Contact us at <a href="mailto:learnwithai@umaine.edu">learnwithai@umaine.edu</a></p>
+            <div class="enrollment-options">
+                <div class="enrollment-option">
+                    <h4><i class="fas fa-user-graduate"></i> Current UMaine Students</h4>
+                    <p>If you are currently enrolled at UMaine, you can register for this course through MaineStreet using course code <strong>INT 598 - 0190 (49493)</strong>.</p>
+                    <p style="font-style: italic; font-size: 0.9em;">No link required—simply log into MaineStreet and search for the course code.</p>
+                </div>
+
+                <div class="enrollment-option">
+                    <h4><i class="fas fa-user-plus"></i> New Students</h4>
+                    <p>If you are new to UMaine, you'll need to complete a non-degree application through the Graduate School online portal.</p>
+                    <a href="https://umainegradschool.my.site.com/onlineApp/TX_SiteLogin?startURL=%2FonlineApp%2FTargetX_Portal__PB" class="cta-button" target="_blank" rel="noopener">
+                        <i class="fas fa-external-link-alt"></i> Apply via UMaine Graduate School
+                    </a>
+                    <a href="https://umaine.edu/graduate/admissions/non-degree/" class="learn-more-link" target="_blank" rel="noopener">
+                        Learn more about non-degree applications →
+                    </a>
+                </div>
+
+                <div class="enrollment-option">
+                    <h4><i class="fas fa-envelope"></i> Have Questions?</h4>
+                    <p>Not sure which option applies to you? Need help with the application process? We're here to help.</p>
+                    <a href="mailto:contact@learnwithai.org" class="cta-button">
+                        <i class="fas fa-paper-plane"></i> Email Us
+                    </a>
+                </div>
+            </div>
+
+            <div style="margin-top: 30px;">
+                <a href="index.html" class="cta-button secondary">
+                    <i class="fas fa-tools"></i> Explore the Learning With AI Toolkit
+                </a>
             </div>
         </div>
     </main>
