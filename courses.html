@@ -361,6 +361,7 @@
 
         /* Footer adjustments */
         .footer {
+            display: block;
             gap: 30px;
         }
 
@@ -582,12 +583,17 @@
     </main>
 
     <div class="footer">
-        <div id="credit">
-            <p>Learn With AI | University of Maine</p>
+        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; width: 100%;">
+            <div id="credit">
+                <p>Learn With AI | University of Maine</p>
+            </div>
+            <div class="nmd-logo-phrase">
+                <a href="https://umaine.edu/"><img src="media/ume_crest_logo_gray_tra.png" alt="University of Maine crest" style="height: 60px;" /></a>
+            </div>
         </div>
-        <div class="nmd-logo-phrase">
-            <a href="https://umaine.edu/"><img src="media/ume_crest_logo_gray_tra.png" alt="University of Maine crest" style="height: 60px;" /></a>
-        </div>
+        <p style="font-size: 0.8em; opacity: 0.7; margin: 10px 0 0; text-align: center; width: 100%;">
+            This program is funded by a <a href="https://umaine.edu/transforms/">UMS TRANSFORMS</a> award. Illustration based on icons from IconsMind and Icon Factor from <a href="https://thenounproject.com">The Noun Project</a>.
+        </p>
     </div>
 </body>
 
