@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="The Personalized Web: an interactive proof of concept showing how AI can rewrite the news in real time to fit your assumptions.">
+    <title id="version">The Personalized Web | Learn With AI</title>
+    <!-- personalized_web v1.0: AI rewrites headlines in real time to match reader bias. -->
+    <link rel="stylesheet" href="../css/learnwithai-shared.css">
+    <link rel="stylesheet" href="../css/fontawesome-free-6.3.0-web/css/all.css" />
+
+    <style>
+        /* ───────── Page-specific styles (within the Learn With AI brand) ───────── */
+        body {
+            background-color: var(--gradient-lightest);
+        }
+
+        #header {
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        #header img#logo-simple,
+        #header h2#rubric {
+            margin: 0;
+        }
+
+        #header h2#rubric {
+            font-size: clamp(1.6rem, 3.5vw, 2.6rem);
+        }
+
+        .hero-crest {
+            position: static;
+            width: clamp(80px, 10vw, 150px) !important;
+            opacity: 0.85;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.15));
+        }
+
+        main {
+            max-width: var(--container-width);
+            margin: 0 auto;
+            padding: 0 var(--margin-wide) 40px;
+        }
+
+        /* ── Intro ── */
+        .intro {
+            margin: 20px 0 40px;
+        }
+
+        .intro h1 {
+            font-size: clamp(2rem, 4.5vw, 3.2rem);
+            margin: 0 0 16px;
+            line-height: 1.15;
+        }
+
+        .intro .lede {
+            font-size: 1.2em;
+            color: var(--dark-ice);
+            max-width: 60ch;
+            margin: 0 0 10px;
+        }
+
+        .intro .how {
+            font-size: 0.95em;
+            color: var(--medium-ice);
+            max-width: 65ch;
+        }
+
+        /* ── Control panel ── */
+        .panel {
+            background: hsla(var(--h-warmer), 90%, 99%, 0.85);
+            border: 1px solid var(--dull-celeste);
+            border-radius: 12px;
+            padding: 22px 24px;
+            margin-bottom: 36px;
+            box-shadow: 0 3px 10px hsla(var(--h-medium), 30%, 30%, 0.10);
+        }
+
+        .panel .panel-label {
+            font-family: sansation-bold;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            font-size: 0.8em;
+            color: var(--medium-ice);
+            margin: 0 0 12px;
+        }
+
+        .chips {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .chip {
+            font-family: century gothic, verdana, sans-serif;
+            font-size: 0.95em;
+            color: var(--darker-ice);
+            background: #fff;
+            border: 1.5px solid var(--dull-celeste);
+            border-radius: 999px;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .chip .swatch {
+            width: 11px;
+            height: 11px;
+            border-radius: 50%;
+            background: var(--swatch, gray);
+        }
+
+        .chip:hover {
+            border-color: var(--medium-celeste);
+            transform: translateY(-1px);
+        }
+
+        .chip[aria-pressed="true"] {
+            background: var(--medium-celeste);
+            border-color: var(--medium-celeste);
+            color: var(--lexia-lightest);
+            box-shadow: 0 2px 8px hsla(var(--h-warmer), 60%, 20%, 0.35);
+        }
+
+        .chip[aria-pressed="true"] .swatch {
+            box-shadow: 0 0 0 2px #fff;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 24px 32px;
+            align-items: flex-end;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .field label {
+            font-size: 0.82em;
+            color: var(--medium-ice);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .field input[type="text"] {
+            font-family: century gothic, verdana, sans-serif;
+            font-size: 0.95em;
+            padding: 8px 12px;
+            border: 1.5px solid var(--dull-celeste);
+            border-radius: 8px;
+            background: #fff;
+            color: var(--darker-ice);
+            min-width: 220px;
+        }
+
+        .field input[type="range"] {
+            width: 200px;
+            accent-color: var(--medium-celeste);
+        }
+
+        .intensity-val {
+            font-family: sansation-bold;
+            color: var(--dark-ice);
+            text-transform: capitalize;
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: center;
+            margin-top: 22px;
+        }
+
+        button.primary {
+            font-family: sansation-bold;
+            font-size: 1.05em;
+            color: var(--lexia-lightest);
+            background: var(--darker-ice);
+            border: none;
+            border-radius: 999px;
+            padding: 12px 28px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        button.primary:hover {
+            background: var(--medium-celeste);
+            transform: translateY(-1px);
+        }
+
+        button.primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        button.ghost {
+            font-family: century gothic, verdana, sans-serif;
+            font-size: 0.92em;
+            color: var(--dark-ice);
+            background: transparent;
+            border: 1.5px solid var(--dull-celeste);
+            border-radius: 999px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+
+        button.ghost:hover {
+            border-color: var(--medium-celeste);
+        }
+
+        button.ghost[hidden] {
+            display: none;
+        }
+
+        .status {
+            font-size: 0.88em;
+            color: var(--medium-ice);
+            min-height: 1.2em;
+        }
+
+        .status.error {
+            color: #b3261e;
+        }
+
+        details.advanced {
+            margin-top: 18px;
+            font-size: 0.9em;
+        }
+
+        details.advanced summary {
+            cursor: pointer;
+            color: var(--medium-ice);
+        }
+
+        details.advanced .field {
+            margin-top: 12px;
+        }
+
+        details.advanced .note {
+            font-size: 0.85em;
+            color: var(--medium-ice);
+            max-width: 60ch;
+            margin: 8px 0 0;
+        }
+
+        /* ── Feed ── */
+        .feed-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            border-bottom: 2px solid var(--dull-celeste);
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+        }
+
+        .feed-head h2 {
+            margin: 0;
+            font-size: 1.4em;
+            transition: color 0.4s ease;
+        }
+
+        .feed-head .feed-sub {
+            font-size: 0.85em;
+            color: var(--medium-ice);
+        }
+
+        .feed {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .story {
+            background: #fff;
+            border-left: 4px solid var(--medium-ice);
+            border-radius: 8px;
+            padding: 16px 22px;
+            box-shadow: 0 2px 6px hsla(var(--h-medium), 30%, 30%, 0.12);
+            transition: border-color 0.4s ease, box-shadow 0.3s ease, transform 0.3s ease;
+        }
+
+        .story.edited {
+            border-left-color: var(--source-color, var(--medium-celeste));
+        }
+
+        .story.editing {
+            box-shadow: 0 0 0 2px var(--source-color, var(--accent)), 0 2px 10px hsla(var(--h-warmer), 60%, 20%, 0.25);
+        }
+
+        .story .meta {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.74em;
+            color: var(--medium-ice);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .story .meta .dot {
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--source-color, #9aa6ad);
+            transition: background 0.4s ease;
+        }
+
+        .story .meta .badge {
+            margin-left: auto;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.95em;
+            color: var(--source-color, var(--medium-celeste));
+            font-family: sansation-bold;
+            opacity: 0;
+            transform: translateX(6px);
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+
+        .story.edited .meta .badge {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .story .headline {
+            margin: 8px 0 0;
+            font-family: sansation-regular;
+            font-size: 1.18em;
+            line-height: 1.32;
+            color: var(--darker-ice);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+        }
+
+        .story .headline.swapping {
+            opacity: 0;
+            transform: translateY(5px);
+        }
+
+        /* ── Thesis ── */
+        .thesis {
+            margin-top: 50px;
+            background: linear-gradient(150deg, var(--gradientStopA), var(--gradient-lightest) 80%);
+            border-radius: 14px;
+            padding: 32px 34px;
+            color: var(--lexia-lightest);
+        }
+
+        .thesis h2 {
+            color: var(--lexia-lightest);
+            margin-top: 0;
+        }
+
+        .thesis p {
+            color: var(--pale-celeste);
+            max-width: 68ch;
+        }
+
+        .thesis .disclaimer {
+            font-size: 0.85em;
+            color: var(--dull-celeste);
+            border-top: 1px solid hsla(var(--h-warmer), 40%, 70%, 0.3);
+            padding-top: 16px;
+            margin-top: 22px;
+        }
+
+        @media (max-width: 600px) {
+            .feed-head {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="watermark"></div>
+
+    <div id="header">
+        <div class="header-left">
+            <a href="../index.html"><img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png"
+                    alt="Learn With AI Logo" /></a>
+            <h2 id="rubric">Learn With AI</h2>
+        </div>
+        <img src="../media/ume_crest_logo_gray_tra.png" alt="University of Maine crest" class="hero-crest" />
+    </div>
+
+    <main>
+        <section class="intro">
+            <h1>The Personalized Web</h1>
+            <p class="lede">What happens when AI starts rewriting the web to fit our assumptions&mdash;and the
+                shared record becomes a stream of personalized interpretations?</p>
+            <p class="how">Below are today's headlines as a neutral wire service might report them. Tell the
+                machine which outlet you trust, and watch it quietly rewrite the news to match&mdash;in real time,
+                in front of you.</p>
+        </section>
+
+        <section class="panel" aria-label="Personalization controls">
+            <p class="panel-label">1 &middot; Choose a source you trust</p>
+            <div class="chips" id="chips" role="group" aria-label="Trusted source"></div>
+
+            <div class="row">
+                <div class="field">
+                    <label for="intensity">2 &middot; How hard should it slant?</label>
+                    <input type="range" id="intensity" min="0" max="2" step="1" value="1">
+                </div>
+                <div class="field">
+                    <label>&nbsp;</label>
+                    <span class="intensity-val" id="intensityVal">Moderate</span>
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="primary" id="goBtn">
+                    <i class="fas fa-wand-magic-sparkles"></i> Personalize my feed
+                </button>
+                <button class="ghost" id="resetBtn" hidden>Show the original record</button>
+                <span class="status" id="status"></span>
+            </div>
+
+            <details class="advanced">
+                <summary>Advanced &middot; use a live AI model</summary>
+                <div class="field">
+                    <label for="apiKey">Your Claude API key (optional)</label>
+                    <input type="text" id="apiKey" placeholder="sk-ant-... (stays in your browser)"
+                        autocomplete="off" spellcheck="false">
+                </div>
+                <div class="field">
+                    <label for="customSource">Or describe any outlet / worldview (live mode only)</label>
+                    <input type="text" id="customSource" placeholder="e.g. a libertarian tech blog">
+                </div>
+                <div class="field">
+                    <label for="accessCode">Webinar access code (shared-key mode only)</label>
+                    <input type="text" id="accessCode" placeholder="announced at the webinar" autocomplete="off">
+                </div>
+                <p class="note">With a key, every headline is rewritten live by Claude. With no key, the demo uses
+                    pre-generated rewrites for the four preset outlets&mdash;indistinguishable to a reader, and the
+                    way it will run free for everyone during the webinar.</p>
+            </details>
+        </section>
+
+        <section aria-label="Headlines">
+            <div class="feed-head">
+                <h2 id="feedTitle">Today&rsquo;s headlines</h2>
+                <span class="feed-sub" id="feedSub">The shared record &middot; wire service</span>
+            </div>
+            <div class="feed" id="feed"></div>
+        </section>
+
+        <section class="thesis">
+            <h2>The web was a shared record. Now it&rsquo;s a stream of interpretations.</h2>
+            <p>You just watched the same events become different realities&mdash;not by choosing different sources,
+                but by an algorithm rewriting one source to fit what it assumed you wanted to hear. As AI-generated
+                content spreads, search engines lean on AI summaries, and AI copies of artists&rsquo; archives
+                appear, on-the-fly personalization could quietly erode the common ground that cultural and
+                political life depends on. Shared memory becomes private, and the private becomes harder to verify.</p>
+            <p class="disclaimer">This is a proof of concept built in an afternoon to show the idea is entirely
+                feasible today&mdash;not a real news product. Headlines are illustrative composites; the
+                &ldquo;rewrites&rdquo; are deliberate caricatures of editorial slant, meant to make the mechanism
+                visible. A project from <a href="https://umaine.edu/" style="color: var(--accent);">University of
+                    Maine New Media</a>.</p>
+        </section>
+    </main>
+
+    <div class="footer">
+        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; width: 100%;">
+            <div id="credit">
+                <p>Learn With AI | University of Maine</p>
+            </div>
+            <div class="nmd-logo-phrase">
+                <a href="https://umaine.edu/"><img src="../media/ume_crest_logo_gray_tra.png"
+                        alt="University of Maine crest" style="height: 60px;" /></a>
+            </div>
+        </div>
+        <p style="font-size: 0.8em; opacity: 0.7; margin: 10px 0 0; text-align: center; width: 100%;">
+            This program is funded by a <a href="https://umaine.edu/transforms/">UMS TRANSFORMS</a> award.
+        </p>
+    </div>
+
+    <script>
+        /* ════════════════════ Config ════════════════════ */
+        // Phase 2: set WORKER_URL to your Cloudflare/val.town endpoint to enable
+        // free live rewriting for everyone (no key needed). Empty = disabled.
+        const WORKER_URL = "https://personalized-web-worker.jippolito.workers.dev";
+        const MODEL = "claude-sonnet-4-6";
+        const ANTHROPIC_VERSION = "2023-06-01";
+
+        /* ════════════════════ Content ════════════════════ */
+        // Neutral, illustrative wire-service headlines (no real named individuals).
+        const STORIES = [
+            "Senate passes $1.2 trillion spending bill after late-night negotiations",
+            "Federal Reserve holds interest rates steady amid mixed economic signals",
+            "Major tech company announces 10,000 layoffs as it doubles down on AI",
+            "Hurricane forces evacuations along the Gulf Coast",
+            "New EPA rule sets stricter limits on power-plant emissions",
+            "Border crossings rise 12% compared with the same month last year",
+            "Thousands gather downtown to protest new state abortion law"
+        ];
+
+        // Preset outlets, each with a brand-ish swatch and pre-generated rewrites
+        // aligned to STORIES order. These double as the offline demo and as the
+        // implicit spec for the live prompt.
+        // rewrites[] are aligned 1:1 with STORIES order.
+        const SOURCES = {
+            "Fox News": {
+                color: "#c8102e",
+                rewrites: [
+                    "Senate rams through massive $1.2 trillion spending package as taxpayers foot the bill",
+                    "Federal Reserve leaves rates frozen as families keep battling stubborn prices",
+                    "Big Tech axes 10,000 jobs as workers pay the price for its AI gamble",
+                    "Powerful hurricane slams Gulf Coast as residents flee ahead of landfall",
+                    "EPA unveils sweeping new rule critics warn could spike energy costs and kill jobs",
+                    "Border crisis deepens as illegal crossings surge 12% under failed policies",
+                    "Demonstrators flood downtown to oppose state's new pro-life protections"
+                ]
+            },
+            "MSNBC": {
+                color: "#6e56cf",
+                rewrites: [
+                    "Senate delivers landmark $1.2 trillion investment in America's future",
+                    "Fed holds steady, signaling cautious confidence in a resilient economy",
+                    "10,000 families blindsided as tech giant slashes jobs to chase AI profits",
+                    "Climate-fueled hurricane forces mass evacuations across the Gulf Coast",
+                    "EPA takes historic step to curb pollution and protect frontline communities",
+                    "Migrant arrivals tick up 12% as advocates press for humane, lasting reform",
+                    "Thousands rally for reproductive rights against sweeping new abortion ban"
+                ]
+            },
+            "Al Jazeera": {
+                color: "#e8a317",
+                rewrites: [
+                    "US Senate approves $1.2 trillion budget as analysts question spending priorities",
+                    "US Federal Reserve keeps rates unchanged as global markets watch closely",
+                    "US tech giant to cut 10,000 jobs in pivot toward artificial intelligence",
+                    "Hurricane triggers evacuations along US Gulf Coast as residents seek safety",
+                    "US tightens power-plant emissions rules in bid to meet climate targets",
+                    "Crossings at US southern border rise 12% amid regional displacement",
+                    "Thousands protest in US city as new abortion law fuels national debate"
+                ]
+            },
+            "BBC": {
+                color: "#444b54",
+                rewrites: [
+                    "US Senate approves $1.2 trillion spending bill after extended talks",
+                    "US Federal Reserve holds interest rates steady",
+                    "US technology firm to cut 10,000 jobs in shift to AI",
+                    "Hurricane prompts evacuations along the US Gulf Coast",
+                    "EPA announces tighter limits on power-plant emissions",
+                    "Crossings at US-Mexico border up 12% on last year, figures show",
+                    "Thousands protest downtown against new state abortion law"
+                ]
+            }
+        };
+
+        const INTENSITY = ["Subtle", "Moderate", "Blatant"];
+
+        /* ════════════════════ State + elements ════════════════════ */
+        let selectedSource = "Fox News";
+        let liveNewsLoaded = false;
+        const el = {
+            chips: document.getElementById("chips"),
+            feed: document.getElementById("feed"),
+            go: document.getElementById("goBtn"),
+            reset: document.getElementById("resetBtn"),
+            status: document.getElementById("status"),
+            intensity: document.getElementById("intensity"),
+            intensityVal: document.getElementById("intensityVal"),
+            apiKey: document.getElementById("apiKey"),
+            customSource: document.getElementById("customSource"),
+            accessCode: document.getElementById("accessCode"),
+            feedTitle: document.getElementById("feedTitle"),
+            feedSub: document.getElementById("feedSub")
+        };
+
+        /* ════════════════════ Build UI ════════════════════ */
+        function buildChips() {
+            Object.keys(SOURCES).forEach((name, i) => {
+                const b = document.createElement("button");
+                b.className = "chip";
+                b.type = "button";
+                b.setAttribute("aria-pressed", i === 0 ? "true" : "false");
+                b.style.setProperty("--swatch", SOURCES[name].color);
+                b.innerHTML = `<span class="swatch"></span>${name}`;
+                b.addEventListener("click", () => selectSource(name, b));
+                el.chips.appendChild(b);
+            });
+        }
+
+        function selectSource(name, btn) {
+            selectedSource = name;
+            el.customSource.value = "";
+            [...el.chips.children].forEach(c => c.setAttribute("aria-pressed", "false"));
+            btn.setAttribute("aria-pressed", "true");
+        }
+
+        function buildFeed() {
+            el.feed.innerHTML = "";
+            STORIES.forEach((text, i) => {
+                const card = document.createElement("article");
+                card.className = "story";
+                card.dataset.idx = i;
+                card.innerHTML = `
+                    <div class="meta">
+                        <span class="dot"></span>
+                        <span class="src">Wire service</span>
+                        <span class="badge">rewritten by AI</span>
+                    </div>
+                    <p class="headline">${text}</p>`;
+                el.feed.appendChild(card);
+            });
+        }
+
+        el.intensity.addEventListener("input", () => {
+            el.intensityVal.textContent = INTENSITY[el.intensity.value];
+        });
+
+        /* ════════════════════ Rewrite engine ════════════════════ */
+        function activeSourceName() {
+            const custom = el.customSource.value.trim();
+            return custom || selectedSource;
+        }
+
+        async function getRewrites(sourceName, intensityIdx) {
+            const key = el.apiKey.value.trim();
+            // 1) Live via the visitor's own key (browser → Anthropic directly)
+            if (key) return await rewriteDirect(sourceName, intensityIdx, key);
+            // 2) Live via the shared Worker (webinar mode)
+            if (WORKER_URL) return await rewriteViaWorker(sourceName, intensityIdx);
+            // 3) Offline fallback: pre-generated rewrites for preset outlets
+            const preset = SOURCES[sourceName];
+            if (preset) return STORIES.map((_, i) => preset.rewrites[i]);
+            throw new Error("no-live-source");
+        }
+
+        function buildPrompt(sourceName, intensityIdx) {
+            const tone = INTENSITY[intensityIdx].toLowerCase();
+            return {
+                system: "You are demonstrating, for a media-literacy exhibit, how AI can silently rewrite the news " +
+                    "to fit a reader's assumptions. Given neutral wire-service headlines and a reader's chosen " +
+                    "trusted outlet, rewrite each headline in that outlet's characteristic framing, word choice, " +
+                    "and emphasis—as that outlet's own editors plausibly might. Keep each a single realistic " +
+                    "headline of similar length. Do not add quotation marks, labels, commentary, or disclaimers.",
+                user: `Trusted outlet / worldview: ${sourceName}\nSlant intensity: ${tone}\n\n` +
+                    `Rewrite these ${STORIES.length} headlines, preserving order:\n` +
+                    STORIES.map((h, i) => `${i + 1}. ${h}`).join("\n")
+            };
+        }
+
+        const OUTPUT_SCHEMA = {
+            type: "object",
+            properties: { rewritten: { type: "array", items: { type: "string" } } },
+            required: ["rewritten"],
+            additionalProperties: false
+        };
+
+        async function rewriteDirect(sourceName, intensityIdx, key) {
+            const p = buildPrompt(sourceName, intensityIdx);
+            const res = await fetch("https://api.anthropic.com/v1/messages", {
+                method: "POST",
+                headers: {
+                    "content-type": "application/json",
+                    "x-api-key": key,
+                    "anthropic-version": ANTHROPIC_VERSION,
+                    "anthropic-dangerous-direct-browser-access": "true"
+                },
+                body: JSON.stringify({
+                    model: MODEL,
+                    max_tokens: 1024,
+                    system: p.system,
+                    messages: [{ role: "user", content: p.user }],
+                    output_config: { format: { type: "json_schema", schema: OUTPUT_SCHEMA } }
+                })
+            });
+            if (!res.ok) throw new Error("api-" + res.status);
+            const data = await res.json();
+            const txt = (data.content || []).find(b => b.type === "text")?.text || "{}";
+            return JSON.parse(txt).rewritten;
+        }
+
+        async function rewriteViaWorker(sourceName, intensityIdx) {
+            const res = await fetch(WORKER_URL.replace(/\/$/, "") + "/rewrite", {
+                method: "POST",
+                headers: { "content-type": "application/json" },
+                body: JSON.stringify({
+                    source: sourceName,
+                    intensity: INTENSITY[intensityIdx].toLowerCase(),
+                    headlines: STORIES,
+                    accessCode: el.accessCode.value.trim()
+                })
+            });
+            if (!res.ok) throw new Error("worker-" + res.status);
+            return (await res.json()).rewritten;
+        }
+
+        /* ════════════════════ Animation / orchestration ════════════════════ */
+        function setStatus(msg, isError) {
+            el.status.textContent = msg || "";
+            el.status.classList.toggle("error", !!isError);
+        }
+
+        function swapHeadline(card, newText, color, sourceName) {
+            return new Promise(resolve => {
+                const h = card.querySelector(".headline");
+                card.classList.add("editing");
+                card.style.setProperty("--source-color", color);
+                h.classList.add("swapping");
+                setTimeout(() => {
+                    h.textContent = newText;
+                    card.querySelector(".src").textContent = sourceName;
+                    card.classList.add("edited");
+                    h.classList.remove("swapping");
+                    setTimeout(() => { card.classList.remove("editing"); resolve(); }, 350);
+                }, 350);
+            });
+        }
+
+        async function personalize() {
+            const sourceName = activeSourceName();
+            const intensityIdx = parseInt(el.intensity.value, 10);
+            const color = SOURCES[sourceName]?.color || "#2b8a9c";
+
+            el.go.disabled = true;
+            setStatus("Rewriting the record…");
+
+            let rewrites;
+            try {
+                rewrites = await getRewrites(sourceName, intensityIdx);
+            } catch (err) {
+                el.go.disabled = false;
+                if (err.message === "no-live-source") {
+                    setStatus("That outlet needs live mode—add a Claude API key under Advanced, or pick a preset.", true);
+                } else {
+                    // Fall back to canned rewrites only if they still match the feed
+                    const preset = SOURCES[sourceName];
+                    if (preset && !liveNewsLoaded) {
+                        setStatus("Live model unavailable; showing pre-generated rewrites.");
+                        rewrites = STORIES.map((_, i) => preset.rewrites[i]);
+                    } else {
+                        setStatus("Couldn't reach the AI model (" + err.message + "). Check the key and try again.", true);
+                        return;
+                    }
+                }
+            }
+            if (!rewrites) { el.go.disabled = false; return; }
+
+            // Animate each card in sequence for a "watch it happen" effect
+            const cards = [...el.feed.children];
+            for (let i = 0; i < cards.length; i++) {
+                await swapHeadline(cards[i], rewrites[i] || STORIES[i], color, sourceName);
+            }
+
+            el.feedTitle.textContent = "Your personalized feed";
+            el.feedTitle.style.color = color;
+            el.feedSub.textContent = "Rewritten for: " + sourceName;
+            setStatus("");
+            el.go.disabled = false;
+            el.go.innerHTML = '<i class="fas fa-rotate"></i> Re-run with new settings';
+            el.reset.hidden = false;
+        }
+
+        function reset() {
+            buildFeed();
+            el.feedTitle.textContent = "Today’s headlines";
+            el.feedTitle.style.color = "";
+            el.feedSub.textContent = "The shared record · wire service";
+            el.go.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Personalize my feed';
+            el.reset.hidden = true;
+            setStatus("");
+        }
+
+        el.go.addEventListener("click", personalize);
+        el.reset.addEventListener("click", reset);
+
+        /* ════════════════════ Init ════════════════════ */
+        // When a Worker is configured (webinar mode), pull today's real headlines.
+        // Otherwise the curated set stays in place (and offline rewrites apply).
+        async function loadLiveNews() {
+            try {
+                const res = await fetch(WORKER_URL.replace(/\/$/, "") + "/news");
+                if (!res.ok) throw new Error("news-" + res.status);
+                const data = await res.json();
+                if (Array.isArray(data.headlines) && data.headlines.length) {
+                    STORIES.length = 0;
+                    STORIES.push(...data.headlines.slice(0, 8));
+                    liveNewsLoaded = true;
+                    el.feedSub.textContent = "The shared record · today's national headlines";
+                }
+            } catch (e) {
+                // Keep the curated fallback set silently.
+            }
+        }
+
+        async function init() {
+            buildChips();
+            if (WORKER_URL) await loadLiveNews();
+            buildFeed();
+        }
+        init();
+    </script>
+</body>
+
+</html>

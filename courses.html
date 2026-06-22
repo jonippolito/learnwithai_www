@@ -414,6 +414,23 @@
             }
         }
     </style>
+    <script>
+        function turnOnMail() {
+            // By John Bell. Takes a reversed <span class='activemail'> and turns it into an active link.
+            // Have to do this in two steps since there is no getElementsByClassName yet. 8P
+            var spans = document.getElementsByTagName('span');
+            for (i = 0; i < spans.length; i++) {
+                if (spans[i].className == 'activemail') {
+                    // There's no string.reverse(), either. 8P
+                    var reversed = spans[i].innerHTML;
+                    var address = '';
+                    for (j = reversed.length - 1; j >= 0; j--) address += reversed.charAt(j);
+                    spans[i].innerHTML = '<a href="mailto:' + address + '">' + address + '</a>';
+                }
+            }
+        }
+        window.addEventListener('DOMContentLoaded', turnOnMail);
+    </script>
 </head>
 
 <body>
@@ -561,15 +578,15 @@
                         <i class="fas fa-external-link-alt"></i> Apply via UMaine Graduate School
                     </a>
                     <a href="https://umaine.edu/graduate/admissions/non-degree/" class="learn-more-link" target="_blank" rel="noopener">
-                        Learn more about non-degree applications →
+                        Learn more about non-degree applications
                     </a>
                 </div>
 
                 <div class="enrollment-option">
                     <h4><i class="fas fa-envelope"></i> Have Questions?</h4>
                     <p>Not sure which option applies to you? Need help with the application process? We're here to help.</p>
-                    <a href="mailto:contact@learnwithai.org" class="cta-button">
-                        <i class="fas fa-paper-plane"></i> Email Us
+                    <a href="#" class="cta-button">
+                        <i class="fas fa-paper-plane"></i> Email us at <span class='activemail'>gro.iahtiwnrael@tcatnoc</span>
                     </a>
                 </div>
             </div>

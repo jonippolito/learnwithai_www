@@ -1,4 +1,4 @@
-/* learnwithai-shared.css v1.0 - Shared design system for Learn With AI pages */
+/* learnwithai-shared.css v1.1, modified to adjust rubric shadow and root colors. */
 
 /* ________________ Design parameters. ________________ */
 :root {
@@ -171,7 +171,8 @@ h2#rubric {
 	text-align: center;
 	color: var(--lexia-lightest);
 	font-family: sansation-regular;
-	text-shadow: black 0 0 0.2em;
+	/* text-shadow: black 0 0 0.2em; */
+	text-shadow: var(--darker-ice) 0 0 0.2em;
 }
 
 /* ________________ Footer ________________ */

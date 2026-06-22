@@ -1,0 +1,727 @@
+﻿1
+00:00:04,050 --> 00:00:07,560
+- [Jon] AI ethics isn't about
+imaginary sci-fi scenarios
+
+2
+00:00:07,560 --> 00:00:09,000
+like killer robots.
+
+3
+00:00:09,000 --> 00:00:11,790
+It's about recognizing
+real present dangers
+
+4
+00:00:11,790 --> 00:00:13,650
+of generative AI.
+
+5
+00:00:13,650 --> 00:00:14,640
+Now, there's a lot of good stuff
+
+6
+00:00:14,640 --> 00:00:16,440
+that could come from generative AI,
+
+7
+00:00:16,440 --> 00:00:20,670
+from ways to diagnose cancers,
+to discover new drugs,
+
+8
+00:00:20,670 --> 00:00:23,220
+to find solutions for climate change,
+
+9
+00:00:23,220 --> 00:00:24,450
+but it's easy to forget
+
+10
+00:00:24,450 --> 00:00:26,760
+amidst all this potentially good news
+
+11
+00:00:26,760 --> 00:00:30,963
+about the many potential
+harms of this new technology.
+
+12
+00:00:32,460 --> 00:00:35,880
+The IMPACT RISK acronym offers a mnemonic
+
+13
+00:00:35,880 --> 00:00:38,100
+so you or your students
+
+14
+00:00:38,100 --> 00:00:40,920
+can help take these
+various harms into account.
+
+15
+00:00:40,920 --> 00:00:41,940
+My name is Jon Ippolito,
+
+16
+00:00:41,940 --> 00:00:44,223
+and I'm gonna go through
+these one at a time.
+
+17
+00:00:45,900 --> 00:00:48,660
+I is for Infowar.
+
+18
+00:00:48,660 --> 00:00:50,160
+AI-powered information
+
+19
+00:00:50,160 --> 00:00:52,410
+that threatens to undermine democracy,
+
+20
+00:00:52,410 --> 00:00:54,810
+that includes deep fakes
+of high profile figures
+
+21
+00:00:54,810 --> 00:00:59,810
+like President Biden here
+heard in a faked robocall
+
+22
+00:01:00,000 --> 00:01:03,600
+as part of the 2024
+presidential primaries.
+
+23
+00:01:03,600 --> 00:01:04,620
+- [Joe] Voting this Tuesday
+
+24
+00:01:04,620 --> 00:01:06,510
+only enables the Republicans in...
+
+25
+00:01:06,510 --> 00:01:08,640
+- [Jon] It also includes
+personalized attacks
+
+26
+00:01:08,640 --> 00:01:12,240
+on local figures like this faked audio
+
+27
+00:01:12,240 --> 00:01:14,640
+from a high school principal in Maryland.
+
+28
+00:01:14,640 --> 00:01:17,250
+- [Principal] "You know, I
+seriously don't understand
+
+29
+00:01:17,250 --> 00:01:18,810
+why I have to constantly put up
+
+30
+00:01:18,810 --> 00:01:20,460
+with these dumbasses here every day."
+
+31
+00:01:20,460 --> 00:01:22,590
+- [Jon] The ease of
+generating customized code
+
+32
+00:01:22,590 --> 00:01:25,350
+and text has also made
+cyber attacks cheaper
+
+33
+00:01:25,350 --> 00:01:26,940
+and faster to deploy.
+
+34
+00:01:26,940 --> 00:01:29,190
+Whether that means writing custom malware
+
+35
+00:01:29,190 --> 00:01:31,593
+or writing spearfishing emails.
+
+36
+00:01:34,110 --> 00:01:36,630
+M is for Monopoly.
+
+37
+00:01:36,630 --> 00:01:39,660
+This one flies under the radar
+of a lot of people's mind
+
+38
+00:01:39,660 --> 00:01:41,610
+when they think about AI harms.
+
+39
+00:01:41,610 --> 00:01:43,740
+But a handful of Silicon Valley titans
+
+40
+00:01:43,740 --> 00:01:45,930
+occupy the generative AI market
+
+41
+00:01:45,930 --> 00:01:47,700
+with Google vying for dominance
+
+42
+00:01:47,700 --> 00:01:50,400
+against the OpenAI-Microsoft partnership,
+
+43
+00:01:50,400 --> 00:01:53,460
+Meta prevailing when it
+comes to open-source models.
+
+44
+00:01:53,460 --> 00:01:55,800
+This concentration of
+power is even more evident
+
+45
+00:01:55,800 --> 00:01:58,470
+in the AI chip market
+where Nvidia's dominance
+
+46
+00:01:58,470 --> 00:02:00,990
+leaves competitors scrambling for crumbs.
+
+47
+00:02:00,990 --> 00:02:02,970
+The massive amount of computation required
+
+48
+00:02:02,970 --> 00:02:05,850
+to compete in this market
+has led to brittle monopolies
+
+49
+00:02:05,850 --> 00:02:08,733
+that can stifle
+entrepreneurship and innovation.
+
+50
+00:02:09,780 --> 00:02:12,930
+P is for Plagiarism and Privacy.
+
+51
+00:02:12,930 --> 00:02:16,170
+Artists, musicians, and
+authors are suing AI companies
+
+52
+00:02:16,170 --> 00:02:18,540
+for training their models
+on copyrighted works,
+
+53
+00:02:18,540 --> 00:02:20,400
+sometimes churning out knockoffs
+
+54
+00:02:20,400 --> 00:02:22,290
+that resemble their own work.
+
+55
+00:02:22,290 --> 00:02:23,490
+On the privacy front,
+
+56
+00:02:23,490 --> 00:02:24,930
+facial recognition software
+
+57
+00:02:24,930 --> 00:02:27,780
+can trawl the internet for your face,
+
+58
+00:02:27,780 --> 00:02:30,390
+and teens in middle school
+can create deepfake nudes
+
+59
+00:02:30,390 --> 00:02:31,830
+of their classmates,
+
+60
+00:02:31,830 --> 00:02:34,323
+turning privacy into a relic of the past.
+
+61
+00:02:35,550 --> 00:02:37,950
+A is for Automated Labor.
+
+62
+00:02:37,950 --> 00:02:41,490
+While few jobs may be
+completely replaced by robots,
+
+63
+00:02:41,490 --> 00:02:43,950
+companies looking to cut costs
+can maintain productivity
+
+64
+00:02:43,950 --> 00:02:46,860
+by relying on senior
+employees armed with AI.
+
+65
+00:02:46,860 --> 00:02:48,000
+That means fewer openings
+
+66
+00:02:48,000 --> 00:02:49,830
+for junior lawyers and copywriters,
+
+67
+00:02:49,830 --> 00:02:51,600
+and fewer freelance opportunities
+
+68
+00:02:51,600 --> 00:02:53,820
+for designers and composers.
+
+69
+00:02:53,820 --> 00:02:55,800
+Meanwhile, high stakes decisions,
+
+70
+00:02:55,800 --> 00:02:57,750
+whether on Wall Street
+or on the battlefield,
+
+71
+00:02:57,750 --> 00:03:00,030
+are being outsourced to algorithms.
+
+72
+00:03:00,030 --> 00:03:02,430
+Without sufficient human oversight,
+
+73
+00:03:02,430 --> 00:03:03,840
+sudden shifts in job markets
+
+74
+00:03:03,840 --> 00:03:06,570
+due to automation could
+destabilize economies
+
+75
+00:03:06,570 --> 00:03:07,983
+faster than they can adapt.
+
+76
+00:03:10,590 --> 00:03:12,780
+C is for Climate Impact.
+
+77
+00:03:12,780 --> 00:03:16,230
+By 2027, the AI sector could
+eat as much energy per year
+
+78
+00:03:16,230 --> 00:03:17,580
+as the Netherlands.
+
+79
+00:03:17,580 --> 00:03:21,150
+Protestors from Oregon to Uruguay
+are targeting data centers
+
+80
+00:03:21,150 --> 00:03:24,180
+that suck up drinking water
+from local reservoirs.
+
+81
+00:03:24,180 --> 00:03:25,830
+Fevers to win the race to roll out
+
+82
+00:03:25,830 --> 00:03:27,960
+ever bigger generative AI models,
+
+83
+00:03:27,960 --> 00:03:30,300
+Microsoft and Google
+have fallen well behind
+
+84
+00:03:30,300 --> 00:03:32,100
+in their carbon reduction goals,
+
+85
+00:03:32,100 --> 00:03:34,743
+accelerating the threat of climate change.
+
+86
+00:03:36,300 --> 00:03:39,240
+T is for Tainted Data.
+
+87
+00:03:39,240 --> 00:03:43,410
+The ghosts of human bias
+haunt our AI systems.
+
+88
+00:03:43,410 --> 00:03:45,420
+Resume screeners
+discriminate against women
+
+89
+00:03:45,420 --> 00:03:47,130
+and non-white applicants.
+
+90
+00:03:47,130 --> 00:03:50,250
+Facial recognition systems
+struggle with darker skin tones,
+
+91
+00:03:50,250 --> 00:03:52,500
+potentially resulting
+in a self-driving car
+
+92
+00:03:52,500 --> 00:03:55,170
+failing to identify a Black pedestrian.
+
+93
+00:03:55,170 --> 00:03:58,290
+Even tools meant to
+identify AI-generated essays
+
+94
+00:03:58,290 --> 00:04:01,740
+can incorrectly flag
+non-natives English speakers.
+
+95
+00:04:01,740 --> 00:04:03,120
+These aren't just glitches.
+
+96
+00:04:03,120 --> 00:04:06,303
+They're mirrors reflecting
+society's inequities.
+
+97
+00:04:08,400 --> 00:04:09,840
+Now let's do RISK.
+
+98
+00:04:09,840 --> 00:04:12,873
+Starting with R, Reality Distortion.
+
+99
+00:04:13,950 --> 00:04:16,530
+AI's outputs are often
+disconnected from reality
+
+100
+00:04:16,530 --> 00:04:18,750
+with potentially dangerous consequences.
+
+101
+00:04:18,750 --> 00:04:21,480
+Bing's Sydney Chatbot told
+a New York Times reporter
+
+102
+00:04:21,480 --> 00:04:23,160
+to leave his wife for her,
+
+103
+00:04:23,160 --> 00:04:26,193
+while ChatGPT accused a law
+professor of sexual harassment.
+
+104
+00:04:27,120 --> 00:04:28,800
+Unscrupulous users can now generate
+
+105
+00:04:28,800 --> 00:04:31,920
+low quality news articles
+several per minute
+
+106
+00:04:31,920 --> 00:04:34,770
+that could be hard to distinguish
+from human-written posts.
+
+107
+00:04:34,770 --> 00:04:36,600
+These confident sounding fabrications
+
+108
+00:04:36,600 --> 00:04:40,290
+or hallucinations as they're
+sometimes misleadingly called
+
+109
+00:04:40,290 --> 00:04:43,140
+don't have to be deliberate
+disinformation to cause harm,
+
+110
+00:04:43,140 --> 00:04:45,480
+that makes them different from infowar.
+
+111
+00:04:45,480 --> 00:04:48,330
+Persistent exposure to
+AI-generated distortions
+
+112
+00:04:48,330 --> 00:04:50,370
+may erode trust inauthentic sources
+
+113
+00:04:50,370 --> 00:04:51,960
+of information over time,
+
+114
+00:04:51,960 --> 00:04:54,993
+or simply bury them in a
+mountain of digital debris.
+
+115
+00:04:57,570 --> 00:04:59,160
+I for Injustice.
+
+116
+00:04:59,160 --> 00:05:01,830
+While Silicon Valley
+reaps the rewards of AI,
+
+117
+00:05:01,830 --> 00:05:03,750
+the human cost is often hidden.
+
+118
+00:05:03,750 --> 00:05:07,230
+Kenyans making a dollar an
+hour suffering emotional trauma
+
+119
+00:05:07,230 --> 00:05:10,680
+while flagging detailed
+descriptions of murder, rape,
+
+120
+00:05:10,680 --> 00:05:14,010
+and child sex abuse generated by chatbots.
+
+121
+00:05:14,010 --> 00:05:15,240
+Meanwhile, in the Congo,
+
+122
+00:05:15,240 --> 00:05:17,910
+children as young as
+seven are mining cobalt
+
+123
+00:05:17,910 --> 00:05:19,743
+for our AI-powered devices.
+
+124
+00:05:20,640 --> 00:05:22,710
+In government, powerful AI companies
+
+125
+00:05:22,710 --> 00:05:25,050
+might influence
+regulations in their favor,
+
+126
+00:05:25,050 --> 00:05:27,480
+perpetuating inequality in the market.
+
+127
+00:05:27,480 --> 00:05:29,550
+In education, the subscription costs
+
+128
+00:05:29,550 --> 00:05:31,320
+of better large language models
+
+129
+00:05:31,320 --> 00:05:33,753
+raise concerns about a new digital divide.
+
+130
+00:05:36,570 --> 00:05:38,520
+S is for Stereotyping.
+
+131
+00:05:38,520 --> 00:05:40,770
+Generative AI often devolves to cliches
+
+132
+00:05:40,770 --> 00:05:42,180
+when answering questions.
+
+133
+00:05:42,180 --> 00:05:44,280
+Ask an image generator for a doctor,
+
+134
+00:05:44,280 --> 00:05:47,640
+you're likely to get a middle
+aged white guy in a lab coat.
+
+135
+00:05:47,640 --> 00:05:49,440
+Request an African village,
+
+136
+00:05:49,440 --> 00:05:51,903
+and it might depict mud huts and sunsets.
+
+137
+00:05:52,950 --> 00:05:54,900
+These outputs aren't simply the result
+
+138
+00:05:54,900 --> 00:05:57,540
+of tainted data described earlier.
+
+139
+00:05:57,540 --> 00:05:59,700
+They operate at a deeper level,
+
+140
+00:05:59,700 --> 00:06:01,740
+reflecting the probabilistic nature
+
+141
+00:06:01,740 --> 00:06:02,850
+of large language models,
+
+142
+00:06:02,850 --> 00:06:06,360
+which return the average
+result from a prompt.
+
+143
+00:06:06,360 --> 00:06:09,570
+Nevertheless, by surfacing
+stereotypes rather than outliers,
+
+144
+00:06:09,570 --> 00:06:12,330
+AI might favor dominant
+cultures and languages,
+
+145
+00:06:12,330 --> 00:06:14,973
+leading to the erosion
+of cultural diversity.
+
+146
+00:06:17,190 --> 00:06:20,730
+Finally, K is for Knockoff Experiences.
+
+147
+00:06:20,730 --> 00:06:22,050
+In classrooms across the world,
+
+148
+00:06:22,050 --> 00:06:24,300
+teachers grapple with
+AI-generated homework
+
+149
+00:06:24,300 --> 00:06:26,820
+as students outsource
+their learning to chatbots.
+
+150
+00:06:26,820 --> 00:06:28,890
+In the music world, services like Suno
+
+151
+00:06:28,890 --> 00:06:30,870
+allow everyone to create songs
+
+152
+00:06:30,870 --> 00:06:32,220
+without touching an instrument,
+
+153
+00:06:32,220 --> 00:06:34,050
+potentially flooding streaming platforms
+
+154
+00:06:34,050 --> 00:06:36,270
+with AI-generated tunes.
+
+155
+00:06:36,270 --> 00:06:38,220
+These shortcuts threaten to replace
+
+156
+00:06:38,220 --> 00:06:41,730
+genuine skill development
+and creative expression
+
+157
+00:06:41,730 --> 00:06:44,613
+with shallow imitations that
+undermine personal growth.
+
+158
+00:06:45,870 --> 00:06:48,600
+Beyond the individual, human
+relationships may devolve
+
+159
+00:06:48,600 --> 00:06:50,820
+as AI generates thank you notes
+
+160
+00:06:50,820 --> 00:06:53,820
+and adults turn to AI
+partners for companionship
+
+161
+00:06:53,820 --> 00:06:56,073
+instead of their flesh and blood peers.
+
+162
+00:07:00,270 --> 00:07:03,450
+By keeping the IMPACT
+RISK framework in mind,
+
+163
+00:07:03,450 --> 00:07:06,810
+we can navigate the AI
+revolution more thoughtfully,
+
+164
+00:07:06,810 --> 00:07:09,690
+examining whether AI can
+be a force for progress
+
+165
+00:07:09,690 --> 00:07:13,743
+rather than just a Pandora's
+box of unintended consequences.
+
