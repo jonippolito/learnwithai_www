@@ -462,7 +462,7 @@ localStorage.removeItem("caveatModalDismissed")
         </ul>
         <h5>Do's</h5>
         <ul>
-            <li><strong>Do</strong> encourage students to experiment with different combinations of tasks, energy sources (solar vs coal), prompt complexity, and local climate to see how these factors affect energy and water usage.</li>
+            <li><strong>Do</strong> encourage students to experiment with different combinations of tasks, energy sources (solar vs coal), task depth, and local climate to see how these factors affect energy and water usage.</li>
             <li><strong>Do</strong> brainstorm what environmental impacts are missing from these parameters, such as energy embedded in server components, data center strains on local electricity and water supplies, or the health risks of discarded electronics (e-waste).</li>
             <li><strong>Do</strong> remind students that these figures are estimates based on incomplete and often contradictory sources.</li>
             <li><strong>Do</strong> <a href="https://jonippolito.net">let me know</a> any other activities or suggestions to share!</li>
@@ -527,11 +527,12 @@ localStorage.removeItem("caveatModalDismissed")
                     </label>
                 </div>
                 <div class="switch">
-                    <label>Prompt complexity
+                    <label>Task depth
                         <select id="first-task-complexity">
                             <option value="simple">✏️ Simple</option>
                             <option value="complex">🤔 Complex</option>
                             <option value="reasoning">🧠 Reasoning</option>
+                            <option value="agentic">🤖 Agentic</option>
                         </select>
                     </label>
                 </div>
@@ -577,11 +578,21 @@ localStorage.removeItem("caveatModalDismissed")
                 </div>
 
                 <div class="switch">
-                    <label>Prompt complexity
+                    <label>Local data center climate
+                        <select id="second-task-season">
+                            <option value="winter">🥶 Cold (Norway in winter)</option>
+                            <option value="summer">🥵 Warm (Arizona in summer)</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="switch">
+                    <label>Task depth
                         <select id="second-task-complexity">
                             <option value="simple">✏️ Simple</option>
                             <option value="complex">🤔 Complex</option>
                             <option value="reasoning">🧠 Reasoning</option>
+                            <option value="agentic">🤖 Agentic</option>
                         </select>
                     </label>
                 </div>
@@ -591,15 +602,6 @@ localStorage.removeItem("caveatModalDismissed")
                         <select id="second-task-prompt-count">
                             <option value="single">📄 Single (zero-shot)</option>
                             <option value="multi">📚 Multi-step</option>
-                        </select>
-                    </label>
-                </div>
-
-                <div class="switch">
-                    <label>Local data center climate
-                        <select id="second-task-season">
-                            <option value="winter">🥶 Cold (Norway in winter)</option>
-                            <option value="summer">🥵 Warm (Arizona in summer)</option>
                         </select>
                     </label>
                 </div>
