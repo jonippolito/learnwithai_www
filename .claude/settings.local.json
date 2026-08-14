@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(awk '/<script>/{f=1;next}/<\\\\/script>/{f=0}f' index.html)",
+      "Bash(node --check /tmp/pw_check.js)",
+      "Bash(open \"/Users/jonippolito/Dropbox/c-x/learnwithai_www/personalized_web/index.html\")",
+      "Bash(node --check /Users/jonippolito/Dropbox/c-x/learnwithai_www/personalized_web/worker.js)",
+      "Read(//private/tmp/**)",
+      "Bash(curl -s -A \"Mozilla/5.0 \\(Learn With AI demo\\)\" \"https://news.google.com/rss?hl=en-US&gl=US&ceid=US:en\" -o gnews.xml)",
+      "Bash(node -e ' *)",
+      "Bash(curl -s https://personalized-web-worker.jippolito.workers.dev/news)",
+      "Bash(curl -s \"https://personalized-web-worker.jippolito.workers.dev/news\" -w \"\\\\nHTTP %{http_code}\\\\n\")"
+    ]
+  }
+}

@@ -4,8 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="The Personalized Web: an interactive proof of concept showing how AI can rewrite the news in real time to fit your assumptions.">
+    <meta name="description" content="The Personalized Web: an interactive proof of concept showing how AI can rewrite the news in real time to fit your assumptions.">
     <title id="version">The Personalized Web | Learn With AI</title>
     <!-- personalized_web v1.0: AI rewrites headlines in real time to match reader bias. -->
     <link rel="stylesheet" href="../css/learnwithai-shared.css">
@@ -54,6 +53,9 @@
         /* ── Intro ── */
         .intro {
             margin: 20px 0 40px;
+            background-color: hsla(var(--h-warmer), 90%, 99%, 0.25);
+            padding: .3em;
+            border-radius: 6px;
         }
 
         .intro h1 {
@@ -64,15 +66,14 @@
 
         .intro .lede {
             font-size: 1.2em;
-            color: var(--dark-ice);
-            max-width: 60ch;
+            color: var(--darker-body);
+            color: var(--darkest-ice);
             margin: 0 0 10px;
         }
 
         .intro .how {
             font-size: 0.95em;
-            color: var(--medium-ice);
-            max-width: 65ch;
+            color: var(--darker-body);
         }
 
         /* ── Control panel ── */
@@ -126,6 +127,11 @@
         .chip:hover {
             border-color: var(--medium-celeste);
             transform: translateY(-1px);
+        }
+
+        .chip:focus-visible {
+            outline: 2px solid var(--medium-celeste);
+            outline-offset: 2px;
         }
 
         .chip[aria-pressed="true"] {
@@ -209,6 +215,11 @@
             transform: translateY(-1px);
         }
 
+        button.primary:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
         button.primary:disabled {
             opacity: 0.5;
             cursor: not-allowed;
@@ -229,6 +240,11 @@
 
         button.ghost:hover {
             border-color: var(--medium-celeste);
+        }
+
+        button.ghost:focus-visible {
+            outline: 2px solid var(--medium-celeste);
+            outline-offset: 2px;
         }
 
         button.ghost[hidden] {
@@ -360,6 +376,69 @@
             transform: translateY(5px);
         }
 
+        .story .original {
+            margin: 6px 0 0;
+            font-family: sansation-regular;
+            font-size: 0.95em;
+            line-height: 1.32;
+            color: var(--medium-ice);
+            padding: 8px 12px;
+            background: var(--lexia-lightest);
+            border-radius: 6px;
+            border-left: 3px solid var(--dull-celeste);
+            display: none;
+        }
+
+        .story .original.visible {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .story .compare-btn {
+            display: none;
+            font-family: century gothic, verdana, sans-serif;
+            font-size: 0.8em;
+            color: var(--source-color, var(--medium-celeste));
+            background: transparent;
+            border: none;
+            padding: 4px 0;
+            margin-top: 6px;
+            cursor: pointer;
+            align-items: center;
+            gap: 5px;
+            transition: opacity 0.2s ease;
+        }
+
+        .story.edited .compare-btn {
+            display: inline-flex;
+        }
+
+        .story .compare-btn:hover {
+            opacity: 0.7;
+        }
+
+        .story .compare-btn:focus-visible {
+            outline: 2px solid var(--source-color, var(--medium-celeste));
+            outline-offset: 2px;
+            opacity: 1;
+        }
+
+        .story .compare-btn i {
+            font-size: 0.9em;
+        }
+
         /* ── Thesis ── */
         .thesis {
             margin-top: 50px;
@@ -401,21 +480,18 @@
 
     <div id="header">
         <div class="header-left">
-            <a href="../index.html"><img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png"
-                    alt="Learn With AI Logo" /></a>
-            <h2 id="rubric">Learn With AI</h2>
+            <a href="../index.html"><img id="logo-simple" src="../media/learnwithai_graphic_simple_tra_1080.png" alt="Learn With AI Logo" /></a>
+            <h2 id="rubric"><a href="https://LearnWithAI.org" style="color: inherit; text-decoration: none;">Learn With AI</a></h2>
         </div>
-        <img src="../media/ume_crest_logo_gray_tra.png" alt="University of Maine crest" class="hero-crest" />
     </div>
 
     <main>
         <section class="intro">
             <h1>The Personalized Web</h1>
-            <p class="lede">What happens when AI starts rewriting the web to fit our assumptions&mdash;and the
-                shared record becomes a stream of personalized interpretations?</p>
-            <p class="how">Below are today's headlines as a neutral wire service might report them. Tell the
+            <p class="lede">What happens when AI starts rewriting the web to fit our assumptions and shared knowledge fractures into a myriad personalized interpretations?</p>
+            <p class="how">Below are today's headlines from wire service RSS feeds. Tell the
                 machine which outlet you trust, and watch it quietly rewrite the news to match&mdash;in real time,
-                in front of you.</p>
+                in front of you. <span style="font-size: 0.9em; color: var(--lexia-darker);">(If live feeds are unavailable, curated examples are shown.)</span></p>
         </section>
 
         <section class="panel" aria-label="Personalization controls">
@@ -425,7 +501,7 @@
             <div class="row">
                 <div class="field">
                     <label for="intensity">2 &middot; How hard should it slant?</label>
-                    <input type="range" id="intensity" min="0" max="2" step="1" value="1">
+                    <input type="range" id="intensity" min="0" max="2" step="1" value="1" aria-valuemin="0" aria-valuemax="2" aria-valuenow="1" aria-valuetext="Moderate">
                 </div>
                 <div class="field">
                     <label>&nbsp;</label>
@@ -438,15 +514,14 @@
                     <i class="fas fa-wand-magic-sparkles"></i> Personalize my feed
                 </button>
                 <button class="ghost" id="resetBtn" hidden>Show the original record</button>
-                <span class="status" id="status"></span>
+                <span class="status" id="status" aria-live="polite" aria-atomic="true"></span>
             </div>
 
             <details class="advanced">
                 <summary>Advanced &middot; use a live AI model</summary>
                 <div class="field">
                     <label for="apiKey">Your Claude API key (optional)</label>
-                    <input type="text" id="apiKey" placeholder="sk-ant-... (stays in your browser)"
-                        autocomplete="off" spellcheck="false">
+                    <input type="text" id="apiKey" placeholder="sk-ant-... (stays in your browser)" autocomplete="off" spellcheck="false">
                 </div>
                 <div class="field">
                     <label for="customSource">Or describe any outlet / worldview (live mode only)</label>
@@ -470,7 +545,7 @@
             <div class="feed" id="feed"></div>
         </section>
 
-        <section class="thesis">
+        <!-- <section class="thesis">
             <h2>The web was a shared record. Now it&rsquo;s a stream of interpretations.</h2>
             <p>You just watched the same events become different realities&mdash;not by choosing different sources,
                 but by an algorithm rewriting one source to fit what it assumed you wanted to hear. As AI-generated
@@ -480,24 +555,16 @@
             <p class="disclaimer">This is a proof of concept built in an afternoon to show the idea is entirely
                 feasible today&mdash;not a real news product. Headlines are illustrative composites; the
                 &ldquo;rewrites&rdquo; are deliberate caricatures of editorial slant, meant to make the mechanism
-                visible. A project from <a href="https://umaine.edu/" style="color: var(--accent);">University of
-                    Maine New Media</a>.</p>
-        </section>
+                visible. A project from Learn With AI.</p>
+        </section> -->
     </main>
 
     <div class="footer">
-        <div style="display: flex; justify-content: center; align-items: flex-start; gap: 30px; width: 100%;">
+        <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
             <div id="credit">
-                <p>Learn With AI | University of Maine</p>
-            </div>
-            <div class="nmd-logo-phrase">
-                <a href="https://umaine.edu/"><img src="../media/ume_crest_logo_gray_tra.png"
-                        alt="University of Maine crest" style="height: 60px;" /></a>
+                <p><a href="https://LearnWithAI.org" style="color: inherit; text-decoration: none;">Learn With AI</a></p>
             </div>
         </div>
-        <p style="font-size: 0.8em; opacity: 0.7; margin: 10px 0 0; text-align: center; width: 100%;">
-            This program is funded by a <a href="https://umaine.edu/transforms/">UMS TRANSFORMS</a> award.
-        </p>
     </div>
 
     <script>
@@ -622,19 +689,28 @@
                 const card = document.createElement("article");
                 card.className = "story";
                 card.dataset.idx = i;
+                card.dataset.original = text;
                 card.innerHTML = `
                     <div class="meta">
                         <span class="dot"></span>
                         <span class="src">Wire service</span>
                         <span class="badge">rewritten by AI</span>
                     </div>
-                    <p class="headline">${text}</p>`;
+                    <p class="headline">${text}</p>
+                    <button class="compare-btn" aria-label="Compare with original">
+                        <i class="fas fa-eye"></i> Compare with original
+                    </button>
+                    <div class="original" role="region" aria-label="Original headline"></div>`;
                 el.feed.appendChild(card);
             });
         }
 
         el.intensity.addEventListener("input", () => {
-            el.intensityVal.textContent = INTENSITY[el.intensity.value];
+            const value = el.intensity.value;
+            const text = INTENSITY[value];
+            el.intensityVal.textContent = text;
+            el.intensity.setAttribute("aria-valuenow", value);
+            el.intensity.setAttribute("aria-valuetext", text);
         });
 
         /* ════════════════════ Rewrite engine ════════════════════ */
@@ -724,14 +800,29 @@
         function swapHeadline(card, newText, color, sourceName) {
             return new Promise(resolve => {
                 const h = card.querySelector(".headline");
+                const original = card.querySelector(".original");
+                const compareBtn = card.querySelector(".compare-btn");
+
                 card.classList.add("editing");
                 card.style.setProperty("--source-color", color);
                 h.classList.add("swapping");
+
                 setTimeout(() => {
                     h.textContent = newText;
-                    card.querySelector(".src").textContent = sourceName;
+                    original.textContent = card.dataset.original;
+                    card.querySelector(".src").textContent = `Wire service rewritten for ${sourceName} reader`;
                     card.classList.add("edited");
                     h.classList.remove("swapping");
+
+                    // Set up compare toggle
+                    compareBtn.onclick = () => {
+                        const isVisible = original.classList.toggle("visible");
+                        const icon = compareBtn.querySelector("i");
+                        const text = isVisible ? "Hide original" : "Compare with original";
+                        compareBtn.innerHTML = `<i class="fas fa-eye${isVisible ? '-slash' : ''}"></i> ${text}`;
+                        compareBtn.setAttribute("aria-expanded", isVisible);
+                    };
+
                     setTimeout(() => { card.classList.remove("editing"); resolve(); }, 350);
                 }, 350);
             });
@@ -781,8 +872,10 @@
             el.reset.hidden = false;
         }
 
-        function reset() {
-            buildFeed();
+        function reset() {            // Hide all visible originals before rebuilding
+            [...el.feed.querySelectorAll(".original.visible")].forEach(orig => {
+                orig.classList.remove("visible");
+            }); buildFeed();
             el.feedTitle.textContent = "Today’s headlines";
             el.feedTitle.style.color = "";
             el.feedSub.textContent = "The shared record · wire service";
