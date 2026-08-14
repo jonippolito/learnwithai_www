@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!-- Version 2.0, adding agentic and local v. cloud deployment. -->
 <!-- 
 what_uses_more/index.html
 
@@ -511,7 +512,7 @@ localStorage.removeItem("caveatModalDismissed")
                     <option value="🐈 Scrolling TikTok for 30 minutes over 5G">🐈 Scrolling TikTok for 30 minutes over 5G</option>
                 </select>
                 <div class="switch">
-                    <label>Local energy source
+                    <label><span class="location-label">Local energy source</span>
                         <select id="first-task-location">
                             <option value="solar">☀️ Solar-powered (California)</option>
                             <option value="coal">🛢️ Coal-powered (West Virginia)</option>
@@ -533,6 +534,15 @@ localStorage.removeItem("caveatModalDismissed")
                             <option value="complex">🤔 Complex</option>
                             <option value="reasoning">🧠 Reasoning</option>
                             <option value="agentic">🤖 Agentic</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="switch">
+                    <label>Deployment
+                        <select id="first-task-deployment">
+                            <option value="frontier-cloud">☁️ Frontier cloud</option>
+                            <option value="small-cloud">🌤 Small cloud</option>
+                            <option value="small-local">💻 Small local</option>
                         </select>
                     </label>
                 </div>
@@ -569,7 +579,7 @@ localStorage.removeItem("caveatModalDismissed")
                 </select>
 
                 <div class="switch">
-                    <label>Local energy source
+                    <label><span class="location-label">Local energy source</span>
                         <select id="second-task-location">
                             <option value="solar">☀️ Solar-powered (California)</option>
                             <option value="coal">🛢️ Coal-powered (West Virginia)</option>
@@ -593,6 +603,16 @@ localStorage.removeItem("caveatModalDismissed")
                             <option value="complex">🤔 Complex</option>
                             <option value="reasoning">🧠 Reasoning</option>
                             <option value="agentic">🤖 Agentic</option>
+                        </select>
+                    </label>
+                </div>
+
+                <div class="switch">
+                    <label>Deployment
+                        <select id="second-task-deployment">
+                            <option value="frontier-cloud">☁️ Frontier cloud</option>
+                            <option value="small-cloud">🌤 Small cloud</option>
+                            <option value="small-local">💻 Small local</option>
                         </select>
                     </label>
                 </div>
@@ -718,17 +738,32 @@ localStorage.removeItem("caveatModalDismissed")
 
         // 1. Add showDepletion to taskFieldVisibility
         const taskFieldVisibility = {
-            "📝 Paragraph of AI text": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
-            "🖥️ 100 lines of AI code": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
-            "🖼 1024x1024 AI image": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
-            "🎬 3 seconds of AI video from text": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
-            "🎬 3 seconds of AI video from image": { promptCount: true, complexity: true, location: true, season: true, showDepletion: true },
-            "🔍 Searching Google without AI": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
-            "🪫 Charging a smartphone": { promptCount: false, complexity: false, location: true, season: false, showDepletion: false },
-            "☁️ Storing 5 GB in the cloud for 1 month": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
-            "🍿 Watching 1-hour Netflix movie": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
-            "🎦 Zooming for 1 hour with 10 people": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false },
-            "🐈 Scrolling TikTok for 30 minutes over 5G": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false }
+            "📝 Paragraph of AI text": {
+                promptCount: true, complexity: true, location: true, season: true, showDepletion: true, deployment: true,
+                deploymentKeyMap: { "☁️ Frontier cloud": "☁️ Frontier cloud", "🌤 Small cloud": "🌤 Small cloud (text/code)", "💻 Small local": "💻 Small local (text)" }
+            },
+            "🖥️ 100 lines of AI code": {
+                promptCount: true, complexity: true, location: true, season: true, showDepletion: true, deployment: true,
+                deploymentKeyMap: { "☁️ Frontier cloud": "☁️ Frontier cloud", "🌤 Small cloud": "🌤 Small cloud (text/code)", "💻 Small local": "💻 Small local (code)" }
+            },
+            "🖼 1024x1024 AI image": {
+                promptCount: true, complexity: true, location: true, season: true, showDepletion: true, deployment: true,
+                deploymentKeyMap: { "☁️ Frontier cloud": "☁️ Frontier cloud", "🌤 Small cloud": "🌤 Small cloud (image)", "💻 Small local": "💻 Small local (image)" }
+            },
+            "🎬 3 seconds of AI video from text": {
+                promptCount: true, complexity: true, location: true, season: true, showDepletion: true, deployment: true, deploymentLocked: true,
+                deploymentKeyMap: { "☁️ Frontier cloud": "☁️ Frontier cloud" }
+            },
+            "🎬 3 seconds of AI video from image": {
+                promptCount: true, complexity: true, location: true, season: true, showDepletion: true, deployment: true, deploymentLocked: true,
+                deploymentKeyMap: { "☁️ Frontier cloud": "☁️ Frontier cloud" }
+            },
+            "🔍 Searching Google without AI": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false, deployment: false },
+            "🪫 Charging a smartphone": { promptCount: false, complexity: false, location: true, season: false, showDepletion: false, deployment: false },
+            "☁️ Storing 5 GB in the cloud for 1 month": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false, deployment: false },
+            "🍿 Watching 1-hour Netflix movie": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false, deployment: false },
+            "🎦 Zooming for 1 hour with 10 people": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false, deployment: false },
+            "🐈 Scrolling TikTok for 30 minutes over 5G": { promptCount: false, complexity: false, location: true, season: true, showDepletion: false, deployment: false }
         };
 
         // 2. Generalizable depletion formatting function
@@ -750,7 +785,8 @@ localStorage.removeItem("caveatModalDismissed")
                 promptCount: `${prefix}-prompt-count`,
                 complexity: `${prefix}-complexity`,
                 location: `${prefix}-location`,
-                season: `${prefix}-season`
+                season: `${prefix}-season`,
+                deployment: `${prefix}-deployment`
             };
             Object.entries(fieldMap).forEach(([key, id]) => {
                 const select = document.getElementById(id);
@@ -762,21 +798,52 @@ localStorage.removeItem("caveatModalDismissed")
                     }
                 }
             });
+            // Lock deployment to Frontier cloud for tasks with no local/small-cloud data
+            const deploymentSelect = document.getElementById(`${prefix}-deployment`);
+            if (deploymentSelect) {
+                if (config.deploymentLocked) {
+                    deploymentSelect.value = "frontier-cloud";
+                    deploymentSelect.disabled = true;
+                    deploymentSelect.title = "No local or small-cloud data available for video generation";
+                } else {
+                    deploymentSelect.disabled = false;
+                    deploymentSelect.title = "";
+                }
+            }
         }
 
         // 4. Hook up listeners to update field visibility on task change
+        function updateDeploymentUI(prefix) {
+            const deploymentSelect = document.getElementById(`${prefix}-deployment`);
+            const isLocal = deploymentSelect?.selectedOptions[0]?.text.includes("local");
+            // Show/hide season based on deployment (local has no data center cooling)
+            const seasonContainer = document.getElementById(`${prefix}-season`)?.closest('.switch');
+            const task = document.getElementById(prefix)?.value;
+            const config = taskFieldVisibility[task] || {};
+            if (seasonContainer) seasonContainer.style.display = (isLocal || !config.season) ? "none" : "";
+            // Re-label energy source
+            const locationLabel = document.getElementById(`${prefix}-location`)?.closest('label')?.querySelector('.location-label');
+            if (locationLabel) locationLabel.textContent = isLocal ? "Home energy source" : "Local energy source";
+        }
+
         function setupFieldVisibilitySync() {
             // First task
             document.getElementById("first-task").addEventListener("change", function () {
                 updateFieldVisibility("first-task", this.value);
+                updateDeploymentUI("first-task");
             });
+            document.getElementById("first-task-deployment")?.addEventListener("change", () => updateDeploymentUI("first-task"));
             // Second task
             document.getElementById("second-task").addEventListener("change", function () {
                 updateFieldVisibility("second-task", this.value);
+                updateDeploymentUI("second-task");
             });
+            document.getElementById("second-task-deployment")?.addEventListener("change", () => updateDeploymentUI("second-task"));
             // Initialize on page load
             updateFieldVisibility("first-task", document.getElementById("first-task").value);
+            updateDeploymentUI("first-task");
             updateFieldVisibility("second-task", document.getElementById("second-task").value);
+            updateDeploymentUI("second-task");
         }
 
         // 5. Update calculation logic to skip hidden fields
@@ -787,6 +854,14 @@ localStorage.removeItem("caveatModalDismissed")
             let factorValue = factorValues[factorText];
             if (factorValue === undefined) factorValue = 1;
             return factorValue;
+        }
+
+        function getDeploymentFactor(deploymentSelect, config) {
+            if (!config.deployment || !deploymentSelect || !config.deploymentKeyMap) return 1;
+            const selected = deploymentSelect.options[deploymentSelect.selectedIndex].text;
+            const key = config.deploymentKeyMap[selected];
+            if (!key) return 1;
+            return factorValues[key] ?? 1;
         }
 
         // Update the calculate function to use the scale exponent for tasks
@@ -846,6 +921,7 @@ localStorage.removeItem("caveatModalDismissed")
             firstProduct *= getRelevantFactor(firstComplexity, firstConfig.complexity);
             firstProduct *= getRelevantFactor(firstPromptCount, firstConfig.promptCount);
             firstProduct *= getRelevantFactor(firstSeason, firstConfig.season);
+            firstProduct *= getDeploymentFactor(document.getElementById("first-task-deployment"), firstConfig);
 
             // Get selected factors for second task
             const secondLocation = document.getElementById("second-task-location");
@@ -858,6 +934,7 @@ localStorage.removeItem("caveatModalDismissed")
             secondProduct *= getRelevantFactor(secondComplexity, secondConfig.complexity);
             secondProduct *= getRelevantFactor(secondPromptCount, secondConfig.promptCount);
             secondProduct *= getRelevantFactor(secondSeason, secondConfig.season);
+            secondProduct *= getDeploymentFactor(document.getElementById("second-task-deployment"), secondConfig);
 
             // Handle energy units conversion
             const energyUnitsMenu = document.getElementById("energy-units");
@@ -894,12 +971,23 @@ localStorage.removeItem("caveatModalDismissed")
                 secondWater *= (factorValues["liters per cubic centimeter"] || 0);
             }
 
+            // Zero water for local deployments (no data center cooling)
+            const firstIsLocal = document.getElementById("first-task-deployment")?.selectedOptions[0]?.text.includes("local");
+            const secondIsLocal = document.getElementById("second-task-deployment")?.selectedOptions[0]?.text.includes("local");
+            if (firstIsLocal) firstWater = 0;
+            if (secondIsLocal) secondWater = 0;
+
             // Format water output
             function formatWater(num) {
                 if (Number.isInteger(num)) {
                     return num.toString();
                 }
                 return num.toFixed(2);
+            }
+
+            function formatWaterOutput(water, isLocal, unitLabel) {
+                if (isLocal) return `🚰 0 (local model — no data center cooling)`;
+                return `🚰 ${formatWater(water)} ${unitLabel}`;
             }
 
             // Get depletion factor from factorValues
@@ -915,11 +1003,11 @@ localStorage.removeItem("caveatModalDismissed")
             // Show main results (energy + water) as before, but without depletion
             document.getElementById("first-footprint").textContent =
                 (firstProduct !== undefined && !isNaN(firstProduct))
-                    ? `💡 ${formatEnergy(firstProduct)} ${energyUnitLabel} [🚰 ${formatWater(firstWater)} ${waterUnitLabel}]`
+                    ? `💡 ${formatEnergy(firstProduct)} ${energyUnitLabel} [${formatWaterOutput(firstWater, firstIsLocal, waterUnitLabel)}]`
                     : "--";
             document.getElementById("second-footprint").textContent =
                 (secondProduct !== undefined && !isNaN(secondProduct))
-                    ? `💡 ${formatEnergy(secondProduct)} ${energyUnitLabel} [🚰 ${formatWater(secondWater)} ${waterUnitLabel}]`
+                    ? `💡 ${formatEnergy(secondProduct)} ${energyUnitLabel} [${formatWaterOutput(secondWater, secondIsLocal, waterUnitLabel)}]`
                     : "--";
 
             // Handle depletion toggle and output
